@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <sstream>
-#include <QtDebug>
+//#include <QtDebug>
 #include <sstream>
 #include <iomanip>
 #include <ctime>

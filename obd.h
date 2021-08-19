@@ -6,15 +6,16 @@
 #include <errno.h>
 #include <regex>
 #include <map>
-#include <QtDebug>
+//#include <QtDebug>
 #include "utils.h"
 #include "constants.h"
-
+#include <gtest/gtest.h>
 
 class obd2Interface
 {
 
 private:
+    friend class TEST;
     struct termios serialConnection;
     const std::string port="/dev/rfcomm0";
     const int baudRate=B38400;
