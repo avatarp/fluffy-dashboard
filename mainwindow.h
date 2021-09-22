@@ -34,9 +34,9 @@ private slots:
     void setLabelText(QString text);
     void setProgress(int percent);
 signals:
-void updateUiSignal();
-void setLabelSignal(QString text);
-void setProgressSignal(int percent);
+    void updateUiSignal();
+    void setLabelSignal(QString text);
+    void setProgressSignal(int percent);
 private:
     dataBuffer obdBuffer;
     std::thread obdThread;
@@ -89,8 +89,5 @@ private:
     QLabel *timingAdvanceLabel;
     QLabel *intakeManifoldPressureLabel;
     QLabel *mafLabel;
-
-
-
 };
 #endif // MAINWINDOW_H

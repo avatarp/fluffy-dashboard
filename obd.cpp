@@ -51,6 +51,7 @@ bool obd2Interface::findSupportedPIDs()
 
         if(encodedPIDs[i]=='1')
         {
+
             supportedPIDs.insert(std::pair<std::string,bool>(pid,true));
         }
         else if(encodedPIDs[i]=='0')
@@ -198,7 +199,7 @@ std::string obd2Interface::getRawData(std::string command)
 //////////////////////////////////////////data commands
 
 
-long obd2Interface::getEngineRPM()
+long obd2Interface::getEngineRPM() //
 {
     std::string PID="010C";
     if(!isCommandSupported(PID))
@@ -215,11 +216,11 @@ long obd2Interface::getEngineRPM()
     std::string byteB{data[3],data[4]};
     int valA=utils::hexToDec(byteA.c_str());
     int valB=utils::hexToDec(byteB);
-    result= (256*valA+valB)/4;
+    result = (256*valA+valB)/4;
     return result;
 }
 
-double obd2Interface::getEngineLoadPercentage()
+double obd2Interface::getEngineLoadPercentage()//
 {
     std::string PID="0104";
     if(!isCommandSupported(PID))
@@ -234,7 +235,7 @@ double obd2Interface::getEngineLoadPercentage()
     return result;
 }
 
-long obd2Interface::getCoolantTemp()
+long obd2Interface::getCoolantTemp()//
 {
     std::string PID="0105";
     if(!isCommandSupported(PID))
@@ -249,7 +250,7 @@ long obd2Interface::getCoolantTemp()
     return result;
 }
 
-long obd2Interface::getAirIntakeTemp()
+long obd2Interface::getAirIntakeTemp()//
 {
     std::string PID="010F";
     if(!isCommandSupported(PID))
@@ -264,7 +265,7 @@ long obd2Interface::getAirIntakeTemp()
     return result;
 }
 
-long obd2Interface::getSpeed()
+long obd2Interface::getSpeed()//
 {
     std::string PID="010D";
     if(!isCommandSupported(PID))
@@ -279,7 +280,7 @@ long obd2Interface::getSpeed()
     return result;
 }
 
-float obd2Interface::getMafAirFlow()
+float obd2Interface::getMafAirFlow()//
 {
     std::string PID="0110";
     if(!isCommandSupported(PID))
@@ -296,7 +297,7 @@ float obd2Interface::getMafAirFlow()
     return result;
 }
 
-long obd2Interface::getIntakeManifoldPressure()
+long obd2Interface::getIntakeManifoldPressure()//
 {
     std::string PID="010B";
     if(!isCommandSupported(PID))
@@ -312,7 +313,7 @@ long obd2Interface::getIntakeManifoldPressure()
 }
 
 
-double obd2Interface::getThrottlePosition()
+double obd2Interface::getThrottlePosition()//
 {
     std::string PID="0111";
     if(!isCommandSupported(PID))
@@ -328,7 +329,7 @@ double obd2Interface::getThrottlePosition()
 }
 
 
-double obd2Interface::getTimingAdvance()
+double obd2Interface::getTimingAdvance()//
 {
     std::string PID="010E";
     if(!isCommandSupported(PID))
