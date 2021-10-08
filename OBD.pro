@@ -22,23 +22,28 @@ SOURCES += \
     utils.cpp
 
 HEADERS += \
-    DecodeAirFlow.h \
-    DecodeEquivalenceRatio.h \
-    DecodeFloatStrategy.h \
-    DecodeFuelPressure.h \
-    DecodeFuelRailPressure.h \
-    DecodeOxygenSensorCurrent.h \
-    DecodeOxygenSensorVoltage.h \
-    DecodePercentage.h \
-    DecodeRPM.h \
-    DecodeSimpleA.h \
-    DecodeSimpleAB.h \
-    DecodeTemperature.h \
-    DecodeTimingAdvance.h \
+    Decoders/DecodeAirFlow.h \
+    Decoders/DecodeBitEncoded.h \
+    Decoders/DecodeEquivalenceRatio.h \
+    Decoders/DecodeEvapPressure.h \
+    Decoders/DecodeFuelPressure.h \
+    Decoders/DecodeFuelRailPressure.h \
+    Decoders/DecodeFuelTrim.h \
+    Decoders/DecodeOxygenSensorCurrent.h \
+    Decoders/DecodeOxygenSensorVoltage.h \
+    Decoders/DecodePercentage.h \
+    Decoders/DecodeRPM.h \
+    Decoders/DecodeSimpleA.h \
+    Decoders/DecodeSimpleAB.h \
+    Decoders/DecodeStrategy.h \
+    Decoders/DecodeTemperature.h \
+    Decoders/DecodeTimingAdvance.h \
     constants.h \
     databuffer.h \
     mainwindow.h \
     obd.h \
+    speedunits.h \
+    unittype.h \
     utils.h
 
 FORMS += \

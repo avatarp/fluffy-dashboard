@@ -1,11 +1,10 @@
 #pragma once
-#include "DecodeFloatStrategy.h"
-#include "utils.h"
+#include "DecodeStrategy.h"
+#include "../utils.h"
 
-//Decodes:
-//24-2B,34-3B (AB) Air-Fuel Equivalence Ratio (lambda,λ)
-//-> 0-2
-class DecodeEquivalenceRatio:public DecodeFloatStrategy
+//Decodes
+//0C Engine RPM -> 0-16 383.75 RPM
+class DecodeRPM:public DecodeFloatStrategy
 {
 public :
    std::optional<float> decode(std::string &text) const
@@ -17,6 +16,6 @@ public :
        std::string byteB{text[3],text[4]};
        float valA=utils::hexToDec(byteA);
        float valB=utils::hexToDec(byteB);
-       return 2.0/65536.0*(256.0*valA+valB);
+       return (256*valA+valB)/4;
    }
 };

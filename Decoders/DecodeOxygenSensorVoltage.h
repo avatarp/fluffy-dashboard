@@ -1,6 +1,6 @@
 #pragma once
-#include "DecodeFloatStrategy.h"
-#include "utils.h"
+#include "DecodeStrategy.h"
+#include "../utils.h"
 
 //Decodes 14-1B Oxygen sensor voltage (A)
 //-> -0-1.275 V

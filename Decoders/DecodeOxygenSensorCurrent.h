@@ -1,6 +1,6 @@
 #pragma once
-#include "DecodeFloatStrategy.h"
-#include "utils.h"
+#include "DecodeStrategy.h"
+#include "../utils.h"
 
 //Decodes 34-3B Oxygen sensor current (CD)
 //-> -128-127.996 mA

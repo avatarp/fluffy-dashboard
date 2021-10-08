@@ -38,7 +38,8 @@ bool obd2Interface::findSupportedPIDs()
     }
 
     bool nextPids=false;
-
+    //TODO rework into bit operations
+    // =>[
     for(unsigned i=0;i<encodedPIDs.length();i++)
     {
         std::string prefix;
@@ -51,7 +52,6 @@ bool obd2Interface::findSupportedPIDs()
 
         if(encodedPIDs[i]=='1')
         {
-
             supportedPIDs.insert(std::pair<std::string,bool>(pid,true));
         }
         else if(encodedPIDs[i]=='0')
@@ -91,6 +91,7 @@ bool obd2Interface::findSupportedPIDs()
     }
 
     getSupportedPIDs();
+    //]<= TODO end
     return true;
 }
 

@@ -1,11 +1,11 @@
 #pragma once
-#include "DecodeFloatStrategy.h"
-#include "utils.h"
+#include "DecodeStrategy.h"
+#include "../utils.h"
 
 //Decodes
 //32 Evap. system Vapor pressure
 //-> -8192-8191.75 Pa
-//NOTE: A & B are two's complement signed
+//TODO: A & B are two's complement signed
 class DecodeEvapPressure:public DecodeFloatStrategy
 {
 public :

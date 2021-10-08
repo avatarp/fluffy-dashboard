@@ -1,10 +1,10 @@
 #pragma once
-#include "DecodeFloatStrategy.h"
-#include "utils.h"
+#include "DecodeStrategy.h"
+#include "../utils.h"
 
-//Decodes
-//0C Engine RPM -> 0-16 383.75 RPM
-class DecodeRPM:public DecodeFloatStrategy
+//Decodes 10 Mass Air Flow
+//-> 0-655.35 gram/second
+class DecodeAirFlow:public DecodeFloatStrategy
 {
 public :
    std::optional<float> decode(std::string &text) const
@@ -16,6 +16,6 @@ public :
        std::string byteB{text[3],text[4]};
        float valA=utils::hexToDec(byteA);
        float valB=utils::hexToDec(byteB);
-       return (256*valA+valB)/4;
+       return (256*valA+valB)/100;
    }
 };

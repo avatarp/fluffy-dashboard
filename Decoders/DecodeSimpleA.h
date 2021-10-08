@@ -1,6 +1,6 @@
 #pragma once
-#include "DecodeFloatStrategy.h"
-#include "utils.h"
+#include "DecodeStrategy.h"
+#include "../utils.h"
 
 //Decodes:
 //0D Speed -> 0-255km/h

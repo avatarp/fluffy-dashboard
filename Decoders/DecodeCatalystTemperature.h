@@ -1,5 +1,5 @@
 #pragma once
-#include "DecodeFloatStrategy.h"
+#include "DecodeStrategy.h"
 #include "utils.h"
 
 

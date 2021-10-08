@@ -1,20 +1,22 @@
 #pragma once
 #include <gtest/gtest.h>
 #include <optional>
+#include <bitset>
 #include "../obd.h"
-#include "../DecodeFloatStrategy.h"
-#include "../DecodeRPM.h"
-#include "../DecodeSimpleA.h"
-#include "../DecodeTemperature.h"
-#include "../DecodePercentage.h"
-#include "../DecodeAirFlow.h"
-#include "../DecodeTimingAdvance.h"
-#include "../DecodeFuelPressure.h"
-#include "../DecodeSimpleAB.h"
-#include "../DecodeFuelRailPressure.h"
-#include "../DecodeOxygenSensorVoltage.h"
-#include "../DecodeOxygenSensorCurrent.h"
-#include "../DecodeEquivalenceRatio.h"
+#include "../Decoders/DecodeStrategy.h"
+#include "../Decoders/DecodeRPM.h"
+#include "../Decoders/DecodeSimpleA.h"
+#include "../Decoders/DecodeTemperature.h"
+#include "../Decoders/DecodePercentage.h"
+#include "../Decoders/DecodeAirFlow.h"
+#include "../Decoders/DecodeTimingAdvance.h"
+#include "../Decoders/DecodeFuelPressure.h"
+#include "../Decoders/DecodeSimpleAB.h"
+#include "../Decoders/DecodeFuelRailPressure.h"
+#include "../Decoders/DecodeOxygenSensorVoltage.h"
+#include "../Decoders/DecodeOxygenSensorCurrent.h"
+#include "../Decoders/DecodeEquivalenceRatio.h"
+#include "../Decoders/DecodeBitEncoded.h"
 
 using namespace testing;
 
@@ -336,4 +338,36 @@ TEST(decodeOxygenSensorCurrent, decoders)
     std::optional<float> resultMax = strat->decode(valMax);
     ASSERT_TRUE(resultMax);
     EXPECT_NEAR(*resultMax,127.996,0.0001);
+}
+
+TEST(decodeEvapSensors, decoders)
+{
+//TODO
+//    DecodeFloatStrategy *strat = new DecodeEvapPressure();
+
+//    std::string min="00 00";
+//    std::optional<float> resultMin = strat->decode(min);
+//    ASSERT_TRUE(resultMin);
+
+}
+
+TEST(decodeBitEncoded, decoders)
+{
+    DecodeBitEncodedStrategy *strat = new DecodeBitEncoded();
+
+    std::string min = "00000000";
+    std::optional<std::bitset<32>> resultMin = strat->decode(min);
+    ASSERT_TRUE(resultMin);
+    EXPECT_EQ(*resultMin, std::bitset<32>(0b00000000000000000000000000000000));
+
+    std::string val = "BE1FA813";
+    std::optional<std::bitset<32>> result = strat->decode(val);
+    ASSERT_TRUE(result);
+    EXPECT_EQ(*result, std::bitset<32>(0b10111110000111111010100000010011));
+
+    std::string valMax = "FFFFFFFF";
+    std::optional<std::bitset<32>> resultMax = strat->decode(valMax);
+    ASSERT_TRUE(resultMax);
+    EXPECT_EQ(*resultMax, std::bitset<32>(0b11111111111111111111111111111111));
+
 }

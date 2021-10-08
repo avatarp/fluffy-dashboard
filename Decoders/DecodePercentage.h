@@ -1,6 +1,6 @@
 #pragma once
-#include "DecodeFloatStrategy.h"
-#include "utils.h"
+#include "DecodeStrategy.h"
+#include "../utils.h"
 
 //Returns -> 0-100%
 //Decodes:
