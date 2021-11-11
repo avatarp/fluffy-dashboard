@@ -12,6 +12,7 @@ It is a basic OBD2 scanner designed to be used with ELM327 bluetooth scanners an
 ## Technologies
 Project is created using:
 * C++ 
+* Google test
 * Linux based (<termios.h>)
 * Qt 5	
 ## Features
