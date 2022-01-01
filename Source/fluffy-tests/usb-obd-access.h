@@ -1,0 +1,4 @@
+#ifndef USBOBDACCESS_H
+#define USBOBDACCESS_H
+
+#endif // USBOBDACCESS_H
