@@ -6,10 +6,7 @@
 #include <errno.h>
 #include <regex>
 #include <map>
-//#include <QtDebug>
 #include "utils.h"
-#include "constants.h"
-#include <gtest/gtest.h>
 
 class obd2Interface
 {

@@ -139,9 +139,9 @@ bool obd2Interface::sendMessage(std::string msg)
 
 std::string obd2Interface::readMessage()
 {
-    char readBuffer[constants::bufferSize]{};
+    char readBuffer[256]{};
     memset(&readBuffer, '\0', sizeof(readBuffer));
-    int dataReadCount = read(connectionHandle, &readBuffer, constants::bufferSize);
+    int dataReadCount = read(connectionHandle, &readBuffer, 256);
     if(dataReadCount <= 0)
     {
         std::cout<<"READ FAILURE\n"<<"Error:"<<strerror(errno)<<std::endl;

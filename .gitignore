@@ -71,4 +71,5 @@ Thumbs.db
 *.dll
 *.exe
 
-/build-fluffy-tests-Desktop-Debug/
+/Source/build-fluffy-tests-Desktop-Debug/
+/Source/build-OBD-Desktop-Debug/

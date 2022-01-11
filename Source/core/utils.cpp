@@ -55,7 +55,7 @@ void removeControlCharacters(std::string &text)
         if(text[i]=='\0')
             break;
 
-        if(text[i]==constants::CARRIAGE_RETURN)
+        if(text[i]=='\r')
         {
             text[i]='R';
         }
@@ -84,7 +84,7 @@ void removeControlCharacters(char* text,int size)
         if(text[i]=='\0')
             break;
 
-        if(text[i]==constants::CARRIAGE_RETURN)
+        if(text[i]=='\r')
         {
             text[i]='c';
         }

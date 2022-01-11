@@ -22,6 +22,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    obd-access/device.cpp \
+    obd-access/obd-access.cpp \
+    obd-access/usb-obd-access.cpp \
     obd.cpp \
     utils.cpp
 
@@ -42,13 +45,12 @@ HEADERS += \
     Decoders/DecodeStrategy.h \
     Decoders/DecodeTemperature.h \
     Decoders/DecodeTimingAdvance.h \
-    constants.h \
-    databuffer.h \
     mainwindow.h \
+    obd-access/bluetooth-obd-access.h \
+    obd-access/device.h \
     obd-access/obd-access.h \
+    obd-access/usb-obd-access.h \
     obd.h \
-    speedunits.h \
-    unittype.h \
     utils.h
 
 FORMS += \

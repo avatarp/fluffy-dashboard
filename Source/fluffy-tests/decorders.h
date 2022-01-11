@@ -2,21 +2,21 @@
 #include <gtest/gtest.h>
 #include <optional>
 #include <bitset>
-#include "../obd.h"
-#include "../Decoders/DecodeStrategy.h"
-#include "../Decoders/DecodeRPM.h"
-#include "../Decoders/DecodeSimpleA.h"
-#include "../Decoders/DecodeTemperature.h"
-#include "../Decoders/DecodePercentage.h"
-#include "../Decoders/DecodeAirFlow.h"
-#include "../Decoders/DecodeTimingAdvance.h"
-#include "../Decoders/DecodeFuelPressure.h"
-#include "../Decoders/DecodeSimpleAB.h"
-#include "../Decoders/DecodeFuelRailPressure.h"
-#include "../Decoders/DecodeOxygenSensorVoltage.h"
-#include "../Decoders/DecodeOxygenSensorCurrent.h"
-#include "../Decoders/DecodeEquivalenceRatio.h"
-#include "../Decoders/DecodeBitEncoded.h"
+#include "../core/obd.h"
+#include "../core/Decoders/DecodeStrategy.h"
+#include "../core/Decoders/DecodeRPM.h"
+#include "../core/Decoders/DecodeSimpleA.h"
+#include "../core/Decoders/DecodeTemperature.h"
+#include "../core/Decoders/DecodePercentage.h"
+#include "../core/Decoders/DecodeAirFlow.h"
+#include "../core/Decoders/DecodeTimingAdvance.h"
+#include "../core/Decoders/DecodeFuelPressure.h"
+#include "../core/Decoders/DecodeSimpleAB.h"
+#include "../core/Decoders/DecodeFuelRailPressure.h"
+#include "../core/Decoders/DecodeOxygenSensorVoltage.h"
+#include "../core/Decoders/DecodeOxygenSensorCurrent.h"
+#include "../core/Decoders/DecodeEquivalenceRatio.h"
+#include "../core/Decoders/DecodeBitEncoded.h"
 
 using namespace testing;
 

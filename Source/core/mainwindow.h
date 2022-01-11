@@ -10,7 +10,7 @@
 #include <ctime>
 #include <fstream>
 #include "obd.h"
-#include "databuffer.h"
+//#include "databuffer.h"
 #include "ui_mainwindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -38,14 +38,14 @@ signals:
     void setLabelSignal(QString text);
     void setProgressSignal(int percent);
 private:
-    dataBuffer obdBuffer;
+    //dataBuffer obdBuffer;
     std::thread obdThread;
     bool isGettingData=false;
     bool isRecording=false;
     std::mutex getDataLock;
     std::thread::id mainThreadId;
 
-    std::list<dataBuffer> dataBufferList;
+    //std::list<dataBuffer> dataBufferList;
     Ui::MainWindow *ui;
     obd2Interface obd;
     void Run();

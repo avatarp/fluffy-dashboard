@@ -17,50 +17,50 @@ void MainWindow::Run()
 void MainWindow::updateUI()
 {
 
-    if(engineLoadCheckbox->isChecked())
-    {
-        engineLoadLabel->setText(QString::number(obdBuffer.engineLoad)+"%");
-    }
+//    if(engineLoadCheckbox->isChecked())
+//    {
+//        engineLoadLabel->setText(QString::number(obdBuffer.engineLoad)+"%");
+//    }
 
-    if(rpmCheckbox->isChecked())
-    {
-        rpmLabel->setText(QString::number(obdBuffer.engineRPM)+"rpm");
-    }
+//    if(rpmCheckbox->isChecked())
+//    {
+//        rpmLabel->setText(QString::number(obdBuffer.engineRPM)+"rpm");
+//    }
 
-    if(coolantCheckbox->isChecked())
-    {
-        coolantLabel->setText(QString::number(obdBuffer.coolantTemp)+"°C");
-    }
+//    if(coolantCheckbox->isChecked())
+//    {
+//        coolantLabel->setText(QString::number(obdBuffer.coolantTemp)+"°C");
+//    }
 
-    if(airIntakeTempCheckbox->isChecked())
-    {
-        airIntakeTempLabel->setText(QString::number(obdBuffer.airIntakeTemp)+"°C");
-    }
+//    if(airIntakeTempCheckbox->isChecked())
+//    {
+//        airIntakeTempLabel->setText(QString::number(obdBuffer.airIntakeTemp)+"°C");
+//    }
 
-    if(speedCheckbox->isChecked())
-    {
-        speedLabel->setText(QString::number(obdBuffer.speed)+"km/h");
-    }
+//    if(speedCheckbox->isChecked())
+//    {
+//        speedLabel->setText(QString::number(obdBuffer.speed)+"km/h");
+//    }
 
-    if(mafCheckbox->isChecked())
-    {
-        mafLabel->setText(QString::number(obdBuffer.mafAirFlow)+"g/sec");
-    }
+//    if(mafCheckbox->isChecked())
+//    {
+//        mafLabel->setText(QString::number(obdBuffer.mafAirFlow)+"g/sec");
+//    }
 
-    if(intakeManifoldPressureCheckbox->isChecked())
-    {
-        intakeManifoldPressureLabel->setText(QString::number(obdBuffer.intakeManifoldPressure)+"kPa");
-    }
+//    if(intakeManifoldPressureCheckbox->isChecked())
+//    {
+//        intakeManifoldPressureLabel->setText(QString::number(obdBuffer.intakeManifoldPressure)+"kPa");
+//    }
 
-    if(throttleCheckbox->isChecked())
-    {
-        throttleLabel->setText(QString::number(obdBuffer.throttlePosition)+"%");
-    }
+//    if(throttleCheckbox->isChecked())
+//    {
+//        throttleLabel->setText(QString::number(obdBuffer.throttlePosition)+"%");
+//    }
 
-    if(timingAdvanceCheckbox->isChecked())
-    {
-        timingAdvanceLabel->setText(QString::number(obdBuffer.timingAdvance)+"°");
-    }
+//    if(timingAdvanceCheckbox->isChecked())
+//    {
+//        timingAdvanceLabel->setText(QString::number(obdBuffer.timingAdvance)+"°");
+//    }
 
 }
 
@@ -85,73 +85,73 @@ void MainWindow::GetDataJob()
             emit setProgressSignal(0);
             if(engineLoadCheckbox->isChecked())
             {
-                obdBuffer.engineLoad=obd.getEngineLoadPercentage();
+//                obdBuffer.engineLoad=obd.getEngineLoadPercentage();
             }
             emit updateUiSignal();
             emit setProgressSignal(10);
 
             if(rpmCheckbox->isChecked())
             {
-                obdBuffer.engineRPM=obd.getEngineRPM();
+//                obdBuffer.engineRPM=obd.getEngineRPM();
             }
             emit updateUiSignal();
             emit setProgressSignal(20);
 
             if(coolantCheckbox->isChecked())
             {
-                obdBuffer.coolantTemp=obd.getCoolantTemp();
+//                obdBuffer.coolantTemp=obd.getCoolantTemp();
             }
             emit updateUiSignal();
             emit setProgressSignal(30);
 
             if(airIntakeTempCheckbox->isChecked())
             {
-                obdBuffer.airIntakeTemp=obd.getAirIntakeTemp();
+//                obdBuffer.airIntakeTemp=obd.getAirIntakeTemp();
             }
             emit updateUiSignal();
             emit setProgressSignal(40);
 
             if(speedCheckbox->isChecked())
             {
-                obdBuffer.speed=obd.getSpeed();
+//                obdBuffer.speed=obd.getSpeed();
             }
             emit updateUiSignal();
             emit setProgressSignal(50);
 
             if(mafCheckbox->isChecked())
             {
-                obdBuffer.mafAirFlow=obd.getMafAirFlow();
+//                obdBuffer.mafAirFlow=obd.getMafAirFlow();
             }
             emit updateUiSignal();
             emit setProgressSignal(60);
 
             if(intakeManifoldPressureCheckbox->isChecked())
             {
-                obdBuffer.intakeManifoldPressure=obd.getIntakeManifoldPressure();
+//                obdBuffer.intakeManifoldPressure=obd.getIntakeManifoldPressure();
             }
             emit updateUiSignal();
             emit setProgressSignal(70);
 
             if(throttleCheckbox->isChecked())
             {
-                obdBuffer.throttlePosition=obd.getThrottlePosition();
+//                obdBuffer.throttlePosition=obd.getThrottlePosition();
             }
             emit updateUiSignal();
             emit setProgressSignal(80);
 
             if(timingAdvanceCheckbox->isChecked())
             {
-                obdBuffer.timingAdvance=obd.getTimingAdvance();
+//                obdBuffer.timingAdvance=obd.getTimingAdvance();
             }
             emit updateUiSignal();
             emit setProgressSignal(100);
 
-            obdBuffer.timestamp=utils::getTimestamp();
+//            obdBuffer.timestamp=utils::getTimestamp();
 
             if(isRecording)
             {
-                dataBufferList.push_back(obdBuffer);
-                emit setLabelSignal("Recorded "+QString::number(dataBufferList.size())+" frames.");
+//                dataBufferList.push_back(obdBuffer);
+//                emit setLabelSignal("Recorded "+QString::number(dataBufferList.size())+" frames.");
             }
 
         }while(isRecording || continousReadCheckbox->isChecked() );
@@ -357,24 +357,25 @@ void MainWindow::stopRecording()
     std::string timestamp=utils::getTimestamp();
     std::ofstream record(timestamp+".csv");
 
-    unsigned listSize=dataBufferList.size();
+    unsigned listSize=10;
+//    unsigned listSize=dataBufferList.size();
     unsigned i=0;
-    while(!dataBufferList.empty())
+//    while(!dataBufferList.empty())
     {
         progresBar->setValue((float)i/(float)listSize*100);
 
-        record<<dataBufferList.front().timestamp<<", ";
-        record<<dataBufferList.front().airIntakeTemp<<", ";
-        record<<dataBufferList.front().coolantTemp<<", ";
-        record<<dataBufferList.front().engineLoad<<", ";
-        record<<dataBufferList.front().engineRPM<<", ";
-        record<<dataBufferList.front().intakeManifoldPressure<<", ";
-        record<<dataBufferList.front().mafAirFlow<<", ";
-        record<<dataBufferList.front().speed<<", ";
-        record<<dataBufferList.front().throttlePosition<<", ";
-        record<<dataBufferList.front().timingAdvance<<", ";
-        record<<std::endl;
-        dataBufferList.pop_front();
+//        record<<dataBufferList.front().timestamp<<", ";
+//        record<<dataBufferList.front().airIntakeTemp<<", ";
+//        record<<dataBufferList.front().coolantTemp<<", ";
+//        record<<dataBufferList.front().engineLoad<<", ";
+//        record<<dataBufferList.front().engineRPM<<", ";
+//        record<<dataBufferList.front().intakeManifoldPressure<<", ";
+//        record<<dataBufferList.front().mafAirFlow<<", ";
+//        record<<dataBufferList.front().speed<<", ";
+//        record<<dataBufferList.front().throttlePosition<<", ";
+//        record<<dataBufferList.front().timingAdvance<<", ";
+//        record<<std::endl;
+//        dataBufferList.pop_front();
         i++;
     }
 }

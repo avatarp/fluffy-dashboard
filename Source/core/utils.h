@@ -1,11 +1,8 @@
 #pragma once
 #include <string>
 #include <sstream>
-//#include <QtDebug>
-#include <sstream>
 #include <iomanip>
 #include <ctime>
-#include "constants.h"
 
 namespace utils {
     long hexToDec(std::string hex);
