@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += bluetooth
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,6 +23,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    obd-access/bluetooth-obd-access.cpp \
+    obd-access/bluetooth-provider.cpp \
     obd-access/device.cpp \
     obd-access/obd-access.cpp \
     obd-access/usb-obd-access.cpp \
@@ -47,6 +50,7 @@ HEADERS += \
     Decoders/DecodeTimingAdvance.h \
     mainwindow.h \
     obd-access/bluetooth-obd-access.h \
+    obd-access/bluetooth-provider.h \
     obd-access/device.h \
     obd-access/obd-access.h \
     obd-access/usb-obd-access.h \

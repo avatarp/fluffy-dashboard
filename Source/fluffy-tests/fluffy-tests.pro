@@ -14,9 +14,6 @@ CONFIG += c++20
 
 HEADERS += \
         ../core \
-        #../core/obd-access/device.h \
-        #../core/obd-access/obd-access.h \
-        #../core/obd-access/usb-obd-access.h \
         bluetooth-obd-access.h \
         decorders.h \
         obd-access-utils.h \
