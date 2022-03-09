@@ -6,11 +6,11 @@ inline std::string SystemCallForResponse(const char* cmd){
     std::string result;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
     if (!pipe) {
-        throw std::runtime_error("popen() failed!");
+        throw std::runtime_error("pipe - popen() failed!");
     }
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
         result += buffer.data();
     }
-    std::clog<<"result was:" <<result<<std::endl;
+    std::clog<<"result for >"<<cmd<<"< was:\n" <<result<<std::endl;
     return result;
 }

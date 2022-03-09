@@ -2,17 +2,17 @@
 
 namespace Obd {
 
-const std::string& Device::GetDescription() const
+const std::string Device::GetDescription() const
 {
     return this->m_Description;
 }
 
-const ConnectionType& Device::GetConnectionType() const
+const ConnectionType Device::GetConnectionType() const
 {
     return this->m_ConnectionType;
 }
 
-const std::string& Device::GetDeviceFilePath() const
+const std::string Device::GetDeviceFilePath() const
 {
     return this->m_DeviceFilePath;
 }

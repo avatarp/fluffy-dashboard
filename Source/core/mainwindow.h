@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
+#include "parameters-engine/ELM327/elm327-engine.h"
+#include "parameters-engine/bluetooth-provider.h"
+#include "parameters-engine/usb-serial-provider.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
