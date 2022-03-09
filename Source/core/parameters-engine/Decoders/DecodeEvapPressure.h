@@ -1,6 +1,5 @@
 #pragma once
 #include "DecodeStrategy.h"
-#include "../utils.h"
 
 //Decodes
 //32 Evap. system Vapor pressure
@@ -9,15 +8,15 @@
 class DecodeEvapPressure:public DecodeFloatStrategy
 {
 public :
-   std::optional<float> decode(std::string &text) const
+   std::optional<float> decode(const std::string &text) const
    {
        if(text.length()!=5)
           return std::nullopt;
 
        std::string byteA{text[0],text[1]};
-       float valA=utils::twoComplementaryHexToDec(byteA);
+       float valA=Utils::twoComplementaryHexToDec(byteA);
        std::string byteB{text[3],text[4]};
-       float valB=utils::twoComplementaryHexToDec(byteB);
+       float valB=Utils::hexToDec(byteB);
        return 0.25*(256*valA+valB);
    }
 };

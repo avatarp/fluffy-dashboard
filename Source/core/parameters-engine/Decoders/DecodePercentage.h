@@ -1,6 +1,5 @@
 #pragma once
 #include "DecodeStrategy.h"
-#include "../utils.h"
 
 //Returns -> 0-100%
 //Decodes:
@@ -12,13 +11,13 @@
 class DecodePercentage: public DecodeFloatStrategy
 {
 public :
-   std::optional<float> decode(std::string &text) const
+   std::optional<float> decode(const std::string &text) const
    {
        if(text.length()!=2)
           return std::nullopt;
 
        std::string byteA{text[0],text[1]};
-       return utils::hexToDec(byteA)/2.55;
+       return Utils::hexToDec(byteA)/2.55;
    }
 };
 
@@ -30,13 +29,13 @@ public :
 class DecodeSignedPercentage: public DecodeFloatStrategy
 {
 public :
-   std::optional<float> decode(std::string &text) const
+   std::optional<float> decode(const std::string &text) const
    {
        if(text.length()!=2)
           return std::nullopt;
 
        std::string byteA{text[0],text[1]};
-       return utils::hexToDec(byteA)/1.28-100;
+       return Utils::hexToDec(byteA)/1.28-100;
    }
 };
 

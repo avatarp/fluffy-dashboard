@@ -20,42 +20,63 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+HEADERS += \
+    mainwindow.h \
+    obd-access/bluetooth-obd-access.h \
+    obd-access/device.h \
+    obd-access/obd-access.h \
+    obd-access/usb-obd-access.h \
+    parameters-engine/Decoders/DecodeAirFlow.h \
+    parameters-engine/Decoders/DecodeBitEncoded.h \
+    parameters-engine/Decoders/DecodeDTC.h \
+    parameters-engine/Decoders/DecodeEquivalenceRatio.h \
+    parameters-engine/Decoders/DecodeEvapPressure.h \
+    parameters-engine/Decoders/DecodeFuelPressure.h \
+    parameters-engine/Decoders/DecodeFuelRailPressure.h \
+    parameters-engine/Decoders/DecodeOxygenSensorCurrent.h \
+    parameters-engine/Decoders/DecodeOxygenSensorVoltage.h \
+    parameters-engine/Decoders/DecodePercentage.h \
+    parameters-engine/Decoders/DecodeRPM.h \
+    parameters-engine/Decoders/DecodeSimpleA.h \
+    parameters-engine/Decoders/DecodeSimpleAB.h \
+    parameters-engine/Decoders/DecodeStrategy.h \
+    parameters-engine/Decoders/DecodeTemperature.h \
+    parameters-engine/Decoders/DecodeTimingAdvance.h \
+    parameters-engine/ELM327/elm327-command-repository.h \
+    parameters-engine/ELM327/elm327-data-decoder.h \
+    parameters-engine/ELM327/elm327-data-filters.h \
+    parameters-engine/ELM327/elm327-dtc-handler.h \
+    parameters-engine/ELM327/elm327-engine.h \
+    parameters-engine/bluetooth-provider.h \
+    parameters-engine/command-repository.h \
+    parameters-engine/data-decoding-handler.h \
+    parameters-engine/data-filters.h \
+    parameters-engine/dtc-handler.h \
+    parameters-engine/obd-command-pid.h \
+    parameters-engine/parameters-engine.h \
+    parameters-engine/test-handler.h \
+    parameters-engine/usb-serial-provider.h \
+    diagnostic-manager/diagnostic-manager.h \
+    utils/system-calls.h
+
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
     obd-access/bluetooth-obd-access.cpp \
-    obd-access/bluetooth-provider.cpp \
     obd-access/device.cpp \
     obd-access/obd-access.cpp \
     obd-access/usb-obd-access.cpp \
-    obd.cpp \
-    utils.cpp
-
-HEADERS += \
-    Decoders/DecodeAirFlow.h \
-    Decoders/DecodeBitEncoded.h \
-    Decoders/DecodeEquivalenceRatio.h \
-    Decoders/DecodeEvapPressure.h \
-    Decoders/DecodeFuelPressure.h \
-    Decoders/DecodeFuelRailPressure.h \
-    Decoders/DecodeFuelTrim.h \
-    Decoders/DecodeOxygenSensorCurrent.h \
-    Decoders/DecodeOxygenSensorVoltage.h \
-    Decoders/DecodePercentage.h \
-    Decoders/DecodeRPM.h \
-    Decoders/DecodeSimpleA.h \
-    Decoders/DecodeSimpleAB.h \
-    Decoders/DecodeStrategy.h \
-    Decoders/DecodeTemperature.h \
-    Decoders/DecodeTimingAdvance.h \
-    mainwindow.h \
-    obd-access/bluetooth-obd-access.h \
-    obd-access/bluetooth-provider.h \
-    obd-access/device.h \
-    obd-access/obd-access.h \
-    obd-access/usb-obd-access.h \
-    obd.h \
-    utils.h
+    parameters-engine/ELM327/elm327-command-repository.cpp \
+    parameters-engine/ELM327/elm327-data-decoder.cpp \
+    parameters-engine/ELM327/elm327-data-filters.cpp \
+    parameters-engine/ELM327/elm327-dtc-handler.cpp \
+    parameters-engine/ELM327/elm327-engine.cpp \
+    parameters-engine/bluetooth-provider.cpp \
+    parameters-engine/dtc-handler.cpp \
+    parameters-engine/parameters-engine.cpp \
+    parameters-engine/test-handler.cpp \
+    parameters-engine/usb-serial-provider.cpp \
+    diagnostic-manager/diagnostic-manager.cpp
 
 FORMS += \
     mainwindow.ui

@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QBluetoothLocalDevice>
-#include "device.h"
+#include "../obd-access/device.h"
 
 namespace Obd {
 

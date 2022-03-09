@@ -1,7 +1,5 @@
 #pragma once
-
 #include "DecodeStrategy.h"
-#include "../utils.h"
 
 //Decodes
 //PIDs supported 00, 20, 40, 60, 80, A0, C0
@@ -12,11 +10,11 @@
 class DecodeBitEncoded:public DecodeBitEncodedStrategy
 {
 public :
-   std::optional<std::bitset<32>> decode(std::string &text) const
+   std::optional<std::bitset<32>> decode(const std::string &text) const
    {
        if(text.length()<8)
           return std::nullopt;
 
-       return std::bitset<32>(utils::hexToBin(text));
+       return std::bitset<32>(Utils::hexToBin(text));
    }
 };

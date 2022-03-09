@@ -1,7 +1,5 @@
 #pragma once
 #include "DecodeStrategy.h"
-#include "../utils.h"
-
 
 //Decodes:
 //22 Run time -> 0-65535 seconds
@@ -10,15 +8,15 @@
 class DecodeSimpleAB:public DecodeFloatStrategy
 {
 public :
-   std::optional<float> decode(std::string &text) const
+   std::optional<float> decode(const std::string &text) const
    {
        if(text.length()!=5)
           return std::nullopt;
 
        std::string byteA{text[0],text[1]};
-       float valA=utils::hexToDec(byteA);
+       float valA=Utils::hexToDec(byteA);
        std::string byteB{text[3],text[4]};
-       float valB=utils::hexToDec(byteB);
+       float valB=Utils::hexToDec(byteB);
        return 256*valA+valB;
    }
 };

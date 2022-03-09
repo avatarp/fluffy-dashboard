@@ -1,6 +1,5 @@
 #pragma once
 #include "DecodeStrategy.h"
-#include "../utils.h"
 
 //Decodes:
 //0D Speed -> 0-255km/h
@@ -11,12 +10,12 @@
 class DecodeSimpleA : public DecodeFloatStrategy
 {
 public :
-   std::optional<float> decode(std::string &text) const
+   std::optional<float> decode(const std::string &text) const
    {
        if(text.length()!=2)
           return std::nullopt;
 
        std::string byteA{text[0],text[1]};
-       return utils::hexToDec(byteA);
+       return Utils::hexToDec(byteA);
    }
 };

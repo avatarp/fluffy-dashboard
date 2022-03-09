@@ -2,21 +2,22 @@
 #include <gtest/gtest.h>
 #include <optional>
 #include <bitset>
-#include "../core/obd.h"
-#include "../core/Decoders/DecodeStrategy.h"
-#include "../core/Decoders/DecodeRPM.h"
-#include "../core/Decoders/DecodeSimpleA.h"
-#include "../core/Decoders/DecodeTemperature.h"
-#include "../core/Decoders/DecodePercentage.h"
-#include "../core/Decoders/DecodeAirFlow.h"
-#include "../core/Decoders/DecodeTimingAdvance.h"
-#include "../core/Decoders/DecodeFuelPressure.h"
-#include "../core/Decoders/DecodeSimpleAB.h"
-#include "../core/Decoders/DecodeFuelRailPressure.h"
-#include "../core/Decoders/DecodeOxygenSensorVoltage.h"
-#include "../core/Decoders/DecodeOxygenSensorCurrent.h"
-#include "../core/Decoders/DecodeEquivalenceRatio.h"
-#include "../core/Decoders/DecodeBitEncoded.h"
+#include "../core/parameters-engine/Decoders/DecodeStrategy.h"
+#include "../core/parameters-engine/Decoders/DecodeRPM.h"
+#include "../core/parameters-engine/Decoders/DecodeSimpleA.h"
+#include "../core/parameters-engine/Decoders/DecodeTemperature.h"
+#include "../core/parameters-engine/Decoders/DecodePercentage.h"
+#include "../core/parameters-engine/Decoders/DecodeAirFlow.h"
+#include "../core/parameters-engine/Decoders/DecodeTimingAdvance.h"
+#include "../core/parameters-engine/Decoders/DecodeFuelPressure.h"
+#include "../core/parameters-engine/Decoders/DecodeSimpleAB.h"
+#include "../core/parameters-engine/Decoders/DecodeFuelRailPressure.h"
+#include "../core/parameters-engine/Decoders/DecodeOxygenSensorVoltage.h"
+#include "../core/parameters-engine/Decoders/DecodeOxygenSensorCurrent.h"
+#include "../core/parameters-engine/Decoders/DecodeEquivalenceRatio.h"
+#include "../core/parameters-engine/Decoders/DecodeBitEncoded.h"
+#include "../core/parameters-engine/Decoders/DecodeEvapPressure.h"
+#include "../core/parameters-engine/Decoders/DecodeDTC.h"
 
 using namespace testing;
 
@@ -340,15 +341,25 @@ TEST(decodeOxygenSensorCurrent, decoders)
     EXPECT_NEAR(*resultMax,127.996,0.0001);
 }
 
-TEST(decodeEvapSensors, decoders)
+TEST(decodeEvapPressure, decoders)
 {
-//TODO
-//    DecodeFloatStrategy *strat = new DecodeEvapPressure();
 
-//    std::string min="00 00";
-//    std::optional<float> resultMin = strat->decode(min);
-//    ASSERT_TRUE(resultMin);
+    DecodeFloatStrategy *strat = new DecodeEvapPressure();
 
+    std::string zero="00 00";
+    std::optional<float> resultZero = strat->decode(zero);
+    ASSERT_TRUE(resultZero);
+    ASSERT_NEAR(*resultZero, 0, 0.0001);
+
+    std::string min = "80 00";
+    std::optional<float> resultMin = strat->decode(min);
+    ASSERT_TRUE(resultMin);
+    ASSERT_NEAR(*resultMin, -8192.0, 0.0001);
+
+    std::string valMax = "7F FF";
+    std::optional<float> resultMax = strat->decode(valMax);
+    ASSERT_TRUE(resultMax);
+    ASSERT_NEAR(*resultMax, 8191.75, 0.0001);
 }
 
 TEST(decodeBitEncoded, decoders)
@@ -369,5 +380,41 @@ TEST(decodeBitEncoded, decoders)
     std::optional<std::bitset<32>> resultMax = strat->decode(valMax);
     ASSERT_TRUE(resultMax);
     EXPECT_EQ(*resultMax, std::bitset<32>(0b11111111111111111111111111111111));
+
+}
+
+TEST(decodeString, decoders)
+{
+    DecodeString decoder;
+
+    std::optional<std::string> result = decoder.decode("");
+    ASSERT_FALSE(result);
+
+    std::string vin = "57463055585847414A5532473830353439";
+    result = decoder.decode(vin);
+    ASSERT_TRUE(result);
+    EXPECT_EQ(*result, "WF0UXXGAJU2G80549");
+}
+
+
+TEST(decodeDTC, decoders)
+{
+    DecodeDTC decoder;
+    std::string dtc = "";
+    std::optional<std::string> result = decoder.decode(dtc);
+    ASSERT_FALSE(result);
+
+    dtc = "4300";
+    result = decoder.decode(dtc);
+    ASSERT_TRUE(result);
+    EXPECT_EQ(*result, "P0300");
+
+    dtc = "4700";
+    result = decoder.decode(dtc);
+    ASSERT_TRUE(result);
+    std::cout<<"dtc: "+*result<<std::endl;
+    EXPECT_EQ(*result, "P0700");
+
+
 
 }
