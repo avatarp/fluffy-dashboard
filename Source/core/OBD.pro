@@ -1,12 +1,13 @@
 QT       += core gui
 QT       += bluetooth
+QT       += charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 QMAKE_CC = gcc-11
 QMAKE_CXX = g++-11
 
-QMAKE_CXXFLAGS += -std=c++20
+QMAKE_CXXFLAGS += -std=c++2a
 CONFIG += c++20
 
 # The following define makes your compiler emit warnings if you use
@@ -85,3 +86,8 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res/icons.qrc
+
+DISTFILES +=

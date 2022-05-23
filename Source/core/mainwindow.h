@@ -18,9 +18,40 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+private slots:
+    void on_vInfoBackButton_clicked();
+
+    void on_DtcButton_clicked();
+
+    void on_VehicleInfoButton_clicked();
+
+    void on_dtcBackButton_clicked();
+
+    void on_carDataBackButton_clicked();
+
+    void on_freezeFrameBackButton_clicked();
+
+    void on_FreezeFrameButton_clicked();
+
+    void on_LiveDataButton_clicked();
+
+    void on_TestResultButton_clicked();
+
+    void on_testResultsBackButton_clicked();
 
 private:
     Ui::MainWindow *ui;
 
 };
+
+enum pages
+{
+    mainPage = 0,
+    liveData = 1,
+    freezeFrame = 2,
+    dtc = 3,
+    testResults = 4,
+    vehicleInfo = 5
+};
+
 #endif // MAINWINDOW_H

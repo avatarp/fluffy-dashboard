@@ -20,7 +20,8 @@ public:
     BluetoothProvider& operator=(BluetoothProvider&& other) = default;
 
     bool StartScan();
-    std::vector<QBluetoothDeviceInfo> GetAvailableDevices();
+    void StopScan();
+    std::vector<QBluetoothDeviceInfo> GetAvailableDevicesInfo();
     bool IsBluetoothAvailable();
     bool BindToRfcomm(const QBluetoothDeviceInfo& device);
     Obd::Device CreateDevice(const QBluetoothDeviceInfo& device);

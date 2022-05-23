@@ -23,7 +23,12 @@ bool BluetoothProvider::StartScan()
         return false;
 }
 
-std::vector<QBluetoothDeviceInfo> BluetoothProvider::GetAvailableDevices()
+void BluetoothProvider::StopScan()
+{
+    this->discoveryAgent->stop();
+}
+
+std::vector<QBluetoothDeviceInfo> BluetoothProvider::GetAvailableDevicesInfo()
 {
     return std::vector<QBluetoothDeviceInfo>(
                 discoveryAgent->discoveredDevices().toVector().toStdVector()
