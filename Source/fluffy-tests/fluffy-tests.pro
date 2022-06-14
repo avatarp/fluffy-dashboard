@@ -14,7 +14,6 @@ CONFIG += c++20
 
 HEADERS += \
         ../core \
-        data-filters.h \
         decorders.h \
         obd-access-utils.h \
         usb-obd-access.h \
@@ -25,6 +24,6 @@ SOURCES += \
         ../core/obd-access/device.cpp \
         ../core/obd-access/obd-access.cpp \
         ../core/obd-access/usb-obd-access.cpp \
-        ../core/parameters-engine/ELM327/elm327-data-filters.cpp \
+        ../core/parameters-engine/ELM327/elm327-data-decoder.cpp \
         main.cpp
 

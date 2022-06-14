@@ -24,9 +24,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     mainwindow.h \
     obd-access/bluetooth-obd-access.h \
+    obd-access/bluetooth-provider.h \
     obd-access/device.h \
     obd-access/obd-access.h \
     obd-access/usb-obd-access.h \
+    obd-access/usb-serial-provider.h \
     parameters-engine/Decoders/DecodeAirFlow.h \
     parameters-engine/Decoders/DecodeBitEncoded.h \
     parameters-engine/Decoders/DecodeDTC.h \
@@ -45,39 +47,34 @@ HEADERS += \
     parameters-engine/Decoders/DecodeTimingAdvance.h \
     parameters-engine/ELM327/elm327-command-repository.h \
     parameters-engine/ELM327/elm327-data-decoder.h \
-    parameters-engine/ELM327/elm327-data-filters.h \
     parameters-engine/ELM327/elm327-dtc-handler.h \
     parameters-engine/ELM327/elm327-engine.h \
-    parameters-engine/bluetooth-provider.h \
     parameters-engine/command-repository.h \
     parameters-engine/data-decoding-handler.h \
     parameters-engine/data-filters.h \
     parameters-engine/dtc-handler.h \
     parameters-engine/obd-command-pid.h \
     parameters-engine/parameters-engine.h \
+    parameters-engine/response.h \
     parameters-engine/test-handler.h \
-    parameters-engine/usb-serial-provider.h \
-    diagnostic-manager/diagnostic-manager.h \
     utils/system-calls.h
 
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
     obd-access/bluetooth-obd-access.cpp \
+    obd-access/bluetooth-provider.cpp \
     obd-access/device.cpp \
     obd-access/obd-access.cpp \
     obd-access/usb-obd-access.cpp \
+    obd-access/usb-serial-provider.cpp \
     parameters-engine/ELM327/elm327-command-repository.cpp \
     parameters-engine/ELM327/elm327-data-decoder.cpp \
-    parameters-engine/ELM327/elm327-data-filters.cpp \
     parameters-engine/ELM327/elm327-dtc-handler.cpp \
     parameters-engine/ELM327/elm327-engine.cpp \
-    parameters-engine/bluetooth-provider.cpp \
     parameters-engine/dtc-handler.cpp \
     parameters-engine/parameters-engine.cpp \
-    parameters-engine/test-handler.cpp \
-    parameters-engine/usb-serial-provider.cpp \
-    diagnostic-manager/diagnostic-manager.cpp
+    parameters-engine/test-handler.cpp
 
 FORMS += \
     mainwindow.ui

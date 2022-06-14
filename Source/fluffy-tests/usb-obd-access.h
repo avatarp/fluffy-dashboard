@@ -25,7 +25,7 @@ TEST(InvalidDevice, UsbAccess)
 
     EXPECT_THROW(
     {
-                    OBD.SetDevice(std::move(CreateBluetoothDevice()));
+    OBD.SetDevice(std::move(CreateBluetoothDevice()));
                 },std::logic_error);
 }
 

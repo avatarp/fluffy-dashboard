@@ -25,10 +25,10 @@ protected:
     Obd::Device m_SerialDevice;
     unsigned m_BaudRate;
     int m_ConnectionHandle;
-    DataDecodingHandler *m_DataObtainer;
+    //DataDecodingHandler *m_DataObtainer;
     DataFilters *m_DataFilter;
     DtcHandler *m_DtcHandler;
-    CommandRepository *m_CommandRepository;
+    //CommandRepository *m_CommandRepository;
     virtual bool SendCommand(const std::string &command);
     virtual std::string ReadResponse();
 public:
