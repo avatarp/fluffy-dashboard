@@ -56,7 +56,6 @@ HEADERS += \
     parameters-engine/obd-command-pid.h \
     parameters-engine/parameters-engine.h \
     parameters-engine/response.h \
-    parameters-engine/test-handler.h \
     utils/system-calls.h
 
 SOURCES += \
@@ -74,7 +73,7 @@ SOURCES += \
     parameters-engine/ELM327/elm327-engine.cpp \
     parameters-engine/dtc-handler.cpp \
     parameters-engine/parameters-engine.cpp \
-    parameters-engine/test-handler.cpp
+    parameters-engine/response.cpp
 
 FORMS += \
     mainwindow.ui

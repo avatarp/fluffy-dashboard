@@ -8,10 +8,10 @@
 class DecodeEvapPressure:public DecodeFloatStrategy
 {
 public :
-   std::optional<float> decode(const std::string &text) const
+   float decode(const std::string &text) const
    {
        if(text.length()!=5)
-          return std::nullopt;
+          throw std::runtime_error("invalid input");
 
        std::string byteA{text[0],text[1]};
        float valA=Utils::twoComplementaryHexToDec(byteA);

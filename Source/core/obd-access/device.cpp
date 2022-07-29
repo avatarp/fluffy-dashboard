@@ -7,7 +7,7 @@ const std::string Device::GetDescription() const
     return this->m_Description;
 }
 
-const ConnectionType Device::GetConnectionType() const
+ConnectionType Device::GetConnectionType() const
 {
     return this->m_ConnectionType;
 }

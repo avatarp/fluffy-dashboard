@@ -31,7 +31,7 @@ public:
           m_Description{description}{}
 
     const std::string GetDescription() const;
-    const ConnectionType GetConnectionType() const ;
+    ConnectionType GetConnectionType() const ;
     const std::string GetDeviceFilePath() const;
 };
 }

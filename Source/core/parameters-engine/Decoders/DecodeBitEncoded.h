@@ -10,10 +10,10 @@
 class DecodeBitEncoded:public DecodeBitEncodedStrategy
 {
 public :
-   std::optional<std::bitset<32>> decode(const std::string &text) const
+   std::bitset<32> decode(const std::string &text) const
    {
-       if(text.length()<8)
-          return std::nullopt;
+       if(text.length()<2)
+          throw std::runtime_error("invalid input");
 
        return std::bitset<32>(Utils::hexToBin(text));
    }

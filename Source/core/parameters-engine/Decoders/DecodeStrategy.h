@@ -7,19 +7,19 @@ class DecodeFloatStrategy
 {
 public:
     virtual ~DecodeFloatStrategy(){}
-    virtual std::optional<float> decode(const std::string &text)const=0;
+    virtual float decode(const std::string &text)const=0;
 };
 
 class DecodeBitEncodedStrategy
 {
 public:
     virtual ~DecodeBitEncodedStrategy(){}
-    virtual std::optional<std::bitset<32>> decode(const std::string &text)const=0;
+    virtual std::bitset<32> decode(const std::string &text)const=0;
 };
 
 class DecodeString{
 public:
-    virtual std::optional<std::string> decode(const std::string &text)
+    virtual std::string decode(const std::string &text)
     {
         std::string result;
         result.reserve(text.size()/2);
@@ -31,7 +31,7 @@ public:
         }
 
         if(result.size()==0)
-            return std::nullopt;
+          throw std::runtime_error("invalid input");
 
         return result;
     }

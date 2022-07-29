@@ -6,10 +6,10 @@
 class DecodeRPM:public DecodeFloatStrategy
 {
 public :
-   std::optional<float> decode(const std::string &text) const
+   float decode(const std::string &text) const
    {
        if(text.length()!=5)
-          return std::nullopt;
+          throw std::runtime_error("invalid input");
 
        std::string byteA{text[0],text[1]};
        std::string byteB{text[3],text[4]};
