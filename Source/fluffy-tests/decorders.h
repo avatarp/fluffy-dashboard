@@ -23,398 +23,281 @@ using namespace testing;
 
 TEST(decodeRPM, decoders)
 {
-    DecodeFloatStrategy *strat=new DecodeRPM();
+    DecodeRPM decoder;
 
     std::string zero="00 00";
-    std::optional<float> resultZero = strat->decode(zero);
-    ASSERT_TRUE(resultZero);
-    EXPECT_EQ(*resultZero,0.0);
+    EXPECT_EQ(decoder.decode(zero),0.0);
 
     std::string RPM807="0C 9C";
-    std::optional<float> result807 = strat->decode(RPM807);
-    ASSERT_TRUE(result807);
-    EXPECT_EQ(*result807,807);
+    EXPECT_EQ(decoder.decode(RPM807),807);
 
     std::string rpmMax="FF FF";
-    std::optional<float> resultMax = strat->decode(rpmMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_EQ(*resultMax,16383.75);
+    EXPECT_NEAR(decoder.decode(rpmMax),16383.75,0.001);
 }
 
 TEST(decodeSpeed, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeSimpleA();
+    DecodeSimpleA decoder;
 
     std::string zero="00";
-    std::optional<float> resultZero = strat->decode(zero);
-    ASSERT_TRUE(resultZero);
-    EXPECT_EQ(*resultZero,0.0);
+    EXPECT_EQ(decoder.decode(zero),0.0);
 
     std::string speed17="11";
-    std::optional<float> result17 = strat->decode(speed17);
-    ASSERT_TRUE(result17);
-    EXPECT_EQ(*result17,17);
+    EXPECT_EQ(decoder.decode(speed17),17);
 
     std::string speedMax="FF";
-    std::optional<float> resultMax = strat->decode(speedMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_EQ(*resultMax,255);
+    EXPECT_EQ(decoder.decode(speedMax),255);
 }
 
 TEST(decodeTemperature, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeTemperature();
+    DecodeTemperature decoder;
 
     std::string zero="00";
-    std::optional<float> resultZero = strat->decode(zero);
-    ASSERT_TRUE(resultZero);
-    EXPECT_EQ(*resultZero,-40);
+    EXPECT_EQ(decoder.decode(zero),-40);
 
     std::string temp1="29";
-    std::optional<float> result1 = strat->decode(temp1);
-    ASSERT_TRUE(result1);
-    EXPECT_EQ(*result1,1);
+    EXPECT_EQ(decoder.decode(temp1),1);
 
     std::string tempMax="FF";
-    std::optional<float> resultMax = strat->decode(tempMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_EQ(*resultMax,215);
+    EXPECT_EQ(decoder.decode(tempMax),215);
 }
 
 TEST(decodePercentage, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodePercentage();
+    DecodePercentage decoder;
 
     std::string zero="00";
-    std::optional<float> resultZero = strat->decode(zero);
-    ASSERT_TRUE(resultZero);
-    EXPECT_EQ(*resultZero,0);
+    EXPECT_EQ(decoder.decode(zero),0);
 
     std::string percentage16="29";
-    std::optional<float> result16 = strat->decode(percentage16);
-    ASSERT_TRUE(result16);
-    EXPECT_NEAR(*result16,16.0784,0.0001);
+    EXPECT_NEAR(decoder.decode(percentage16),16.0784,0.0001);
 
     std::string percentageMax="FF";
-    std::optional<float> resultMax = strat->decode(percentageMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_EQ(*resultMax,100);
+    EXPECT_EQ(decoder.decode(percentageMax),100);
 }
 
 TEST(decodeAirFlow, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeAirFlow();
+    DecodeAirFlow decoder;
 
     std::string zero="00 00";
-    std::optional<float> resultZero = strat->decode(zero);
-    ASSERT_TRUE(resultZero);
-    EXPECT_EQ(*resultZero,0);
+    EXPECT_EQ(decoder.decode(zero),0);
 
     std::string airFlow40="10 01";
-    std::optional<float> result40 = strat->decode(airFlow40);
-    ASSERT_TRUE(result40);
-    EXPECT_NEAR(*result40,40.97,0.0001);
+    EXPECT_NEAR(decoder.decode(airFlow40),40.97,0.0001);
 
     std::string percentageMax="FF FF";
-    std::optional<float> resultMax = strat->decode(percentageMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,655.35,0.0001);
+    EXPECT_NEAR(decoder.decode(percentageMax),655.35,0.0001);
 }
 
 TEST(decodeTimingAdvance, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeTimingAdvance();
+    DecodeTimingAdvance decoder;
 
     std::string min="00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,-64);
+    EXPECT_EQ(decoder.decode(min),-64);
 
     std::string val="10";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,-56,0.0001);
+    EXPECT_NEAR(decoder.decode(val),-56,0.0001);
 
     std::string percentageMax="FF";
-    std::optional<float> resultMax = strat->decode(percentageMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,63.5,0.0001);
+    EXPECT_NEAR(decoder.decode(percentageMax),63.5,0.0001);
 }
 
 TEST(decodeFuelPressure, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeFuelPressure();
+    DecodeFuelPressure decoder;
 
     std::string min="00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,0);
+    EXPECT_EQ(decoder.decode(min),0);
 
     std::string val="10";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,48,0.0001);
+    EXPECT_NEAR(decoder.decode(val),48,0.0001);
 
     std::string percentageMax="FF";
-    std::optional<float> resultMax = strat->decode(percentageMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,765,0.0001);
+    EXPECT_NEAR(decoder.decode(percentageMax),765,0.0001);
 }
 
 TEST(DecodeSimpleAB, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeSimpleAB();
+    DecodeSimpleAB decoder;
 
     std::string min="00 00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,0);
+    EXPECT_EQ(decoder.decode(min),0);
 
     std::string val="10 00";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,4096,0.0001);
+    EXPECT_NEAR(decoder.decode(val),4096,0.0001);
 
     std::string valMax="FF FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,65535,0.0001);
+    EXPECT_NEAR(decoder.decode(valMax),65535,0.0001);
 }
 
 TEST(decodeFuelRailPressure, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeFuelRailPressure();
+    DecodeFuelRailPressure decoder;
 
     std::string min="00 00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,0);
+    EXPECT_EQ(decoder.decode(min),0);
 
     std::string val="10 00";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,323.584,0.001);
+    EXPECT_NEAR(decoder.decode(val),323.584,0.001);
 
     std::string valMax="FF FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,5177.265,0.001);
+    EXPECT_NEAR(decoder.decode(valMax),5177.265,0.001);
 }
 
 TEST(decodeRunTime, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeFuelRailGaugePressure();
+    DecodeFuelRailGaugePressure decoder;
 
     std::string min="00 00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,0);
+    EXPECT_EQ(decoder.decode(min),0);
 
     std::string val="10 00";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,40960,0.0001);
+    EXPECT_NEAR(decoder.decode(val),40960,0.0001);
 
     std::string valMax="FF FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,655350,0.0001);
+    EXPECT_NEAR(decoder.decode(valMax),655350,0.0001);
 }
 
 TEST(decodeSignedPercentage, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeSignedPercentage();
+    DecodeSignedPercentage decoder;
 
     std::string min="00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,-100);
+    EXPECT_EQ(decoder.decode(min),-100);
 
     std::string val="10";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,-87.5,0.01);
+    EXPECT_NEAR(decoder.decode(val),-87.5,0.01);
 
     std::string valMax="FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,99.21,0.01);
+    EXPECT_NEAR(decoder.decode(valMax),99.21,0.01);
 }
 
 TEST(decodeCatalystTemperature, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeCatalystTemperature();
+    DecodeCatalystTemperature decoder;
 
     std::string min="00 00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,-40);
+    EXPECT_EQ(decoder.decode(min),-40);
 
     std::string val="10 00";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,369.6,0.0001);
+    EXPECT_NEAR(decoder.decode(val),369.6,0.0001);
 
     std::string valMax="FF FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,6513.5,0.0001);
+    EXPECT_NEAR(decoder.decode(valMax),6513.5,0.0001);
 }
 
 TEST(decodeOxygenSensorVoltage1, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeOxygenSensorVoltage1();
+    DecodeOxygenSensorVoltage1 decoder;
 
     std::string min="00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,0);
+    EXPECT_EQ(decoder.decode(min),0);
 
     std::string val="10";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,0.08,0.0001);
+    EXPECT_NEAR(decoder.decode(val),0.08,0.0001);
 
     std::string valMax="FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,1.275,0.0001);
+    EXPECT_NEAR(decoder.decode(valMax),1.275,0.0001);
 }
 
 TEST(decodeOxygenSensorVoltage2, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeOxygenSensorVoltage2();
+    DecodeOxygenSensorVoltage2 decoder;
 
     std::string min="00 00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,0);
+    EXPECT_EQ(decoder.decode(min),0);
 
     std::string val="10 00";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,0.5,0.0001);
+    EXPECT_NEAR(decoder.decode(val),0.5,0.0001);
 
     std::string valMax="FF FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,7.9999,0.0001);
+    EXPECT_NEAR(decoder.decode(valMax),7.9999,0.0001);
 }
 
 TEST(decodeEquivalenceRatio, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeEquivalenceRatio();
+    DecodeEquivalenceRatio decoder;
 
     std::string min="00 00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin,0);
+    EXPECT_EQ(decoder.decode(min),0);
 
     std::string val="10 00";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,0.125,0.0001);
+    EXPECT_NEAR(decoder.decode(val),0.125,0.0001);
 
     std::string valMax="FF FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,2.0,0.0001);
+    EXPECT_NEAR(decoder.decode(valMax),2.0,0.0001);
 }
 
 TEST(decodeOxygenSensorCurrent, decoders)
 {
-    DecodeFloatStrategy *strat = new DecodeOxygenSensorCurrent();
+    DecodeOxygenSensorCurrent decoder;
 
     std::string min="00 00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_NEAR(*resultMin,-128,0.0001);
+    EXPECT_NEAR(decoder.decode(min),-128,0.0001);
 
     std::string val="10 00";
-    std::optional<float> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_NEAR(*result,-112,0.0001);
+    EXPECT_NEAR(decoder.decode(val),-112,0.0001);
 
     std::string valMax="FF FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_NEAR(*resultMax,127.996,0.0001);
+    EXPECT_NEAR(decoder.decode(valMax),127.996,0.0001);
 }
 
 TEST(decodeEvapPressure, decoders)
 {
-
-    DecodeFloatStrategy *strat = new DecodeEvapPressure();
+    DecodeEvapPressure decoder;
 
     std::string zero="00 00";
-    std::optional<float> resultZero = strat->decode(zero);
-    ASSERT_TRUE(resultZero);
-    ASSERT_NEAR(*resultZero, 0, 0.0001);
+    ASSERT_NEAR(decoder.decode(zero), 0, 0.0001);
 
     std::string min = "80 00";
-    std::optional<float> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    ASSERT_NEAR(*resultMin, -8192.0, 0.0001);
+    ASSERT_NEAR(decoder.decode(min), -8192.0, 0.0001);
 
     std::string valMax = "7F FF";
-    std::optional<float> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    ASSERT_NEAR(*resultMax, 8191.75, 0.0001);
+    ASSERT_NEAR(decoder.decode(valMax), 8191.75, 0.0001);
 }
 
 TEST(decodeBitEncoded, decoders)
 {
-    DecodeBitEncodedStrategy *strat = new DecodeBitEncoded();
+    DecodeBitEncoded decoder;
 
     std::string min = "00000000";
-    std::optional<std::bitset<32>> resultMin = strat->decode(min);
-    ASSERT_TRUE(resultMin);
-    EXPECT_EQ(*resultMin, std::bitset<32>(0b00000000000000000000000000000000));
+    EXPECT_EQ(decoder.decode(min),
+              std::bitset<32>(0b00000000000000000000000000000000));
 
     std::string val = "BE1FA813";
-    std::optional<std::bitset<32>> result = strat->decode(val);
-    ASSERT_TRUE(result);
-    EXPECT_EQ(*result, std::bitset<32>(0b10111110000111111010100000010011));
+    EXPECT_EQ(decoder.decode(val),
+              std::bitset<32>(0b10111110000111111010100000010011));
 
     std::string valMax = "FFFFFFFF";
-    std::optional<std::bitset<32>> resultMax = strat->decode(valMax);
-    ASSERT_TRUE(resultMax);
-    EXPECT_EQ(*resultMax, std::bitset<32>(0b11111111111111111111111111111111));
-
+    EXPECT_EQ(decoder.decode(valMax),
+              std::bitset<32>(0b11111111111111111111111111111111));
 }
 
 TEST(decodeString, decoders)
 {
     DecodeString decoder;
 
-    std::optional<std::string> result = decoder.decode("");
-    ASSERT_FALSE(result);
+    EXPECT_EQ(decoder.decode(std::string()),"");
 
     std::string vin = "57463055585847414A5532473830353439";
-    result = decoder.decode(vin);
-    ASSERT_TRUE(result);
-    EXPECT_EQ(*result, "WF0UXXGAJU2G80549");
+    EXPECT_EQ(decoder.decode(vin), "WF0UXXGAJU2G80549");
 }
 
 
 TEST(decodeDTC, decoders)
 {
     DecodeDTC decoder;
-    std::string dtc = "";
-    std::optional<std::string> result = decoder.decode(dtc);
-    ASSERT_FALSE(result);
 
-    dtc = "4300";
-    result = decoder.decode(dtc);
-    ASSERT_TRUE(result);
-    EXPECT_EQ(*result, "P0300");
+    EXPECT_THROW({
+        decoder.decode(std::string());
+    },std::runtime_error);
+
+    std::string dtc = "4300";
+    EXPECT_EQ(decoder.decode(dtc), "P0300");
 
     dtc = "4700";
-    result = decoder.decode(dtc);
-    ASSERT_TRUE(result);
-    std::cout<<"dtc: "+*result<<std::endl;
-    EXPECT_EQ(*result, "P0700");
-
-
-
+    EXPECT_EQ(decoder.decode(dtc), "P0700");
 }

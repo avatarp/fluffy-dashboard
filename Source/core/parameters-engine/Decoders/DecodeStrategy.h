@@ -30,9 +30,6 @@ public:
             result.push_back(chr);
         }
 
-        if(result.size()==0)
-          throw std::runtime_error("invalid input");
-
         return result;
     }
 };
