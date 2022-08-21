@@ -14,25 +14,30 @@ MainWindow::MainWindow(QWidget *parent)
     sleep(1);
     bluetoothProvider.StopScan();
     std::vector<QBluetoothDeviceInfo> bluetoothDevices = bluetoothProvider.GetAvailableDevicesInfo();
+
     QString text("Total bluetooth devices found: ");
     text+=QString::number(bluetoothDevices.size());
     ui->logsTextBrowser->append(text);
+
     for(auto& bluetoothDevice :bluetoothDevices)
     {
-       ui->logsTextBrowser->append(bluetoothDevice.name());
-       ui->logsTextBrowser->append(bluetoothDevice.address().toString());
-       ui->logsTextBrowser->append("\n");
+        ui->logsTextBrowser->append(bluetoothDevice.name());
+        ui->logsTextBrowser->append(bluetoothDevice.address().toString());
+        ui->logsTextBrowser->append("\n");
     }
+
     std::vector<Obd::Device> usbDevices = usbProvider.GetAvailableDevices();
+
     text = "Total usb devices found: ";
     text+=QString::number(usbDevices.size());
     ui->logsTextBrowser->append(text);
     for(auto& usbDevice :usbDevices)
     {
-       ui->logsTextBrowser->append(QString::fromStdString(usbDevice.GetDeviceFilePath()));
-       ui->logsTextBrowser->append(QString::fromStdString(usbDevice.GetDescription()));
-       ui->logsTextBrowser->append("\n");
+        ui->logsTextBrowser->append(QString::fromStdString(usbDevice.GetDeviceFilePath()));
+        ui->logsTextBrowser->append(QString::fromStdString(usbDevice.GetDescription()));
+        ui->logsTextBrowser->append("\n");
     }
+
     //devices = bluetoothDevices;
     //devices.insert(devices.end(),usbDevices.begin(),usbDevices.end());
 

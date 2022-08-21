@@ -10,15 +10,12 @@ bool BluetoothObdAccess::Write(const std::string &command)
     }
 
     std::clog << "Writing command " + command << ".\n";
-    int bytesWritten = write(this->m_DevicePort,
-                             command.c_str(),
-                             command.length());
+    int bytesWritten = write(
+                this->m_DevicePort, command.c_str(), command.length());
 
     if(bytesWritten==-1)
     {
-        std::clog<< "WRITE FAILURE\n"
-                 << "Error:"
-                 << strerror(errno)<<".\n";
+        std::clog<< "WRITE FAILURE\n" << "Error:" << strerror(errno)<<".\n";
         m_ConnectionStatus=ConnectionStatus::ConnectionLost;
         return false;
     }
@@ -26,16 +23,12 @@ bool BluetoothObdAccess::Write(const std::string &command)
     {
         if(IsCommandSendOk(command,bytesWritten))
         {
-            std::clog<<"Written "
-                    << bytesWritten
-                    << " bytes succesfully.\n";
+            std::clog<<"Written " << bytesWritten << " bytes succesfully.\n";
             return true;
         }
         else
         {
-            std::clog<<"Written "
-                    << bytesWritten
-                    << " bytes. Expected "
+            std::clog<<"Written " << bytesWritten << " bytes. Expected "
                     << command.length() << ".\n";
         }
         return false;
@@ -50,13 +43,11 @@ std::string BluetoothObdAccess::Read()
     if(bytesRead <= 0)
     {
         std::clog<<"READ FAILURE\n"<<"Error:"
-               <<strerror(errno)<<".\n";
+                <<strerror(errno)<<".\n";
         this->m_ConnectionStatus=ConnectionStatus::DeviceTimeout;
     }
-    std::clog<<"Received response: "
-              << readBuffer << ".\n";
-    return std::string(std::move(readBuffer));
-
+    std::clog<<"Received response: " << readBuffer << ".\n";
+    return std::string(readBuffer);
 }
 
 bool BluetoothObdAccess::IsCommandSendOk(
@@ -94,20 +85,18 @@ BluetoothObdAccess::~BluetoothObdAccess(){}
 void BluetoothObdAccess::SetDevice(Device device)
 {
     if(device.GetConnectionType() != ConnectionType::Bluetooth)
-        throw std::logic_error(std::string(
-                                   "Invalid device set. Got"
-                                   + std::to_string(
-                                       (int)device.GetConnectionType())
-                                   + " expected Bluetooth").c_str());
+        throw std::logic_error(
+                std::string("Invalid device set. Got"
+                            + std::to_string((int)device.GetConnectionType())
+                            + " expected Bluetooth").c_str()
+                );
     this->m_Device = std::move(device);
 }
 
 bool BluetoothObdAccess::Connect()
 {
-    std::clog<<"Opening connection with "
-            << this->m_Device.GetDeviceFilePath()
-            << " " << this->m_Device.GetDescription()
-            <<".\n";
+    std::clog<<"Opening connection with " << this->m_Device.GetDeviceFilePath()
+            << " " << this->m_Device.GetDescription() <<".\n";
 
     if(!std::filesystem::exists(this->m_Device.GetDeviceFilePath())){
 
@@ -119,7 +108,7 @@ bool BluetoothObdAccess::Connect()
     }
 
     this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
-                            O_RDWR | O_NOCTTY );
+                              O_RDWR | O_NOCTTY );
 
     if (this->m_DevicePort == -1)//error occured
     {

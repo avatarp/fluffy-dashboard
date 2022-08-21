@@ -6,15 +6,15 @@
 class DecodeOxygenSensorCurrent: public DecodeFloatStrategy
 {
 public :
-   float decode(const std::string &text) const
-   {
-       if(text.length()!=5)
-          throw std::runtime_error("invalid input");
+    float decode(const std::string &text) const
+    {
+        if(text.length()!=5)
+            throw std::runtime_error("invalid input");
 
-       std::string byteC{text[0],text[1]};
-       float valC=Utils::hexToDec(byteC);
-       std::string byteD{text[3],text[4]};
-       float valD=Utils::hexToDec(byteD);
-       return (256.0*valC+valD)/256.0-128.0;
-   }
+        std::string byteC{text[0],text[1]};
+        float valC=Utils::hexToDec(byteC);
+        std::string byteD{text[3],text[4]};
+        float valD=Utils::hexToDec(byteD);
+        return (256.0*valC+valD)/256.0-128.0;
+    }
 };

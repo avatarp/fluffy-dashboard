@@ -11,14 +11,14 @@
 class DecodePercentage: public DecodeFloatStrategy
 {
 public :
-   float decode(const std::string &text) const
-   {
-       if(text.length()!=2)
-          throw std::runtime_error("invalid input");
+    float decode(const std::string &text) const
+    {
+        if(text.length()!=2)
+            throw std::runtime_error("invalid input");
 
-       std::string byteA{text[0],text[1]};
-       return Utils::hexToDec(byteA)/2.55;
-   }
+        std::string byteA{text[0],text[1]};
+        return Utils::hexToDec(byteA)/2.55;
+    }
 };
 
 //Returns -> -100-99.2%
@@ -29,14 +29,14 @@ public :
 class DecodeSignedPercentage: public DecodeFloatStrategy
 {
 public :
-   float decode(const std::string &text) const
-   {
-       if(text.length()!=2)
-          throw std::runtime_error("invalid input");
+    float decode(const std::string &text) const
+    {
+        if(text.length()!=2)
+            throw std::runtime_error("invalid input");
 
-       std::string byteA{text[0],text[1]};
-       return Utils::hexToDec(byteA)/1.28-100;
-   }
+        std::string byteA{text[0],text[1]};
+        return Utils::hexToDec(byteA)/1.28-100;
+    }
 };
 
 

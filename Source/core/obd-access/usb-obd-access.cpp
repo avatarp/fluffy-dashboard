@@ -50,11 +50,11 @@ std::string UsbObdAccess::Read()
     if(bytesRead <= 0)
     {
         std::clog<<"READ FAILURE\n"<<"Error:"
-               <<strerror(errno)<<".\n";
+                <<strerror(errno)<<".\n";
         this->m_ConnectionStatus=ConnectionStatus::DeviceTimeout;
     }
     std::clog<<"Received response: "
-              << readBuffer << ".\n";
+            << readBuffer << ".\n";
     return std::string(std::move(readBuffer));
 
 }
@@ -119,7 +119,7 @@ bool UsbObdAccess::Connect()
     }
 
     this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
-                            O_RDWR | O_NOCTTY );
+                              O_RDWR | O_NOCTTY );
 
     if (this->m_DevicePort == -1)//error occured
     {

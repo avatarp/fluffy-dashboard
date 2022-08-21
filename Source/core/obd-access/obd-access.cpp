@@ -39,8 +39,8 @@ bool ObdAccess::Reconnect()
 {
     try
     {
-    this->CloseConnection();
-    this->Connect();
+        this->CloseConnection();
+        this->Connect();
     }
     catch(...)
     {

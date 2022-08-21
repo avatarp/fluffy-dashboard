@@ -12,7 +12,7 @@ const std::string UsbSerialPrefix = "ttyUSB";
 const std::string DeviceDir = "/dev/";
 class UsbSerialProvider
 {
-    public:
+public:
     static std::vector<Device> GetAvailableDevices();
 };
 
