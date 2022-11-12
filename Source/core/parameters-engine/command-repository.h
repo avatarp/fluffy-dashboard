@@ -4,7 +4,7 @@
 class CommandRepository
 {
 public:
-    CommandRepository();
+    CommandRepository(){};
     //SID 01
     //###########################################################################
     //00 PIDs supported [01 - 20]

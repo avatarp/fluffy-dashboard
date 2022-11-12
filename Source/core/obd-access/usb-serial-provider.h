@@ -8,8 +8,6 @@
 
 namespace Obd {
 
-const std::string UsbSerialPrefix = "ttyUSB";
-const std::string DeviceDir = "/dev/";
 class UsbSerialProvider
 {
 public:

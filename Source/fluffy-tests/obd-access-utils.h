@@ -19,18 +19,28 @@ Obd::Device CreateBluetoothDevice()
                   "Mock bluetooth device");
 }
 
-void CleanupEnvironment()
+class PipesEnv
 {
-    //Cleanup pipe files
-    system("find . -type p -delete");
-}
+    const std::string pipename{"testenv"};
+public:
+    PipesEnv(){
+        system((std::string("mkfifo ") + pipename).c_str());
+    }
+    ~PipesEnv(){
+        system("find . -type p -delete");
+    }
 
-void SetupLoopbackEnvironment()
-{
-    CleanupEnvironment();
-    system("mkfifo testenv");
-    system("echo 123 > testenv &");
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    if(SystemCallForResponse(("cat testenv"))=="123\n")
-        std::clog<<"setup success"<<std::endl;
-}
+    std::string drainData(){
+        return SystemCallForResponse(
+                    (std::string("timeout --foreground 1 cat ")
+                     + pipename).c_str());
+    }
+    void feedData(std::string data){
+        system((std::string("echo ")
+                    + data
+                    + std::string(" > ")
+                    + pipename
+                    + std::string(" &")).c_str());
+        }
+
+};

@@ -1,35 +1,77 @@
 #include "response.h"
 
 Response::Response(){
-    dataType = DataType::empty;
+    m_dataType = DataType::empty;
 }
 
-Response::Response(const std::bitset<32> &bitset)
+Response::Response(const RawResponse &rawResponse, const std::bitset<32> &bitset)
 {
-    this->dataType = DataType::bitset;
-    this->dataBitset = bitset;
+    this->m_rawResponse = rawResponse;
+    this->m_dataType = DataType::bitset;
+    this->m_dataBitset = bitset;
 }
 
-Response::Response(const std::string &data, const std::string &type)
+Response::Response(const RawResponse &rawResponse,
+                   const std::string &data, const std::string &type)
 {
-    this->dataType = DataType::string;
-    stringData.first = data;
-    stringData.second = type;
+    m_rawResponse = rawResponse;
+    this->m_dataType = DataType::string;
+    m_stringData.first = data;
+    m_stringData.second = type;
 }
 
-Response::Response(float data, const std::string &unit)
+Response::Response(const RawResponse &rawResponse,
+                   float data, const std::string &unit)
 {
-    this->dataType = DataType::number;
-    floatData1.first = data;
-    floatData1.second = unit;
+    m_rawResponse = rawResponse;
+    this->m_dataType = DataType::number;
+    m_floatData1.first = data;
+    m_floatData1.second = unit;
 }
 
-Response::Response(float data1, const std::string &unit1,
+Response::Response(const RawResponse &rawResponse,
+                   float data1, const std::string &unit1,
                    float data2, const std::string &unit2)
 {
-    this->dataType = DataType::numberPair;
-    this->floatData1.first = data1;
-    this->floatData1.second = unit1;
-    this->floatData2.first = data2;
-    this->floatData2.second = unit2;
+    m_rawResponse = rawResponse;
+    this->m_dataType = DataType::numberPair;
+    this->m_floatData1.first = data1;
+    this->m_floatData1.second = unit1;
+    this->m_floatData2.first = data2;
+    this->m_floatData2.second = unit2;
+}
+
+std::ostream& operator<<(std::ostream& os, const Response& resp)
+{
+switch (resp.m_dataType) {
+case DataType::string:
+    os << "string: "
+       << resp.m_stringData.first << ", "
+       << resp.m_stringData.second << '\n';
+    break;
+case DataType::number:
+    os << "float: "
+       << resp.m_floatData1.first << ", "
+       << resp.m_floatData1.second << '\n';
+    break;
+case DataType::numberPair:
+    os << "float pair: "
+       << resp.m_floatData1.first << ", "
+       << resp.m_floatData1.second << '\n'
+       << resp.m_floatData2.first << ", "
+       << resp.m_floatData2.second << '\n';
+    break;
+case DataType::dtc:
+    os << "dtc string: "
+       << resp.m_stringData.first << ", "
+       << resp.m_stringData.second << '\n';
+    break;
+case DataType::bitset:
+    os << "bitset: " << resp.m_dataBitset <<'\n';
+    break;
+default:
+    os << "Empty response" <<'\n';
+    break;
+}
+return os;
 }

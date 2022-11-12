@@ -47,6 +47,7 @@ HEADERS += \
     parameters-engine/Decoders/DecodeTimingAdvance.h \
     parameters-engine/ELM327/elm327-command-repository.h \
     parameters-engine/ELM327/elm327-data-decoder.h \
+    parameters-engine/ELM327/elm327-data-filter.h \
     parameters-engine/ELM327/elm327-dtc-handler.h \
     parameters-engine/ELM327/elm327-engine.h \
     parameters-engine/command-repository.h \
@@ -69,6 +70,7 @@ SOURCES += \
     obd-access/usb-serial-provider.cpp \
     parameters-engine/ELM327/elm327-command-repository.cpp \
     parameters-engine/ELM327/elm327-data-decoder.cpp \
+    parameters-engine/ELM327/elm327-data-filter.cpp \
     parameters-engine/ELM327/elm327-dtc-handler.cpp \
     parameters-engine/ELM327/elm327-engine.cpp \
     parameters-engine/dtc-handler.cpp \

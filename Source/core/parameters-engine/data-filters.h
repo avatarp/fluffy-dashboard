@@ -1,14 +1,14 @@
 #pragma once
 #include <string>
 #include <regex>
+#include "response.h"
 
-class DataFilters
+class DataParser
 {
 public:
-    virtual ~DataFilters(){}
-    virtual std::string FilterBytes(
-            std::string &data,
-            const std::string &command,
-            const size_t &count) = 0;
+    virtual ~DataParser(){}
+    virtual RawResponse ParseResponse(
+            std::string data,
+            const std::string &commandPid,
+            const size_t &dataBytesCount) = 0;
 };
-

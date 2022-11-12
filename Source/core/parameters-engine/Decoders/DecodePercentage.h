@@ -14,7 +14,9 @@ public :
     float decode(const std::string &text) const
     {
         if(text.length()!=2)
-            throw std::runtime_error("invalid input");
+            throw std::runtime_error(
+                "Invalid input in DecodePercentage expected 2 chars got "
+                    + std::to_string(text.length()));
 
         std::string byteA{text[0],text[1]};
         return Utils::hexToDec(byteA)/2.55;

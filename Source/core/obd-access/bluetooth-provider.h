@@ -1,7 +1,7 @@
 #pragma once
 #include <filesystem>
-#include <QBluetoothDeviceDiscoveryAgent>
-#include <QBluetoothLocalDevice>
+#include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
+#include <QtBluetooth/QBluetoothLocalDevice>
 #include "../obd-access/device.h"
 
 namespace Obd {

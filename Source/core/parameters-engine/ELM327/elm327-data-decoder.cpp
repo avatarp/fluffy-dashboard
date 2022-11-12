@@ -1,6 +1,11 @@
 #include "elm327-data-decoder.h"
 
 
+Elm327DataDecoder::Elm327DataDecoder()
+{
+
+}
+
 std::bitset<32> Elm327DataDecoder::GetSupportedPIDs1(const std::string &data)
 {
     DecodeBitEncoded decoder;

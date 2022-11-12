@@ -4,13 +4,26 @@
 inline std::string SystemCallForResponse(const char* cmd){
     std::array<char, 128> buffer;
     std::string result;
-    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
-    if (!pipe) {
-        throw std::runtime_error("pipe - popen() failed!");
+    auto pipe = popen(cmd, "r");
+
+    if (!pipe) throw std::runtime_error("pipe - popen() failed!");
+
+    while (!feof(pipe)){
+        if(fgets(buffer.data(), 128, pipe) != nullptr)
+            result += buffer.data();
     }
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-        result += buffer.data();
+
+    auto rc = pclose(pipe);
+
+    if(rc == EXIT_SUCCESS)
+    {
+        std::clog<<"\nexit success"<<std::endl;
     }
-    std::clog<<"result for >"<<cmd<<"< was:\n" <<result<<std::endl;
+    else if (rc == EXIT_FAILURE)
+    {
+        std::clog<<"\nexit failture"<<std::endl;
+    }
+
+    std::clog<<"\nresult for >"<<cmd<<"< was:\n" <<result<<std::endl;
     return result;
 }

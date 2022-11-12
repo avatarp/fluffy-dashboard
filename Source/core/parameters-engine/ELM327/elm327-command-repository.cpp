@@ -1,5 +1,10 @@
 #include "elm327-command-repository.h"
 
+Elm327CommandRepository::Elm327CommandRepository()
+{
+
+}
+
 const std::string Elm327CommandRepository::GetSupportedPIDs1()
 {
     return std::string("0100\r");

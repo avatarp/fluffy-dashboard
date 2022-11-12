@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <termios.h>
 #include <unistd.h>
 #include <iostream>
@@ -21,19 +22,20 @@
 class ParametersEngine
 {
     const int BUFFER_SIZE = 256;
+    static constexpr int m_readSleepTime{500 * 1000};//ms
 protected:
     termios m_TerminalInterface;
     Obd::Device m_SerialDevice;
     unsigned m_BaudRate;
     int m_ConnectionHandle;
-    DataDecodingHandler *m_DataObtainer;
-    DataFilters *m_DataFilter;
-    CommandRepository *m_CommandRepository;
+    std::unique_ptr<DataDecodingHandler> m_dataDecoder;
+    std::unique_ptr<DataParser> m_dataFilter;
+    std::unique_ptr<CommandRepository> m_CommandRepository;
     virtual bool SendCommand(const std::string &command);
     virtual std::string ReadResponse();
 public:
-
-    ParametersEngine();
+    ParametersEngine() = default;
+    virtual ~ParametersEngine() = default;
     void SetSerialDevice(Obd::Device device);
     virtual void SetupTermios() = 0;
     virtual void SetupTermios(termios interface) = 0;

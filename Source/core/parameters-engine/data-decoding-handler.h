@@ -71,7 +71,7 @@ public:
     virtual std::bitset<32> GetSecondaryAirStatus(const std::string& data) = 0;
 
     //13 Oxygen sensors present
-    virtual std::bitset<32> GetSensorsPresent1(const std::string& data) = 0;
+    virtual std::bitset<32> GetOxygenSensorsPresent1(const std::string& data) = 0;
 
     //14 Oxygen Sensor 1
     //voltage, Short term fuel trim => V, %

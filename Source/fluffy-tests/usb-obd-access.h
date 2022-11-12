@@ -6,7 +6,7 @@ using namespace testing;
 
 TEST(DataTransferOk,UsbAccess)
 {
-    SetupLoopbackEnvironment();
+    PipesEnv pipe;
     Obd::UsbObdAccess OBD;
     OBD.SetDevice(std::move(CreateUsbDevice()));
 
@@ -20,7 +20,6 @@ TEST(DataTransferOk,UsbAccess)
 
 TEST(InvalidDevice, UsbAccess)
 {
-    CleanupEnvironment();
     Obd::UsbObdAccess OBD;
 
     EXPECT_THROW(
@@ -31,7 +30,6 @@ TEST(InvalidDevice, UsbAccess)
 
 TEST(NoDeviceFile, UsbAccess)
 {
-    CleanupEnvironment();
     Obd::UsbObdAccess OBD;
     OBD.SetDevice(std::move(CreateUsbDevice()));
     EXPECT_FALSE(OBD.Connect());
@@ -48,12 +46,15 @@ TEST(NoDeviceSet, UsbAccess)
 
 TEST(Reconnect, UsbAccess)
 {
-    SetupLoopbackEnvironment();
+    PipesEnv pipe;
     Obd::UsbObdAccess OBD;
     OBD.SetDevice(std::move(CreateUsbDevice()));
 
     EXPECT_TRUE(OBD.Connect());
     EXPECT_EQ(OBD.GetConnectionStatus(),Obd::ConnectionStatus::Connected);
+
+    OBD.CloseConnection();
+    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 
     EXPECT_TRUE(OBD.Reconnect());
     EXPECT_EQ(OBD.GetConnectionStatus(),Obd::ConnectionStatus::Connected);

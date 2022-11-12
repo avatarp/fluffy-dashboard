@@ -1,7 +1,7 @@
 #pragma once
 #include "../command-repository.h"
 
-class Elm327CommandRepository
+class Elm327CommandRepository : public CommandRepository
 {
 public:
     Elm327CommandRepository();

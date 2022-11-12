@@ -32,6 +32,7 @@ void ObdAccess::CloseConnection()
                   << this->GetDevice().GetDeviceFilePath()
                   << " " << this->m_Device.GetDescription()
                   << " was alread closed.\n";
+    m_ConnectionStatus = ConnectionStatus::Disconnected;
 
 }
 

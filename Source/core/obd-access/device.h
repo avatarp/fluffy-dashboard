@@ -19,10 +19,6 @@ private:
 
 public:
     Device() = default;
-    Device(const Device& other) = delete;
-    Device(Device&& other) = default;
-    Device& operator=(const Device& other) = delete;
-    Device& operator=(Device&& other) = default;
     Device(std::string deviceFilePath,
            ConnectionType connectionType,
            std::string description)
