@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <array>
 
 inline std::string SystemCallForResponse(const char* cmd){
     std::array<char, 128> buffer;
@@ -13,6 +14,7 @@ inline std::string SystemCallForResponse(const char* cmd){
             result += buffer.data();
     }
 
+    ///TODO fix rc code not matching result code
     auto rc = pclose(pipe);
 
     if(rc == EXIT_SUCCESS)
