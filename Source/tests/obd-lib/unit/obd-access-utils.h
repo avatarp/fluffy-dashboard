@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
 #include <thread>
-#include "../../fluffy-obd-lib/utils/system-calls.hpp"
-#include "../../fluffy-obd-lib/obd-access/usb-obd-access.hpp"
-#include "../../fluffy-obd-lib/obd-access/bluetooth-obd-access.hpp"
+#include "../../../fluffy-obd-lib/utils/system-calls.hpp"
+#include "../../../fluffy-obd-lib/obd-access/usb-obd-access.hpp"
+#include "../../../fluffy-obd-lib/obd-access/bluetooth-obd-access.hpp"
 
 Obd::Device CreateUsbDevice()
 {

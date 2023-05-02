@@ -17,7 +17,7 @@ main.cpp
   )
   
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
-add_subdirectory(../../fluffy-obd-lib/ fluffy-obd-lib/)
+add_subdirectory(../../../fluffy-obd-lib/ fluffy-obd-lib/)
 
 target_link_libraries(
   lib-test

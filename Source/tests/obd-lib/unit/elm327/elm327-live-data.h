@@ -5,7 +5,7 @@
 #include <thread>
 
 #include "../obd-access-utils.h"
-#include "../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-engine.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-engine.hpp"
 
 using namespace testing;
 
