@@ -1,10 +1,10 @@
 #pragma once
 #include "Decode.hpp"
 
-class DecodeDTC
+class DecodeDTC : DecodeString
 {
 public:
-    virtual std::string decode(const std::string &text)
+    std::string decode(const std::string &text) override
     {
         if(text.length()<4)
             throw std::runtime_error("invalid input");
