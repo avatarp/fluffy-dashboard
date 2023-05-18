@@ -22,7 +22,7 @@
 
 class ParametersEngine
 {
-    const int BUFFER_SIZE = 256;
+    static constexpr int BUFFER_SIZE = 256;
     static constexpr int m_readSleepTime{500 * 1000};//ms
 protected:
     termios m_TerminalInterface;

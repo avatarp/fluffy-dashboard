@@ -24,7 +24,7 @@ bool UsbObdAccess::Write(const std::string &command)
     }
     else
     {
-        if(IsCommandSendOk(command,bytesWritten))
+        if(command.size()==bytesWritten)
         {
             std::clog<<"Written "
                     << bytesWritten
@@ -57,13 +57,6 @@ std::string UsbObdAccess::Read()
             << readBuffer << ".\n";
     return std::string(std::move(readBuffer));
 
-}
-
-bool UsbObdAccess::IsCommandSendOk(
-        const std::string &command,
-        int writeResult)
-{
-    return command.size()==writeResult;
 }
 
 void UsbObdAccess::SetupDefaultTermios()

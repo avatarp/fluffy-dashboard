@@ -21,7 +21,7 @@ bool BluetoothObdAccess::Write(const std::string &command)
     }
     else
     {
-        if(IsCommandSendOk(command,bytesWritten))
+        if (command.size() == bytesWritten)
         {
             std::clog<<"Written " << bytesWritten << " bytes succesfully.\n";
             return true;
@@ -48,13 +48,6 @@ std::string BluetoothObdAccess::Read()
     }
     std::clog<<"Received response: " << readBuffer << ".\n";
     return std::string(readBuffer);
-}
-
-bool BluetoothObdAccess::IsCommandSendOk(
-        const std::string &command,
-        int writeResult)
-{
-    return command.size()==writeResult;
 }
 
 void BluetoothObdAccess::SetupDefaultTermios()
