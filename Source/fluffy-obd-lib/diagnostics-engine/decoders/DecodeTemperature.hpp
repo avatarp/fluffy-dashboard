@@ -7,10 +7,10 @@
 //0F Air intake temperature
 //46 Ambient air temperature
 //5C Engine oil temperature
-class DecodeTemperature: public DecodeFloat
+class DecodeTemperature : public DecodeFloat
 {
 public :
-    float decode(const std::string &text) const
+    float decode(const std::string &text) const override
     {
         if(text.length()!=2)
             throw std::runtime_error("invalid input");
@@ -23,10 +23,10 @@ public :
 //Decodes:
 //3C-3F Catalyst temperature
 //-> -40-6513.5°C
-class DecodeCatalystTemperature:public DecodeFloat
+class DecodeCatalystTemperature : public DecodeFloat
 {
 public :
-    float decode(const std::string &text) const
+    float decode(const std::string &text) const override
     {
         if(text.length()!=5)
             throw std::runtime_error("invalid input");

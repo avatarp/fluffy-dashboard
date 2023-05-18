@@ -10,7 +10,7 @@
 class DecodeSimpleA : public DecodeFloat
 {
 public :
-    float decode(const std::string &text) const
+    float decode(const std::string &text) const override
     {
         if(text.length()!=2)
             throw std::runtime_error("invalid input");

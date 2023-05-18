@@ -3,10 +3,10 @@
 
 //Decodes
 //0C Engine RPM -> 0-16 383.75 RPM
-class DecodeRPM:public DecodeFloat
+class DecodeRPM : public DecodeFloat
 {
 public :
-    float decode(const std::string &text) const
+    float decode(const std::string &text) const override
     {
         if(text.length()!=5)
             throw std::runtime_error("invalid input");

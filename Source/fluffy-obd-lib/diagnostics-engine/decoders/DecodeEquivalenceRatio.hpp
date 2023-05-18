@@ -4,10 +4,10 @@
 //Decodes:
 //24-2B,34-3B (AB) Air-Fuel Equivalence Ratio (lambda,λ)
 //-> 0-2
-class DecodeEquivalenceRatio:public DecodeFloat
+class DecodeEquivalenceRatio : public DecodeFloat
 {
 public :
-    float decode(const std::string &text) const
+    float decode(const std::string &text) const override
     {
         if(text.length()!=5)
             throw std::runtime_error("invalid input");

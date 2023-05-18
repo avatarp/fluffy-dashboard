@@ -3,10 +3,10 @@
 
 //Decodes 34-3B Oxygen sensor current (CD)
 //-> -128-127.996 mA
-class DecodeOxygenSensorCurrent: public DecodeFloat
+class DecodeOxygenSensorCurrent : public DecodeFloat
 {
 public :
-    float decode(const std::string &text) const
+    float decode(const std::string &text) const override
     {
         if(text.length()!=5)
             throw std::runtime_error("invalid input");
