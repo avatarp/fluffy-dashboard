@@ -3,37 +3,6 @@
 #include <bitset>
 #include <sstream>
 
-class DecodeFloatStrategy
-{
-public:
-    virtual ~DecodeFloatStrategy(){}
-    virtual float decode(const std::string &text)const=0;
-};
-
-class DecodeBitEncodedStrategy
-{
-public:
-    virtual ~DecodeBitEncodedStrategy(){}
-    virtual std::bitset<32> decode(const std::string &text)const=0;
-};
-
-class DecodeString{
-public:
-    virtual std::string decode(const std::string &text)
-    {
-        std::string result;
-        result.reserve(text.size()/2);
-        for(size_t i=0; i< text.length() ; i+=2)
-        {
-            std::string byte = text.substr(i,2);
-            char chr = (char) (int)strtol(byte.c_str(), nullptr, 16);
-            result.push_back(chr);
-        }
-
-        return result;
-    }
-};
-
 namespace Utils {
 
 inline long hexToDec(std::string &hex)
@@ -87,4 +56,51 @@ inline int twoComplementaryHexToDec(std::string hexString)
     }
     return (int)binary.to_ulong();
 }
-}
+
+} // namespace Utils
+
+class DecodeFloat
+{
+public:
+    virtual ~DecodeFloat(){}
+    virtual float decode(const std::string &text)const=0;
+};
+
+class DecodeBitEncoded
+{
+public:
+    virtual ~DecodeBitEncoded(){}
+
+    // Decodes
+    // PIDs supported 00, 20, 40, 60, 80, A0, C0
+    // 12 Commanded secondary air status
+    // 13 Oxygen sensors present (in 2 banks)
+    // 1D Oxygen sensors present (in 4 banks)
+    // 1E Auxiliary input status
+    virtual std::bitset<32> decode(const std::string &text)const
+    {
+        if (text.length() < 2)
+            throw std::runtime_error("invalid input");
+
+        return std::bitset<32>(Utils::hexToBin(text));
+    }
+};
+
+class DecodeString{
+public:
+    virtual std::string decode(const std::string &text)
+    {
+        std::string result;
+        result.reserve(text.size()/2);
+        for(size_t i=0; i< text.length() ; i+=2)
+        {
+            std::string byte = text.substr(i,2);
+            char chr = (char) (int)strtol(byte.c_str(), nullptr, 16);
+            result.push_back(chr);
+        }
+
+        return result;
+    }
+};
+
+

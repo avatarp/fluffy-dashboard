@@ -1,5 +1,5 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Returns -> 0-100%
 //Decodes:
@@ -8,7 +8,7 @@
 //2C Commanded EGR
 //2E Commanded evaporative purge
 //2F Fuel tank level input
-class DecodePercentage: public DecodeFloatStrategy
+class DecodePercentage: public DecodeFloat
 {
 public :
     float decode(const std::string &text) const
@@ -28,7 +28,7 @@ public :
 //06-09 Short/long fuel trim (-100 too rich - 99.2 too lean)
 //14-1B Oxygen sensor short fuel trim (B)
 //2D EGR error
-class DecodeSignedPercentage: public DecodeFloatStrategy
+class DecodeSignedPercentage: public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

@@ -1,9 +1,9 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes 34-3B Oxygen sensor current (CD)
 //-> -128-127.996 mA
-class DecodeOxygenSensorCurrent: public DecodeFloatStrategy
+class DecodeOxygenSensorCurrent: public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

@@ -1,9 +1,9 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes 0E Timing advance
 //-> -64-63.5° (before Top Dead Centre)
-class DecodeTimingAdvance: public DecodeFloatStrategy
+class DecodeTimingAdvance: public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

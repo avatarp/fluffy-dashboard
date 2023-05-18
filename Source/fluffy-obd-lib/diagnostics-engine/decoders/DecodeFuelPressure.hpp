@@ -1,9 +1,9 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes
 //0A Fuel pressure -> 0-765 kPa
-class DecodeFuelPressure:public DecodeFloatStrategy
+class DecodeFuelPressure:public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

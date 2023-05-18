@@ -1,9 +1,9 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes
 //0C Engine RPM -> 0-16 383.75 RPM
-class DecodeRPM:public DecodeFloatStrategy
+class DecodeRPM:public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

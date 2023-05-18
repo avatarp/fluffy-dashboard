@@ -1,6 +1,5 @@
 #pragma once
 #include "../diagnostics-engine-base/data-decoding-handler.hpp"
-#include "../decoders/DecodeBitEncoded.hpp"
 #include "../decoders/DecodePercentage.hpp"
 #include "../decoders/DecodeTemperature.hpp"
 #include "../decoders/DecodeFuelPressure.hpp"

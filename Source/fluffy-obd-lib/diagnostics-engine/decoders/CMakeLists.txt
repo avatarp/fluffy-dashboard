@@ -7,8 +7,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a")
 
 
 add_library(${PROJECT_NAME} SHARED
+ Decode.hpp
  DecodeAirFlow.hpp
- DecodeBitEncoded.hpp
  DecodeDTC.hpp
  DecodeEquivalenceRatio.hpp
  DecodeEvapPressure.hpp
@@ -20,7 +20,6 @@ add_library(${PROJECT_NAME} SHARED
  DecodeRPM.hpp
  DecodeSimpleA.hpp
  DecodeSimpleAB.hpp
- DecodeStrategy.hpp
  DecodeTemperature.hpp
  DecodeTimingAdvance.hpp
 )

@@ -1,5 +1,5 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 class DecodeDTC
 {

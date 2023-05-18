@@ -1,9 +1,9 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes 14-1B Oxygen sensor voltage (A)
 //-> -0-1.275 V
-class DecodeOxygenSensorVoltage1: public DecodeFloatStrategy
+class DecodeOxygenSensorVoltage1: public DecodeFloat
 {
 public :
     float decode(const std::string &text) const
@@ -18,7 +18,7 @@ public :
 
 //Decodes 24-2B Oxygen sensor voltage (CD)
 //-> 0-7.999 V
-class DecodeOxygenSensorVoltage2: public DecodeFloatStrategy
+class DecodeOxygenSensorVoltage2: public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

@@ -1,10 +1,10 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes:
 //24-2B,34-3B (AB) Air-Fuel Equivalence Ratio (lambda,λ)
 //-> 0-2
-class DecodeEquivalenceRatio:public DecodeFloatStrategy
+class DecodeEquivalenceRatio:public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

@@ -1,11 +1,11 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes:
 //22 Run time -> 0-65535 seconds
 //21 Distance with Malfunction Indicator Lamp on -> 0-65535 km
 //31 Distance since coded cleared -> 0-65535km
-class DecodeSimpleAB:public DecodeFloatStrategy
+class DecodeSimpleAB:public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

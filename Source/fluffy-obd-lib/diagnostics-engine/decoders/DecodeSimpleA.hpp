@@ -1,5 +1,5 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes:
 //0D Speed -> 0-255km/h
@@ -7,7 +7,7 @@
 //1C OBD standard -> 0-255 enum
 //30 Warm-ups since codes cleared -> 0-255 count
 //33 Absolute Barometric Pressure -> 0-255 kPa
-class DecodeSimpleA : public DecodeFloatStrategy
+class DecodeSimpleA : public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

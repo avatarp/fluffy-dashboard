@@ -1,10 +1,10 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes
 //32 Evap. system Vapor pressure
 //-> -8192-8191.75 Pa
-class DecodeEvapPressure:public DecodeFloatStrategy
+class DecodeEvapPressure:public DecodeFloat
 {
 public :
     float decode(const std::string &text) const

@@ -1,13 +1,13 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 
 //Decodes 10 Mass Air Flow
 //-> 0-655.35 gram/second
-class DecodeAirFlow:public DecodeFloatStrategy
+class DecodeAirFlow : public DecodeFloat
 {
 public :
-    float decode(const std::string &text) const
+    float decode(const std::string &text) const override
     {
         if(text.length()!=5)
             throw std::runtime_error("invalid input");

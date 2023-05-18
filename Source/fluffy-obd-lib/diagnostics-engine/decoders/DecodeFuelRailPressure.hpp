@@ -1,10 +1,10 @@
 #pragma once
-#include "DecodeStrategy.hpp"
+#include "Decode.hpp"
 
 //Decodes:
 //22 Fuel Rail Pressure (relative to manifold vacuum)
 //-> 0-5177.265 kPa
-class DecodeFuelRailPressure:public DecodeFloatStrategy
+class DecodeFuelRailPressure:public DecodeFloat
 {
 public :
     float decode(const std::string &text) const
@@ -23,7 +23,7 @@ public :
 //Decodes:
 //23 Fuel Rail Gauge pressure (diesel, or gasoline direct injection)
 //-> 0-655350 kPa
-class DecodeFuelRailGaugePressure:public DecodeFloatStrategy
+class DecodeFuelRailGaugePressure:public DecodeFloat
 {
 public :
     float decode(const std::string &text) const
