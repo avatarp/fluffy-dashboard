@@ -5,7 +5,7 @@
 #include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-data-filter.hpp"
 using namespace testing;
 
-TEST(response0100Parser, elm327Parser)
+TEST(elm327Parser, response0100)
 {
     Elm327DataParser parser;
 
@@ -24,7 +24,7 @@ TEST(response0100Parser, elm327Parser)
     EXPECT_EQ(parsedResponse.m_lenght, 6);
 }
 
-TEST(response0100Parser_NoData, elm327Parser)
+TEST(elm327Parser, response0100_NoData)
 {
     Elm327DataParser parser;
     std::string response{"NO DATA"};
@@ -42,7 +42,7 @@ TEST(response0100Parser_NoData, elm327Parser)
 }
 
 
-TEST(response0104Parser, elm327Parser)
+TEST(elm327Parser, response0104)
 {
     Elm327DataParser parser;
     std::string response{"7E8 03 41 04 FF"};
@@ -53,7 +53,7 @@ TEST(response0104Parser, elm327Parser)
     EXPECT_EQ(parsedResponse.m_lenght, 3);
 }
 
-TEST(response0900Parser, elm327Parser)
+TEST(elm327Parser, response0900)
 {
     Elm327DataParser parser;
     std::string response{"7E8 06 49 00 50 00 00 00"};

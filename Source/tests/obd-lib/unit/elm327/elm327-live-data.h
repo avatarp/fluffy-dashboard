@@ -9,13 +9,13 @@
 
 using namespace testing;
 
-TEST(noDeviceConnection, elm327LiveData)
+TEST(elm327LiveData, noDeviceConnection)
 {
     Elm327Engine engine;
     EXPECT_EQ(engine.OpenConnection(), false);
 }
 
-TEST(dummyUsb, elm327LiveData)
+TEST(elm327LiveData, dummyUsb)
 {
     PipesEnv pipe;
 
@@ -25,7 +25,7 @@ TEST(dummyUsb, elm327LiveData)
     EXPECT_EQ(engine.OpenConnection(), true);
 }
 
-TEST(dummyUsbNullCharResponse, elm327LiveData)
+TEST(elm327LiveData, dummyUsbNullCharResponse)
 {
     PipesEnv pipe;
 
@@ -39,7 +39,7 @@ TEST(dummyUsbNullCharResponse, elm327LiveData)
     }, std::runtime_error);
 }
 
-TEST(dummyUsbValidResponse, elm327LiveData)
+TEST(elm327LiveData, dummyUsbValidResponse)
 {
     PipesEnv pipe;
 

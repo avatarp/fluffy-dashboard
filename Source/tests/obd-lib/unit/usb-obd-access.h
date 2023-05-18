@@ -4,7 +4,7 @@
 
 using namespace testing;
 
-TEST(DataTransferOk,UsbAccess)
+TEST(UsbAccess, DataTransferOk)
 {
     PipesEnv pipe;
     Obd::UsbObdAccess OBD;
@@ -18,7 +18,7 @@ TEST(DataTransferOk,UsbAccess)
     EXPECT_EQ(OBD.GetConnectionStatus(),Obd::ConnectionStatus::Connected);
 }
 
-TEST(InvalidDevice, UsbAccess)
+TEST(UsbAccess, InvalidDevice)
 {
     Obd::UsbObdAccess OBD;
 
@@ -28,7 +28,7 @@ TEST(InvalidDevice, UsbAccess)
                 },std::logic_error);
 }
 
-TEST(NoDeviceFile, UsbAccess)
+TEST(UsbAccess, NoDeviceFile)
 {
     Obd::UsbObdAccess OBD;
     OBD.SetDevice(std::move(CreateUsbDevice()));
@@ -36,7 +36,7 @@ TEST(NoDeviceFile, UsbAccess)
     EXPECT_EQ(OBD.GetConnectionStatus(),Obd::ConnectionStatus::DeviceNotFound);
 }
 
-TEST(NoDeviceSet, UsbAccess)
+TEST(UsbAccess, NoDeviceSet)
 {
     Obd::UsbObdAccess OBD;
     EXPECT_FALSE(OBD.Connect());
@@ -44,7 +44,7 @@ TEST(NoDeviceSet, UsbAccess)
 
 }
 
-TEST(Reconnect, UsbAccess)
+TEST(UsbAccess, Reconnect)
 {
     PipesEnv pipe;
     Obd::UsbObdAccess OBD;

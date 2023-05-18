@@ -4,7 +4,7 @@
 
 using namespace testing;
 
-TEST(DataTransferOk,BluetoothAccess)
+TEST(BluetoothAccess, DataTransferOk)
 {
     PipesEnv pipe;
     Obd::BluetoothObdAccess OBD;
@@ -18,7 +18,7 @@ TEST(DataTransferOk,BluetoothAccess)
     EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
 
-TEST(InvalidDevice, BluetoothAccess)
+TEST(BluetoothAccess, InvalidDevice)
 {
     Obd::BluetoothObdAccess OBD;
 
@@ -27,14 +27,14 @@ TEST(InvalidDevice, BluetoothAccess)
                  }, std::logic_error);
 }
 
-TEST(NoDeviceSet, BluetoothAccess)
+TEST(BluetoothAccess, NoDeviceSet)
 {
     Obd::BluetoothObdAccess OBD;
     EXPECT_FALSE(OBD.Connect());
     EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::DeviceNotFound);
 }
 
-TEST(NoDeviceFile, BluetoothAccess)
+TEST(BluetoothAccess, NoDeviceFile)
 {
     Obd::BluetoothObdAccess OBD;
     OBD.SetDevice(CreateBluetoothDevice());
@@ -42,7 +42,7 @@ TEST(NoDeviceFile, BluetoothAccess)
     EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::DeviceNotFound);
 }
 
-TEST(Reconnect, BluetoothAccess)
+TEST(BluetoothAccess, Reconnect)
 {
     PipesEnv pipe;
     Obd::BluetoothObdAccess OBD;
