@@ -21,7 +21,7 @@
 
 using namespace testing;
 
-TEST(decodeRPM, decoders)
+TEST(decoders, decodeRPM)
 {
     DecodeRPM decoder;
 
@@ -30,7 +30,7 @@ TEST(decodeRPM, decoders)
     EXPECT_NEAR(16383.75, decoder.decode("FF FF"), 0.001);
 }
 
-TEST(decodeSpeed, decoders)
+TEST(decoders, decodeSpeed)
 {
     DecodeSimpleA decoder;
 
@@ -39,7 +39,7 @@ TEST(decodeSpeed, decoders)
     EXPECT_EQ(255, decoder.decode("FF"));
 }
 
-TEST(decodeTemperature, decoders)
+TEST(decoders, decodeTemperature)
 {
     DecodeTemperature decoder;
 
@@ -48,7 +48,7 @@ TEST(decodeTemperature, decoders)
     EXPECT_EQ(215, decoder.decode("FF"));
 }
 
-TEST(decodePercentage, decoders)
+TEST(decoders, decodePercentage)
 {
     DecodePercentage decoder;
 
@@ -57,7 +57,7 @@ TEST(decodePercentage, decoders)
     EXPECT_EQ(100, decoder.decode("FF"));
 }
 
-TEST(decodeAirFlow, decoders)
+TEST(decoders, decodeAirFlow)
 {
     DecodeAirFlow decoder;
 
@@ -66,7 +66,7 @@ TEST(decodeAirFlow, decoders)
     EXPECT_NEAR(655.35, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decodeTimingAdvance, decoders)
+TEST(decoders, decodeTimingAdvance)
 {
     DecodeTimingAdvance decoder;
 
@@ -75,7 +75,7 @@ TEST(decodeTimingAdvance, decoders)
     EXPECT_NEAR(63.5, decoder.decode("FF"), 0.0001);
 }
 
-TEST(decodeFuelPressure, decoders)
+TEST(decoders, decodeFuelPressure)
 {
     DecodeFuelPressure decoder;
 
@@ -84,7 +84,7 @@ TEST(decodeFuelPressure, decoders)
     EXPECT_NEAR(765, decoder.decode("FF"), 0.0001);
 }
 
-TEST(DecodeCountAB, decoders)
+TEST(decoders, DecodeCountAB)
 {
     DecodeCountAB decoder;
 
@@ -93,7 +93,7 @@ TEST(DecodeCountAB, decoders)
     EXPECT_NEAR(65535, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decodeFuelRailPressure, decoders)
+TEST(decoders, decodeFuelRailPressure)
 {
     DecodeFuelRailPressure decoder;
 
@@ -102,7 +102,7 @@ TEST(decodeFuelRailPressure, decoders)
     EXPECT_NEAR(5177.265, decoder.decode("FF FF"), 0.001);
 }
 
-TEST(decodeRunTime, decoders)
+TEST(decoders, decodeRunTime)
 {
     DecodeFuelRailGaugePressure decoder;
 
@@ -111,7 +111,7 @@ TEST(decodeRunTime, decoders)
     EXPECT_NEAR(655350, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decodeSignedPercentage, decoders)
+TEST(decoders, decodeSignedPercentage)
 {
     DecodeSignedPercentage decoder;
 
@@ -120,7 +120,7 @@ TEST(decodeSignedPercentage, decoders)
     EXPECT_NEAR(99.21, decoder.decode("FF"), 0.01);
 }
 
-TEST(decodeCatalystTemperature, decoders)
+TEST(decoders, decodeCatalystTemperature)
 {
     DecodeCatalystTemperature decoder;
 
@@ -129,7 +129,7 @@ TEST(decodeCatalystTemperature, decoders)
     EXPECT_NEAR(6513.5, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decodeOxygenSensorVoltage1, decoders)
+TEST(decoders, decodeOxygenSensorVoltage1)
 {
     DecodeOxygenSensorVoltage1 decoder;
 
@@ -138,7 +138,7 @@ TEST(decodeOxygenSensorVoltage1, decoders)
     EXPECT_NEAR(1.275, decoder.decode("FF"), 0.0001);
 }
 
-TEST(decodeOxygenSensorVoltage2, decoders)
+TEST(decoders, decodeOxygenSensorVoltage2)
 {
     DecodeOxygenSensorVoltage2 decoder;
 
@@ -147,7 +147,7 @@ TEST(decodeOxygenSensorVoltage2, decoders)
     EXPECT_NEAR(7.9999, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decodeEquivalenceRatio, decoders)
+TEST(decoders, decodeEquivalenceRatio)
 {
     DecodeEquivalenceRatio decoder;
 
@@ -156,7 +156,7 @@ TEST(decodeEquivalenceRatio, decoders)
     EXPECT_NEAR(2.0, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decodeOxygenSensorCurrent, decoders)
+TEST(decoders, decodeOxygenSensorCurrent)
 {
     DecodeOxygenSensorCurrent decoder;
 
@@ -165,7 +165,7 @@ TEST(decodeOxygenSensorCurrent, decoders)
     EXPECT_NEAR(127.996, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decodeEvapPressure, decoders)
+TEST(decoders, decodeEvapPressure)
 {
     DecodeEvapPressure decoder;
 
@@ -174,7 +174,7 @@ TEST(decodeEvapPressure, decoders)
     ASSERT_NEAR(8191.75, decoder.decode("7F FF"),  0.0001);
 }
 
-TEST(decodeBitEncoded, decoders)
+TEST(decoders, decodeBitEncoded)
 {
     DecodeBitEncoded decoder;
 
@@ -188,7 +188,7 @@ TEST(decodeBitEncoded, decoders)
               std::bitset<32>(0b11111111111111111111111111111111));
 }
 
-TEST(decodeString, decoders)
+TEST(decoders, decodeString)
 {
     DecodeString decoder;
 
@@ -199,7 +199,7 @@ TEST(decodeString, decoders)
 }
 
 
-TEST(decodeDTC, decoders)
+TEST(decoders, decodeDTC)
 {
     DecodeDTC decoder;
 
