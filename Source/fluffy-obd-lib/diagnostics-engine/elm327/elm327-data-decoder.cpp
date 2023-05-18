@@ -220,7 +220,7 @@ std::bitset<32> Elm327DataDecoder::GetAuxiliaryInputStatus(const std::string &da
 
 float Elm327DataDecoder::GetRunTime(const std::string &data)
 {
-    DecodeSimpleAB decoder;
+    DecodeCountAB decoder;
     return decoder.decode(data);
 }
 
@@ -233,7 +233,7 @@ std::bitset<32> Elm327DataDecoder::GetSupportedPIDs2(const std::string &data)
 
 float Elm327DataDecoder::GetDistanceWithMilOn(const std::string &data)
 {
-    DecodeSimpleAB decoder;
+    DecodeCountAB decoder;
     return decoder.decode(data);
 }
 
@@ -345,7 +345,7 @@ float Elm327DataDecoder::GetWarmupsSinceDtcCleared(const std::string &data)
 
 float Elm327DataDecoder::GetDistanceSinceDtcCleared(const std::string &data)
 {
-    DecodeSimpleAB decoder;
+    DecodeCountAB decoder;
     return decoder.decode(data);
 }
 

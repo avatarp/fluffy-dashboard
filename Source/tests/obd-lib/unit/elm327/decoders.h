@@ -5,13 +5,13 @@
 
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/Decode.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeRPM.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeSimpleA.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeCountA.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeCountAB.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeTemperature.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodePercentage.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeAirFlow.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeTimingAdvance.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeFuelPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeSimpleAB.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeFuelRailPressure.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeOxygenSensorVoltage.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeOxygenSensorCurrent.hpp"
@@ -84,9 +84,9 @@ TEST(decodeFuelPressure, decoders)
     EXPECT_NEAR(765, decoder.decode("FF"), 0.0001);
 }
 
-TEST(DecodeSimpleAB, decoders)
+TEST(DecodeCountAB, decoders)
 {
-    DecodeSimpleAB decoder;
+    DecodeCountAB decoder;
 
     EXPECT_EQ(0, decoder.decode("00 00"));
     EXPECT_NEAR(4096, decoder.decode("10 00"), 0.0001);

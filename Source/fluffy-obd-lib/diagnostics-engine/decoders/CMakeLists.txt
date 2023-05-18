@@ -18,8 +18,8 @@ add_library(${PROJECT_NAME} SHARED
  DecodeOxygenSensorVoltage.hpp
  DecodePercentage.hpp
  DecodeRPM.hpp
- DecodeSimpleA.hpp
- DecodeSimpleAB.hpp
+ DecodeCountA.hpp
+ DecodeCountAB.hpp
  DecodeTemperature.hpp
  DecodeTimingAdvance.hpp
 )
