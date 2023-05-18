@@ -1,4 +1,4 @@
-#include "test-handler.h"
+#include "test-handler.hpp"
 
 TestHandler::TestHandler()
 {
