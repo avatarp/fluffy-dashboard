@@ -54,8 +54,8 @@ bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo &device)
     //  else
     //  return true;
     //}
-    //TODO EXEC rfcomm bind with sudo promts like pkexec, gksu
-    //
+    //TODO 
+    //EXEC rfcomm bind in a new process with pkexec/gksu/etc
     //return result;
     return true;
 }
