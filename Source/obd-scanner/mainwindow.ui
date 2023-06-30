@@ -1,0 +1,1586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1024</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Fluffy Dashboard - Mateusz Siedlecki</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#centralwidget {background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:0.042, y2:1, stop:0 rgba(16, 16, 16, 255), stop:1 rgba(102, 102, 102, 255))}
+QLabel {color: white}
+QCheckBox {color:white;}
+QCheckBox::indicator {width: 32px; height:32px}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QGridLayout" name="gridLayout" rowstretch="1,9" columnstretch="9,1">
+    <item row="0" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="TopBarLayout" stretch="0,0,0,1,0,0,0,0">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <property name="topMargin">
+       <number>12</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>12</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="ConnectionLabel">
+        <property name="text">
+         <string>Connection:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="statusRadio">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border : 0;
+background: transparent;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="res/icons.qrc">
+          <normaloff>:/Resources/car-offline.png</normaloff>
+          <selectedoff>:/Resources/car-online.png</selectedoff>:/Resources/car-offline.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>48</width>
+          <height>48</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="findDevicesButton">
+        <property name="text">
+         <string>Find devices</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../Resources/search.png</normaloff>../../Resources/search.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="devicesComboBox"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="connectButton">
+        <property name="text">
+         <string>Connect</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="TopBarLine">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="diagramsButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Diagrams</string>
+        </property>
+        <property name="icon">
+         <iconset resource="res/icons.qrc">
+          <normaloff>:/Resources/chart.png</normaloff>:/Resources/chart.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="settingsButton">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../Resources/settings.png</normaloff>../../Resources/settings.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="contentLayout" stretch="0">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMaximumSize</enum>
+      </property>
+      <item>
+       <widget class="QStackedWidget" name="stackedWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="MainMenuPage">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="LiveDataButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Live Data</string>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="FreezeFrameButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Freeze Frame Data</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="DtcButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>DTC's</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="TestResultButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Test Results</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="VehicleInfoButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Vehicle Informations</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="CarDataPage">
+         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,9">
+          <item>
+           <layout class="QHBoxLayout" name="topCarDataLayout">
+            <item>
+             <widget class="QPushButton" name="carDataBackButton">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res/icons.qrc">
+                <normaloff>:/Resources/back.png</normaloff>:/Resources/back.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>48</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="carDataSpacerLeft">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="carDataLabel">
+              <property name="text">
+               <string>Live Car Data</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="carDataSpacerRight">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="bottomCarDataLayout" stretch="1,2">
+            <item>
+             <layout class="QVBoxLayout" name="leftCarDataLayout">
+              <item>
+               <widget class="QLabel" name="carDataLoadingLabel">
+                <property name="text">
+                 <string>Reading avalable parameters...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QProgressBar" name="carDataProgressBar">
+                <property name="value">
+                 <number>24</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="carDataParametersLabel">
+                <property name="text">
+                 <string>Parameters available:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListView" name="carDataListView"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QChartView" name="carDataChart"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="FreezeFramePage">
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QPushButton" name="freezeFrameBackButton">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res/icons.qrc">
+                <normaloff>:/Resources/back.png</normaloff>:/Resources/back.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>48</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="freezeFrameSpacerLeft">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="freezeFrameLabel">
+              <property name="text">
+               <string>Freeze Frame Data</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="freezeFrameSpacerRight">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="bottomFreezeFrameLayout">
+            <item>
+             <layout class="QVBoxLayout" name="leftFreezeFrameLayout">
+              <item>
+               <widget class="QLabel" name="freezeFrameLoadingLabel">
+                <property name="text">
+                 <string>Loading freeze frame data...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QProgressBar" name="freezeFrameProgressBar">
+                <property name="value">
+                 <number>24</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="freezeFrameDataLabel">
+                <property name="text">
+                 <string>Freeze frame Data</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListView" name="freezeFrameListView"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTextBrowser" name="freezeFrameTextBrowser">
+              <property name="html">
+               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;what-is-freeze-frame&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;W&lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;hat is Freeze Frame?&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;In simple terms, a freeze frame is a snapshot of data. It’s a &lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;snapshot of sensor or component readings&lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt; (parameter values) captured at the moment when the electronic control unit detected a malfunction. In addition, the freeze frame contains the &lt;/span&gt;&lt;a href=&quot;https://www.obdautodoctor.com/tutorials/diagnostic-trouble-codes-explained/&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Diagnostic Trouble Code&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt; (DTC) that the computer system identified as the &lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;reason for the malfunction&lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="DtcPage">
+         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,1">
+          <item>
+           <layout class="QHBoxLayout" name="topDtcLayout">
+            <item>
+             <widget class="QPushButton" name="dtcBackButton">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res/icons.qrc">
+                <normaloff>:/Resources/back.png</normaloff>:/Resources/back.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>48</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="dtcSpacerLeft">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="dtcLabel">
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Diagnostic Trouble Codes</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="dtcSpacerRight">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="bottomDtcLayout" stretch="1,0,2">
+            <item>
+             <layout class="QVBoxLayout" name="leftDtcLayout" stretch="1,8,1">
+              <property name="spacing">
+               <number>12</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="dtcScanButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Scan DTC</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="dtcList">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
+                <property name="lineWidth">
+                 <number>1</number>
+                </property>
+                <property name="midLineWidth">
+                 <number>0</number>
+                </property>
+                <property name="flow">
+                 <enum>QListView::TopToBottom</enum>
+                </property>
+                <property name="currentRow">
+                 <number>0</number>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>P0100</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>C0300</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="dtcClearButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Clear DTC</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="dtcSpacerMiddle">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QTextBrowser" name="dtcTextBrowser">
+              <property name="html">
+               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Mass Airflow (MAF) Circuit Problem &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;The Code P0100 code is often associated with a P0101, P0102, P0103 and P0104 codes. &lt;/span&gt;&lt;/p&gt;
+&lt;h2 style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;what-the-p0100-code-means&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;W&lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;hat the P0100 code means &lt;/span&gt;&lt;/h2&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;P0100 is the general code for a problem with the Mass Airflow (MAF) Sensor or Circuitry. &lt;/span&gt;&lt;/p&gt;
+&lt;h2 style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;what-causes-the-p0100-code?&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;W&lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;hat causes the P0100 code? &lt;/span&gt;&lt;/h2&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;The MAF Sensor problems may have several causes: &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The most common source of the problem is usually related to the electrical plug being either disconnected or the wiring is damaged at the plug.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The next most frequent problem is the sensor on the MAF is defective or damaged.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;On many MAF sensors, the sensor is built into the MAF unit. &lt;/li&gt;&lt;/ul&gt;
+&lt;h2 style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;what-are-the-symptoms-of-the-p0100-code?&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;W&lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;hat are the symptoms of the P0100 code? &lt;/span&gt;&lt;/h2&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;P0100 code will be generally preceded by the Check Engine Light coming on the dashboard display. Generally, the vehicle runs well enough to give you time to contact a certified technician to help you to diagnose the problem.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The engine runs close to normal but it may run slightly erratically, have less power and idle inconsistently. &lt;/li&gt;&lt;/ul&gt;
+&lt;h2 style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;how-does-a-mechanic-diagnose-the-p0100-code?&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;H&lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;ow does a mechanic diagnose the P0100 code? &lt;/span&gt;&lt;/h2&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;P0100 is diagnosed with an OBD- II scanner. A certified technician should then reset the OBD- II fault codes and road test the vehicle to see if the code comes back. He can observe this by watching it live on his scanner while driving. If the code comes back, then the technician will need to do a visual inspection to determine any electrical connector, wiring, or sensor issues. &lt;/li&gt;&lt;/ul&gt;
+&lt;h2 style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;common-mistakes-when-diagnosing-the-p0100-code&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;C&lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;ommon mistakes when diagnosing the P0100 code &lt;/span&gt;&lt;/h2&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Diagnostic errors are largely due to not following the procedure. First, follow the test procedure in the diagnosis for the connector, wiring and sensor. Do not buy a MAF sensor unless the other tests indicate no problem. &lt;/li&gt;
+&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Before buying a MAF sensor, try cleaning it with a specialized spray cleaner made for MAF sensors as these often get considerable carbon build up from the emission system, especially at idle. &lt;/li&gt;&lt;/ul&gt;
+&lt;h2 style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;how-serious-is-the-p0100-code?&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;H&lt;/span&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;ow serious is the P0100 code? &lt;/span&gt;&lt;/h2&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The P0100 code will not prevent the car from driving. The MAF sensor issue can cause excessive fuel consumption in certain circumstances, so it is best to have the technician inspect it at your first opportunity.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Often times, if the Check Engine Light came on immediately at start up, the OBD- II system can be reset and the vehicle will operate normally. &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="TestResultsPage">
+         <layout class="QGridLayout" name="gridLayout_6" rowstretch="0,0,0,1,1">
+          <item row="4" column="0">
+           <widget class="QFrame" name="testResultsBank3Frame">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="1" column="3">
+              <widget class="QLCDNumber" name="Bank3Sensor2Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="Bank3Sensor1Label">
+               <property name="text">
+                <string>Sensor 1 </string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <widget class="QLabel" name="Bank3Sensor2Label">
+               <property name="text">
+                <string>Sensor 2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="5">
+              <widget class="QLCDNumber" name="Bank3Sensor4Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLCDNumber" name="Bank3Sensor1Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="5">
+              <widget class="QLabel" name="Bank3Sensor4Label">
+               <property name="text">
+                <string>Sensor 4</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="4">
+              <widget class="QLCDNumber" name="Bank3Sensor3Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="4">
+              <widget class="QLabel" name="Bank3Sensor3Label">
+               <property name="text">
+                <string>Sensor 3</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" colspan="4">
+              <widget class="QLabel" name="testResultsBank3Label">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>O2 Sensor Monitor Bank 3</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <layout class="QHBoxLayout" name="topTestResultsLayout">
+            <item>
+             <widget class="QPushButton" name="testResultsBackButton">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res/icons.qrc">
+                <normaloff>:/Resources/back.png</normaloff>:/Resources/back.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>48</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="testResultsSpacerLeft">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="testResultsTitleLayout" stretch="1,0">
+              <property name="topMargin">
+               <number>8</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="testResultsLabel">
+                <property name="font">
+                 <font>
+                  <pointsize>16</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Oxygen Sensors Test Resultz</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="testResultsBottomLabel">
+                <property name="text">
+                 <string>(Non CAN only)</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="testResultsSpacerRight">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item row="3" column="0">
+           <widget class="QFrame" name="testResultsBank1Frame">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="2" column="3">
+              <widget class="QLCDNumber" name="Bank1Sensor2Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="4">
+              <widget class="QLabel" name="Bank1Sensor3Label">
+               <property name="text">
+                <string>Sensor 3</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QLabel" name="Bank1Sensor1Label">
+               <property name="text">
+                <string>Sensor 1 </string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="4">
+              <widget class="QLCDNumber" name="Bank1Sensor3Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="3">
+              <widget class="QLabel" name="Bank1Sensor2Label">
+               <property name="text">
+                <string>Sensor 2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2" colspan="4">
+              <widget class="QLabel" name="testResultsBank1Label">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>O2 Sensor Monitor Bank 1</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="5">
+              <widget class="QLCDNumber" name="Bank1Sensor4Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLCDNumber" name="Bank1Sensor1Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="5">
+              <widget class="QLabel" name="Bank1Sensor4Label">
+               <property name="text">
+                <string>Sensor 4</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QFrame" name="testResultsBank2Frame">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="1" column="3">
+              <widget class="QLCDNumber" name="Bank2Sensor2Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="Bank2Sensor1Label">
+               <property name="text">
+                <string>Sensor 1 </string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <widget class="QLabel" name="Bank2Sensor2Label">
+               <property name="text">
+                <string>Sensor 2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="5">
+              <widget class="QLCDNumber" name="Bank2Sensor4Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLCDNumber" name="Bank2Sensor1Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="5">
+              <widget class="QLabel" name="Bank2Sensor4Label">
+               <property name="text">
+                <string>Sensor 4</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="4">
+              <widget class="QLCDNumber" name="Bank2Sensor3Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="4">
+              <widget class="QLabel" name="Bank2Sensor3Label">
+               <property name="text">
+                <string>Sensor 3</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" colspan="4">
+              <widget class="QLabel" name="testResultsBank2Label">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>O2 Sensor Monitor Bank 2</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QFrame" name="testResultsBank4Frame">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_5">
+             <item row="1" column="3">
+              <widget class="QLCDNumber" name="Bank4Sensor2Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="Bank4Sensor1Label">
+               <property name="text">
+                <string>Sensor 1 </string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <widget class="QLabel" name="Bank4Sensor2Label">
+               <property name="text">
+                <string>Sensor 2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="5">
+              <widget class="QLCDNumber" name="Bank4Sensor4Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLCDNumber" name="Bank4Sensor1Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="5">
+              <widget class="QLabel" name="Bank4Sensor4Label">
+               <property name="text">
+                <string>Sensor 4</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="4">
+              <widget class="QLCDNumber" name="Bank4Sensor3Lcd">
+               <property name="smallDecimalPoint">
+                <bool>true</bool>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="4">
+              <widget class="QLabel" name="Bank4Sensor3Label">
+               <property name="text">
+                <string>Sensor 3</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" colspan="4">
+              <widget class="QLabel" name="testResultsBank4Label">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>O2 Sensor Monitor Bank 4</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QProgressBar" name="testResultsProgressBar">
+            <property name="value">
+             <number>24</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="testResultsLoadingLabel">
+            <property name="text">
+             <string>Reading test results...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="VehicleInfoPage">
+         <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,9">
+          <item>
+           <layout class="QHBoxLayout" name="vInfoTopLayout">
+            <item>
+             <widget class="QPushButton" name="vInfoBackButton">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="res/icons.qrc">
+                <normaloff>:/Resources/back.png</normaloff>:/Resources/back.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>48</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="vInfoSpacerLeft">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="vInfoLabel">
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Vehicle Information</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="vInfoSpacerRight">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="bottomvInfoLayout">
+            <item>
+             <layout class="QVBoxLayout" name="vInfoLeftLayout">
+              <item>
+               <widget class="QLabel" name="vInoVinLabel">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Vehicle Identification Number (VIN) </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="vInfoVinField">
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>WF0UXXGAJU2G80549</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="vInfoCalIdLabel">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Calibration ID </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="vInfoCalIdField">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="vInfoCvnLabel">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Calibration Verification Numbers (CVN) </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="vInfoCvnField">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="vInfoEcuNameLabel">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>ECU name </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="vInfoEcuNameField">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="vInfoPerfTrackingLabel">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>In use Performance Tracking</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="vInfoPerfTrackingField">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="rightvInfoLayout">
+              <item>
+               <widget class="QLabel" name="vInfoVinInfoLabel">
+                <property name="text">
+                 <string>Decoded VIN informations</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTextBrowser" name="vInfoVinInfoTextBrowser">
+                <property name="html">
+                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot; margin-top:1px; margin-bottom:1px; margin-left:1px; margin-right:1px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;VIN:&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;WF0UXXGAJU2G80549&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Manufacturer:&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Ford Werke AG Germany&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Brand:&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Ford&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Model:&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Fusion&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Year:&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;2014&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Serial:&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;80549&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Brand&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;FORD&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Name&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Fiesta 01-08/Fusion CBK 2001-2012&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Region&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Europe&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Modelyearfrom&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;2001&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Modelyearto&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;2012&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Catnote&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;5-doors UAV&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Manufactured&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;2003&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Date&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;19/12/2002&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Drive&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;LHD FWD&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Version&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Series 35&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;ExteriorPaint&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Moondust Silver (met)&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Body_style&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;5-doors UAV&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;InteriorFabric&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Cord/Bronte / Medium Flint&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;AirConditioning&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Manual AirCond control&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Engine&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;1.4L Duratec 16V EFI DOHC (75/80PS)&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Territory&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;(+)&amp;quot;D&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;VehicleLine&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Fiesta/Fusion 2002&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Emission&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;Eco class exhaustа IV &lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;Transmission&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;5-speed manual- B5/IB5&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:600;&quot;&gt;AxleRatio&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:9pt;&quot;&gt;4.25&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <widget class="QTextBrowser" name="logsTextBrowser">
+      <property name="minimumSize">
+       <size>
+        <width>160</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>QtCharts</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="res/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
