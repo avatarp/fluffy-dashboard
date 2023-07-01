@@ -1,0 +1,18 @@
+---
+Checks: "bugprone-*, cert-*, clang-analyzer-*, concurrency-*, cppcoreguidelines-*, hicpp-*, llvm-*, misc-*, modernize-*,-modernize-use-trailing-return-type, mpi*, performance-*, readability-*"
+
+WarningsAsErrors: ""
+HeaderFilterRegex: ""
+CheckOptions:
+  - key: readability-identifier-naming.LocalConstantCase
+    value: "camelBack"
+  - key: readability-identifier-naming.ConstantParameterCase
+    value: "camelBack"
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: "UPPER_CASE"
+  - key: readability-identifier-naming.VariableCase
+    value: "camelBack"
+  - key: readability-identifier-naming.ProtectedMemberSuffix
+    value: "_"
+  - key: readability-identifier-naming.PrivateMemberSuffix
+    value: "m_"

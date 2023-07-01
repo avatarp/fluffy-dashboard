@@ -3,7 +3,7 @@
 #include "elm327/parser.h"
 #include "usb-obd-access.h"
 #include "bluetooth-obd-access.h"
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 int main(int argc, char *argv[])
 {
