@@ -7,7 +7,7 @@ std::bitset<32> Elm327DataDecoder::GetSupportedPIDs1(const std::string &data)
 }
 
 
-std::bitset<32> Elm327DataDecoder::GetMonitorStatus(const std::string &data)
+bitset_4B Elm327DataDecoder::GetMonitorStatus(const std::string &data)
 {
     DecodeBitEncoded decoder;
     return decoder.decode(data);
@@ -19,7 +19,7 @@ std::string Elm327DataDecoder::GetFreezeDTCs(const std::string &data)
     return decoder.decode(data);
 }
 
-std::bitset<32> Elm327DataDecoder::GetFuelSystemStatus(const std::string &data)
+bitset_4B Elm327DataDecoder::GetFuelSystemStatus(const std::string &data)
 {
     DecodeBitEncoded decoder;
     return decoder.decode(data);
@@ -109,13 +109,13 @@ float Elm327DataDecoder::GetThrottlePosition(const std::string &data)
     return decoder.decode(data);
 }
 
-std::bitset<32> Elm327DataDecoder::GetSecondaryAirStatus(const std::string &data)
+bitset_4B Elm327DataDecoder::GetSecondaryAirStatus(const std::string &data)
 {
     DecodeBitEncoded decoder;
     return decoder.decode(data);
 }
 
-std::bitset<32> Elm327DataDecoder::GetOxygenSensorsPresent1(const std::string &data)
+bitset_4B Elm327DataDecoder::GetOxygenSensorsPresent1(const std::string &data)
 {
     DecodeBitEncoded decoder;
     return decoder.decode(data);
@@ -193,20 +193,20 @@ Elm327DataDecoder::GetOxygenSensorFtV8(const std::string &data)
                           fuelTrimDecoder.decode(data.substr(2,3)));
 }
 
-std::bitset<32> Elm327DataDecoder::GetObdStandard(const std::string &data)
+bitset_4B Elm327DataDecoder::GetObdStandard(const std::string &data)
 {
     DecodeBitEncoded decoder;
     return decoder.decode(data);
 }
 
 
-std::bitset<32> Elm327DataDecoder::GetOxygenSensorsPresent2(const std::string &data)
+bitset_4B Elm327DataDecoder::GetOxygenSensorsPresent2(const std::string &data)
 {
     DecodeBitEncoded decoder;
     return decoder.decode(data);
 }
 
-std::bitset<32> Elm327DataDecoder::GetAuxiliaryInputStatus(const std::string &data)
+bitset_4B Elm327DataDecoder::GetAuxiliaryInputStatus(const std::string &data)
 {
     DecodeBitEncoded decoder;
     return decoder.decode(data);
@@ -218,7 +218,7 @@ float Elm327DataDecoder::GetRunTime(const std::string &data)
     return decoder.decode(data);
 }
 
-std::bitset<32> Elm327DataDecoder::GetSupportedPIDs2(const std::string &data)
+bitset_4B Elm327DataDecoder::GetSupportedPIDs2(const std::string &data)
 {
     DecodeBitEncoded decoder;
     return decoder.decode(data);
@@ -451,7 +451,7 @@ float Elm327DataDecoder::GetCatalystTemperatureB2S2(const std::string &data)
     return decoder.decode(data);
 }
 
-std::bitset<32> Elm327DataDecoder::GetSupportedVIPIDs(const std::string &data)
+bitset_4B Elm327DataDecoder::GetSupportedVIPIDs(const std::string &data)
 {
     DecodeBitEncoded decoder;
     return decoder.decode(data);
