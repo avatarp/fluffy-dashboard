@@ -3,37 +3,39 @@
 bool ParametersEngine::SendCommand(const std::string &command)
 {
     std::clog << "Sending command: " << command << '\n';
-    int bytesWritten = write(m_ConnectionHandle , command.c_str(), command.length());
+    ssize_t bytesWritten = write(m_ConnectionHandle , command.c_str(), command.length());
 
-    if(!command.ends_with('\r'))
+    if (!command.ends_with('\r')){
         write(m_ConnectionHandle, "\r", 1);
+    }
 
-    if(bytesWritten == -1)
+    if (bytesWritten == -1){
         throw(std::runtime_error(
-                std::string("Exception on sending command ")
-                + command + " : " + strerror(errno)));
-    else
-        return true;
+            std::string("Exception on sending command ") + command + " : " + strerror(errno)));
+    }
+    return true;
 }
 
 std::string ParametersEngine::ReadResponse()
 {
     usleep(m_readSleepTime);
-    char readBuffer[BUFFER_SIZE];
-    memset(&readBuffer, '\0', sizeof(readBuffer));
-    int dataReadCount = read(m_ConnectionHandle, &readBuffer, BUFFER_SIZE);
+    std::array<char, BUFFER_SIZE> readBuffer{'\0'};
 
-    if(dataReadCount < 0)
+    ssize_t dataReadCount = read(m_ConnectionHandle, &readBuffer, BUFFER_SIZE);
+
+    if (dataReadCount < 0){
         throw(std::runtime_error(
-                std::string("Exception on reading response : ") + strerror(errno)));
+            std::string("Exception on reading response : ") + strerror(errno)));
+    }
+    std::string response{std::begin(readBuffer), std::end(readBuffer)};
 
-    std::clog << "Recived response: " << readBuffer << '\n';
-    return std::string(readBuffer);
+    std::clog << "Recived response: " << response << '\n';
+    return response;
 }
 
 void ParametersEngine::SetSerialDevice(Obd::Device device)
 {
-    m_SerialDevice = device;
+    m_SerialDevice = std::move(device);
 }
 
 Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
