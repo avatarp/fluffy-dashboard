@@ -8,7 +8,7 @@ class Elm327Engine : public ParametersEngine
 {
 public:
     Elm327Engine();
-    virtual ~Elm327Engine();
+    virtual ~Elm327Engine() = default;
     virtual void SetupTermios();
     virtual void SetupTermios(termios interface);
     virtual bool OpenConnection();
