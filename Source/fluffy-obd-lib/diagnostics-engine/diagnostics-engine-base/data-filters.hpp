@@ -9,6 +9,6 @@ public:
     virtual ~DataParser(){}
     virtual RawResponse ParseResponse(
             std::string data,
-            const std::string &commandPid,
-            const size_t &dataBytesCount) = 0;
+            const size_t &dataBytesCount,
+            const std::string &commandPid) = 0;
 };

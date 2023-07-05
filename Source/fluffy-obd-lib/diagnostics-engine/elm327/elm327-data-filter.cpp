@@ -1,8 +1,8 @@
 #include "elm327-data-filter.hpp"
 
 RawResponse Elm327DataParser::ParseResponse(std::string data,
-                                           const std::string &commandPid,
-                                           const size_t &dataBytesCount)
+                                           const size_t &dataBytesCount,
+                                           const std::string &commandPid)
 {
     data.erase(remove_if(data.begin(), data.end(), isspace), data.end());
 
