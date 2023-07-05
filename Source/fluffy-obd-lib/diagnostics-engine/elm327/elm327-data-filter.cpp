@@ -11,21 +11,20 @@ RawResponse Elm327DataParser::ParseResponse(std::string data,
                                 + commandPid.substr(1, 3)
                                 + ")([0-9A-F]+)"};
 
-    if(std::regex_search(data, match, dataBytesPattern))
+    if (std::regex_search(data, match, dataBytesPattern))
     {
-    if(match[4].length() != dataBytesCount * 2)
-        throw(std::runtime_error{"Response to: "
-                                 + commandPid.substr(0,commandPid.size()-1)
-                                 + ", not found!\n"});
+        if (match[4].length() != dataBytesCount * 2)
+        {
+            throw(std::runtime_error{"Response to: " + commandPid.substr(0, commandPid.size() - 1) + ", not found!\n"});
+        }
 
-    RawResponse parsedResponse;
-    parsedResponse.m_commandId = match[3];
-    parsedResponse.m_data = match[4];
-    parsedResponse.m_ecuId = match[1];
-    parsedResponse.m_lenght = std::stoi(match[2]);
+        RawResponse parsedResponse;
+        parsedResponse.m_commandId = match[3];
+        parsedResponse.m_data = match[4];
+        parsedResponse.m_ecuId = match[1];
+        parsedResponse.m_lenght = std::stoi(match[2]);
 
-    return parsedResponse;
-
+        return parsedResponse;
     }
     throw(std::runtime_error{"Response to: "
                              + commandPid.substr(0,commandPid.size()-1)
