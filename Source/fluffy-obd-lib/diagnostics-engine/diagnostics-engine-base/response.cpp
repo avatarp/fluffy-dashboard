@@ -1,9 +1,5 @@
 #include "response.hpp"
 
-Response::Response(){
-    m_dataType = DataType::empty;
-}
-
 Response::Response(const RawResponse &rawResponse, const std::bitset<32> &bitset)
 {
     this->m_rawResponse = rawResponse;

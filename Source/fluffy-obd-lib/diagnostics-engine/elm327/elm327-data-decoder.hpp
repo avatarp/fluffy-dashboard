@@ -17,7 +17,7 @@
 class Elm327DataDecoder : public DataDecodingHandler
 {
 public:
-    Elm327DataDecoder();
+    Elm327DataDecoder() = default;
 
     //00 PIDs supported [01 - 20]
     virtual std::bitset<32>

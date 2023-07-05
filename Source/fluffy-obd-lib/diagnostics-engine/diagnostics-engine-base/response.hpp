@@ -33,7 +33,7 @@ struct Response
     std::pair<float, std::string> m_floatData2;
     std::pair<std::string, std::string> m_stringData;
 
-    Response();
+    Response() = default;
     Response(const RawResponse &rawResponse,
              const std::bitset<32> &bitset);
     Response(const RawResponse &rawResponse,

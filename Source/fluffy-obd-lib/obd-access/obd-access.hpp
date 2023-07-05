@@ -33,7 +33,7 @@ protected:
     virtual std::string Read() = 0;
 
 public:
-    ObdAccess();
+    ObdAccess() = default;
     virtual ~ObdAccess();
     virtual void SetDevice(Device device) = 0;
     virtual bool Connect() = 0;

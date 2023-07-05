@@ -73,8 +73,6 @@ void BluetoothObdAccess::SetupDefaultTermios()
 
 }
 
-BluetoothObdAccess::~BluetoothObdAccess(){}
-
 void BluetoothObdAccess::SetDevice(Device device)
 {
     if(device.GetConnectionType() != ConnectionType::Bluetooth)

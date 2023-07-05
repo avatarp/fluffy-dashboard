@@ -13,7 +13,7 @@ class BluetoothProvider
     QBluetoothLocalDevice localDevice;
 public:
     BluetoothProvider();
-    ~BluetoothProvider();
+    ~BluetoothProvider() = default;
     BluetoothProvider(const BluetoothProvider& other) = delete;
     BluetoothProvider(BluetoothProvider&& other) = default;
     BluetoothProvider& operator=(const BluetoothProvider& other) = delete;

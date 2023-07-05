@@ -82,8 +82,6 @@ void UsbObdAccess::SetupDefaultTermios()
 
 }
 
-UsbObdAccess::~UsbObdAccess(){}
-
 void UsbObdAccess::SetDevice(Device device)
 {
     if(device.GetConnectionType() != ConnectionType::Usb)

@@ -11,7 +11,7 @@ private:
     void SetupDefaultTermios();
 public:
     BluetoothObdAccess() = default;
-    ~BluetoothObdAccess();
+    ~BluetoothObdAccess() = default;
     virtual void SetDevice(Device device) override final;
     virtual bool Connect() override;
 };
