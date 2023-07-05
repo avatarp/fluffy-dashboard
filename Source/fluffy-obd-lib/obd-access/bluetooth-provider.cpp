@@ -4,23 +4,17 @@ namespace Obd {
 
 BluetoothProvider::BluetoothProvider()
 {
-    this->discoveryAgent = new QBluetoothDeviceDiscoveryAgent();
-}
-
-BluetoothProvider::~BluetoothProvider()
-{
-    delete this->discoveryAgent;
+    this->discoveryAgent = std::make_shared<QBluetoothDeviceDiscoveryAgent>();
 }
 
 bool BluetoothProvider::StartScan()
 {
-    if(localDevice.isValid())
+    if (localDevice.isValid())
     {
         this->discoveryAgent->start();
         return true;
     }
-    else
-        return false;
+    return false;
 }
 
 void BluetoothProvider::StopScan()
@@ -30,9 +24,9 @@ void BluetoothProvider::StopScan()
 
 std::vector<QBluetoothDeviceInfo> BluetoothProvider::GetAvailableDevicesInfo()
 {
-    return std::vector<QBluetoothDeviceInfo>(
-                discoveryAgent->discoveredDevices().toVector().toStdVector()
-                );
+    // NOLINTNEXTLINE
+    auto devices{discoveryAgent->discoveredDevices()};
+    return std::vector<QBluetoothDeviceInfo>{devices.begin(), devices.end()};
 }
 
 bool BluetoothProvider::IsBluetoothAvailable()
@@ -40,11 +34,12 @@ bool BluetoothProvider::IsBluetoothAvailable()
     return localDevice.isValid();
 }
 
-bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo &device)
+bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo &device) // NOLINT
 {
     if(device.address().isNull())
-        return false;
-
+    {
+        return false; // NOLINT
+    }
     //Check for root privilages
     //Check rfcomm device file
     //if (devicefile exists)
@@ -62,11 +57,12 @@ bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo &device)
 
 Obd::Device BluetoothProvider::CreateDevice(const QBluetoothDeviceInfo &device)
 {
-    if(std::filesystem::exists(Obd::DefaultRfcommFile))
+    if (std::filesystem::exists(Obd::DefaultRfcommFile))
+    {
         BindToRfcomm(device);
-
-    return Obd::Device(Obd::DefaultRfcommFile,
+    }
+    return Obd::Device{Obd::DefaultRfcommFile,
                        Obd::ConnectionType::Bluetooth,
-                       device.name().toStdString());
+                       device.name().toStdString()};
 }
-}
+} // namespace Obd
