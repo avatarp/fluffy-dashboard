@@ -10,8 +10,8 @@ public:
     Elm327DataParser() = default;
     virtual RawResponse ParseResponse(
             std::string data,
-            const std::string &commandPid,
-            const size_t &dataBytesCount);
+            const size_t &dataBytesCount,
+            const std::string &commandPid);
 };
 
 #endif // ELM327FILTERS_H

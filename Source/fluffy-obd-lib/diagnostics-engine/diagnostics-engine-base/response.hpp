@@ -24,26 +24,27 @@ struct RawResponse
     std::string m_data;
 };
 
+using bitset_4B = std::bitset<32>;
 struct Response
 {
     RawResponse m_rawResponse;
-    DataType m_dataType;
-    std::bitset<32> m_dataBitset;
+    DataType m_dataType{DataType::empty};
+    bitset_4B m_dataBitset;
     std::pair<float, std::string> m_floatData1;
     std::pair<float, std::string> m_floatData2;
     std::pair<std::string, std::string> m_stringData;
 
-    Response();
-    Response(const RawResponse &rawResponse,
-             const std::bitset<32> &bitset);
-    Response(const RawResponse &rawResponse,
-             const std::string &data, const std::string &type);
-    Response(const RawResponse &rawResponse,
-             float data, const std::string &unit);
-    Response(const RawResponse &rawResponse,
-             float data1, const std::string &unit1,
-             float data2, const std::string &unit2);
-    friend std::ostream& operator<<(std::ostream& os, const Response& resp);
+    Response() = default;
+    Response(RawResponse rawResponse,
+             bitset_4B bitset);
+    Response(RawResponse rawResponse,
+             std::string data, std::string type);
+    Response(RawResponse rawResponse,
+             float data, std::string unit);
+    Response(RawResponse rawResponse,
+             float data1, std::string unit1,
+             float data2, std::string unit2);
+    friend std::ostream &operator<<(std::ostream &ost, const Response &resp);
 };
 
 #endif //OBDRESPONSE_H

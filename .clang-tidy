@@ -1,5 +1,5 @@
 ---
-Checks: "bugprone-*, cert-*, clang-analyzer-*, concurrency-*, cppcoreguidelines-*, hicpp-*, llvm-*, misc-*, modernize-*,-modernize-use-trailing-return-type, mpi*, performance-*, readability-*"
+Checks: "bugprone-*, cert-*, clang-analyzer-*, concurrency-*, cppcoreguidelines-*, -cppcoreguidelines-pro-bounds-array-to-pointer-decay, hicpp-*, -hicpp-signed-bitwise, -hicpp-no-array-decay, llvm-*, misc-*, modernize-*,-modernize-use-trailing-return-type, mpi*, performance-*, readability-*"
 
 WarningsAsErrors: ""
 HeaderFilterRegex: ""

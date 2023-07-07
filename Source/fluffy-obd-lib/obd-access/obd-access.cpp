@@ -8,19 +8,23 @@ std::string ObdAccess::Transaction(const std::string &command)
     return this->Read();
 }
 
-ObdAccess::ObdAccess()
+ObdAccess::~ObdAccess()
 {
-
-}
-
-ObdAccess::~ObdAccess(){
-    CloseConnection();
+    if (this->m_DevicePort > 0)
+    {
+        close(m_DevicePort);
+        std::clog << "Connection with "
+                  << this->GetDevice().GetDeviceFilePath()
+                  << " " << this->m_Device.GetDescription()
+                  << " closed.\n";
+    }
 }
 
 void ObdAccess::CloseConnection()
 {
 
-    if(this->m_DevicePort>0){
+    if (this->m_DevicePort > 0)
+    {
         close(m_DevicePort);
         std::clog << "Connection with "
                   << this->GetDevice().GetDeviceFilePath()
@@ -28,12 +32,13 @@ void ObdAccess::CloseConnection()
                   << " closed.\n";
     }
     else
+    {
         std::clog << "Connection with "
                   << this->GetDevice().GetDeviceFilePath()
                   << " " << this->m_Device.GetDescription()
                   << " was alread closed.\n";
+    }
     m_ConnectionStatus = ConnectionStatus::Disconnected;
-
 }
 
 bool ObdAccess::Reconnect()
@@ -59,4 +64,4 @@ const ConnectionStatus &ObdAccess::GetConnectionStatus() const
 {
     return m_ConnectionStatus;
 }
-}
+} // namespace Obd

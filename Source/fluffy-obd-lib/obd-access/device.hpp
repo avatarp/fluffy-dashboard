@@ -26,8 +26,8 @@ public:
           m_ConnectionType{connectionType},
           m_Description{description}{}
 
-    const std::string GetDescription() const;
-    ConnectionType GetConnectionType() const ;
-    const std::string GetDeviceFilePath() const;
+    std::string GetDescription() const;
+    ConnectionType GetConnectionType() const;
+    std::string GetDeviceFilePath() const;
 };
 }
