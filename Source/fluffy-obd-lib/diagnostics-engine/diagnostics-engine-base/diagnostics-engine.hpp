@@ -18,6 +18,7 @@
 #include "command-repository.hpp"
 #include "data-filters.hpp"
 #include "../../obd-access/device.hpp"
+#include "../../obd-access/logging.hpp"
 #include "response.hpp"
 
 class ParametersEngine

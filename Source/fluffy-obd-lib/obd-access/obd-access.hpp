@@ -8,6 +8,7 @@
 #include <errno.h>
 #include <cstring>
 #include "device.hpp"
+#include "logging.hpp"
 
 namespace Obd {
 

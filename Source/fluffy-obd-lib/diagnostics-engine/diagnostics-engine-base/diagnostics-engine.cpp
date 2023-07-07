@@ -11,7 +11,7 @@ bool ParametersEngine::SendCommand(const std::string &command)
 
     if (bytesWritten == -1){
         throw(std::runtime_error(
-            std::string("Exception on sending command ") + command + " : " + strerror(errno)));
+            std::string("Exception on sending command ") + command + " : " + getStrerror(errno)));
     }
     return true;
 }
@@ -25,7 +25,7 @@ std::string ParametersEngine::ReadResponse()
 
     if (dataReadCount < 0){
         throw(std::runtime_error(
-            std::string("Exception on reading response : ") + strerror(errno)));
+            std::string("Exception on reading response : ") + getStrerror(errno)));
     }
     std::string response{std::begin(readBuffer), std::end(readBuffer)};
 
