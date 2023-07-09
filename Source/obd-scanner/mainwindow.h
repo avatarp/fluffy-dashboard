@@ -1,22 +1,23 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include "ui_mainwindow.h"
 #include "diagnostics-engine/ELM327/elm327-engine.h"
 #include "obd-access/bluetooth-provider.h"
 #include "obd-access/usb-serial-provider.h"
+#include "ui_mainwindow.h"
+#include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 private slots:
     void on_vInfoBackButton_clicked();
@@ -40,12 +41,10 @@ private slots:
     void on_testResultsBackButton_clicked();
 
 private:
-    Ui::MainWindow *ui;
-
+    Ui::MainWindow* ui;
 };
 
-enum pages
-{
+enum pages {
     mainPage = 0,
     liveData = 1,
     freezeFrame = 2,

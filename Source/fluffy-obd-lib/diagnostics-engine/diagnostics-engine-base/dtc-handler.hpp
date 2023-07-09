@@ -3,12 +3,11 @@
 #include <vector>
 
 // TODO DTC Handler
-class DtcHandler
-{
+class DtcHandler {
 private:
-    virtual std::vector<std::string> SanitizeData(std::string &data)=0;
+    virtual std::vector<std::string> SanitizeData(std::string& data) = 0;
+
 public:
     DtcHandler() = default;
-    virtual std::vector<std::string> GetDTCs(const std::string &data)=0;
+    virtual std::vector<std::string> GetDTCs(const std::string& data) = 0;
 };
-

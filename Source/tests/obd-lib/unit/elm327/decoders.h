@@ -1,23 +1,23 @@
 #pragma once
+#include <bitset>
 #include <gtest/gtest.h>
 #include <optional>
-#include <bitset>
 
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/Decode.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeRPM.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeAirFlow.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeCountA.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeCountAB.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeTemperature.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodePercentage.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeAirFlow.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeTimingAdvance.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeFuelPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeFuelRailPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeOxygenSensorVoltage.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeOxygenSensorCurrent.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeDTC.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeEquivalenceRatio.hpp"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeEvapPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeDTC.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeFuelPressure.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeFuelRailPressure.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeOxygenSensorCurrent.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeOxygenSensorVoltage.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodePercentage.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeRPM.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeTemperature.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeTimingAdvance.hpp"
 
 using namespace testing;
 
@@ -53,7 +53,7 @@ TEST(decoders, decodePercentage)
     DecodePercentage decoder;
 
     EXPECT_EQ(0, decoder.decode("00"));
-    EXPECT_NEAR(16.0784, decoder.decode("29"),0.0001);
+    EXPECT_NEAR(16.0784, decoder.decode("29"), 0.0001);
     EXPECT_EQ(100, decoder.decode("FF"));
 }
 
@@ -171,7 +171,7 @@ TEST(decoders, decodeEvapPressure)
 
     ASSERT_NEAR(0, decoder.decode("00 00"), 0.0001);
     ASSERT_NEAR(-8192.0, decoder.decode("80 00"), 0.0001);
-    ASSERT_NEAR(8191.75, decoder.decode("7F FF"),  0.0001);
+    ASSERT_NEAR(8191.75, decoder.decode("7F FF"), 0.0001);
 }
 
 TEST(decoders, decodeBitEncoded)
@@ -179,25 +179,24 @@ TEST(decoders, decodeBitEncoded)
     DecodeBitEncoded decoder;
 
     EXPECT_EQ(decoder.decode("00000000"),
-              std::bitset<32>(0b00000000000000000000000000000000));
+        std::bitset<32>(0b00000000000000000000000000000000));
 
     EXPECT_EQ(decoder.decode("BE1FA813"),
-              std::bitset<32>(0b10111110000111111010100000010011));
+        std::bitset<32>(0b10111110000111111010100000010011));
 
     EXPECT_EQ(decoder.decode("FFFFFFFF"),
-              std::bitset<32>(0b11111111111111111111111111111111));
+        std::bitset<32>(0b11111111111111111111111111111111));
 }
 
 TEST(decoders, decodeString)
 {
     DecodeString decoder;
 
-    EXPECT_EQ(decoder.decode(std::string()),"");
+    EXPECT_EQ(decoder.decode(std::string()), "");
 
     std::string vin = "57463055585847414A5532473830353439";
     EXPECT_EQ(decoder.decode(vin), "WF0UXXGAJU2G80549");
 }
-
 
 TEST(decoders, decodeDTC)
 {
@@ -205,7 +204,8 @@ TEST(decoders, decodeDTC)
 
     EXPECT_THROW({
         decoder.decode(std::string());
-    }, std::runtime_error);
+    },
+        std::runtime_error);
 
     EXPECT_EQ("P0300", decoder.decode("4300"));
     EXPECT_EQ("P0700", decoder.decode("4700"));

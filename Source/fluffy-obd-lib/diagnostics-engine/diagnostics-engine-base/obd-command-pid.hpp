@@ -1,5 +1,6 @@
 #pragma once
 
+// clang-format off
 enum class ObdCommandPid
 {
     //Service 01 Show current data
@@ -52,3 +53,4 @@ enum class ObdCommandPid
     //Service 0A Permanent Diagnostic Trouble Codes
     S0A
 };
+// clang-format on

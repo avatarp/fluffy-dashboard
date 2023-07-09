@@ -1,6 +1,6 @@
 #pragma once
-#include <gtest/gtest.h>
 #include "obd-access-utils.h"
+#include <gtest/gtest.h>
 
 using namespace testing;
 
@@ -23,8 +23,9 @@ TEST(BluetoothAccess, InvalidDevice)
     Obd::BluetoothObdAccess OBD;
 
     EXPECT_THROW({
-                     OBD.SetDevice(CreateUsbDevice());
-                 }, std::logic_error);
+        OBD.SetDevice(CreateUsbDevice());
+    },
+        std::logic_error);
 }
 
 TEST(BluetoothAccess, NoDeviceSet)
@@ -49,11 +50,11 @@ TEST(BluetoothAccess, Reconnect)
     OBD.SetDevice(std::move(CreateBluetoothDevice()));
 
     EXPECT_TRUE(OBD.Connect());
-    EXPECT_EQ(OBD.GetConnectionStatus(),Obd::ConnectionStatus::Connected);
+    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
     OBD.CloseConnection();
     EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 
     EXPECT_TRUE(OBD.Reconnect());
-    EXPECT_EQ(OBD.GetConnectionStatus(),Obd::ConnectionStatus::Connected);
+    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
