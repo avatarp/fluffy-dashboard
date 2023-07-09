@@ -1,11 +1,11 @@
 #ifndef ELM327LIVEDATA_H
 #define ELM327LIVEDATA_H
-#include <gtest/gtest.h>
 #include <future>
+#include <gtest/gtest.h>
 #include <thread>
 
-#include "../obd-access-utils.h"
 #include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-engine.hpp"
+#include "../obd-access-utils.h"
 
 using namespace testing;
 
@@ -36,7 +36,8 @@ TEST(elm327LiveData, dummyUsbNullCharResponse)
 
     EXPECT_THROW({
         Response response = engine.GetCommandResponse(ObdCommandPid::S01P04);
-    }, std::runtime_error);
+    },
+        std::runtime_error);
 }
 
 TEST(elm327LiveData, dummyUsbValidResponse)
@@ -49,8 +50,8 @@ TEST(elm327LiveData, dummyUsbValidResponse)
     engine.OpenConnection();
 
     std::future<Response> futureResponse = std::async(&Elm327Engine::GetCommandResponse,
-                                                      &engine, ObdCommandPid::S01P04);
-    usleep(5 * 1000); //sleep 5 ms
+        &engine, ObdCommandPid::S01P04);
+    usleep(5 * 1000); // sleep 5 ms
     pipe.drainData();
     pipe.feedData("7E8 03 41 04 FF");
     Response response = futureResponse.get();
@@ -64,9 +65,9 @@ TEST(elm327LiveData, dummyUsbValidResponse)
     EXPECT_EQ(3, response.m_rawResponse.m_lenght);
     EXPECT_EQ("FF", response.m_rawResponse.m_data);
 
-    std::clog<<"Decoded: "
-             << response.m_floatData1.first
-             << response.m_floatData1.second << std::endl;
+    std::clog << "Decoded: "
+              << response.m_floatData1.first
+              << response.m_floatData1.second << std::endl;
 }
 
 #endif // ELM327LIVEDATA_H

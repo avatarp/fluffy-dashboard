@@ -2,7 +2,7 @@
 
 namespace Obd {
 
-std::string ObdAccess::Transaction(const std::string &command)
+std::string ObdAccess::Transaction(const std::string& command)
 {
     this->Write(command);
     return this->Read();
@@ -10,8 +10,7 @@ std::string ObdAccess::Transaction(const std::string &command)
 
 ObdAccess::~ObdAccess()
 {
-    if (this->m_DevicePort > 0)
-    {
+    if (this->m_DevicePort > 0) {
         close(m_DevicePort);
         std::clog << "Connection with "
                   << this->GetDevice().GetDeviceFilePath()
@@ -23,16 +22,13 @@ ObdAccess::~ObdAccess()
 void ObdAccess::CloseConnection()
 {
 
-    if (this->m_DevicePort > 0)
-    {
+    if (this->m_DevicePort > 0) {
         close(m_DevicePort);
         std::clog << "Connection with "
                   << this->GetDevice().GetDeviceFilePath()
                   << " " << this->m_Device.GetDescription()
                   << " closed.\n";
-    }
-    else
-    {
+    } else {
         std::clog << "Connection with "
                   << this->GetDevice().GetDeviceFilePath()
                   << " " << this->m_Device.GetDescription()
@@ -43,24 +39,21 @@ void ObdAccess::CloseConnection()
 
 bool ObdAccess::Reconnect()
 {
-    try
-    {
+    try {
         this->CloseConnection();
         this->Connect();
-    }
-    catch(...)
-    {
+    } catch (...) {
         return false;
     }
     return true;
 }
 
-const Device &ObdAccess::GetDevice() const
+const Device& ObdAccess::GetDevice() const
 {
     return m_Device;
 }
 
-const ConnectionStatus &ObdAccess::GetConnectionStatus() const
+const ConnectionStatus& ObdAccess::GetConnectionStatus() const
 {
     return m_ConnectionStatus;
 }

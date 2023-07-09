@@ -1,6 +1,3 @@
 #include "test-handler.hpp"
 
-TestHandler::TestHandler()
-{
-
-}
+TestHandler::TestHandler() { }

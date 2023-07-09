@@ -1,16 +1,16 @@
 #pragma once
-#include <filesystem>
+#include "../obd-access/device.hpp"
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 #include <QtBluetooth/QBluetoothLocalDevice>
-#include "../obd-access/device.hpp"
+#include <filesystem>
 
 namespace Obd {
 
 const std::string DefaultRfcommFile = "/dev/rfcomm0";
-class BluetoothProvider
-{       
+class BluetoothProvider {
     std::shared_ptr<QBluetoothDeviceDiscoveryAgent> discoveryAgent;
     QBluetoothLocalDevice localDevice;
+
 public:
     BluetoothProvider();
     ~BluetoothProvider() = default;

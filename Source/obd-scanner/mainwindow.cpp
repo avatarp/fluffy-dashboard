@@ -1,12 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
 
     Obd::BluetoothProvider bluetoothProvider;
     Obd::UsbSerialProvider usbProvider;
@@ -16,11 +15,10 @@ MainWindow::MainWindow(QWidget *parent)
     std::vector<QBluetoothDeviceInfo> bluetoothDevices = bluetoothProvider.GetAvailableDevicesInfo();
 
     QString text("Total bluetooth devices found: ");
-    text+=QString::number(bluetoothDevices.size());
+    text += QString::number(bluetoothDevices.size());
     ui->logsTextBrowser->append(text);
 
-    for(auto& bluetoothDevice :bluetoothDevices)
-    {
+    for (auto& bluetoothDevice : bluetoothDevices) {
         ui->logsTextBrowser->append(bluetoothDevice.name());
         ui->logsTextBrowser->append(bluetoothDevice.address().toString());
         ui->logsTextBrowser->append("\n");
@@ -29,24 +27,19 @@ MainWindow::MainWindow(QWidget *parent)
     std::vector<Obd::Device> usbDevices = usbProvider.GetAvailableDevices();
 
     text = "Total usb devices found: ";
-    text+=QString::number(usbDevices.size());
+    text += QString::number(usbDevices.size());
     ui->logsTextBrowser->append(text);
-    for(auto& usbDevice :usbDevices)
-    {
+    for (auto& usbDevice : usbDevices) {
         ui->logsTextBrowser->append(QString::fromStdString(usbDevice.GetDeviceFilePath()));
         ui->logsTextBrowser->append(QString::fromStdString(usbDevice.GetDescription()));
         ui->logsTextBrowser->append("\n");
     }
 
-    //devices = bluetoothDevices;
-    //devices.insert(devices.end(),usbDevices.begin(),usbDevices.end());
+    // devices = bluetoothDevices;
+    // devices.insert(devices.end(),usbDevices.begin(),usbDevices.end());
 
-
-    //Elm327Engine engine;
-
+    // Elm327Engine engine;
 }
-
-
 
 MainWindow::~MainWindow()
 {

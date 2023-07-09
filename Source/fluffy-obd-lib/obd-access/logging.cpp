@@ -2,8 +2,8 @@
 
 std::string getStrerror(int errorNumber)
 {
-    constexpr size_t bufferSize{256};
+    constexpr size_t bufferSize { 256 };
     char buffer[bufferSize]; // NOLINT
-    std::string errorStr{strerror_r(errorNumber, buffer, bufferSize)};
+    std::string errorStr { strerror_r(errorNumber, buffer, bufferSize) };
     return errorStr;
 }

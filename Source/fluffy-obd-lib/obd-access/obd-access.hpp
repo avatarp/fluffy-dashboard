@@ -1,21 +1,20 @@
 #pragma once
-#include <fcntl.h>
-#include <termios.h>
-#include <unistd.h>
-#include <stdexcept>
-#include <filesystem>
-#include <iostream>
-#include <errno.h>
-#include <cstring>
 #include "device.hpp"
 #include "logging.hpp"
+#include <cstring>
+#include <errno.h>
+#include <fcntl.h>
+#include <filesystem>
+#include <iostream>
+#include <stdexcept>
+#include <termios.h>
+#include <unistd.h>
 
 namespace Obd {
 
 const uint16_t bufferSize = 256;
 
-enum class ConnectionStatus
-{
+enum class ConnectionStatus {
     Disconnected,
     Connected,
     DeviceTimeout,
@@ -23,8 +22,7 @@ enum class ConnectionStatus
     ConnectionLost
 };
 
-class ObdAccess
-{
+class ObdAccess {
 protected:
     Device m_Device;
     ConnectionStatus m_ConnectionStatus = ConnectionStatus::Disconnected;

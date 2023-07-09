@@ -1,15 +1,14 @@
 #pragma once
-#include <filesystem>
-#include <vector>
-#include <string>
-#include <regex>
-#include "../utils/system-calls.hpp"
 #include "../obd-access/device.hpp"
+#include "../utils/system-calls.hpp"
+#include <filesystem>
+#include <regex>
+#include <string>
+#include <vector>
 
 namespace Obd {
 
-class UsbSerialProvider
-{
+class UsbSerialProvider {
 public:
     static std::vector<Device> GetAvailableDevices();
 };
