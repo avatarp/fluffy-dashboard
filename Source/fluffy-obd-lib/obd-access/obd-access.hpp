@@ -28,8 +28,6 @@ protected:
     ConnectionStatus m_ConnectionStatus = ConnectionStatus::Disconnected;
     termios m_Terminal;
     int m_DevicePort;
-    virtual bool Write(const std::string& command) = 0;
-    virtual std::string Read() = 0;
 
 public:
     ObdAccess() = default;
@@ -40,6 +38,8 @@ public:
     bool Reconnect();
     const Device& GetDevice() const;
     const ConnectionStatus& GetConnectionStatus() const;
+    virtual bool Write(const std::string& command) = 0;
+    virtual std::string Read() = 0;
     std::string Transaction(const std::string& command);
 };
 }

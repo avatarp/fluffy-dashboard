@@ -5,8 +5,6 @@ namespace Obd {
 
 class UsbObdAccess : public ObdAccess {
 private:
-    virtual bool Write(const std::string& command) override;
-    virtual std::string Read() override;
     void SetupDefaultTermios();
 
     /// @brief Read timeout in 0.1s
@@ -19,5 +17,8 @@ public:
     ~UsbObdAccess() = default;
     virtual void SetDevice(Device device) override final;
     virtual bool Connect() override;
+    virtual bool Write(const std::string& command) override;
+    virtual std::string Read() override;
+   
 };
 }
