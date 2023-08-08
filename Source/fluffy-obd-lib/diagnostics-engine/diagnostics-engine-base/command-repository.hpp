@@ -51,7 +51,7 @@ public:
     // 0E Timing advance => ° before TDC
     virtual std::string GetTimingAdvance() = 0;
 
-    // 0E Intake air temperature => °C
+    // 0F Intake air temperature => °C
     virtual std::string GetIntakeAirTemperature() = 0;
 
     // 10 Mass air flow sensor () air flow rate => g/s
