@@ -14,8 +14,9 @@ main.cpp
   bluetooth-obd-access.h
   obd-access-utils.h
   usb-obd-access.h
+  elm327/command-repo.h
   elm327/decoders.h
-  elm327/elm327-live-data.h
+  elm327/live-data.h
   elm327/parser.h
   )
 

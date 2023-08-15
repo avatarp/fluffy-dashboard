@@ -2,8 +2,8 @@
 #include <bitset>
 #include <functional>
 #include <optional>
-#include <string> // std::string
-#include <utility> // std::pair, std::make_pair
+#include <string>
+#include <utility>
 
 class DataDecodingHandler {
 public:

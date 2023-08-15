@@ -2,9 +2,9 @@
 
 Elm327Engine::Elm327Engine()
 {
-    m_CommandRepository = std::unique_ptr<CommandRepository>(new Elm327CommandRepository);
-    m_dataDecoder = std::unique_ptr<DataDecodingHandler>(new Elm327DataDecoder);
-    m_dataFilter = std::unique_ptr<DataParser>(new Elm327DataParser);
+    m_CommandRepository = std::make_unique<Elm327CommandRepository>();
+    m_dataDecoder = std::make_unique<Elm327DataDecoder>();
+    m_dataFilter = std::make_unique<Elm327DataParser>();
     m_BaudRate = B38400;
 }
 

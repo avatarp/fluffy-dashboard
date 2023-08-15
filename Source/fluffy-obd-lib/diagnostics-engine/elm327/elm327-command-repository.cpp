@@ -157,7 +157,7 @@ std::string Elm327CommandRepository::GetAuxiliaryInputStatus()
 
 std::string Elm327CommandRepository::GetRunTime()
 {
-    return std::string { "011F`\r" };
+    return std::string { "011F\r" };
 }
 
 std::string Elm327CommandRepository::GetSupportedPIDs2()

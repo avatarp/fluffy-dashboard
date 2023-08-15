@@ -21,7 +21,7 @@
 
 using namespace testing;
 
-TEST(decoders, decodeRPM)
+TEST(elm327decoders, decodeRPM)
 {
     DecodeRPM decoder;
 
@@ -30,7 +30,7 @@ TEST(decoders, decodeRPM)
     EXPECT_NEAR(16383.75, decoder.decode("FF FF"), 0.001);
 }
 
-TEST(decoders, decodeSpeed)
+TEST(elm327decoders, decodeSpeed)
 {
     DecodeSimpleA decoder;
 
@@ -39,7 +39,7 @@ TEST(decoders, decodeSpeed)
     EXPECT_EQ(255, decoder.decode("FF"));
 }
 
-TEST(decoders, decodeTemperature)
+TEST(elm327decoders, decodeTemperature)
 {
     DecodeTemperature decoder;
 
@@ -48,7 +48,7 @@ TEST(decoders, decodeTemperature)
     EXPECT_EQ(215, decoder.decode("FF"));
 }
 
-TEST(decoders, decodePercentage)
+TEST(elm327decoders, decodePercentage)
 {
     DecodePercentage decoder;
 
@@ -57,7 +57,7 @@ TEST(decoders, decodePercentage)
     EXPECT_EQ(100, decoder.decode("FF"));
 }
 
-TEST(decoders, decodeAirFlow)
+TEST(elm327decoders, decodeAirFlow)
 {
     DecodeAirFlow decoder;
 
@@ -66,7 +66,7 @@ TEST(decoders, decodeAirFlow)
     EXPECT_NEAR(655.35, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decoders, decodeTimingAdvance)
+TEST(elm327decoders, decodeTimingAdvance)
 {
     DecodeTimingAdvance decoder;
 
@@ -75,7 +75,7 @@ TEST(decoders, decodeTimingAdvance)
     EXPECT_NEAR(63.5, decoder.decode("FF"), 0.0001);
 }
 
-TEST(decoders, decodeFuelPressure)
+TEST(elm327decoders, decodeFuelPressure)
 {
     DecodeFuelPressure decoder;
 
@@ -84,7 +84,7 @@ TEST(decoders, decodeFuelPressure)
     EXPECT_NEAR(765, decoder.decode("FF"), 0.0001);
 }
 
-TEST(decoders, DecodeCountAB)
+TEST(elm327decoders, DecodeCountAB)
 {
     DecodeCountAB decoder;
 
@@ -93,7 +93,7 @@ TEST(decoders, DecodeCountAB)
     EXPECT_NEAR(65535, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decoders, decodeFuelRailPressure)
+TEST(elm327decoders, decodeFuelRailPressure)
 {
     DecodeFuelRailPressure decoder;
 
@@ -102,7 +102,7 @@ TEST(decoders, decodeFuelRailPressure)
     EXPECT_NEAR(5177.265, decoder.decode("FF FF"), 0.001);
 }
 
-TEST(decoders, decodeRunTime)
+TEST(elm327decoders, decodeRunTime)
 {
     DecodeFuelRailGaugePressure decoder;
 
@@ -111,7 +111,7 @@ TEST(decoders, decodeRunTime)
     EXPECT_NEAR(655350, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decoders, decodeSignedPercentage)
+TEST(elm327decoders, decodeSignedPercentage)
 {
     DecodeSignedPercentage decoder;
 
@@ -120,7 +120,7 @@ TEST(decoders, decodeSignedPercentage)
     EXPECT_NEAR(99.21, decoder.decode("FF"), 0.01);
 }
 
-TEST(decoders, decodeCatalystTemperature)
+TEST(elm327decoders, decodeCatalystTemperature)
 {
     DecodeCatalystTemperature decoder;
 
@@ -129,7 +129,7 @@ TEST(decoders, decodeCatalystTemperature)
     EXPECT_NEAR(6513.5, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decoders, decodeOxygenSensorVoltage1)
+TEST(elm327decoders, decodeOxygenSensorVoltage1)
 {
     DecodeOxygenSensorVoltage1 decoder;
 
@@ -138,7 +138,7 @@ TEST(decoders, decodeOxygenSensorVoltage1)
     EXPECT_NEAR(1.275, decoder.decode("FF"), 0.0001);
 }
 
-TEST(decoders, decodeOxygenSensorVoltage2)
+TEST(elm327decoders, decodeOxygenSensorVoltage2)
 {
     DecodeOxygenSensorVoltage2 decoder;
 
@@ -147,7 +147,7 @@ TEST(decoders, decodeOxygenSensorVoltage2)
     EXPECT_NEAR(7.9999, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decoders, decodeEquivalenceRatio)
+TEST(elm327decoders, decodeEquivalenceRatio)
 {
     DecodeEquivalenceRatio decoder;
 
@@ -156,7 +156,7 @@ TEST(decoders, decodeEquivalenceRatio)
     EXPECT_NEAR(2.0, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decoders, decodeOxygenSensorCurrent)
+TEST(elm327decoders, decodeOxygenSensorCurrent)
 {
     DecodeOxygenSensorCurrent decoder;
 
@@ -165,7 +165,7 @@ TEST(decoders, decodeOxygenSensorCurrent)
     EXPECT_NEAR(127.996, decoder.decode("FF FF"), 0.0001);
 }
 
-TEST(decoders, decodeEvapPressure)
+TEST(elm327decoders, decodeEvapPressure)
 {
     DecodeEvapPressure decoder;
 
@@ -174,7 +174,7 @@ TEST(decoders, decodeEvapPressure)
     ASSERT_NEAR(8191.75, decoder.decode("7F FF"), 0.0001);
 }
 
-TEST(decoders, decodeBitEncoded)
+TEST(elm327decoders, decodeBitEncoded)
 {
     DecodeBitEncoded decoder;
 
@@ -188,7 +188,7 @@ TEST(decoders, decodeBitEncoded)
         std::bitset<32>(0b11111111111111111111111111111111));
 }
 
-TEST(decoders, decodeString)
+TEST(elm327decoders, decodeString)
 {
     DecodeString decoder;
 
@@ -198,7 +198,7 @@ TEST(decoders, decodeString)
     EXPECT_EQ(decoder.decode(vin), "WF0UXXGAJU2G80549");
 }
 
-TEST(decoders, decodeDTC)
+TEST(elm327decoders, decodeDTC)
 {
     DecodeDTC decoder;
 

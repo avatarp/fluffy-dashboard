@@ -13,8 +13,8 @@ add_library(${PROJECT_NAME} SHARED
  elm327-command-repository.hpp
  elm327-data-decoder.cpp
  elm327-data-decoder.hpp
- elm327-data-filter.cpp
- elm327-data-filter.hpp
+ elm327-data-parser.cpp
+ elm327-data-parser.hpp
  elm327-dtc-handler.hpp
  elm327-engine.cpp
  elm327-engine.hpp
