@@ -2,38 +2,23 @@
 
 bool ParametersEngine::SendCommand(const std::string& command)
 {
-    std::clog << "Sending command: " << command << '\n';
-    ssize_t bytesWritten = write(m_ConnectionHandle, command.c_str(), command.length());
-
-    if (!command.ends_with('\r')) {
-        write(m_ConnectionHandle, "\r", 1);
-    }
-
-    if (bytesWritten == -1) {
-        throw(std::runtime_error(
-            std::string("Exception on sending command ") + command + " : " + getStrerror(errno)));
-    }
-    return true;
+    return m_obdAccess->Write(command);
 }
 
 std::string ParametersEngine::ReadResponse()
 {
-    usleep(m_readSleepTime);
-    std::array<char, BUFFER_SIZE> readBuffer { '\0' };
-
-    ssize_t dataReadCount = read(m_ConnectionHandle, &readBuffer, BUFFER_SIZE);
-
-    if (dataReadCount < 0) {
-        throw(std::runtime_error(
-            std::string("Exception on reading response : ") + getStrerror(errno)));
-    }
-    std::string response { std::begin(readBuffer), std::end(readBuffer) };
-
-    std::clog << "Recived response: " << response << '\n';
-    return response;
+    return m_obdAccess->Read();
 }
 
-void ParametersEngine::SetSerialDevice(Obd::Device device) { m_SerialDevice = std::move(device); }
+void ParametersEngine::SetSerialDevice(Obd::Device device)
+{
+    m_obdAccess->SetDevice(std::move(device));
+}
+
+void ParametersEngine::SetObdAccess(std::unique_ptr<Obd::ObdAccess> obdAccess)
+{
+    m_obdAccess = std::move(obdAccess);
+}
 
 Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
 {
