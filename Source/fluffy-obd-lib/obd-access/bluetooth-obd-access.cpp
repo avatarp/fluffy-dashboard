@@ -5,23 +5,23 @@ namespace Obd {
 bool BluetoothObdAccess::Write(const std::string& command)
 {
     if (this->GetConnectionStatus() != ConnectionStatus::Connected) {
-        std::clog << "device not connected.\n";
+        std::cerr << "device not connected.\n";
         return false;
     }
 
-    std::clog << "Writing command " + command << ".\n";
+    std::cerr << "Writing command " + command << ".\n";
     ssize_t bytesWritten = write(
         this->m_DevicePort, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
-        std::clog << "WRITE FAILURE\n"
+        std::cerr << "WRITE FAILURE\n"
                   << "Error:" << getStrerror(errno) << ".\n";
         m_ConnectionStatus = ConnectionStatus::ConnectionLost;
         return false;
     }
 
     if (command.size() == bytesWritten) {
-        std::clog << "Written " << bytesWritten << " bytes succesfully.\n";
+        std::cerr << "Written " << bytesWritten << " bytes succesfully.\n";
         return true;
     }
 
@@ -36,12 +36,12 @@ std::string BluetoothObdAccess::Read()
     std::array<char, bufferSize> readBuffer {};
     ssize_t bytesRead = read(m_DevicePort, &readBuffer, bufferSize);
     if (bytesRead <= 0) {
-        std::clog << "READ FAILURE\n"
+        std::cerr << "READ FAILURE\n"
                   << "Error:"
                   << getStrerror(errno) << ".\n";
         this->m_ConnectionStatus = ConnectionStatus::DeviceTimeout;
     }
-    std::clog << "Received response: " << readBuffer.data() << ".\n";
+    std::cerr << "Received response: " << readBuffer.data() << ".\n";
     return std::string { readBuffer.data() };
 }
 

@@ -5,6 +5,7 @@
 #include <thread>
 
 #include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-engine.hpp"
+#include "../mocks/mock-obd-access.hpp"
 #include "../obd-access-utils.h"
 
 using namespace testing;
@@ -21,16 +22,16 @@ TEST(elm327LiveData, dummyUsb)
 
     Obd::Device dummyUsb = CreateUsbDevice();
     Elm327Engine engine;
+    engine.SetObdAccess(std::move(std::make_unique<Obd::UsbObdAccess>()));
     engine.SetSerialDevice(dummyUsb);
     EXPECT_EQ(engine.OpenConnection(), true);
 }
 
 TEST(elm327LiveData, dummyUsbNullCharResponse)
 {
-    PipesEnv pipe;
-
     Obd::Device dummyUsb = CreateUsbDevice();
     Elm327Engine engine;
+    engine.SetObdAccess(std::make_unique<Obd::UsbObdAccess>());
     engine.SetSerialDevice(dummyUsb);
     engine.OpenConnection();
 
@@ -42,19 +43,18 @@ TEST(elm327LiveData, dummyUsbNullCharResponse)
 
 TEST(elm327LiveData, dummyUsbValidResponse)
 {
-    PipesEnv pipe;
-
+    std::unique_ptr<MockObdAccess> mockObd = std::make_unique<MockObdAccess>();
+    EXPECT_CALL(*mockObd, Write(::testing::_)).WillOnce(Return(true));
+    EXPECT_CALL(*mockObd, Connect).WillOnce(Return(true));
+    EXPECT_CALL(*mockObd, Read()).WillOnce(Return(std::string("7E8 03 41 04 FF")));
+    
     Obd::Device dummyUsb = CreateUsbDevice();
     Elm327Engine engine;
+    engine.SetObdAccess(std::move(mockObd));
     engine.SetSerialDevice(dummyUsb);
-    engine.OpenConnection();
 
-    std::future<Response> futureResponse = std::async(&Elm327Engine::GetCommandResponse,
-        &engine, ObdCommandPid::S01P04);
-    usleep(5 * 1000); // sleep 5 ms
-    pipe.drainData();
-    pipe.feedData("7E8 03 41 04 FF");
-    Response response = futureResponse.get();
+    EXPECT_TRUE(engine.OpenConnection());
+    auto response = engine.GetCommandResponse(ObdCommandPid::S01P04);
 
     EXPECT_NEAR(100.0, response.m_floatData1.first, 0.0001);
     EXPECT_EQ("%", response.m_floatData1.second);

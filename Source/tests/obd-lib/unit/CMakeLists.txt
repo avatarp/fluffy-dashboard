@@ -14,6 +14,7 @@ main.cpp
   bluetooth-obd-access.h
   obd-access-utils.h
   usb-obd-access.h
+  mocks/mock-obd-access.hpp
   elm327/command-repo.h
   elm327/decoders.h
   elm327/live-data.h
@@ -30,8 +31,17 @@ target_link_libraries(
   diagnostics-engine
   utils
   fluffy-obd-lib
-  GTest::gtest_main
+  gtest
+  gmock
+  gtest_main
+  gmock_main
+  pthread
 )
 
 include(GoogleTest)
+
 gtest_discover_tests(lib-test)
+
+enable_testing()
+
+add_test(lib-unit lib-test)

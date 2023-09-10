@@ -14,6 +14,8 @@
 
 #include "../../obd-access/device.hpp"
 #include "../../obd-access/logging.hpp"
+#include "../../obd-access/bluetooth-obd-access.hpp"
+#include "../../obd-access/usb-obd-access.hpp"
 #include "command-repository.hpp"
 #include "data-decoding-handler.hpp"
 #include "data-filters.hpp"
@@ -25,22 +27,17 @@ class ParametersEngine {
     static constexpr int BUFFER_SIZE = 256;
     static constexpr int m_readSleepTime { 500 * 1000 }; // ms
 protected:
-    termios m_TerminalInterface;
-    Obd::Device m_SerialDevice;
-    unsigned m_BaudRate;
-    int m_ConnectionHandle;
+    std::unique_ptr<Obd::ObdAccess> m_obdAccess;
     std::unique_ptr<DataDecodingHandler> m_dataDecoder;
     std::unique_ptr<DataParser> m_dataFilter;
     std::unique_ptr<CommandRepository> m_CommandRepository;
     virtual bool SendCommand(const std::string& command);
     virtual std::string ReadResponse();
-
 public:
     ParametersEngine() = default;
     virtual ~ParametersEngine() = default;
     void SetSerialDevice(Obd::Device device);
-    virtual void SetupTermios() = 0;
-    virtual void SetupTermios(termios interface) = 0;
+    void SetObdAccess(std::unique_ptr<Obd::ObdAccess> obdAccess);
     virtual bool OpenConnection() = 0;
     virtual bool CloseConnection() = 0;
     Response GetCommandResponse(ObdCommandPid pid);

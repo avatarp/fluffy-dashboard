@@ -34,7 +34,7 @@ public:
     virtual ~ObdAccess();
     virtual void SetDevice(Device device) = 0;
     virtual bool Connect() = 0;
-    virtual void CloseConnection();
+    virtual bool CloseConnection();
     bool Reconnect();
     const Device& GetDevice() const;
     const ConnectionStatus& GetConnectionStatus() const;

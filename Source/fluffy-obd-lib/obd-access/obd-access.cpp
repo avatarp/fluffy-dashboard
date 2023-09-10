@@ -19,22 +19,29 @@ ObdAccess::~ObdAccess()
     }
 }
 
-void ObdAccess::CloseConnection()
+bool ObdAccess::CloseConnection()
 {
-
-    if (this->m_DevicePort > 0) {
-        close(m_DevicePort);
-        std::clog << "Connection with "
+    try {
+        if (this->m_DevicePort > 0) {
+            close(m_DevicePort);
+            std::clog << "Connection with "
+                      << this->GetDevice().GetDeviceFilePath()
+                      << " " << this->m_Device.GetDescription()
+                      << " closed.\n";
+        } else {
+            std::clog << "Connection with "
+                      << this->GetDevice().GetDeviceFilePath()
+                      << " " << this->m_Device.GetDescription()
+                      << " was alread closed.\n";
+        }
+    } catch (...) {
+        std::clog << "Exception during closing connection with"
                   << this->GetDevice().GetDeviceFilePath()
                   << " " << this->m_Device.GetDescription()
-                  << " closed.\n";
-    } else {
-        std::clog << "Connection with "
-                  << this->GetDevice().GetDeviceFilePath()
-                  << " " << this->m_Device.GetDescription()
-                  << " was alread closed.\n";
+                  << "\n";
     }
     m_ConnectionStatus = ConnectionStatus::Disconnected;
+    return true;
 }
 
 bool ObdAccess::Reconnect()
