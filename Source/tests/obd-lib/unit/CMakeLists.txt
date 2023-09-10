@@ -30,7 +30,11 @@ target_link_libraries(
   diagnostics-engine
   utils
   fluffy-obd-lib
-  GTest::gtest_main
+  gtest
+  gmock
+  gtest_main
+  gmock_main
+  pthread
 )
 
 include(GoogleTest)
