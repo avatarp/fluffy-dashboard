@@ -80,11 +80,26 @@ void UsbObdAccess::SetDevice(Device device)
         throw std::logic_error(std::string(
             "Invalid device set. Got"
             + std::to_string(
-                (int)device.GetConnectionType())
-            + " expected 1")
+                static_cast<int>(device.GetConnectionType()))
+            + " expected " + std::to_string(static_cast<int>(Obd::ConnectionType::Usb)))
                                    .c_str());
     }
     this->m_Device = std::move(device);
+}
+
+
+bool UsbObdAccess::IsDeviceFileOk()
+{
+    return std::filesystem::exists(this->m_Device.GetDeviceFilePath());
+}
+
+bool UsbObdAccess::OpenConnection()
+{
+    // NOLINTNEXTLINE
+    this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
+        O_RDWR | O_NOCTTY);
+    // error occured
+    return this->m_DevicePort == -1;
 }
 
 bool UsbObdAccess::Connect()
@@ -94,7 +109,7 @@ bool UsbObdAccess::Connect()
               << " " << this->m_Device.GetDescription()
               << ".\n";
 
-    if (!std::filesystem::exists(this->m_Device.GetDeviceFilePath())) {
+    if (!IsDeviceFileOk()) {
 
         std::clog << "Device file" + this->m_Device.GetDeviceFilePath() << " not found.\n";
 
@@ -102,16 +117,12 @@ bool UsbObdAccess::Connect()
         return false;
     }
 
-    // NOLINTNEXTLINE
-    this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
-        O_RDWR | O_NOCTTY);
-
-    if (this->m_DevicePort == -1) // error occured
-    {
+    if (!OpenConnection()) {
         this->m_ConnectionStatus = ConnectionStatus::Disconnected;
         std::clog << "Error:" << getStrerror(errno) << ".\n";
         return false;
     }
+    
     std::clog << "OK.\n";
     this->m_ConnectionStatus = ConnectionStatus::Connected;
     return true;

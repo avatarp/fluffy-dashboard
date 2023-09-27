@@ -12,6 +12,8 @@ private:
     /// @brief Time Blocking read between characters in 0.1s
     static constexpr uint8_t readBlockingInterval = 3;
 
+    virtual bool IsDeviceFileOk() override;
+    virtual bool OpenConnection() override;
 public:
     UsbObdAccess() = default;
     ~UsbObdAccess() = default;
