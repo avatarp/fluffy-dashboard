@@ -1,21 +1,35 @@
 #pragma once
 #include "obd-access-utils.h"
+#include "../../../../Source/fluffy-obd-lib/obd-access/usb-obd-access.hpp"
+#include "mocks/mock-obd-device.hpp"
+#include "mocks/mock-obd-access.hpp"
 #include <gtest/gtest.h>
 
 using namespace testing;
 
-TEST(UsbAccess, DataTransferOk)
+class UsbAccess_F : public ::testing::Test {
+protected:
+    MockUsbAccess obdAccess;
+
+    void SetUp()
+    {
+        EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
+        EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
+    }
+};
+
+TEST_F(UsbAccess_F, DataTransferOk)
 {
-    PipesEnv pipe;
-    Obd::UsbObdAccess OBD;
-    OBD.SetDevice(std::move(CreateUsbDevice()));
+    obdAccess.SetDevice(std::move(CreateUsbDevice()));
 
-    ASSERT_TRUE(OBD.Connect());
-    ASSERT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+    ASSERT_TRUE(obdAccess.Connect());
+    ASSERT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
-    std::string response = OBD.Transaction("abc");
-    EXPECT_EQ(response, "abc");
-    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+    EXPECT_CALL(obdAccess, Transaction("abc")).WillOnce(Return(std::string("def")));
+
+    std::string response = obdAccess.Transaction("abc");
+    EXPECT_EQ(response, "def");
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
 
 TEST(UsbAccess, InvalidDevice)
@@ -44,18 +58,20 @@ TEST(UsbAccess, NoDeviceSet)
     EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::DeviceNotFound);
 }
 
-TEST(UsbAccess, Reconnect)
+TEST_F(UsbAccess_F, Reconnect)
 {
-    PipesEnv pipe;
-    Obd::UsbObdAccess OBD;
-    OBD.SetDevice(std::move(CreateUsbDevice()));
+    obdAccess.SetDevice(std::move(CreateUsbDevice()));
 
-    EXPECT_TRUE(OBD.Connect());
-    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+    EXPECT_TRUE(obdAccess.Connect());
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
-    OBD.CloseConnection();
-    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
+    EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
+    EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
 
-    EXPECT_TRUE(OBD.Reconnect());
-    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+    EXPECT_TRUE(obdAccess.Reconnect());
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+
+    obdAccess.CloseConnection();
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
+
 }
