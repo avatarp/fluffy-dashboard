@@ -12,7 +12,7 @@ enum class ConnectionType {
 class Device {
 private:
     std::string m_DeviceFilePath = "";
-    ConnectionType m_ConnectionType = ConnectionType::NoConnection;
+    ConnectionType m_ConnectionType{ConnectionType::NoConnection};
     std::string m_Description = "";
 
 public:
