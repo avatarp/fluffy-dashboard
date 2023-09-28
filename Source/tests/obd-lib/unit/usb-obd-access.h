@@ -1,8 +1,8 @@
 #pragma once
-#include "obd-access-utils.h"
 #include "../../../../Source/fluffy-obd-lib/obd-access/usb-obd-access.hpp"
-#include "mocks/mock-obd-device.hpp"
 #include "mocks/mock-obd-access.hpp"
+#include "mocks/mock-obd-device.hpp"
+#include "obd-access-utils.h"
 #include <gtest/gtest.h>
 
 using namespace testing;
@@ -73,5 +73,4 @@ TEST_F(UsbAccess_F, Reconnect)
 
     obdAccess.CloseConnection();
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
-
 }
