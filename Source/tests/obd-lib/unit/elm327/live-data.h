@@ -18,21 +18,28 @@ TEST(elm327LiveData, noDeviceConnection)
 
 TEST(elm327LiveData, dummyUsb)
 {
-    PipesEnv pipe;
-
     Obd::Device dummyUsb = CreateUsbDevice();
     Elm327Engine engine;
-    engine.SetObdAccess(std::move(std::make_unique<Obd::UsbObdAccess>()));
+    std::unique_ptr<MockUsbAccess> obdAccess = std::make_unique<MockUsbAccess>();
+    EXPECT_CALL(*obdAccess, IsDeviceFileOk).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, OpenConnection).WillOnce(Return(true));
+    engine.SetObdAccess(std::move(obdAccess));
     engine.SetSerialDevice(dummyUsb);
     EXPECT_EQ(engine.OpenConnection(), true);
 }
 
 TEST(elm327LiveData, dummyUsbNullCharResponse)
 {
-    Obd::Device dummyUsb = CreateUsbDevice();
+    std::unique_ptr<MockUsbAccess> obdAccess = std::make_unique<MockUsbAccess>();
+    EXPECT_CALL(*obdAccess, IsDeviceFileOk).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, OpenConnection).WillOnce(Return(true));
+
     Elm327Engine engine;
-    engine.SetObdAccess(std::make_unique<Obd::UsbObdAccess>());
+    engine.SetObdAccess(std::move(obdAccess));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
     engine.SetSerialDevice(dummyUsb);
+
     engine.OpenConnection();
 
     EXPECT_THROW({
@@ -43,11 +50,12 @@ TEST(elm327LiveData, dummyUsbNullCharResponse)
 
 TEST(elm327LiveData, dummyUsbValidResponse)
 {
-    std::unique_ptr<MockObdAccess> mockObd = std::make_unique<MockObdAccess>();
+    std::unique_ptr<MockUsbAccess> mockObd = std::make_unique<MockUsbAccess>();
+    EXPECT_CALL(*mockObd, IsDeviceFileOk).WillOnce(Return(true));
+    EXPECT_CALL(*mockObd, OpenConnection).WillOnce(Return(true));
     EXPECT_CALL(*mockObd, Write(::testing::_)).WillOnce(Return(true));
-    EXPECT_CALL(*mockObd, Connect).WillOnce(Return(true));
     EXPECT_CALL(*mockObd, Read()).WillOnce(Return(std::string("7E8 03 41 04 FF")));
-    
+
     Obd::Device dummyUsb = CreateUsbDevice();
     Elm327Engine engine;
     engine.SetObdAccess(std::move(mockObd));

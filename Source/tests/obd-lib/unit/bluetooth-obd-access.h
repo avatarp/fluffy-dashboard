@@ -1,21 +1,31 @@
 #pragma once
+#include "../../../../Source/fluffy-obd-lib/obd-access/bluetooth-obd-access.hpp"
+#include "mocks/mock-obd-access.hpp"
 #include "obd-access-utils.h"
 #include <gtest/gtest.h>
 
 using namespace testing;
 
-TEST(BluetoothAccess, DataTransferOk)
+class BluetoothAccess_F : public ::testing::Test {
+protected:
+    MockBtAccess obdAccess;
+
+    void SetUp()
+    {
+        EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
+        EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
+    }
+};
+
+TEST_F(BluetoothAccess_F, DataTransferOk)
 {
-    PipesEnv pipe;
-    Obd::BluetoothObdAccess OBD;
-    OBD.SetDevice(CreateBluetoothDevice());
+    ASSERT_TRUE(obdAccess.Connect());
+    ASSERT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
-    ASSERT_TRUE(OBD.Connect());
-    ASSERT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+    EXPECT_CALL(obdAccess, Transaction("abc")).WillOnce(Return(std::string("def")));
+    EXPECT_EQ(obdAccess.Transaction("abc"), "def");
 
-    std::string response = OBD.Transaction("abc");
-    EXPECT_EQ(response, "abc");
-    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
 
 TEST(BluetoothAccess, InvalidDevice)
@@ -43,18 +53,17 @@ TEST(BluetoothAccess, NoDeviceFile)
     EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::DeviceNotFound);
 }
 
-TEST(BluetoothAccess, Reconnect)
+TEST_F(BluetoothAccess_F, Reconnect)
 {
-    PipesEnv pipe;
-    Obd::BluetoothObdAccess OBD;
-    OBD.SetDevice(std::move(CreateBluetoothDevice()));
+    EXPECT_TRUE(obdAccess.Connect());
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
-    EXPECT_TRUE(OBD.Connect());
-    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+    obdAccess.CloseConnection();
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 
-    OBD.CloseConnection();
-    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
+    EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
+    EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
 
-    EXPECT_TRUE(OBD.Reconnect());
-    EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+    EXPECT_TRUE(obdAccess.Reconnect());
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }

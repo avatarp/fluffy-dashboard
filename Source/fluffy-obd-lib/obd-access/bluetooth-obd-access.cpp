@@ -71,9 +71,24 @@ void BluetoothObdAccess::SetDevice(Device device)
 {
     if (device.GetConnectionType() != ConnectionType::Bluetooth) {
         throw std::logic_error(
-            std::string("Invalid device set. Got" + std::to_string((int)device.GetConnectionType()) + " expected Bluetooth").c_str());
+            std::string("Invalid device set. Got" + std::to_string(static_cast<int16_t>(device.GetConnectionType())) + " expected Bluetooth").c_str());
     }
     this->m_Device = std::move(device);
+}
+
+bool BluetoothObdAccess::IsDeviceFileOk()
+{
+    return std::filesystem::exists(this->m_Device.GetDeviceFilePath());
+}
+
+bool BluetoothObdAccess::OpenConnection()
+{
+    // NOLINTNEXTLINE
+    this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
+        O_RDWR | O_NOCTTY);
+
+    // error occured
+    return this->m_DevicePort == -1;
 }
 
 bool BluetoothObdAccess::Connect()
@@ -81,7 +96,7 @@ bool BluetoothObdAccess::Connect()
     std::clog << "Opening connection with " << this->m_Device.GetDeviceFilePath()
               << " " << this->m_Device.GetDescription() << ".\n";
 
-    if (!std::filesystem::exists(this->m_Device.GetDeviceFilePath())) {
+    if (!IsDeviceFileOk()) {
 
         std::clog << "Device file" + this->m_Device.GetDeviceFilePath() << " not found.\n";
 
@@ -89,11 +104,7 @@ bool BluetoothObdAccess::Connect()
         return false;
     }
 
-    // NOLINTNEXTLINE
-    this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
-        O_RDWR | O_NOCTTY);
-
-    if (this->m_DevicePort == -1) // error occured
+    if(!OpenConnection())
     {
         this->m_ConnectionStatus = ConnectionStatus::Disconnected;
         std::clog << "Error:" << getStrerror(errno) << ".\n";

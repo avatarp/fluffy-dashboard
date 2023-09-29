@@ -1,14 +1,24 @@
-#include "../../../../../Source/fluffy-obd-lib/obd-access/obd-access.hpp"
+#pragma once
+#include "../../../../../Source/fluffy-obd-lib/obd-access/bluetooth-obd-access.hpp"
+#include "../../../../../Source/fluffy-obd-lib/obd-access/usb-obd-access.hpp"
 #include <gmock/gmock.h>
 
-struct MockObdAccess : Obd::ObdAccess {
+struct MockBtAccess : Obd::BluetoothObdAccess {
+
+    MOCK_METHOD(bool, IsDeviceFileOk, ());
+    MOCK_METHOD(bool, OpenConnection, ());
+
     MOCK_METHOD(bool, Write, (const std::string&));
-    // virtual bool Write(const std::string& command) = 0;
     MOCK_METHOD(std::string, Read, ());
+    MOCK_METHOD(std::string, Transaction, (const std::string&));
+};
 
-    MOCK_METHOD(bool, Connect, ());
+struct MockUsbAccess : Obd::UsbObdAccess {
 
-    MOCK_METHOD(void, SetDevice, (Obd::Device));
-    // virtual std::string Read() = 0;
-    // std::string Transaction(const std::string& command);
+    MOCK_METHOD(bool, IsDeviceFileOk, ());
+    MOCK_METHOD(bool, OpenConnection, ());
+
+    MOCK_METHOD(bool, Write, (const std::string&));
+    MOCK_METHOD(std::string, Read, ());
+    MOCK_METHOD(std::string, Transaction, (const std::string&));
 };

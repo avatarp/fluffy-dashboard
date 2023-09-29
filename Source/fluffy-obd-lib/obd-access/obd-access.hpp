@@ -29,6 +29,9 @@ protected:
     termios m_Terminal;
     int m_DevicePort;
 
+    virtual bool IsDeviceFileOk() = 0;
+    virtual bool OpenConnection() = 0;
+
 public:
     ObdAccess() = default;
     virtual ~ObdAccess();
