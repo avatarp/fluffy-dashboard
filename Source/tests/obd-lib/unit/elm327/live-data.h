@@ -33,6 +33,8 @@ TEST(elm327LiveData, dummyUsbNullCharResponse)
     std::unique_ptr<MockUsbAccess> obdAccess = std::make_unique<MockUsbAccess>();
     EXPECT_CALL(*obdAccess, IsDeviceFileOk).WillOnce(Return(true));
     EXPECT_CALL(*obdAccess, OpenConnection).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("0104\r")).WillOnce(Return(false));
+    EXPECT_CALL(*obdAccess, Read()).WillOnce(Return(""));
 
     Elm327Engine engine;
     engine.SetObdAccess(std::move(obdAccess));
