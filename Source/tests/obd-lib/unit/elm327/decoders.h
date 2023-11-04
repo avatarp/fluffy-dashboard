@@ -3,21 +3,21 @@
 #include <gtest/gtest.h>
 #include <optional>
 
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/Decode.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeAirFlow.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeCountA.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeCountAB.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeDTC.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeEquivalenceRatio.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeEvapPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeFuelPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeFuelRailPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeOxygenSensorCurrent.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeOxygenSensorVoltage.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodePercentage.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeRPM.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeTemperature.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/decoders/DecodeTimingAdvance.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/Decode.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeAirFlow.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeCountA.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeCountAB.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeDTC.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeEquivalenceRatio.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeEvapPressure.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeFuelPressure.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeFuelRailPressure.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeOxygenSensorCurrent.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeOxygenSensorVoltage.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodePercentage.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeRPM.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeTemperature.hpp"
+#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeTimingAdvance.hpp"
 
 using namespace testing;
 

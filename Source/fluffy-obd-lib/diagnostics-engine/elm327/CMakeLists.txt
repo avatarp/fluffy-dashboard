@@ -18,6 +18,22 @@ add_library(${PROJECT_NAME} SHARED
  elm327-dtc-handler.hpp
  elm327-engine.cpp
  elm327-engine.hpp
+ 
+ decoders/Decode.hpp
+ decoders/DecodeAirFlow.hpp
+ decoders/DecodeDTC.hpp
+ decoders/DecodeEquivalenceRatio.hpp
+ decoders/DecodeEvapPressure.hpp
+ decoders/DecodeFuelPressure.hpp
+ decoders/DecodeFuelRailPressure.hpp
+ decoders/DecodeOxygenSensorCurrent.hpp
+ decoders/DecodeOxygenSensorVoltage.hpp
+ decoders/DecodePercentage.hpp
+ decoders/DecodeRPM.hpp
+ decoders/DecodeCountA.hpp
+ decoders/DecodeCountAB.hpp
+ decoders/DecodeTemperature.hpp
+ decoders/DecodeTimingAdvance.hpp
  )
  
  set_target_properties(${PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
