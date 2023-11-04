@@ -10,11 +10,29 @@ message("Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")
 add_subdirectory(obd-access)
 
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
+find_package(Qt5 COMPONENTS Bluetooth REQUIRED)
 set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" )
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
 add_library(${PROJECT_NAME}
-obd-access
-diagnostics-engine
+
+obd-access/device.hpp
+obd-access/obd-access.hpp
+obd-access/usb-obd-access.hpp
+obd-access/bluetooth-provider.hpp
+obd-access/usb-serial-provider.hpp
+obd-access/bluetooth-obd-access.hpp
+obd-access/logging.hpp
+obd-access/bluetooth-provider.cpp
+obd-access/bluetooth-obd-access.cpp
+obd-access/device.cpp
+obd-access/obd-access.cpp
+obd-access/usb-obd-access.cpp
+obd-access/usb-serial-provider.cpp
+obd-access/logging.cpp
+obd-access/system-calls.hpp
 
 diagnostics-engine/base/command-repository.hpp
 diagnostics-engine/base/data-decoding-handler.hpp
@@ -56,4 +74,5 @@ diagnostics-engine/elm327/decoders/DecodeTimingAdvance.hpp
 
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+target_link_libraries(${PROJECT_NAME} Qt5::Bluetooth)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
