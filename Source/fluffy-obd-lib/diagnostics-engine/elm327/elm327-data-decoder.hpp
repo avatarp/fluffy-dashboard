@@ -12,8 +12,8 @@
 #include "decoders/DecodeRPM.hpp"
 #include "decoders/DecodeTemperature.hpp"
 #include "decoders/DecodeTimingAdvance.hpp"
-#include "../diagnostics-engine-base/data-decoding-handler.hpp"
-#include "../diagnostics-engine-base/response.hpp"
+#include "../base/data-decoding-handler.hpp"
+#include "../base/response.hpp"
 
 class Elm327DataDecoder : public DataDecodingHandler {
 public:

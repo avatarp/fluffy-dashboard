@@ -1,5 +1,5 @@
 #pragma once
-#include "../diagnostics-engine-base/command-repository.hpp"
+#include "../base/command-repository.hpp"
 
 class Elm327CommandRepository : public CommandRepository {
 public:
