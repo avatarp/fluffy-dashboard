@@ -29,7 +29,6 @@ target_link_libraries(
   lib-test
   obd-access
   diagnostics-engine
-  utils
   fluffy-obd-lib
   gtest
   gmock

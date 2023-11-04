@@ -29,6 +29,7 @@ obd-access.cpp
 usb-obd-access.cpp
 usb-serial-provider.cpp
 logging.cpp
+system-calls.hpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")

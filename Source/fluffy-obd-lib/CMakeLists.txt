@@ -9,7 +9,6 @@ message("Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 add_subdirectory(obd-access)
 add_subdirectory(diagnostics-engine)
-add_subdirectory(utils)
 
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
 set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" )
@@ -17,7 +16,6 @@ set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" )
 add_library(${PROJECT_NAME}
 obd-access
 diagnostics-engine
-utils
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
