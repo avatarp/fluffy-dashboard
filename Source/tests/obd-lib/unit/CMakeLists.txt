@@ -27,9 +27,6 @@ add_subdirectory(../../../fluffy-obd-lib/ fluffy-obd-lib/)
 
 target_link_libraries(
   lib-test
-  obd-access
-  diagnostics-engine
-  utils
   fluffy-obd-lib
   gtest
   gmock
