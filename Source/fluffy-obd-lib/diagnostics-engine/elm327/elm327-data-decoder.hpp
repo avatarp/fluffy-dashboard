@@ -20,11 +20,11 @@ public:
     Elm327DataDecoder() = default;
 
     // 00 PIDs supported [01 - 20]
-    virtual bitset_4B
+    virtual bitset_32
     GetSupportedPIDs1(const std::string& data);
 
     // 01 Monitor status since DTCs cleared
-    virtual bitset_4B
+    virtual bitset_32
     GetMonitorStatus(const std::string& data);
 
     // 02 Freeze DTC => DTC
@@ -32,7 +32,7 @@ public:
     GetFreezeDTCs(const std::string& data);
 
     // 03 Fuel system status => enum
-    virtual bitset_4B
+    virtual bitset_32
     GetFuelSystemStatus(const std::string& data);
 
     // 04 Calculated engine load => %
@@ -92,11 +92,11 @@ public:
     GetThrottlePosition(const std::string& data);
 
     // 12 Commanded secondary air status => enum
-    virtual bitset_4B
+    virtual bitset_32
     GetSecondaryAirStatus(const std::string& data);
 
     // 13 Oxygen sensors present
-    virtual bitset_4B
+    virtual bitset_32
     GetOxygenSensorsPresent1(const std::string& data);
 
     // 14 Oxygen Sensor 1
@@ -140,15 +140,15 @@ public:
     GetOxygenSensorFtV8(const std::string& data);
 
     // 1C OBD standard => Enum
-    virtual bitset_4B
+    virtual bitset_32
     GetObdStandard(const std::string& data);
 
     // 1D Oxygen sensors present
-    virtual bitset_4B
+    virtual bitset_32
     GetOxygenSensorsPresent2(const std::string& data);
 
     // 1E Auxiliary input status
-    virtual bitset_4B
+    virtual bitset_32
     GetAuxiliaryInputStatus(const std::string& data);
 
     // 1F Run time since engine start => s
@@ -156,7 +156,7 @@ public:
     GetRunTime(const std::string& data);
 
     // 20 PIDs supported [21 - 40]
-    virtual bitset_4B
+    virtual bitset_32
     GetSupportedPIDs2(const std::string& data);
 
     // 21 Distance traveled with malfunction indicator lamp (MIL) on => km
@@ -304,7 +304,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////////////
 
     // 00 Service 9 supported PIDs [0-20]
-    virtual bitset_4B
+    virtual bitset_32
     GetSupportedVIPIDs(const std::string& data);
 
     // 01 VIN Message Count

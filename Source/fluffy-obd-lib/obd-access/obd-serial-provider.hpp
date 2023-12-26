@@ -8,9 +8,10 @@
 
 namespace Obd {
 
-class UsbSerialProvider {
+class ObdSerialProvider {
 public:
     static std::vector<Device> GetAvailableDevices();
+    static std::vector<std::string> get_available_ports();
 };
 
 }

@@ -20,17 +20,17 @@ add_library(${PROJECT_NAME}
 
 obd-access/device.hpp
 obd-access/obd-access.hpp
-obd-access/usb-obd-access.hpp
+obd-access/serial-obd-access.hpp
 obd-access/bluetooth-provider.hpp
-obd-access/usb-serial-provider.hpp
+obd-access/obd-serial-provider.hpp
 obd-access/bluetooth-obd-access.hpp
 obd-access/logging.hpp
 obd-access/bluetooth-provider.cpp
 obd-access/bluetooth-obd-access.cpp
 obd-access/device.cpp
 obd-access/obd-access.cpp
-obd-access/usb-obd-access.cpp
-obd-access/usb-serial-provider.cpp
+obd-access/serial-obd-access.cpp
+obd-access/obd-serial-provider.cpp
 obd-access/logging.cpp
 obd-access/system-calls.hpp
 

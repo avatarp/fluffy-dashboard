@@ -1,4 +1,4 @@
-#include "usb-obd-access.hpp"
+#include "serial-obd-access.hpp"
 
 namespace Obd {
 
@@ -76,12 +76,12 @@ void UsbObdAccess::SetupDefaultTermios()
 
 void UsbObdAccess::SetDevice(Device device)
 {
-    if (device.GetConnectionType() != ConnectionType::Usb) {
+    if (device.GetConnectionType() != ConnectionType::Serial) {
         throw std::logic_error(std::string(
             "Invalid device set. Got"
             + std::to_string(
                 static_cast<int>(device.GetConnectionType()))
-            + " expected " + std::to_string(static_cast<int>(Obd::ConnectionType::Usb)))
+            + " expected " + std::to_string(static_cast<int>(Obd::ConnectionType::Serial)))
                                    .c_str());
     }
     this->m_Device = std::move(device);

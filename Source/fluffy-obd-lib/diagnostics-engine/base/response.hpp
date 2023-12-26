@@ -19,17 +19,17 @@ struct RawResponse {
     std::string m_data;
 };
 
-using bitset_4B = std::bitset<32>;
+using bitset_32 = std::bitset<32>;
 struct Response {
     RawResponse m_rawResponse;
     DataType m_dataType { DataType::empty };
-    bitset_4B m_dataBitset;
+    bitset_32 m_dataBitset;
     std::pair<float, std::string> m_floatData1;
     std::pair<float, std::string> m_floatData2;
     std::pair<std::string, std::string> m_stringData;
 
     Response() = default;
-    Response(RawResponse rawResponse, bitset_4B bitset);
+    Response(RawResponse rawResponse, bitset_32 bitset);
     Response(RawResponse rawResponse, std::string data, std::string type);
     Response(RawResponse rawResponse, float data, std::string unit);
     Response(
