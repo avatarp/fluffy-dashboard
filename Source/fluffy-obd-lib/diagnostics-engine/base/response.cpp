@@ -1,6 +1,6 @@
 #include "response.hpp"
 
-Response::Response(RawResponse rawResponse, bitset_4B bitset)
+Response::Response(RawResponse rawResponse, bitset_32 bitset)
     : m_rawResponse(std::move(rawResponse))
     , m_dataType(DataType::bitset)
     , m_dataBitset(bitset)
