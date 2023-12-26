@@ -15,7 +15,7 @@
 #include "../../obd-access/device.hpp"
 #include "../../obd-access/logging.hpp"
 #include "../../obd-access/bluetooth-obd-access.hpp"
-#include "../../obd-access/usb-obd-access.hpp"
+#include "../../obd-access/serial-obd-access.hpp"
 #include "command-repository.hpp"
 #include "data-decoding-handler.hpp"
 #include "data-filters.hpp"

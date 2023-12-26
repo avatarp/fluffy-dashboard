@@ -5,7 +5,7 @@ namespace Obd {
 
 enum class ConnectionType {
     NoConnection,
-    Usb,
+    Serial,
     Bluetooth
 };
 
