@@ -11,6 +11,7 @@ set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" )
 
 add_executable( ${PROJECT_NAME}
 main.cpp
+serialDevice.hpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
