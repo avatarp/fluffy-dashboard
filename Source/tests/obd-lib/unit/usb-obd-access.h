@@ -1,9 +1,11 @@
 #pragma once
-#include "../../../../Source/fluffy-obd-lib/obd-access/usb-obd-access.hpp"
+
+#include "serial-obd-access.hpp"
+
+#include <gtest/gtest.h>
 #include "mocks/mock-obd-access.hpp"
 #include "mocks/mock-obd-device.hpp"
 #include "obd-access-utils.h"
-#include <gtest/gtest.h>
 
 using namespace testing;
 

@@ -12,10 +12,9 @@
 #include <unistd.h>
 #include <variant>
 
-#include "../../obd-access/device.hpp"
-#include "../../obd-access/logging.hpp"
-#include "../../obd-access/bluetooth-obd-access.hpp"
-#include "../../obd-access/serial-obd-access.hpp"
+#include "device.hpp"
+#include "logging.hpp"
+#include "obd-access.hpp"
 #include "command-repository.hpp"
 #include "data-decoding-handler.hpp"
 #include "data-filters.hpp"
