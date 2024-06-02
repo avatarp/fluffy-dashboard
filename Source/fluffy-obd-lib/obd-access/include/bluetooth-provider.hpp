@@ -1,5 +1,5 @@
 #pragma once
-#include "../obd-access/device.hpp"
+#include "device.hpp"
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 #include <QtBluetooth/QBluetoothLocalDevice>
 #include <filesystem>

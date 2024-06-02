@@ -1,10 +1,11 @@
 #ifndef ELM327LIVEDATA_H
 #define ELM327LIVEDATA_H
-#include <future>
-#include <gtest/gtest.h>
-#include <thread>
 
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-engine.hpp"
+#include <future>
+#include <thread>
+#include "elm327-engine.hpp"
+
+#include <gtest/gtest.h>
 #include "../mocks/mock-obd-access.hpp"
 #include "../obd-access-utils.h"
 
@@ -72,7 +73,7 @@ TEST(elm327LiveData, dummyUsbValidResponse)
 
     EXPECT_EQ("4104", response.m_rawResponse.m_commandId);
     EXPECT_EQ("7E8", response.m_rawResponse.m_ecuId);
-    EXPECT_EQ(3, response.m_rawResponse.m_lenght);
+    EXPECT_EQ(3, response.m_rawResponse.m_length);
     EXPECT_EQ("FF", response.m_rawResponse.m_data);
 
     std::clog << "Decoded: "

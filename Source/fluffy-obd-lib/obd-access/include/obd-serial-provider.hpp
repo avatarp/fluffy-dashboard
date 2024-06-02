@@ -1,5 +1,5 @@
 #pragma once
-#include "../obd-access/device.hpp"
+#include "device.hpp"
 #include "system-calls.hpp"
 #include <filesystem>
 #include <regex>

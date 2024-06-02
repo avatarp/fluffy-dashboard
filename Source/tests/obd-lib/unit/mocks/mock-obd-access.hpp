@@ -1,6 +1,8 @@
 #pragma once
-#include "../../../../../Source/fluffy-obd-lib/obd-access/bluetooth-obd-access.hpp"
-#include "../../../../../Source/fluffy-obd-lib/obd-access/usb-obd-access.hpp"
+
+#include "bluetooth-obd-access.hpp"
+#include "serial-obd-access.hpp"
+
 #include <gmock/gmock.h>
 
 struct MockBtAccess : Obd::BluetoothObdAccess {

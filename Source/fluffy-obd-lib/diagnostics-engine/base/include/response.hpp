@@ -15,7 +15,7 @@ enum class DataType { empty,
 struct RawResponse {
     std::string m_ecuId;
     std::string m_commandId;
-    uint8_t m_lenght { 0 };
+    uint8_t m_length { 0 };
     std::string m_data;
 };
 

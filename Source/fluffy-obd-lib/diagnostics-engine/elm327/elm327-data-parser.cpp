@@ -20,7 +20,7 @@ RawResponse Elm327DataParser::ParseResponse(std::string data,
         parsedResponse.m_commandId = match[3];
         parsedResponse.m_data = match[4];
         parsedResponse.m_ecuId = match[1];
-        parsedResponse.m_lenght = std::stoi(match[2]);
+        parsedResponse.m_length = std::stoi(match[2]);
 
         return parsedResponse;
     }

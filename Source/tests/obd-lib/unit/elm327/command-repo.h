@@ -1,9 +1,10 @@
 #pragma once
-#include <bitset>
-#include <gtest/gtest.h>
-#include <optional>
 
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-command-repository.hpp"
+#include <bitset>
+#include <optional>
+#include "elm327-command-repository.hpp"
+
+#include <gtest/gtest.h>
 
 using namespace testing;
 

@@ -1,8 +1,10 @@
 #pragma once
-#include "../../../../Source/fluffy-obd-lib/obd-access/bluetooth-obd-access.hpp"
+
+#include "bluetooth-obd-access.hpp"
+
+#include <gtest/gtest.h>
 #include "mocks/mock-obd-access.hpp"
 #include "obd-access-utils.h"
-#include <gtest/gtest.h>
 
 using namespace testing;
 

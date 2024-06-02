@@ -1,5 +1,5 @@
 #pragma once
-#include "../base/command-repository.hpp"
+#include "command-repository.hpp"
 
 class Elm327CommandRepository : public CommandRepository {
 public:

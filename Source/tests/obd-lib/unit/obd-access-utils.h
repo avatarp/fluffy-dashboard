@@ -1,13 +1,14 @@
 #pragma once
-#include "../../../fluffy-obd-lib/obd-access/bluetooth-obd-access.hpp"
-#include "../../../fluffy-obd-lib/obd-access/usb-obd-access.hpp"
+
 #include <iostream>
 #include <thread>
+#include "bluetooth-obd-access.hpp"
+#include "serial-obd-access.hpp"
 
 Obd::Device CreateUsbDevice()
 {
     return Obd::Device("testenv",
-        Obd::ConnectionType::Usb,
+        Obd::ConnectionType::Serial,
         "Mock usb device");
 }
 

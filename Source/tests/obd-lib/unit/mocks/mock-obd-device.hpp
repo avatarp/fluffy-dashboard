@@ -1,5 +1,7 @@
 #pragma once
-#include "../../../../../Source/fluffy-obd-lib/obd-access/device.hpp"
+
+#include "device.hpp"
+
 #include <gmock/gmock.h>
 
 struct MockObdDevice : Obd::Device {

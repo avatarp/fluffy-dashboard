@@ -1,23 +1,24 @@
 #pragma once
-#include <bitset>
-#include <gtest/gtest.h>
-#include <optional>
 
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/Decode.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeAirFlow.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeCountA.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeCountAB.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeDTC.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeEquivalenceRatio.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeEvapPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeFuelPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeFuelRailPressure.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeOxygenSensorCurrent.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeOxygenSensorVoltage.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodePercentage.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeRPM.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeTemperature.hpp"
-#include "../../../../fluffy-obd-lib/diagnostics-engine/elm327/decoders/DecodeTimingAdvance.hpp"
+#include <bitset>
+#include <optional>
+#include "Decode.hpp"
+#include "DecodeAirFlow.hpp"
+#include "DecodeCountA.hpp"
+#include "DecodeCountAB.hpp"
+#include "DecodeDTC.hpp"
+#include "DecodeEquivalenceRatio.hpp"
+#include "DecodeEvapPressure.hpp"
+#include "DecodeFuelPressure.hpp"
+#include "DecodeFuelRailPressure.hpp"
+#include "DecodeOxygenSensorCurrent.hpp"
+#include "DecodeOxygenSensorVoltage.hpp"
+#include "DecodePercentage.hpp"
+#include "DecodeRPM.hpp"
+#include "DecodeTemperature.hpp"
+#include "DecodeTimingAdvance.hpp"
+
+#include <gtest/gtest.h>
 
 using namespace testing;
 
