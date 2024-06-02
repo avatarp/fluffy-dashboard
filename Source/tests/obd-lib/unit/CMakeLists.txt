@@ -7,10 +7,11 @@ enable_testing()
 find_package(GTest REQUIRED)
 
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
-set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" )
+set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}")
 
-add_executable( ${PROJECT_NAME}
-main.cpp
+add_executable(
+  ${PROJECT_NAME}
+  main.cpp
   bluetooth-obd-access.h
   obd-access-utils.h
   usb-obd-access.h
@@ -18,10 +19,10 @@ main.cpp
   elm327/command-repo.h
   elm327/decoders.h
   elm327/live-data.h
-  elm327/parser.h
-  )
+  elm327/parser.h)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY
+                                                 "${CLANG_TIDY_COMMAND}")
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 add_subdirectory(../../../fluffy-obd-lib/ fluffy-obd-lib/)
 
@@ -32,8 +33,7 @@ target_link_libraries(
   gmock
   gtest_main
   gmock_main
-  pthread
-)
+  pthread)
 
 include(GoogleTest)
 
