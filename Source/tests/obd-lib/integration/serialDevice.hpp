@@ -1,11 +1,11 @@
 #pragma once
-#include "../../../fluffy-obd-lib/obd-access/bluetooth-obd-access.hpp"
-#include "../../../fluffy-obd-lib/obd-access/device.hpp"
-#include "../../../fluffy-obd-lib/obd-access/obd-serial-provider.hpp"
-#include "../../../fluffy-obd-lib/obd-access/serial-obd-access.hpp"
+#include "bluetooth-obd-access.hpp"
+#include "device.hpp"
+#include "obd-serial-provider.hpp"
+#include "serial-obd-access.hpp"
 
-#include "../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-data-decoder.hpp"
-#include "../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-engine.hpp"
+#include "elm327-data-decoder.hpp"
+#include "elm327-engine.hpp"
 
 #include "test-helpers.hpp"
 
