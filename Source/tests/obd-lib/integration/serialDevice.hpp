@@ -1,3 +1,4 @@
+#pragma once
 #include "../../../fluffy-obd-lib/obd-access/bluetooth-obd-access.hpp"
 #include "../../../fluffy-obd-lib/obd-access/device.hpp"
 #include "../../../fluffy-obd-lib/obd-access/obd-serial-provider.hpp"
@@ -5,6 +6,8 @@
 
 #include "../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-data-decoder.hpp"
 #include "../../../fluffy-obd-lib/diagnostics-engine/elm327/elm327-engine.hpp"
+
+#include "test-helpers.hpp"
 
 bool testGetAvailablePids(Elm327Engine& engine, Response& availablePids)
 {
@@ -23,13 +26,13 @@ bool testGetAvailablePids(Elm327Engine& engine, Response& availablePids)
     }
 }
 
-void testAvailablePids(Elm327Engine& engine, const Response& availablePids, int32_t& testCounter, int32_t& passCounter, int32_t& failCounter)
+void testAvailablePids(Elm327Engine& engine, const Response& availablePids, TestResults& results)
 {
     const auto& bitset = availablePids.m_dataBitset;
     // TODO testResponse for all available pids
 }
 
-void runSerialDeviceTest(int32_t& testCounter, int32_t& passCounter, int32_t& failCounter)
+void runSerialDeviceTest(TestResults& results)
 {
     Elm327Engine engine;
 
@@ -52,11 +55,11 @@ void runSerialDeviceTest(int32_t& testCounter, int32_t& passCounter, int32_t& fa
 
     Response availablePids;
 
-    testCounter++;
+    results.testCounter++;
     if (!testGetAvailablePids(engine, availablePids)) {
-        failCounter++;
+        results.failCounter++;
         return;
     }
-    passCounter++;
-    testAvailablePids(engine, availablePids, testCounter, passCounter, failCounter);
+    results.passCounter++;
+    testAvailablePids(engine, availablePids, results);
 }
