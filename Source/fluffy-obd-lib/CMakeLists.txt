@@ -1,21 +1,7 @@
-cmake_minimum_required(VERSION 3.10)
-project(fluffy-obd-lib VERSION 0.1)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a")
-
-message("Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")
-
-find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
-find_package(
-  Qt5
-  COMPONENTS Bluetooth
-  REQUIRED)
-set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}")
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
+cmake_minimum_required(VERSION 3.16)
+project(fluffy-obd-lib
+  VERSION 0.1
+  LANGUAGES CXX)
 
 add_library(
   ${PROJECT_NAME}
@@ -34,13 +20,28 @@ add_library(
   diagnostics-engine/elm327/elm327-data-parser.cpp
   diagnostics-engine/elm327/elm327-engine.cpp)
 
+find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
+
+set_target_properties(${PROJET_NAME} PROPERTIES
+  CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}"
+  CMAKE_CXX_STANDARD 20
+  CMAKE_CXX_STANDARD_REQUIRED ON
+  CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a"
+  LINKER_LANGUAGE CXX
+  CMAKE_AUTOMOC ON
+  CMAKE_AUTORCC ON
+  CMAKE_AUTOUIC ON
+)
+
 target_include_directories(
   ${PROJECT_NAME}
   PUBLIC obd-access/include diagnostics-engine/base/include
-         diagnostics-engine/elm327/decoders diagnostics-engine/elm327/include)
+  diagnostics-engine/elm327/decoders diagnostics-engine/elm327/include)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY
-"${CLANG_TIDY_COMMAND}")
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
-target_link_libraries(${PROJECT_NAME} Qt5::Bluetooth)
+find_package(
+  Qt5
+  COMPONENTS Bluetooth
+  REQUIRED)
+
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+target_link_libraries(${PROJECT_NAME} Qt5::Bluetooth)
