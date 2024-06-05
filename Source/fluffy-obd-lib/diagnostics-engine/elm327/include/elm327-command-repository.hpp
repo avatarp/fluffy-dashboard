@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ELM327_COMMAND_REPOSITORY_HPP_
+#define ELM327_COMMAND_REPOSITORY_HPP_
+
 #include "command-repository.hpp"
 
 class Elm327CommandRepository : public CommandRepository {
@@ -223,3 +225,5 @@ public:
     // 3F Catalyst Temperature: Bank 2, Sensor 2 => °C
     virtual std::string GetCatalystTemperatureB2S2();
 };
+
+#endif // ELM327_COMMAND_REPOSITORY_HPP_

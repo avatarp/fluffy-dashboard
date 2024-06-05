@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBD_COMMAND_PID_HPP_
+#define OBD_COMMAND_PID_HPP_
 
 // clang-format off
 enum class ObdCommandPid
@@ -54,3 +55,5 @@ enum class ObdCommandPid
     S0A
 };
 // clang-format on
+
+#endif // OBD_COMMAND_PID_HPP_

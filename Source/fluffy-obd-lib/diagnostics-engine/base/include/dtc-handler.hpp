@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DTC_HANDLER_HPP_
+#define DTC_HANDLER_HPP_
+
 #include <string>
 #include <vector>
 
@@ -11,3 +13,5 @@ public:
     DtcHandler() = default;
     virtual std::vector<std::string> GetDTCs(const std::string& data) = 0;
 };
+
+#endif // DTC_HANDLER_HPP_

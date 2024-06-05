@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODE_HPP_
+#define DECODE_HPP_
+
 #include <bitset>
 #include <optional>
 #include <sstream>
@@ -95,3 +97,5 @@ public:
         return result;
     }
 };
+
+#endif // DECODE_HPP_

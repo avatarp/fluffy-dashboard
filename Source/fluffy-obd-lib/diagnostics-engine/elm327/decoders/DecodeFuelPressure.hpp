@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODEFUELPRESSURE_HPP_
+#define DECODEFUELPRESSURE_HPP_
+
 #include "Decode.hpp"
 
 // Decodes
@@ -15,3 +17,5 @@ public:
         return 3 * valA;
     }
 };
+
+#endif // DECODEFUELPRESSURE_HPP_

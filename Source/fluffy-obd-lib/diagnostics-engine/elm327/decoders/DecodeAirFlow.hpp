@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODEAIRFLOW_HPP_
+#define DECODEAIRFLOW_HPP_
+
 #include "Decode.hpp"
 
 // Decodes 10 Mass Air Flow
@@ -17,3 +19,5 @@ public:
         return (256 * valA + valB) / 100;
     }
 };
+
+#endif // DECODEAIRFLOW_HPP_

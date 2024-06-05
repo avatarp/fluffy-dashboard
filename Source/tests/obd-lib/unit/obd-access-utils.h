@@ -1,9 +1,10 @@
-#pragma once
+#ifndef OBD_ACCESS_UTILS_H_
+#define OBD_ACCESS_UTILS_H_
 
-#include <iostream>
-#include <thread>
 #include "bluetooth-obd-access.hpp"
 #include "serial-obd-access.hpp"
+#include <iostream>
+#include <thread>
 
 Obd::Device CreateUsbDevice()
 {
@@ -18,3 +19,5 @@ Obd::Device CreateBluetoothDevice()
         Obd::ConnectionType::Bluetooth,
         "Mock bluetooth device");
 }
+
+#endif // OBD_ACCESS_UTILS_H_

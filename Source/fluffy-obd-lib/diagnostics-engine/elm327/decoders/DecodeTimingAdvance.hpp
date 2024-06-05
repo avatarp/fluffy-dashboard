@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODETIMINGADVANCE_HPP_
+#define DECODETIMINGADVANCE_HPP_
+
 #include "Decode.hpp"
 
 // Decodes 0E Timing advance
@@ -14,3 +16,5 @@ public:
         return Utils::hexToDec(byteA) / 2.0 - 64;
     }
 };
+
+#endif // DECODETIMINGADVANCE_HPP_

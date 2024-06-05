@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODEEQUIVALENCERATIO_HPP_
+#define DECODEEQUIVALENCERATIO_HPP_
+
 #include "Decode.hpp"
 
 // Decodes:
@@ -18,3 +20,5 @@ public:
         return 2.0 / 65536.0 * (256.0 * valA + valB);
     }
 };
+
+#endif // DECODEEQUIVALENCERATIO_HPP_

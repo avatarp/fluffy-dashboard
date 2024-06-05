@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DATA_DECODING_HANDLER_HPP_
+#define DATA_DECODING_HANDLER_HPP_
+
 #include <bitset>
 #include <functional>
 #include <optional>
@@ -270,3 +272,5 @@ public:
     // 0B In-use performance tracking for compression ignition vehicles
     virtual std::string GetPerformanceTracking2(const std::string& data) = 0;
 };
+
+#endif // DATA_DECODING_HANDLER_HPP_

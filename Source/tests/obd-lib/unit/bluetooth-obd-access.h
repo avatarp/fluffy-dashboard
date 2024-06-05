@@ -1,4 +1,7 @@
-#pragma once
+#ifndef BLUETOOTH_OBD_ACCESS_H_
+#define BLUETOOTH_OBD_ACCESS_H_
+
+
 
 #include "bluetooth-obd-access.hpp"
 
@@ -69,3 +72,5 @@ TEST_F(BluetoothAccess_F, Reconnect)
     EXPECT_TRUE(obdAccess.Reconnect());
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
+
+#endif // BLUETOOTH_OBD_ACCESS_H_

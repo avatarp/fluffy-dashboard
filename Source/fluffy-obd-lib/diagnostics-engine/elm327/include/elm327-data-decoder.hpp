@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ELM327_DATA_DECODER_HPP_
+#define ELM327_DATA_DECODER_HPP_
+
 #include "DecodeAirFlow.hpp"
 #include "DecodeCountA.hpp"
 #include "DecodeCountAB.hpp"
@@ -353,3 +355,5 @@ public:
     virtual std::string
     GetPerformanceTracking2(const std::string& data);
 };
+
+#endif // ELM327_DATA_DECODER_HPP_

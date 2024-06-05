@@ -1,4 +1,6 @@
-#pragma once
+#ifndef OBD_ACCESS_HPP_
+#define OBD_ACCESS_HPP_
+
 #include "device.hpp"
 #include "logging.hpp"
 #include <cstring>
@@ -46,3 +48,5 @@ public:
     std::string Transaction(const std::string& command);
 };
 }
+
+#endif // OBD_ACCESS_HPP_

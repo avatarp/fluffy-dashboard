@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODERPM_HPP_
+#define DECODERPM_HPP_
+
 #include "Decode.hpp"
 
 // Decodes
@@ -17,3 +19,5 @@ public:
         return (256 * valA + valB) / 4;
     }
 };
+
+#endif // DECODERPM_HPP_
