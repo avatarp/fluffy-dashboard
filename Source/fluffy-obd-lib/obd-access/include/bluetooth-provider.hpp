@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BLUETOOTH_PROVIDER_HPP_
+#define BLUETOOTH_PROVIDER_HPP_
+
 #include "device.hpp"
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 #include <QtBluetooth/QBluetoothLocalDevice>
@@ -28,3 +30,5 @@ public:
 };
 
 }
+
+#endif // BLUETOOTH_PROVIDER_HPP_

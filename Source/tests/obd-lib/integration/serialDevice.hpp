@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SERIALDEVICE_HPP_
+#define SERIALDEVICE_HPP_
+
 #include "bluetooth-obd-access.hpp"
 #include "device.hpp"
 #include "obd-serial-provider.hpp"
@@ -63,3 +65,5 @@ void runSerialDeviceTest(TestResults& results)
     results.passCounter++;
     testAvailablePids(engine, availablePids, results);
 }
+
+#endif // SERIALDEVICE_HPP_

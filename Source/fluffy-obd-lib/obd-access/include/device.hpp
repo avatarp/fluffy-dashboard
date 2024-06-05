@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DEVICE_HPP_
+#define DEVICE_HPP_
+
 #include "string"
 
 namespace Obd {
@@ -12,7 +14,7 @@ enum class ConnectionType {
 class Device {
 private:
     std::string m_DeviceFilePath = "";
-    ConnectionType m_ConnectionType{ConnectionType::NoConnection};
+    ConnectionType m_ConnectionType { ConnectionType::NoConnection };
     std::string m_Description = "";
 
 public:
@@ -31,3 +33,5 @@ public:
     std::string GetDeviceFilePath() const;
 };
 }
+
+#endif // DEVICE_HPP_

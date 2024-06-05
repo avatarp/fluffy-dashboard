@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODEFUELRAILPRESSURE_HPP_
+#define DECODEFUELRAILPRESSURE_HPP_
+
 #include "Decode.hpp"
 
 // Decodes:
@@ -36,3 +38,5 @@ public:
         return 10 * (256 * valA + valB);
     }
 };
+
+#endif // DECODEFUELRAILPRESSURE_HPP_

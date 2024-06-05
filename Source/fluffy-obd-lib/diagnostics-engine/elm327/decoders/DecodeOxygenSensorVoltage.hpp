@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODEOXYGENSENSORVOLTAGE_HPP_
+#define DECODEOXYGENSENSORVOLTAGE_HPP_
+
 #include "Decode.hpp"
 
 // Decodes 14-1B Oxygen sensor voltage (A)
@@ -31,3 +33,5 @@ public:
         return 8.0 / 65536.0 * (256.0 * valC + valD);
     }
 };
+
+#endif // DECODEOXYGENSENSORVOLTAGE_HPP_

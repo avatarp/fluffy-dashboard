@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MOCK_OBD_ACCESS_HPP_
+#define MOCK_OBD_ACCESS_HPP_
 
 #include "bluetooth-obd-access.hpp"
 #include "serial-obd-access.hpp"
@@ -24,3 +25,5 @@ struct MockUsbAccess : Obd::UsbObdAccess {
     MOCK_METHOD(std::string, Read, ());
     MOCK_METHOD(std::string, Transaction, (const std::string&));
 };
+
+#endif // MOCK_OBD_ACCESS_HPP_

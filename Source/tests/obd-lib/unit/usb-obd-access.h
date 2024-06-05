@@ -1,11 +1,12 @@
-#pragma once
+#ifndef USB_OBD_ACCESS_H_
+#define USB_OBD_ACCESS_H_
 
 #include "serial-obd-access.hpp"
 
-#include <gtest/gtest.h>
 #include "mocks/mock-obd-access.hpp"
 #include "mocks/mock-obd-device.hpp"
 #include "obd-access-utils.h"
+#include <gtest/gtest.h>
 
 using namespace testing;
 
@@ -76,3 +77,5 @@ TEST_F(UsbAccess_F, Reconnect)
     obdAccess.CloseConnection();
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 }
+
+#endif // USB_OBD_ACCESS_H_

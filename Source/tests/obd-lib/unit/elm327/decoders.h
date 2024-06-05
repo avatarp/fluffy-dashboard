@@ -1,7 +1,6 @@
-#pragma once
+#ifndef DECODERS_H_
+#define DECODERS_H_
 
-#include <bitset>
-#include <optional>
 #include "Decode.hpp"
 #include "DecodeAirFlow.hpp"
 #include "DecodeCountA.hpp"
@@ -17,6 +16,8 @@
 #include "DecodeRPM.hpp"
 #include "DecodeTemperature.hpp"
 #include "DecodeTimingAdvance.hpp"
+#include <bitset>
+#include <optional>
 
 #include <gtest/gtest.h>
 
@@ -211,3 +212,5 @@ TEST(elm327decoders, decodeDTC)
     EXPECT_EQ("P0300", decoder.decode("4300"));
     EXPECT_EQ("P0700", decoder.decode("4700"));
 }
+
+#endif // DECODERS_H_

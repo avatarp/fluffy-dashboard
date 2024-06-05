@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COMMAND_REPO_H_
+#define COMMAND_REPO_H_
 
 #include <bitset>
 #include <optional>
@@ -332,3 +333,5 @@ TEST_F(elm327CommandRepo, repo3F)
 {
     EXPECT_EQ(repo.GetCatalystTemperatureB2S2(), "013F\r");
 }
+
+#endif // COMMAND_REPO_H_

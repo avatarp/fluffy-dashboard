@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODECOUNTA_HPP_
+#define DECODECOUNTA_HPP_
+
 #include "Decode.hpp"
 
 // Decodes:
@@ -18,3 +20,5 @@ public:
         return Utils::hexToDec(byteA);
     }
 };
+
+#endif // DECODECOUNTA_HPP_

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODETEMPERATURE_HPP_
+#define DECODETEMPERATURE_HPP_
+
 #include "Decode.hpp"
 
 // Returns -> -40-215°C
@@ -36,3 +38,5 @@ public:
         return (256 * valA + valB) / 10 - 40;
     }
 };
+
+#endif // DECODETEMPERATURE_HPP_

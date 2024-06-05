@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODEOXYGENSENSORCURRENT_HPP_
+#define DECODEOXYGENSENSORCURRENT_HPP_
+
 #include "Decode.hpp"
 
 // Decodes 34-3B Oxygen sensor current (CD)
@@ -17,3 +19,5 @@ public:
         return (256.0 * valC + valD) / 256.0 - 128.0;
     }
 };
+
+#endif // DECODEOXYGENSENSORCURRENT_HPP_

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BLUETOOTH_OBD_ACCESS_HPP_
+#define BLUETOOTH_OBD_ACCESS_HPP_
+
 #include "obd-access.hpp"
 
 namespace Obd {
@@ -24,3 +26,5 @@ public:
     virtual std::string Read() override;
 };
 }
+
+#endif // BLUETOOTH_OBD_ACCESS_HPP_

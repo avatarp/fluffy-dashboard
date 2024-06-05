@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODEDTC_HPP_
+#define DECODEDTC_HPP_
+
 #include "Decode.hpp"
 
 class DecodeDTC : DecodeString {
@@ -31,3 +33,5 @@ public:
         return dtc;
     }
 };
+
+#endif // DECODEDTC_HPP_

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODECOUNTAB_HPP_
+#define DECODECOUNTAB_HPP_
+
 #include "Decode.hpp"
 
 // Decodes:
@@ -19,3 +21,5 @@ public:
         return 256 * valA + valB;
     }
 };
+
+#endif // DECODECOUNTAB_HPP_

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SYSTEM_CALLS_HPP_
+#define SYSTEM_CALLS_HPP_
+
 #include <array>
 #include <iostream>
 
@@ -29,3 +31,5 @@ inline std::string SystemCallForResponse(const char* cmd)
               << result << std::endl;
     return result;
 }
+
+#endif // SYSTEM_CALLS_HPP_

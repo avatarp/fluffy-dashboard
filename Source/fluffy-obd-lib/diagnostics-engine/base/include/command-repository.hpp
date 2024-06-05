@@ -1,4 +1,6 @@
-#pragma once
+#ifndef COMMAND_REPOSITORY_HPP_
+#define COMMAND_REPOSITORY_HPP_
+
 #include <string>
 
 class CommandRepository {
@@ -222,3 +224,5 @@ public:
     // 3F Catalyst Temperature: Bank 2, Sensor 2 => °C
     virtual std::string GetCatalystTemperatureB2S2() = 0;
 };
+
+#endif // COMMAND_REPOSITORY_HPP_

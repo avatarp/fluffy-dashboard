@@ -1,4 +1,6 @@
-#pragma once
+#ifndef OBD_SERIAL_PROVIDER_HPP_
+#define OBD_SERIAL_PROVIDER_HPP_
+
 #include "device.hpp"
 #include "system-calls.hpp"
 #include <filesystem>
@@ -15,3 +17,5 @@ public:
 };
 
 }
+
+#endif // OBD_SERIAL_PROVIDER_HPP_

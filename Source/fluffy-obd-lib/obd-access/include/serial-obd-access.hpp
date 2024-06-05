@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SERIAL_OBD_ACCESS_HPP_
+#define SERIAL_OBD_ACCESS_HPP_
+
 #include "obd-access.hpp"
 
 namespace Obd {
@@ -14,6 +16,7 @@ private:
 
     virtual bool IsDeviceFileOk() override;
     virtual bool OpenConnection() override;
+
 public:
     UsbObdAccess() = default;
     ~UsbObdAccess() = default;
@@ -21,6 +24,7 @@ public:
     virtual bool Connect() override;
     virtual bool Write(const std::string& command) override;
     virtual std::string Read() override;
-   
 };
 }
+
+#endif // SERIAL_OBD_ACCESS_HPP_

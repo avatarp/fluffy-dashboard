@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DECODEPERCENTAGE_HPP_
+#define DECODEPERCENTAGE_HPP_
+
 #include "Decode.hpp"
 
 // Returns -> 0-100%
@@ -37,3 +39,5 @@ public:
         return Utils::hexToDec(byteA) / 1.28 - 100;
     }
 };
+
+#endif // DECODEPERCENTAGE_HPP_

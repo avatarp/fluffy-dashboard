@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DIAGNOSTICS_ENGINE_HPP_
+#define DIAGNOSTICS_ENGINE_HPP_
+
 #include <bitset>
 #include <errno.h>
 #include <exception>
@@ -12,13 +14,13 @@
 #include <unistd.h>
 #include <variant>
 
-#include "device.hpp"
-#include "logging.hpp"
-#include "obd-access.hpp"
 #include "command-repository.hpp"
 #include "data-decoding-handler.hpp"
 #include "data-filters.hpp"
+#include "device.hpp"
 #include "dtc-handler.hpp"
+#include "logging.hpp"
+#include "obd-access.hpp"
 #include "obd-command-pid.hpp"
 #include "response.hpp"
 
@@ -32,6 +34,7 @@ protected:
     std::unique_ptr<CommandRepository> m_CommandRepository;
     virtual bool SendCommand(const std::string& command);
     virtual std::string ReadResponse();
+
 public:
     ParametersEngine() = default;
     virtual ~ParametersEngine() = default;
@@ -41,3 +44,5 @@ public:
     virtual bool CloseConnection() = 0;
     Response GetCommandResponse(ObdCommandPid pid);
 };
+
+#endif // DIAGNOSTICS_ENGINE_HPP_
