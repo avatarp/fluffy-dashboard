@@ -1,7 +1,5 @@
 #include "serialDevice.hpp"
 
-#include <iostream>
-
 int main()
 {
     TestResults results;
