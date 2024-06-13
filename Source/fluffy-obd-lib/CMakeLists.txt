@@ -11,8 +11,6 @@ add_library(
   obd-access/obd-access.cpp
   obd-access/serial-obd-access.cpp
   obd-access/obd-serial-provider.cpp
-  obd-access/logging.cpp
-  diagnostics-engine/base/dtc-handler.cpp
   diagnostics-engine/base/diagnostics-engine.cpp
   diagnostics-engine/base/response.cpp
   diagnostics-engine/elm327/elm327-command-repository.cpp

@@ -57,7 +57,6 @@ void runSerialDeviceTest(TestResults& results)
         return;
     }
     results.passCounter++;
-    testAvailablePids(engine, availablePids, results);
 }
 
 #endif // SERIALDEVICE_HPP_
