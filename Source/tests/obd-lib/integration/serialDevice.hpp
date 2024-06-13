@@ -28,12 +28,6 @@ bool testGetAvailablePids(Elm327Engine& engine, Response& availablePids)
     }
 }
 
-void testAvailablePids(Elm327Engine& engine, const Response& availablePids, TestResults& results)
-{
-    const auto& bitset = availablePids.m_dataBitset;
-    // TODO testResponse for all available pids
-}
-
 void runSerialDeviceTest(TestResults& results)
 {
     Elm327Engine engine;
@@ -63,7 +57,6 @@ void runSerialDeviceTest(TestResults& results)
         return;
     }
     results.passCounter++;
-    testAvailablePids(engine, availablePids, results);
 }
 
 #endif // SERIALDEVICE_HPP_

@@ -15,7 +15,7 @@ bool BluetoothObdAccess::Write(const std::string& command)
 
     if (bytesWritten == -1) {
         std::cerr << "WRITE FAILURE\n"
-                  << "Error:" << getStrerror(errno) << ".\n";
+                  << "Error:" << strerror(errno) << ".\n";
         m_ConnectionStatus = ConnectionStatus::ConnectionLost;
         return false;
     }
@@ -38,7 +38,7 @@ std::string BluetoothObdAccess::Read()
     if (bytesRead <= 0) {
         std::cerr << "READ FAILURE\n"
                   << "Error:"
-                  << getStrerror(errno) << ".\n";
+                  << strerror(errno) << ".\n";
         this->m_ConnectionStatus = ConnectionStatus::DeviceTimeout;
     }
     std::cerr << "Received response: " << readBuffer.data() << ".\n";
@@ -104,10 +104,9 @@ bool BluetoothObdAccess::Connect()
         return false;
     }
 
-    if(!OpenConnection())
-    {
+    if (!OpenConnection()) {
         this->m_ConnectionStatus = ConnectionStatus::Disconnected;
-        std::clog << "Error:" << getStrerror(errno) << ".\n";
+        std::clog << "Error:" << strerror(errno) << ".\n";
         return false;
     }
     std::clog << "OK.\n";

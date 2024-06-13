@@ -18,8 +18,6 @@
 #include "data-decoding-handler.hpp"
 #include "data-filters.hpp"
 #include "device.hpp"
-#include "dtc-handler.hpp"
-#include "logging.hpp"
 #include "obd-access.hpp"
 #include "obd-command-pid.hpp"
 #include "response.hpp"
