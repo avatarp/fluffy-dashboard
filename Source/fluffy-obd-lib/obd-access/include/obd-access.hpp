@@ -2,7 +2,6 @@
 #define OBD_ACCESS_HPP_
 
 #include "device.hpp"
-#include "logging.hpp"
 #include <cstring>
 #include <errno.h>
 #include <fcntl.h>

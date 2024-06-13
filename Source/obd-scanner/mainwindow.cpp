@@ -34,11 +34,6 @@ MainWindow::MainWindow(QWidget* parent)
         ui->logsTextBrowser->append(QString::fromStdString(usbDevice.GetDescription()));
         ui->logsTextBrowser->append("\n");
     }
-
-    // devices = bluetoothDevices;
-    // devices.insert(devices.end(),usbDevices.begin(),usbDevices.end());
-
-    // Elm327Engine engine;
 }
 
 MainWindow::~MainWindow()

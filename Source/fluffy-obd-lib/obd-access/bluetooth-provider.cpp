@@ -37,18 +37,7 @@ bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo& device) // NOLI
     if (device.address().isNull()) {
         return false; // NOLINT
     }
-    // Check for root privilages
-    // Check rfcomm device file
-    // if (devicefile exists)
-    //{
-    //   if(devicefile adress!=device.adress())
-    //   Exec unbind
-    //   else
-    //   return true;
-    // }
-    // TODO
-    // EXEC rfcomm bind in a new process with pkexec/gksu/etc
-    // return result;
+
     return true;
 }
 
