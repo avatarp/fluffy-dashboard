@@ -13,7 +13,7 @@
 
 namespace Obd {
 
-const uint16_t bufferSize = 256;
+constexpr uint8_t bufferSize = 255U;
 
 enum class ConnectionStatus {
     Disconnected,
@@ -28,11 +28,7 @@ protected:
     Device m_Device;
     ConnectionStatus m_ConnectionStatus = ConnectionStatus::Disconnected;
     termios m_Terminal;
-    int m_DevicePort;
-
-    virtual bool IsDeviceFileOk() = 0;
-    virtual bool OpenConnection() = 0;
-
+    int m_DeviceFileDescriptor;
 public:
     ObdAccess() = default;
     virtual ~ObdAccess();

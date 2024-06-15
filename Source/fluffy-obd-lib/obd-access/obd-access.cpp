@@ -10,8 +10,8 @@ std::string ObdAccess::Transaction(const std::string& command)
 
 ObdAccess::~ObdAccess()
 {
-    if (this->m_DevicePort > 0) {
-        close(m_DevicePort);
+    if (this->m_DeviceFileDescriptor > 0) {
+        close(m_DeviceFileDescriptor);
         std::clog << "Connection with "
                   << this->GetDevice().GetDeviceFilePath()
                   << " " << this->m_Device.GetDescription()
@@ -22,8 +22,8 @@ ObdAccess::~ObdAccess()
 bool ObdAccess::CloseConnection()
 {
     try {
-        if (this->m_DevicePort > 0) {
-            close(m_DevicePort);
+        if (this->m_DeviceFileDescriptor > 0) {
+            close(m_DeviceFileDescriptor);
             std::clog << "Connection with "
                       << this->GetDevice().GetDeviceFilePath()
                       << " " << this->m_Device.GetDescription()

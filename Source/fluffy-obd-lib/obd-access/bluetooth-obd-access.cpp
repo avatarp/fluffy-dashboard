@@ -11,7 +11,7 @@ bool BluetoothObdAccess::Write(const std::string& command)
 
     std::cerr << "Writing command " + command << ".\n";
     ssize_t bytesWritten = write(
-        this->m_DevicePort, command.c_str(), command.length());
+        this->m_DeviceFileDescriptor, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
         std::cerr << "WRITE FAILURE\n"
@@ -34,7 +34,7 @@ bool BluetoothObdAccess::Write(const std::string& command)
 std::string BluetoothObdAccess::Read()
 {
     std::array<char, bufferSize> readBuffer {};
-    ssize_t bytesRead = read(m_DevicePort, &readBuffer, bufferSize);
+    ssize_t bytesRead = read(m_DeviceFileDescriptor, &readBuffer, bufferSize);
     if (bytesRead <= 0) {
         std::cerr << "READ FAILURE\n"
                   << "Error:"
@@ -62,9 +62,9 @@ void BluetoothObdAccess::SetupDefaultTermios()
     // Blocking read for 0.5 second between characters
     m_Terminal.c_cc[VMIN] = readBlockingInterval;
     // Flush device file contents
-    tcflush(m_DevicePort, TCIOFLUSH);
+    tcflush(m_DeviceFileDescriptor, TCIOFLUSH);
     // Apply changes
-    tcsetattr(m_DevicePort, TCSANOW, &m_Terminal);
+    tcsetattr(m_DeviceFileDescriptor, TCSANOW, &m_Terminal);
 }
 
 void BluetoothObdAccess::SetDevice(Device device)
@@ -84,11 +84,11 @@ bool BluetoothObdAccess::IsDeviceFileOk()
 bool BluetoothObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
-    this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
+    this->m_DeviceFileDescriptor = open(this->m_Device.GetDeviceFilePath().c_str(),
         O_RDWR | O_NOCTTY);
 
     // error occured
-    return this->m_DevicePort == -1;
+    return this->m_DeviceFileDescriptor == -1;
 }
 
 bool BluetoothObdAccess::Connect()
