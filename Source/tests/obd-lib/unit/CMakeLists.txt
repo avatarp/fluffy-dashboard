@@ -11,7 +11,7 @@ add_executable(
   main.cpp
   bluetooth-obd-access.h
   obd-access-utils.h
-  usb-obd-access.h
+  serial-obd-access.h
   mocks/mock-obd-access.hpp
   elm327/command-repo.h
   elm327/decoders.h
