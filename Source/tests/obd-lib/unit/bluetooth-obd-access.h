@@ -17,19 +17,20 @@ protected:
 
     void SetUp()
     {
-        EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
-        EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
+        EXPECT_CALL(obdAccess, Connect).WillOnce(Return(true));
     }
 };
 
 TEST_F(BluetoothAccess_F, DataTransferOk)
 {
     ASSERT_TRUE(obdAccess.Connect());
+    EXPECT_CALL(obdAccess, GetConnectionStatus).WillOnce(Return(Obd::ConnectionStatus::Connected));
     ASSERT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
     EXPECT_CALL(obdAccess, Transaction("abc")).WillOnce(Return(std::string("def")));
     EXPECT_EQ(obdAccess.Transaction("abc"), "def");
 
+    EXPECT_CALL(obdAccess, GetConnectionStatus).WillOnce(Return(Obd::ConnectionStatus::Connected));
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
 
@@ -61,15 +62,24 @@ TEST(BluetoothAccess, NoDeviceFile)
 TEST_F(BluetoothAccess_F, Reconnect)
 {
     EXPECT_TRUE(obdAccess.Connect());
+    EXPECT_CALL(obdAccess, GetConnectionStatus).WillOnce(Return(Obd::ConnectionStatus::Connected));
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
     obdAccess.CloseConnection();
+    EXPECT_CALL(obdAccess, GetConnectionStatus)
+        .WillOnce(Return(Obd::ConnectionStatus::Disconnected));
+
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 
-    EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
-    EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
+    EXPECT_CALL(obdAccess, Connect()).WillOnce(Return(true));
+    EXPECT_TRUE(obdAccess.Connect());
+    EXPECT_CALL(obdAccess, GetConnectionStatus).WillOnce(Return(Obd::ConnectionStatus::Connected));
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
+    EXPECT_CALL(obdAccess, Connect()).WillOnce(Return(true));
     EXPECT_TRUE(obdAccess.Reconnect());
+    EXPECT_CALL(obdAccess, GetConnectionStatus).WillOnce(Return(Obd::ConnectionStatus::Connected));
+
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
 

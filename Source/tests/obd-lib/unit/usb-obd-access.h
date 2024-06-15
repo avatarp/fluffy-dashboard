@@ -10,28 +10,29 @@
 
 using namespace testing;
 
-class UsbAccess_F : public ::testing::Test {
+class SerialAccess_F : public ::testing::Test {
 protected:
-    MockUsbAccess obdAccess;
+    MockSerialAccess obdAccess;
 
     void SetUp()
     {
-        EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
-        EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
+        EXPECT_CALL(obdAccess, Connect).WillOnce(Return(true));
     }
 };
 
-TEST_F(UsbAccess_F, DataTransferOk)
+TEST_F(SerialAccess_F, DataTransferOk)
 {
     obdAccess.SetDevice(std::move(CreateUsbDevice()));
 
     ASSERT_TRUE(obdAccess.Connect());
+    EXPECT_CALL(obdAccess, GetConnectionStatus).WillOnce(Return(Obd::ConnectionStatus::Connected));
     ASSERT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
     EXPECT_CALL(obdAccess, Transaction("abc")).WillOnce(Return(std::string("def")));
 
     std::string response = obdAccess.Transaction("abc");
     EXPECT_EQ(response, "def");
+    EXPECT_CALL(obdAccess, GetConnectionStatus).WillOnce(Return(Obd::ConnectionStatus::Connected));
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
 
@@ -61,20 +62,23 @@ TEST(UsbAccess, NoDeviceSet)
     EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::DeviceNotFound);
 }
 
-TEST_F(UsbAccess_F, Reconnect)
+TEST_F(SerialAccess_F, Reconnect)
 {
     obdAccess.SetDevice(std::move(CreateUsbDevice()));
 
     EXPECT_TRUE(obdAccess.Connect());
+    EXPECT_CALL(obdAccess, GetConnectionStatus).WillOnce(Return(Obd::ConnectionStatus::Connected));
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
-    EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
-    EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
+    EXPECT_CALL(obdAccess, Connect).WillOnce(Return(true));
 
     EXPECT_TRUE(obdAccess.Reconnect());
+    EXPECT_CALL(obdAccess, GetConnectionStatus).WillOnce(Return(Obd::ConnectionStatus::Connected));
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
     obdAccess.CloseConnection();
+    EXPECT_CALL(obdAccess, GetConnectionStatus)
+        .WillOnce(Return(Obd::ConnectionStatus::Disconnected));
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 }
 
