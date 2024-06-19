@@ -1,8 +1,3 @@
-cmake_minimum_required(VERSION 3.16)
-project(fluffy-obd-lib
-  VERSION 0.1
-  LANGUAGES CXX)
-
 add_library(
   ${PROJECT_NAME}
   obd-access/bluetooth-provider.cpp

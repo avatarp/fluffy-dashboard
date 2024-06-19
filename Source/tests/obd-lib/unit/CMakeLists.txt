@@ -1,13 +1,9 @@
-cmake_minimum_required(VERSION 3.16)
-project(lib-unit-test
-LANGUAGES CXX)
-
 find_package(GTest REQUIRED)
 include(GoogleTest)
 enable_testing()
 
 add_executable(
-  ${PROJECT_NAME}
+  fluffy-obd-ut
   main.cpp
   bluetooth-obd-access.h
   obd-access-utils.h
@@ -20,16 +16,14 @@ add_executable(
 
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
 
-set_target_properties(${PROJECT_NAME} PROPERTIES
-  CMAKE_CXX_STANDARD 20
-  CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}"
-)
+set_target_properties(
+  fluffy-obd-ut PROPERTIES CMAKE_CXX_STANDARD 20 CMAKE_CXX_CLANG_TIDY
+  "${CLANG_TIDY_EXE}")
 
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
-add_subdirectory(../../../fluffy-obd-lib/ fluffy-obd-lib/)
+target_compile_features(fluffy-obd-ut PRIVATE cxx_std_20)
 
 target_link_libraries(
-  ${PROJECT_NAME}
+  fluffy-obd-ut
   fluffy-obd-lib
   gtest
   gmock
@@ -37,4 +31,4 @@ target_link_libraries(
   gmock_main
   pthread)
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+add_test(fluffy-obd-ut fluffy-obd-ut)
