@@ -38,3 +38,13 @@ find_package(
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_link_libraries(${PROJECT_NAME} Qt5::Bluetooth)
+
+if(${ENABLE_WARNINGS})
+    target_set_warnings(
+        TARGET
+        ${PROJECT_NAME}
+        ENABLE
+        ${ENABLE_WARNINGS}
+        AS_ERRORS
+        ${ENABLE_WARNINGS_AS_ERRORS})
+endif()

@@ -32,3 +32,13 @@ target_link_libraries(
   pthread)
 
 add_test(fluffy-obd-ut fluffy-obd-ut)
+
+if(${ENABLE_WARNINGS})
+    target_set_warnings(
+        TARGET
+        fluffy-obd-ut
+        ENABLE
+        ${ENABLE_WARNINGS}
+        AS_ERRORS
+        ${ENABLE_WARNINGS_AS_ERRORS})
+endif()
