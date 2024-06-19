@@ -12,6 +12,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
 
+option(ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
+
 option(ENABLE_SANITIZE_ADDR "Enable address sanitize." OFF)
 option(ENABLE_SANITIZE_UNDEF "Enable undefined sanitize." OFF)
 option(ENABLE_SANITIZE_LEAK "Enable leak sanitize." OFF)
@@ -21,6 +23,7 @@ option(ENABLE_SANITIZE_THREAD "Enable thread sanitize." OFF)
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 if(ENABLE_WARNINGS)
+    include(Clangtidy)
     include(Warnings)
 endif()
 
