@@ -12,11 +12,24 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
 
+option(ENABLE_SANITIZE_ADDR "Enable address sanitize." OFF)
+option(ENABLE_SANITIZE_UNDEF "Enable undefined sanitize." OFF)
+option(ENABLE_SANITIZE_LEAK "Enable leak sanitize." OFF)
+option(ENABLE_SANITIZE_THREAD "Enable thread sanitize." OFF)
+
 # CMAKE MODULES
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 if(ENABLE_WARNINGS)
     include(Warnings)
+endif()
+
+if(ENABLE_SANITIZE_ADDR
+   OR ENABLE_SANITIZE_UNDEF
+   OR ENABLE_SANITIZE_LEAK
+   OR ENABLE_SANITIZE_THREAD)
+    include(Sanitizer)
+    add_sanitizer_flags()
 endif()
 
 add_subdirectory(fluffy-obd-lib)
