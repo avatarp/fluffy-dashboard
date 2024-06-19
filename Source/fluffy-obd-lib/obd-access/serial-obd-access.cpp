@@ -87,7 +87,6 @@ void UsbObdAccess::SetDevice(Device device)
     this->m_Device = std::move(device);
 }
 
-
 bool UsbObdAccess::IsDeviceFileOk()
 {
     return std::filesystem::exists(this->m_Device.GetDeviceFilePath());
@@ -122,7 +121,7 @@ bool UsbObdAccess::Connect()
         std::clog << "Error:" << strerror(errno) << ".\n";
         return false;
     }
-    
+
     std::clog << "OK.\n";
     this->m_ConnectionStatus = ConnectionStatus::Connected;
     return true;
