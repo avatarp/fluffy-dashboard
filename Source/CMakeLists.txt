@@ -19,13 +19,18 @@ option(ENABLE_SANITIZE_UNDEF "Enable undefined sanitize." OFF)
 option(ENABLE_SANITIZE_LEAK "Enable leak sanitize." OFF)
 option(ENABLE_SANITIZE_THREAD "Enable thread sanitize." OFF)
 
+option(ENABLE_CLANG_FORMAT "Enable to add clang-format." ON)
+
 # CMAKE MODULES
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+include(Clangtidy)
+include(Clangformat)
 
 if(ENABLE_WARNINGS)
-    include(Clangtidy)
     include(Warnings)
 endif()
+
+add_clang_format_target()
 
 if(ENABLE_SANITIZE_ADDR
    OR ENABLE_SANITIZE_UNDEF
