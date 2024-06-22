@@ -20,8 +20,8 @@ bool BluetoothObdAccess::Write(const std::string& command)
         return false;
     }
 
-    if (command.size() == bytesWritten) {
-        std::cerr << "Written " << bytesWritten << " bytes succesfully.\n";
+    if (command.size() == static_cast<std::size_t>(bytesWritten)) {
+        std::cerr << "Written " << bytesWritten << " bytes successfully.\n";
         return true;
     }
 
@@ -87,7 +87,7 @@ bool BluetoothObdAccess::OpenConnection()
     this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
         O_RDWR | O_NOCTTY);
 
-    // error occured
+    // error occurred
     return this->m_DevicePort == -1;
 }
 

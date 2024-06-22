@@ -13,7 +13,7 @@ public:
             throw std::runtime_error("invalid input");
 
         std::string byteA { text[0], text[1] };
-        return Utils::hexToDec(byteA) / 2.0 - 64;
+        return static_cast<float>(Utils::hexToDec(byteA)) / 2.0f - 64.0f;
     }
 };
 

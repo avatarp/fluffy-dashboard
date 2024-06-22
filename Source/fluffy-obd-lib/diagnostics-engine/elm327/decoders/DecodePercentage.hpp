@@ -19,7 +19,7 @@ public:
                 "Invalid input in DecodePercentage expected 2 chars got " + std::to_string(text.length()));
 
         std::string byteA { text[0], text[1] };
-        return Utils::hexToDec(byteA) / 2.55;
+        return static_cast<float>(Utils::hexToDec(byteA)) / 2.55F;
     }
 };
 
@@ -36,7 +36,7 @@ public:
             throw std::runtime_error("invalid input");
 
         std::string byteA { text[0], text[1] };
-        return Utils::hexToDec(byteA) / 1.28 - 100;
+        return static_cast<float>(Utils::hexToDec(byteA)) / 1.28f - 100.f;
     }
 };
 

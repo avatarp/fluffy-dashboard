@@ -17,7 +17,7 @@ public:
             throw std::runtime_error("invalid input");
 
         std::string byteA { text[0], text[1] };
-        return Utils::hexToDec(byteA);
+        return static_cast<float>(Utils::hexToDec(byteA));
     }
 };
 

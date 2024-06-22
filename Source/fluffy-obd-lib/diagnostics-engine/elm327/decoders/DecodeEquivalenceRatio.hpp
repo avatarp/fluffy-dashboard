@@ -15,9 +15,9 @@ public:
 
         std::string byteA { text[0], text[1] };
         std::string byteB { text[3], text[4] };
-        float valA = Utils::hexToDec(byteA);
-        float valB = Utils::hexToDec(byteB);
-        return 2.0 / 65536.0 * (256.0 * valA + valB);
+        float valA = static_cast<float>(Utils::hexToDec(byteA));
+        float valB = static_cast<float>(Utils::hexToDec(byteB));
+        return 2.0f / 65536.0f * (256.0f * valA + valB);
     }
 };
 
