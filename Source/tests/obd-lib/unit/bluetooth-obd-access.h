@@ -1,13 +1,11 @@
 #ifndef BLUETOOTH_OBD_ACCESS_H_
 #define BLUETOOTH_OBD_ACCESS_H_
 
-
-
 #include "bluetooth-obd-access.hpp"
 
-#include <gtest/gtest.h>
 #include "mocks/mock-obd-access.hpp"
 #include "obd-access-utils.h"
+#include <gtest/gtest.h>
 
 using namespace testing;
 

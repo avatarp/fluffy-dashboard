@@ -1,8 +1,8 @@
 #include "obd-serial-provider.hpp"
 #include <filesystem>
+#include <iostream>
 #include <regex>
 #include <string>
-#include <iostream>
 
 namespace Obd {
 

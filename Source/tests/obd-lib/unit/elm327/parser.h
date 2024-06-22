@@ -3,8 +3,8 @@
 
 #include "elm327-data-parser.hpp"
 
-#include <gtest/gtest.h>
 #include "../obd-access-utils.h"
+#include <gtest/gtest.h>
 
 using namespace testing;
 

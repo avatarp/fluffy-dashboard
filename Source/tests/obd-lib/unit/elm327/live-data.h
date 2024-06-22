@@ -1,13 +1,13 @@
 #ifndef ELM327LIVEDATA_H
 #define ELM327LIVEDATA_H
 
+#include "elm327-engine.hpp"
 #include <future>
 #include <thread>
-#include "elm327-engine.hpp"
 
-#include <gtest/gtest.h>
 #include "../mocks/mock-obd-access.hpp"
 #include "../obd-access-utils.h"
+#include <gtest/gtest.h>
 
 using namespace testing;
 

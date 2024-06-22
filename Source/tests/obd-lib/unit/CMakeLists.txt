@@ -14,11 +14,8 @@ add_executable(
   elm327/live-data.h
   elm327/parser.h)
 
-find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
-
 set_target_properties(
-  fluffy-obd-ut PROPERTIES CMAKE_CXX_STANDARD 20 CMAKE_CXX_CLANG_TIDY
-  "${CLANG_TIDY_EXE}")
+  fluffy-obd-ut PROPERTIES CMAKE_CXX_STANDARD 20)
 
 target_compile_features(fluffy-obd-ut PRIVATE cxx_std_20)
 
@@ -32,3 +29,13 @@ target_link_libraries(
   pthread)
 
 add_test(fluffy-obd-ut fluffy-obd-ut)
+
+if(${ENABLE_WARNINGS})
+    target_set_warnings(
+        TARGET
+        fluffy-obd-ut
+        ENABLE
+        ${ENABLE_WARNINGS}
+        AS_ERRORS
+        ${ENABLE_WARNINGS_AS_ERRORS})
+endif()

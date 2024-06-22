@@ -1,9 +1,9 @@
 #ifndef COMMAND_REPO_H_
 #define COMMAND_REPO_H_
 
+#include "elm327-command-repository.hpp"
 #include <bitset>
 #include <optional>
-#include "elm327-command-repository.hpp"
 
 #include <gtest/gtest.h>
 
