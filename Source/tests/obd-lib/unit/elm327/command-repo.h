@@ -11,7 +11,7 @@ using namespace testing;
 
 class elm327CommandRepo : public ::testing::Test {
 protected:
-    Elm327CommandRepository repo;
+    Elm327CommandRepository repo {};
 };
 
 TEST_F(elm327CommandRepo, repo00)

@@ -26,10 +26,10 @@ class ParametersEngine {
     static constexpr int BUFFER_SIZE = 256;
     static constexpr int m_readSleepTime { 500 * 1000 }; // ms
 protected:
-    std::shared_ptr<Obd::ObdAccess> m_obdAccess;
-    std::shared_ptr<DataDecodingHandler> m_dataDecoder;
-    std::shared_ptr<DataParser> m_dataFilter;
-    std::shared_ptr<CommandRepository> m_commandRepository;
+    std::shared_ptr<Obd::ObdAccess> m_obdAccess {};
+    std::shared_ptr<DataDecodingHandler> m_dataDecoder {};
+    std::shared_ptr<DataParser> m_dataFilter {};
+    std::shared_ptr<CommandRepository> m_commandRepository {};
     virtual bool SendCommand(const std::string& command);
     virtual std::string ReadResponse();
 
