@@ -9,7 +9,7 @@ public:
     Elm327DataParser() = default;
     virtual RawResponse ParseResponse(
         std::string data,
-        const size_t& dataBytesCount,
+        const size_t dataBytesCount,
         const std::string& commandPid);
 };
 
