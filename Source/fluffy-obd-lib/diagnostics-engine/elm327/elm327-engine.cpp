@@ -2,9 +2,9 @@
 
 Elm327Engine::Elm327Engine()
 {
-    m_CommandRepository = std::make_unique<Elm327CommandRepository>();
-    m_dataDecoder = std::make_unique<Elm327DataDecoder>();
-    m_dataFilter = std::make_unique<Elm327DataParser>();
+    m_commandRepository = std::make_shared<Elm327CommandRepository>();
+    m_dataDecoder = std::make_shared<Elm327DataDecoder>();
+    m_dataFilter = std::make_shared<Elm327DataParser>();
 }
 
 bool Elm327Engine::OpenConnection()
