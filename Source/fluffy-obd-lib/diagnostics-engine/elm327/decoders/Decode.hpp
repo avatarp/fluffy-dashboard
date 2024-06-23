@@ -84,6 +84,8 @@ public:
 
 class DecodeString {
 public:
+    DecodeString() = default;
+    virtual ~DecodeString() = default;
     virtual std::string decode(const std::string& text)
     {
         std::string result;

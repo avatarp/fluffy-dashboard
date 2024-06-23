@@ -5,7 +5,8 @@
 
 class CommandRepository {
 public:
-    CommandRepository() {};
+    CommandRepository() = default;
+    virtual ~CommandRepository() = default;
     // SID 01
     //###########################################################################
     // 00 PIDs supported [01 - 20]
