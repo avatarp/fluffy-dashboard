@@ -56,7 +56,10 @@ void BluetoothObdAccess::SetupDefaultTermios()
     // Clear output flags
     m_Terminal.c_oflag = 0;
     // Set non-canonical mode
-    m_Terminal.c_lflag &= ~ICANON;
+    // Warning -Wsign-conversion suppressed due to standard way of disabling canonical mode
+#pragma GCC diagnostic ignored "-Wsign-conversion"
+    m_Terminal.c_lflag &= (~ICANON);
+#pragma GCC diagnostic warning "-Wsign-conversion"
     // Set timeout of 1.0 seconds
     m_Terminal.c_cc[VTIME] = timeout;
     // Blocking read for 0.5 second between characters

@@ -22,10 +22,10 @@ bool UsbObdAccess::Write(const std::string& command)
         return false;
     }
 
-    if (command.size() == bytesWritten) {
+    if (command.size() == static_cast<size_t>(bytesWritten)) {
         std::cerr << "Written "
                   << bytesWritten
-                  << " bytes succesfully.\n";
+                  << " bytes successfully.\n";
         return true;
     }
 
@@ -63,7 +63,10 @@ void UsbObdAccess::SetupDefaultTermios()
     // Clear output flags
     m_Terminal.c_oflag = 0;
     // Set non-canonical mode
-    m_Terminal.c_lflag &= ~ICANON;
+    // Warning -Wsign-conversion suppressed due to standard way of disabling canonical mode
+#pragma GCC diagnostic ignored "-Wsign-conversion"
+    m_Terminal.c_lflag &= (~ICANON);
+#pragma GCC diagnostic warning "-Wsign-conversion"
     // Set timeout of 0.5 seconds
     m_Terminal.c_cc[VTIME] = timeout;
     // Blocking read for 0.3 second between characters
@@ -97,7 +100,7 @@ bool UsbObdAccess::OpenConnection()
     // NOLINTNEXTLINE
     this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
         O_RDWR | O_NOCTTY);
-    // error occured
+    // error occurred
     return this->m_DevicePort == -1;
 }
 
