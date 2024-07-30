@@ -41,5 +41,7 @@ if(ENABLE_SANITIZE_ADDR
 endif()
 
 add_subdirectory(fluffy-obd-lib)
+
+enable_testing()
 add_subdirectory(tests/obd-lib/unit)
 add_subdirectory(tests/obd-lib/integration)
