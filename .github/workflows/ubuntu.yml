@@ -17,6 +17,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
+    - name: Install Dependencies
+      run: sudo apt-get install clang clang-format clang-tidy gcc-10 build-essential googletest libgtest-dev libgmock-dev qtbase5-dev libqt5bluetooth5 qtconnectivity5-dev
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
