@@ -31,7 +31,7 @@ target_link_libraries(
 add_test(fluffy-obd-ut fluffy-obd-ut)
 
 if(${ENABLE_WARNINGS})
-    target_set_warnings(
+    test_target_set_warnings(
         TARGET
         fluffy-obd-ut
         ENABLE

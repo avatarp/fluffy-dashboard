@@ -26,16 +26,17 @@ class ParametersEngine {
     static constexpr int BUFFER_SIZE = 256;
     static constexpr int m_readSleepTime { 500 * 1000 }; // ms
 protected:
-    std::unique_ptr<Obd::ObdAccess> m_obdAccess;
-    std::unique_ptr<DataDecodingHandler> m_dataDecoder;
-    std::unique_ptr<DataParser> m_dataFilter;
-    std::unique_ptr<CommandRepository> m_CommandRepository;
+    std::shared_ptr<Obd::ObdAccess> m_obdAccess {};
+    std::shared_ptr<DataDecodingHandler> m_dataDecoder {};
+    std::shared_ptr<DataParser> m_dataFilter {};
+    std::shared_ptr<CommandRepository> m_commandRepository {};
     virtual bool SendCommand(const std::string& command);
     virtual std::string ReadResponse();
 
 public:
     ParametersEngine() = default;
-    virtual ~ParametersEngine() = default;
+    virtual ~ParametersEngine()
+        = default;
     void SetSerialDevice(Obd::Device device);
     void SetObdAccess(std::unique_ptr<Obd::ObdAccess> obdAccess);
     virtual bool OpenConnection() = 0;

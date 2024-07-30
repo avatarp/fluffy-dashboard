@@ -11,7 +11,7 @@ using namespace testing;
 
 class BluetoothAccess_F : public ::testing::Test {
 protected:
-    MockBtAccess obdAccess;
+    MockBtAccess obdAccess {};
 
     void SetUp()
     {

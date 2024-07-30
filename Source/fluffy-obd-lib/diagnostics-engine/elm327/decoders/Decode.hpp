@@ -39,7 +39,7 @@ inline std::string hexToBin(std::string hex)
 }
 // clang-format on
 
-inline int twoComplementaryHexToDec(std::string hexString)
+inline int32_t twoComplementaryHexToDec(std::string hexString)
 {
     unsigned long long tempValue;
     std::istringstream ost(hexString);
@@ -48,11 +48,11 @@ inline int twoComplementaryHexToDec(std::string hexString)
 
     if (binary.test(7)) {
         binary.reset(7);
-        int temp = (int)binary.to_ulong();
+        int32_t temp = static_cast<int32_t>(binary.to_ulong());
         temp -= 128;
         return temp;
     }
-    return (int)binary.to_ulong();
+    return static_cast<int32_t>(binary.to_ulong());
 }
 
 } // namespace Utils
@@ -84,14 +84,15 @@ public:
 
 class DecodeString {
 public:
+    DecodeString() = default;
+    virtual ~DecodeString() = default;
     virtual std::string decode(const std::string& text)
     {
         std::string result;
         result.reserve(text.size() / 2);
         for (size_t i = 0; i < text.length(); i += 2) {
             std::string byte = text.substr(i, 2);
-            char chr = (char)(int)strtol(byte.c_str(), nullptr, 16);
-            result.push_back(chr);
+            result.push_back(static_cast<char>(strtol(byte.c_str(), nullptr, 16)));
         }
 
         return result;

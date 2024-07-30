@@ -10,11 +10,11 @@ namespace Obd {
 
 const std::string DefaultRfcommFile = "/dev/rfcomm0";
 class BluetoothProvider {
-    std::shared_ptr<QBluetoothDeviceDiscoveryAgent> discoveryAgent;
-    QBluetoothLocalDevice localDevice;
+    std::shared_ptr<QBluetoothDeviceDiscoveryAgent> discoveryAgent { std::make_shared<QBluetoothDeviceDiscoveryAgent>() };
+    QBluetoothLocalDevice localDevice {};
 
 public:
-    BluetoothProvider();
+    BluetoothProvider() = default;
     ~BluetoothProvider() = default;
     BluetoothProvider(const BluetoothProvider& other) = delete;
     BluetoothProvider(BluetoothProvider&& other) = default;

@@ -10,7 +10,7 @@ using namespace testing;
 
 class elm327Parser_F : public Test {
 protected:
-    Elm327DataParser parser;
+    Elm327DataParser parser {};
 };
 
 TEST_F(elm327Parser_F, response0100)

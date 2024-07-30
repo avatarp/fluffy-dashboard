@@ -26,21 +26,21 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
 
     switch (pid) {
     case S01P00: {
-        std::string command = m_CommandRepository->GetSupportedPIDs1();
+        std::string command = m_commandRepository->GetSupportedPIDs1();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         return Response { parsedResponse, m_dataDecoder->GetSupportedPIDs1(parsedResponse.m_data) };
         break;
     }
     case S01P01: {
-        std::string command = m_CommandRepository->GetMonitorStatus();
+        std::string command = m_commandRepository->GetMonitorStatus();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         return Response { parsedResponse, m_dataDecoder->GetMonitorStatus(parsedResponse.m_data) };
         break;
     }
     case S01P02: {
-        std::string command = m_CommandRepository->GetFreezeDTCs();
+        std::string command = m_commandRepository->GetFreezeDTCs();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse, m_dataDecoder->GetFreezeDTCs(parsedResponse.m_data),
@@ -48,7 +48,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P03: {
-        std::string command = m_CommandRepository->GetFuelSystemStatus();
+        std::string command = m_commandRepository->GetFuelSystemStatus();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse,
@@ -56,7 +56,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P04: {
-        std::string command = m_CommandRepository->GetEngineLoad();
+        std::string command = m_commandRepository->GetEngineLoad();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse, m_dataDecoder->GetEngineLoad(parsedResponse.m_data),
@@ -64,7 +64,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P05: {
-        std::string command = m_CommandRepository->GetEngineCoolantTemperature();
+        std::string command = m_commandRepository->GetEngineCoolantTemperature();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -72,7 +72,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P06: {
-        std::string command = m_CommandRepository->GetShortTermFuelTrimBank1();
+        std::string command = m_commandRepository->GetShortTermFuelTrimBank1();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -80,7 +80,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P07: {
-        std::string command = m_CommandRepository->GetLongTermFuelTrimBank1();
+        std::string command = m_commandRepository->GetLongTermFuelTrimBank1();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -88,7 +88,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P08: {
-        std::string command = m_CommandRepository->GetShortTermFuelTrimBank2();
+        std::string command = m_commandRepository->GetShortTermFuelTrimBank2();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -96,7 +96,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P09: {
-        std::string command = m_CommandRepository->GetLongTermFuelTrimBank2();
+        std::string command = m_commandRepository->GetLongTermFuelTrimBank2();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -104,7 +104,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P0A: {
-        std::string command = m_CommandRepository->GetFuelPressure();
+        std::string command = m_commandRepository->GetFuelPressure();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse, m_dataDecoder->GetFuelPressure(parsedResponse.m_data),
@@ -112,7 +112,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P0B: {
-        std::string command = m_CommandRepository->GetIntakeManifoldPressure();
+        std::string command = m_commandRepository->GetIntakeManifoldPressure();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -120,7 +120,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P0C: {
-        std::string command = m_CommandRepository->GetEngineRpm();
+        std::string command = m_commandRepository->GetEngineRpm();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse, m_dataDecoder->GetEngineRpm(parsedResponse.m_data),
@@ -128,14 +128,14 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P0D: {
-        std::string command = m_CommandRepository->GetSpeed();
+        std::string command = m_commandRepository->GetSpeed();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse, m_dataDecoder->GetSpeed(parsedResponse.m_data), "km/h" };
         break;
     }
     case S01P0E: {
-        std::string command = m_CommandRepository->GetTimingAdvance();
+        std::string command = m_commandRepository->GetTimingAdvance();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse, m_dataDecoder->GetTimingAdvance(parsedResponse.m_data),
@@ -143,7 +143,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P0F: {
-        std::string command = m_CommandRepository->GetIntakeAirTemperature();
+        std::string command = m_commandRepository->GetIntakeAirTemperature();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -151,7 +151,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P10: {
-        std::string command = m_CommandRepository->GetMafAirFlowRate();
+        std::string command = m_commandRepository->GetMafAirFlowRate();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse, m_dataDecoder->GetMafAirFlowRate(parsedResponse.m_data),
@@ -159,7 +159,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P11: {
-        std::string command = m_CommandRepository->GetThrottlePosition();
+        std::string command = m_commandRepository->GetThrottlePosition();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse, m_dataDecoder->GetThrottlePosition(parsedResponse.m_data),
@@ -167,7 +167,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P12: {
-        std::string command = m_CommandRepository->GetSecondaryAirStatus();
+        std::string command = m_commandRepository->GetSecondaryAirStatus();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -175,7 +175,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P13: {
-        std::string command = m_CommandRepository->GetOxygenSensorsPresent1();
+        std::string command = m_commandRepository->GetOxygenSensorsPresent1();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -183,7 +183,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P14: {
-        std::string command = m_CommandRepository->GetOxygenSensorFtV1();
+        std::string command = m_commandRepository->GetOxygenSensorFtV1();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -192,7 +192,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P15: {
-        std::string command = m_CommandRepository->GetOxygenSensorFtV2();
+        std::string command = m_commandRepository->GetOxygenSensorFtV2();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -201,7 +201,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P16: {
-        std::string command = m_CommandRepository->GetOxygenSensorFtV3();
+        std::string command = m_commandRepository->GetOxygenSensorFtV3();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -210,7 +210,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P17: {
-        std::string command = m_CommandRepository->GetOxygenSensorFtV4();
+        std::string command = m_commandRepository->GetOxygenSensorFtV4();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -219,7 +219,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P18: {
-        std::string command = m_CommandRepository->GetOxygenSensorFtV5();
+        std::string command = m_commandRepository->GetOxygenSensorFtV5();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -228,7 +228,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P19: {
-        std::string command = m_CommandRepository->GetOxygenSensorFtV6();
+        std::string command = m_commandRepository->GetOxygenSensorFtV6();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -237,7 +237,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P1A: {
-        std::string command = m_CommandRepository->GetOxygenSensorFtV7();
+        std::string command = m_commandRepository->GetOxygenSensorFtV7();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -246,7 +246,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P1B: {
-        std::string command = m_CommandRepository->GetOxygenSensorFtV8();
+        std::string command = m_commandRepository->GetOxygenSensorFtV8();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -255,14 +255,14 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P1C: {
-        std::string command = m_CommandRepository->GetObdStandard();
+        std::string command = m_commandRepository->GetObdStandard();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse, m_dataDecoder->GetObdStandard(parsedResponse.m_data) };
         break;
     }
     case S01P1D: {
-        std::string command = m_CommandRepository->GetOxygenSensorsPresent2();
+        std::string command = m_commandRepository->GetOxygenSensorsPresent2();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -270,7 +270,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P1E: {
-        std::string command = m_CommandRepository->GetAuxiliaryInputStatus();
+        std::string command = m_commandRepository->GetAuxiliaryInputStatus();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -278,21 +278,21 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P1F: {
-        std::string command = m_CommandRepository->GetRunTime();
+        std::string command = m_commandRepository->GetRunTime();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse, m_dataDecoder->GetRunTime(parsedResponse.m_data), "s" };
         break;
     }
     case S01P20: {
-        std::string command = m_CommandRepository->GetSupportedPIDs2();
+        std::string command = m_commandRepository->GetSupportedPIDs2();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         return Response { parsedResponse, m_dataDecoder->GetSupportedPIDs2(parsedResponse.m_data) };
         break;
     }
     case S01P21: {
-        std::string command = m_CommandRepository->GetDistanceWithMilOn();
+        std::string command = m_commandRepository->GetDistanceWithMilOn();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse,
@@ -300,7 +300,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P22: {
-        std::string command = m_CommandRepository->GetFuelRailPressure();
+        std::string command = m_commandRepository->GetFuelRailPressure();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse, m_dataDecoder->GetFuelRailPressure(parsedResponse.m_data),
@@ -308,7 +308,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P23: {
-        std::string command = m_CommandRepository->GetFuelRailGaugePressure();
+        std::string command = m_commandRepository->GetFuelRailGaugePressure();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse,
@@ -316,7 +316,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P24: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqV1();
+        std::string command = m_commandRepository->GetOxygenSensorEqV1();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -325,7 +325,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P25: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqV2();
+        std::string command = m_commandRepository->GetOxygenSensorEqV2();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -334,7 +334,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P26: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqV3();
+        std::string command = m_commandRepository->GetOxygenSensorEqV3();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -343,7 +343,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P27: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqV4();
+        std::string command = m_commandRepository->GetOxygenSensorEqV4();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -352,7 +352,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P28: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqV5();
+        std::string command = m_commandRepository->GetOxygenSensorEqV5();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -361,7 +361,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P29: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqV6();
+        std::string command = m_commandRepository->GetOxygenSensorEqV6();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -370,7 +370,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P2A: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqV7();
+        std::string command = m_commandRepository->GetOxygenSensorEqV7();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -379,7 +379,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P2B: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqV8();
+        std::string command = m_commandRepository->GetOxygenSensorEqV8();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         std::pair<float, float> decodedPair
@@ -388,7 +388,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P2C: {
-        std::string command = m_CommandRepository->GetCommandedEgr();
+        std::string command = m_commandRepository->GetCommandedEgr();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse, m_dataDecoder->GetCommandedEgr(parsedResponse.m_data),
@@ -396,14 +396,14 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P2D: {
-        std::string command = m_CommandRepository->GetEgrError();
+        std::string command = m_commandRepository->GetEgrError();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse, m_dataDecoder->GetEgrError(parsedResponse.m_data), "%" };
         break;
     }
     case S01P2E: {
-        std::string command = m_CommandRepository->GetCommandedEvaporativePurge();
+        std::string command = m_commandRepository->GetCommandedEvaporativePurge();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -411,7 +411,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P2F: {
-        std::string command = m_CommandRepository->GetFuelTankLevelInput();
+        std::string command = m_commandRepository->GetFuelTankLevelInput();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -419,7 +419,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P30: {
-        std::string command = m_CommandRepository->GetWarmupsSinceDtcCleared();
+        std::string command = m_commandRepository->GetWarmupsSinceDtcCleared();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -427,7 +427,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P31: {
-        std::string command = m_CommandRepository->GetDistanceSinceDtcCleared();
+        std::string command = m_commandRepository->GetDistanceSinceDtcCleared();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse,
@@ -435,7 +435,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P32: {
-        std::string command = m_CommandRepository->GetEvapVaporPressure();
+        std::string command = m_commandRepository->GetEvapVaporPressure();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse,
@@ -443,7 +443,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P33: {
-        std::string command = m_CommandRepository->GetAbsoluteBarometricPressure();
+        std::string command = m_commandRepository->GetAbsoluteBarometricPressure();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 1, command);
         return Response { parsedResponse,
@@ -451,7 +451,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P34: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqC1();
+        std::string command = m_commandRepository->GetOxygenSensorEqC1();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         std::pair<float, float> decodedPair
@@ -460,7 +460,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P35: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqC2();
+        std::string command = m_commandRepository->GetOxygenSensorEqC2();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         std::pair<float, float> decodedPair
@@ -469,7 +469,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P36: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqC3();
+        std::string command = m_commandRepository->GetOxygenSensorEqC3();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         std::pair<float, float> decodedPair
@@ -478,7 +478,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P37: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqC4();
+        std::string command = m_commandRepository->GetOxygenSensorEqC4();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         std::pair<float, float> decodedPair
@@ -487,7 +487,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P38: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqC5();
+        std::string command = m_commandRepository->GetOxygenSensorEqC5();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         std::pair<float, float> decodedPair
@@ -496,7 +496,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P39: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqC6();
+        std::string command = m_commandRepository->GetOxygenSensorEqC6();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         std::pair<float, float> decodedPair
@@ -505,7 +505,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P3A: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqC7();
+        std::string command = m_commandRepository->GetOxygenSensorEqC7();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         std::pair<float, float> decodedPair
@@ -514,7 +514,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P3B: {
-        std::string command = m_CommandRepository->GetOxygenSensorEqC8();
+        std::string command = m_commandRepository->GetOxygenSensorEqC8();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 4, command);
         std::pair<float, float> decodedPair
@@ -523,7 +523,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P3C: {
-        std::string command = m_CommandRepository->GetCatalystTemperatureB1S1();
+        std::string command = m_commandRepository->GetCatalystTemperatureB1S1();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse,
@@ -531,7 +531,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P3D: {
-        std::string command = m_CommandRepository->GetCatalystTemperatureB2S1();
+        std::string command = m_commandRepository->GetCatalystTemperatureB2S1();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse,
@@ -539,7 +539,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P3E: {
-        std::string command = m_CommandRepository->GetCatalystTemperatureB1S2();
+        std::string command = m_commandRepository->GetCatalystTemperatureB1S2();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse,
@@ -547,7 +547,7 @@ Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
         break;
     }
     case S01P3F: {
-        std::string command = m_CommandRepository->GetCatalystTemperatureB2S2();
+        std::string command = m_commandRepository->GetCatalystTemperatureB2S2();
         SendCommand(command);
         RawResponse parsedResponse = m_dataFilter->ParseResponse(ReadResponse(), 2, command);
         return Response { parsedResponse,

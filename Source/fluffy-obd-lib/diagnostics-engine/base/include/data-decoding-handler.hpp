@@ -9,13 +9,16 @@
 
 class DataDecodingHandler {
 public:
+    DataDecodingHandler() = default;
+    virtual ~DataDecodingHandler() = default;
     /////////////////////////////////////////////////////////////////////////////////////
     // Service 01 Show current data
     // Service 02 Show freeze frame data
     // Commands below are interchangeable for both services
     /////////////////////////////////////////////////////////////////////////////////////
     // 00 PIDs supported [01 - 20]
-    virtual std::bitset<32> GetSupportedPIDs1(const std::string& data) = 0;
+    virtual std::bitset<32>
+    GetSupportedPIDs1(const std::string& data) = 0;
 
     // 01 Monitor status since DTCs cleared
     virtual std::bitset<32> GetMonitorStatus(const std::string& data) = 0;

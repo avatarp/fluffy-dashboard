@@ -8,7 +8,7 @@ target_compile_features(fluffy-obd-it PRIVATE cxx_std_20)
 target_link_libraries(fluffy-obd-it fluffy-obd-lib)
 
 if(${ENABLE_WARNINGS})
-    target_set_warnings(
+    test_target_set_warnings(
         TARGET
         fluffy-obd-it
         ENABLE

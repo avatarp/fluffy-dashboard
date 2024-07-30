@@ -14,8 +14,8 @@ public:
 
         std::string byteA { text[0], text[1] };
         std::string byteB { text[3], text[4] };
-        float valA = Utils::hexToDec(byteA);
-        float valB = Utils::hexToDec(byteB);
+        float valA = static_cast<float>(Utils::hexToDec(byteA));
+        float valB = static_cast<float>(Utils::hexToDec(byteB));
         return (256 * valA + valB) / 4;
     }
 };

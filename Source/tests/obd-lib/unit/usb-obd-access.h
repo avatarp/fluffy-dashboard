@@ -12,7 +12,7 @@ using namespace testing;
 
 class UsbAccess_F : public ::testing::Test {
 protected:
-    MockUsbAccess obdAccess;
+    MockUsbAccess obdAccess {};
 
     void SetUp()
     {

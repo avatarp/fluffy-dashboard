@@ -25,10 +25,10 @@ enum class ConnectionStatus {
 
 class ObdAccess {
 protected:
-    Device m_Device;
-    ConnectionStatus m_ConnectionStatus = ConnectionStatus::Disconnected;
-    termios m_Terminal;
-    int m_DevicePort;
+    Device m_Device {};
+    ConnectionStatus m_ConnectionStatus { ConnectionStatus::Disconnected };
+    termios m_Terminal {};
+    int m_DevicePort {};
 
     virtual bool IsDeviceFileOk() = 0;
     virtual bool OpenConnection() = 0;

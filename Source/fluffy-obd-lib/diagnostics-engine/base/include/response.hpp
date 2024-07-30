@@ -13,20 +13,20 @@ enum class DataType { empty,
     dtc };
 
 struct RawResponse {
-    std::string m_ecuId;
-    std::string m_commandId;
+    std::string m_ecuId {};
+    std::string m_commandId {};
     uint8_t m_length { 0 };
-    std::string m_data;
+    std::string m_data {};
 };
 
 using bitset_32 = std::bitset<32>;
 struct Response {
-    RawResponse m_rawResponse;
+    RawResponse m_rawResponse {};
     DataType m_dataType { DataType::empty };
-    bitset_32 m_dataBitset;
-    std::pair<float, std::string> m_floatData1;
-    std::pair<float, std::string> m_floatData2;
-    std::pair<std::string, std::string> m_stringData;
+    bitset_32 m_dataBitset {};
+    std::pair<float, std::string> m_floatData1 {};
+    std::pair<float, std::string> m_floatData2 {};
+    std::pair<std::string, std::string> m_stringData {};
 
     Response() = default;
     Response(RawResponse rawResponse, bitset_32 bitset);

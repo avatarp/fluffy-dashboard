@@ -14,10 +14,10 @@ public:
             throw std::runtime_error("invalid input");
 
         std::string byteA { text[0], text[1] };
-        float valA = Utils::twoComplementaryHexToDec(byteA);
+        float valA = static_cast<float>(Utils::twoComplementaryHexToDec(byteA));
         std::string byteB { text[3], text[4] };
-        float valB = Utils::hexToDec(byteB);
-        return 0.25 * (256 * valA + valB);
+        float valB = static_cast<float>(Utils::hexToDec(byteB));
+        return 0.25f * (256.0f * valA + valB);
     }
 };
 

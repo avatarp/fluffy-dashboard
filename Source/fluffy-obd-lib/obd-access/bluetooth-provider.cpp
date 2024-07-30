@@ -1,11 +1,6 @@
 #include "bluetooth-provider.hpp"
 namespace Obd {
 
-BluetoothProvider::BluetoothProvider()
-{
-    this->discoveryAgent = std::make_shared<QBluetoothDeviceDiscoveryAgent>();
-}
-
 bool BluetoothProvider::StartScan()
 {
     if (localDevice.isValid()) {
