@@ -47,7 +47,7 @@ std::vector<std::string> BluetoothProvider::GetExistingRfcommDevices()
     return devices;
 }
 
-bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo& device)
+bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo& device, std::string& deviceFilePath)
 {
     if (device.address().isNull()) {
         return false;
@@ -57,7 +57,7 @@ bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo& device)
     const auto existingRfcommDevices = GetExistingRfcommDevices();
     if (!existingRfcommDevices.empty()) {
         for (auto& rfcommDevice : existingRfcommDevices) {
-            uint32_t deviceId = static_cast<uint32_t>(std::stoul(rfcommDevice.substr(rfcommDevice.find(Rfcomm), rfcommDevice.npos)));
+            uint32_t deviceId = static_cast<uint32_t>(std::stoul(rfcommDevice.substr(rfcommDevice.find(Rfcomm) + Rfcomm.size(), rfcommDevice.npos)));
             if (deviceId > rfcommDeviceId) {
                 rfcommDeviceId = deviceId;
             }
@@ -78,11 +78,12 @@ bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo& device)
 
 Obd::Device BluetoothProvider::CreateDevice(const QBluetoothDeviceInfo& device)
 {
-    if (!std::filesystem::exists(Obd::DefaultRfcommDeviceFilePath)) {
-        BindToRfcomm(device);
-    }
-    return Obd::Device { Obd::DefaultRfcommDeviceFilePath,
+    std::string deviceFilePath;
+    if (BindToRfcomm(device, deviceFilePath))
+        return Obd::Device { deviceFilePath,
         Obd::ConnectionType::Bluetooth,
         device.name().toStdString() };
+    else
+        throw(std::runtime_error("Bind to rfcomm failed"));
 }
 } // namespace Obd

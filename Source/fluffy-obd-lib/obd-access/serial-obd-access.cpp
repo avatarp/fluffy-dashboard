@@ -18,6 +18,7 @@ bool UsbObdAccess::Write(const std::string& command)
         std::cerr << "WRITE FAILURE\n"
                   << "Error:"
                   << strerror(errno) << ".\n";
+        errno = 0;
         m_ConnectionStatus = ConnectionStatus::ConnectionLost;
         return false;
     }
@@ -45,6 +46,7 @@ std::string UsbObdAccess::Read()
         std::cerr << "READ FAILURE\n"
                   << "Error:"
                   << strerror(errno) << ".\n";
+        errno = 0;
         this->m_ConnectionStatus = ConnectionStatus::DeviceTimeout;
     }
     std::cerr << "Received response: "
@@ -122,6 +124,7 @@ bool UsbObdAccess::Connect()
     if (!OpenConnection()) {
         this->m_ConnectionStatus = ConnectionStatus::Disconnected;
         std::clog << "Error:" << strerror(errno) << ".\n";
+        errno = 0;
         return false;
     }
 
