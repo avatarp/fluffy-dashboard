@@ -24,7 +24,7 @@ public:
     bool StartScan();
     void StopScan();
     std::vector<QBluetoothDeviceInfo> GetAvailableDevicesInfo();
-    bool IsBluetoothAvailable();
+    bool IsBluetoothAvailable() const;
     bool BindToRfcomm(const QBluetoothDeviceInfo& device);
     Obd::Device CreateDevice(const QBluetoothDeviceInfo& device);
 };

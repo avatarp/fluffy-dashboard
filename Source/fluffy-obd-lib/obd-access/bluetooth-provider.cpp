@@ -22,7 +22,7 @@ std::vector<QBluetoothDeviceInfo> BluetoothProvider::GetAvailableDevicesInfo()
     return std::vector<QBluetoothDeviceInfo> { devices.begin(), devices.end() };
 }
 
-bool BluetoothProvider::IsBluetoothAvailable()
+bool BluetoothProvider::IsBluetoothAvailable() const
 {
     return localDevice.isValid();
 }
