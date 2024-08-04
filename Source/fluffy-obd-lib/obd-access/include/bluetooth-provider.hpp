@@ -13,6 +13,8 @@ static std::string const DefaultRfcommDeviceFilePath = "/dev/rfcomm0";
 class BluetoothProvider {
     std::shared_ptr<QBluetoothDeviceDiscoveryAgent> discoveryAgent { std::make_shared<QBluetoothDeviceDiscoveryAgent>() };
     QBluetoothLocalDevice localDevice {};
+    bool isRfcommDevice(const std::string& filename) const;
+    std::vector<std::string> GetExistingRfcommDevices();
 
 public:
     BluetoothProvider() = default;
