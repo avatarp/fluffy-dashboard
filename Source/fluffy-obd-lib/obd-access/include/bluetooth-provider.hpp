@@ -7,8 +7,9 @@
 #include <filesystem>
 
 namespace Obd {
-
-const std::string DefaultRfcommFile = "/dev/rfcomm0";
+static std::string const Rfcomm { "rfcomm" };
+static std::string const DefaultRfcommFilesPath = "/dev/rfcomm";
+static std::string const DefaultRfcommDeviceFilePath = "/dev/rfcomm0";
 class BluetoothProvider {
     std::shared_ptr<QBluetoothDeviceDiscoveryAgent> discoveryAgent { std::make_shared<QBluetoothDeviceDiscoveryAgent>() };
     QBluetoothLocalDevice localDevice {};

@@ -38,10 +38,10 @@ bool BluetoothProvider::BindToRfcomm(const QBluetoothDeviceInfo& device) // NOLI
 
 Obd::Device BluetoothProvider::CreateDevice(const QBluetoothDeviceInfo& device)
 {
-    if (std::filesystem::exists(Obd::DefaultRfcommFile)) {
+    if (!std::filesystem::exists(Obd::DefaultRfcommDeviceFilePath)) {
         BindToRfcomm(device);
     }
-    return Obd::Device { Obd::DefaultRfcommFile,
+    return Obd::Device { Obd::DefaultRfcommDeviceFilePath,
         Obd::ConnectionType::Bluetooth,
         device.name().toStdString() };
 }
