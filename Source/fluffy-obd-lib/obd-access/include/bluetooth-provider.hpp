@@ -9,12 +9,12 @@
 namespace Obd {
 static std::string const Rfcomm { "rfcomm" };
 static std::string const DefaultRfcommFilesPath = "/dev/";
-static std::string const DefaultRfcommDeviceFilePath = "/dev/rfcomm0";
+
 class BluetoothProvider {
     std::shared_ptr<QBluetoothDeviceDiscoveryAgent> discoveryAgent { std::make_shared<QBluetoothDeviceDiscoveryAgent>() };
-    QBluetoothLocalDevice localDevice {};
-    bool isRfcommDevice(const std::string& filename) const;
-    std::vector<std::string> GetExistingRfcommDevices();
+    QBluetoothLocalDevice bluetoothLocalDevice {};
+    static bool isRfcommDevice(const std::string& filename);
+    static std::vector<std::string> GetExistingRfcommDevices();
 
 public:
     BluetoothProvider() = default;
@@ -29,7 +29,7 @@ public:
     std::vector<QBluetoothDeviceInfo> GetAvailableDevicesInfo();
     bool IsBluetoothAvailable() const;
     bool BindToRfcomm(const QBluetoothDeviceInfo& device, std::string& deviceFilePath);
-    Obd::Device CreateDevice(const QBluetoothDeviceInfo& device);
+    static Obd::Device CreateDevice(const QBluetoothDeviceInfo& device);
 };
 
 }

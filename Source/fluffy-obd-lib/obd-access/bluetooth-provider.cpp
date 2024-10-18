@@ -6,7 +6,7 @@ namespace Obd {
 
 bool BluetoothProvider::StartScan()
 {
-    if (localDevice.isValid()) {
+    if (bluetoothLocalDevice.isValid()) {
         this->discoveryAgent->start();
         return true;
     }
@@ -27,10 +27,10 @@ std::vector<QBluetoothDeviceInfo> BluetoothProvider::GetAvailableDevicesInfo()
 
 bool BluetoothProvider::IsBluetoothAvailable() const
 {
-    return localDevice.isValid();
+    return bluetoothLocalDevice.isValid();
 }
 
-bool BluetoothProvider::isRfcommDevice(const std::string& filename) const
+bool BluetoothProvider::isRfcommDevice(const std::string& filename)
 {
     return filename.find(Rfcomm) != std::string::npos;
 }
@@ -83,7 +83,7 @@ Obd::Device BluetoothProvider::CreateDevice(const QBluetoothDeviceInfo& device)
         return Obd::Device { deviceFilePath,
         Obd::ConnectionType::Bluetooth,
         device.name().toStdString() };
-    else
+    }
         throw(std::runtime_error("Bind to rfcomm failed"));
 }
 } // namespace Obd
