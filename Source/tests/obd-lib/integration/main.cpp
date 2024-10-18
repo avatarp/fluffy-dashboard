@@ -1,9 +1,11 @@
+#include "bluetoothDevice.hpp"
 #include "serialDevice.hpp"
 
 int main()
 {
     TestResults results;
-    runSerialDeviceTest(results);
+
+    runBluetoothDeviceTest(results);
 
     return verifyResults(results);
 }

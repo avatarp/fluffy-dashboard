@@ -17,10 +17,16 @@ int verifyResults(TestResults& results)
               << results.failCounter << " failed\n"
               << results.passCounter << " passed\n";
     if (results.failCounter > 0 || results.testCounter == 0) {
-        std::cout << "TESTS FAILED" << std::endl;
+        std::cout << "\033[31m"
+                  << "TESTS FAILED"
+                  << "\033[0m"
+                  << std::endl;
         return EXIT_FAILURE;
     }
-    std::cout << "TESTS FAILED" << std::endl;
+    std::cout << "\033[32m"
+              << "TESTS PASSED!"
+              << "\033[0m"
+              << std::endl;
     return EXIT_SUCCESS;
 }
 
