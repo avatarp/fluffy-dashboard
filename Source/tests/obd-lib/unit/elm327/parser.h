@@ -19,14 +19,14 @@ TEST_F(elm327Parser_F, response0100)
     RawResponse parsedResponse = parser.ParseResponse(response, 4, "0100");
     EXPECT_EQ(parsedResponse.m_data, "983B0011");
     EXPECT_EQ(parsedResponse.m_ecuId, "7E8");
-    EXPECT_EQ(parsedResponse.m_commandId, "4100");
+    EXPECT_EQ(parsedResponse.m_commandId, "0100");
     EXPECT_EQ(parsedResponse.m_length, 6);
 
     response = "7E8064100983B0011";
     parsedResponse = parser.ParseResponse(response, 4, "0100");
     EXPECT_EQ(parsedResponse.m_data, "983B0011");
     EXPECT_EQ(parsedResponse.m_ecuId, "7E8");
-    EXPECT_EQ(parsedResponse.m_commandId, "4100");
+    EXPECT_EQ(parsedResponse.m_commandId, "0100");
     EXPECT_EQ(parsedResponse.m_length, 6);
 }
 
@@ -53,7 +53,7 @@ TEST_F(elm327Parser_F, response0104)
     RawResponse parsedResponse = parser.ParseResponse(response, 1, "0104");
     EXPECT_EQ(parsedResponse.m_data, "FF");
     EXPECT_EQ(parsedResponse.m_ecuId, "7E8");
-    EXPECT_EQ(parsedResponse.m_commandId, "4104");
+    EXPECT_EQ(parsedResponse.m_commandId, "0104");
     EXPECT_EQ(parsedResponse.m_length, 3);
 }
 
@@ -63,7 +63,7 @@ TEST_F(elm327Parser_F, response0900)
     RawResponse parsedResponse = parser.ParseResponse(response, 4, "0900");
     EXPECT_EQ(parsedResponse.m_data, "50000000");
     EXPECT_EQ(parsedResponse.m_ecuId, "7E8");
-    EXPECT_EQ(parsedResponse.m_commandId, "4900");
+    EXPECT_EQ(parsedResponse.m_commandId, "0900");
     EXPECT_EQ(parsedResponse.m_length, 6);
 }
 

@@ -71,7 +71,7 @@ TEST(elm327LiveData, dummyUsbValidResponse)
     EXPECT_EQ("%", response.m_floatData1.second);
     EXPECT_EQ(DataType::number, response.m_dataType);
 
-    EXPECT_EQ("4104", response.m_rawResponse.m_commandId);
+    EXPECT_EQ("0104", response.m_rawResponse.m_commandId);
     EXPECT_EQ("7E8", response.m_rawResponse.m_ecuId);
     EXPECT_EQ(3, response.m_rawResponse.m_length);
     EXPECT_EQ("FF", response.m_rawResponse.m_data);
