@@ -7,11 +7,14 @@
 #include <filesystem>
 
 namespace Obd {
+static std::string const rfcomm { "rfcomm" };
+static std::string const deviceFilesPath = "/dev/";
 
-const std::string DefaultRfcommFile = "/dev/rfcomm0";
 class BluetoothProvider {
     std::shared_ptr<QBluetoothDeviceDiscoveryAgent> discoveryAgent { std::make_shared<QBluetoothDeviceDiscoveryAgent>() };
-    QBluetoothLocalDevice localDevice {};
+    QBluetoothLocalDevice bluetoothLocalDevice {};
+    static bool isRfcommDevice(const std::string& filename);
+    static std::vector<std::string> GetExistingRfcommDevices();
 
 public:
     BluetoothProvider() = default;
@@ -24,9 +27,9 @@ public:
     bool StartScan();
     void StopScan();
     std::vector<QBluetoothDeviceInfo> GetAvailableDevicesInfo();
-    bool IsBluetoothAvailable();
-    bool BindToRfcomm(const QBluetoothDeviceInfo& device);
-    Obd::Device CreateDevice(const QBluetoothDeviceInfo& device);
+    bool IsBluetoothAvailable() const;
+    static bool BindToRfcomm(const std::string& deviceAddress, uint16_t rfcommDeviceId);
+    static Obd::Device CreateDevice(const QBluetoothDeviceInfo& device);
 };
 
 }

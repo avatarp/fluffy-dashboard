@@ -13,7 +13,8 @@ private:
     static constexpr uint8_t timeout = 10;
     /// @brief Time Blocking read between characters in 0.1s
     static constexpr uint8_t readBlockingInterval = 5;
-
+    /// @brief Time of waiting for response after sending message in ms
+    uint16_t waitForResponseTime { 500 };
     virtual bool IsDeviceFileOk() override;
     virtual bool OpenConnection() override;
 
