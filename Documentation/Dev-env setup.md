@@ -13,3 +13,17 @@ Packages required:
 
 Packages required:
 `sudo apt-get install libqt5charts5-dev`
+
+## CMake flags
+
+Project can be configured through CMake flags found in `/Source/CMakeLists.txt`.
+Following options compile options be changed there:
+
+- Warnings
+- Warnings as errors
+- ClangTidy
+- ClangFormat
+- LLVM Sanitizers
+
+ClangFormat is recommended. It can be triggered by running `run_clang_format` build target.  
+For running the ClangTidy run the selected `*_clangtidy` build target.
