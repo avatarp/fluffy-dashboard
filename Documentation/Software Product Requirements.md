@@ -6,10 +6,10 @@ This software is being tasked with communication with a car through external OBD
 
 ## Project Scope
 
-Project consists of two apps with shared core on Linux based systems.
-Dashboard client should be focused on presenting the current data (SIDs 01, 09) to the user.  
-Scanner app will allow for wider use of OBD2 system and will allow for saving, and reading gathered data.
-Communication between obd scanner and a computer will be based on RFCOMM Bluetooth protocol or wired standard (USB, serial).
+Project consists of two apps using common library on Linux based systems.  
+**Dashboard client** should be focused on presenting the current data (SIDs 01, 09) to the user, along with options for user customization of its interface.  
+**Scanner app** will allow for wider use of OBD2 system and will allow for saving, and reading gathered data.  
+Communication between obd scanner and a library will be based on RFCOMM Bluetooth protocol or wired standard (USB, serial).
 Application should support multiple languages.
 
 ## User needs
@@ -18,7 +18,7 @@ Software should allow to easily present available obd data and present it to a u
 
 ### Potential users
 
-* Car enthusiasts on-board computer dashboard app
+* Car enthusiasts (on-board computer dashboard app)
 * Car power users
 * Car mechanics
 
