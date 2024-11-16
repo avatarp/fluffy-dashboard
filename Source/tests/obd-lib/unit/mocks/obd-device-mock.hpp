@@ -1,5 +1,5 @@
-#ifndef MOCK_OBD_DEVICE_HPP_
-#define MOCK_OBD_DEVICE_HPP_
+#ifndef OBD_DEVICE_MOCK_HPP_
+#define OBD_DEVICE_MOCK_HPP_
 
 #include "device.hpp"
 
@@ -11,4 +11,4 @@ struct MockObdDevice : Obd::Device {
     MOCK_METHOD(std::string, GetDeviceFilePath, ());
 };
 
-#endif // MOCK_OBD_DEVICE_HPP_
+#endif // OBD_DEVICE_MOCK_HPP_
