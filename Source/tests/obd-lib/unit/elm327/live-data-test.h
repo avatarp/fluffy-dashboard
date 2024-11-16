@@ -1,12 +1,12 @@
-#ifndef ELM327LIVEDATA_H
-#define ELM327LIVEDATA_H
+#ifndef LIVE_DATA_TEST_H_
+#define LIVE_DATA_TEST_H_
 
 #include "elm327-engine.hpp"
 #include <future>
 #include <thread>
 
-#include "../mocks/mock-obd-access.hpp"
-#include "../obd-access-utils.h"
+#include "../common/obd-access-utils.h"
+#include "../mocks/obd-access-mock.hpp"
 #include <gtest/gtest.h>
 
 using namespace testing;
@@ -81,4 +81,4 @@ TEST(elm327LiveData, dummyUsbValidResponse)
               << response.m_floatData1.second << std::endl;
 }
 
-#endif // ELM327LIVEDATA_H
+#endif // LIVE_DATA_TEST_H_

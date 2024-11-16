@@ -1,9 +1,9 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef PARSER_TEST_H_
+#define PARSER_TEST_H_
 
 #include "elm327-data-parser.hpp"
 
-#include "../obd-access-utils.h"
+#include "../common/obd-access-utils.h"
 #include <gtest/gtest.h>
 
 using namespace testing;
@@ -67,4 +67,4 @@ TEST_F(elm327Parser_F, response0900)
     EXPECT_EQ(parsedResponse.m_length, 6);
 }
 
-#endif // PARSER_H
+#endif // PARSER_TEST_H_

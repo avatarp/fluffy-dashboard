@@ -1,7 +1,9 @@
 # Fluffy dev-env setup
 
-Instruction based on Ubuntu 22.04 LTS enviroment.
+Instruction based on Ubuntu 22.04 LTS environment.
 Compiler version GCC 11.4.0
+Ubuntu LLVM version 14.0.0
+gcovr 5.0
 
 ## obd-lib
 
@@ -24,6 +26,7 @@ Following options compile options be changed there:
 - ClangTidy
 - ClangFormat
 - LLVM Sanitizers
+- gcovr coverage
 
 ClangFormat is recommended. It can be triggered by running `run_clang_format` build target.  
 For running the ClangTidy run the selected `*_clangtidy` build target.
