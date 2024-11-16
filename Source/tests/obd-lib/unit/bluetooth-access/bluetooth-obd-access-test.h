@@ -1,18 +1,17 @@
-#ifndef USB_OBD_ACCESS_H_
-#define USB_OBD_ACCESS_H_
+#ifndef BLUETOOTH_OBD_ACCESS_TEST_H_
+#define BLUETOOTH_OBD_ACCESS_TEST_H_
 
-#include "serial-obd-access.hpp"
+#include "bluetooth-obd-access.hpp"
 
-#include "mocks/mock-obd-access.hpp"
-#include "mocks/mock-obd-device.hpp"
-#include "obd-access-utils.h"
+#include "../common/obd-access-utils.h"
+#include "../mocks/obd-access-mock.hpp"
 #include <gtest/gtest.h>
 
 using namespace testing;
 
-class UsbAccess_F : public ::testing::Test {
+class BluetoothAccess_F : public ::testing::Test {
 protected:
-    MockUsbAccess obdAccess {};
+    MockBtAccess obdAccess {};
 
     void SetUp()
     {
@@ -21,61 +20,55 @@ protected:
     }
 };
 
-TEST_F(UsbAccess_F, DataTransferOk)
+TEST_F(BluetoothAccess_F, DataTransferOk)
 {
-    obdAccess.SetDevice(std::move(CreateUsbDevice()));
-
     ASSERT_TRUE(obdAccess.Connect());
     ASSERT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
     EXPECT_CALL(obdAccess, Transaction("abc")).WillOnce(Return(std::string("def")));
+    EXPECT_EQ(obdAccess.Transaction("abc"), "def");
 
-    std::string response = obdAccess.Transaction("abc");
-    EXPECT_EQ(response, "def");
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
 
-TEST(UsbAccess, InvalidDevice)
+TEST(BluetoothAccess, InvalidDevice)
 {
-    Obd::UsbObdAccess OBD;
+    Obd::BluetoothObdAccess OBD;
 
-    EXPECT_THROW(
-        {
-            OBD.SetDevice(std::move(CreateBluetoothDevice()));
-        },
+    EXPECT_THROW({
+        OBD.SetDevice(CreateUsbDevice());
+    },
         std::logic_error);
 }
 
-TEST(UsbAccess, NoDeviceFile)
+TEST(BluetoothAccess, NoDeviceSet)
 {
-    Obd::UsbObdAccess OBD;
-    OBD.SetDevice(std::move(CreateUsbDevice()));
+    Obd::BluetoothObdAccess OBD;
     EXPECT_FALSE(OBD.Connect());
     EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::DeviceNotFound);
 }
 
-TEST(UsbAccess, NoDeviceSet)
+TEST(BluetoothAccess, NoDeviceFile)
 {
-    Obd::UsbObdAccess OBD;
+    Obd::BluetoothObdAccess OBD;
+    OBD.SetDevice(CreateBluetoothDevice());
     EXPECT_FALSE(OBD.Connect());
     EXPECT_EQ(OBD.GetConnectionStatus(), Obd::ConnectionStatus::DeviceNotFound);
 }
 
-TEST_F(UsbAccess_F, Reconnect)
+TEST_F(BluetoothAccess_F, Reconnect)
 {
-    obdAccess.SetDevice(std::move(CreateUsbDevice()));
-
     EXPECT_TRUE(obdAccess.Connect());
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
+
+    obdAccess.CloseConnection();
+    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 
     EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
     EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
 
     EXPECT_TRUE(obdAccess.Reconnect());
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
-
-    obdAccess.CloseConnection();
-    EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 }
 
-#endif // USB_OBD_ACCESS_H_
+#endif // BLUETOOTH_OBD_ACCESS_TEST_H_

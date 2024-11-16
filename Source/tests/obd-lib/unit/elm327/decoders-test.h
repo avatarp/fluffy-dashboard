@@ -1,5 +1,5 @@
-#ifndef DECODERS_H_
-#define DECODERS_H_
+#ifndef DECODERS_TEST_H_
+#define DECODERS_TEST_H_
 
 #include "Decode.hpp"
 #include "DecodeAirFlow.hpp"
@@ -213,4 +213,4 @@ TEST(elm327decoders, decodeDTC)
     EXPECT_EQ("P0700", decoder.decode("4700"));
 }
 
-#endif // DECODERS_H_
+#endif // DECODERS_TEST_H_

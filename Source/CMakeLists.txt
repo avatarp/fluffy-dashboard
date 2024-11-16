@@ -42,6 +42,9 @@ endif()
 
 add_subdirectory(fluffy-obd-lib)
 
+find_package(GTest REQUIRED)
+include(GoogleTest)
 enable_testing()
+
 add_subdirectory(tests/obd-lib/unit)
 add_subdirectory(tests/obd-lib/integration)

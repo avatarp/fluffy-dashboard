@@ -1,5 +1,5 @@
-#ifndef COMMAND_REPO_H_
-#define COMMAND_REPO_H_
+#ifndef COMMAND_REPO_TEST_H_
+#define COMMAND_REPO_TEST_H_
 
 #include "elm327-command-repository.hpp"
 #include <bitset>
@@ -334,4 +334,4 @@ TEST_F(elm327CommandRepo, repo3F)
     EXPECT_EQ(repo.GetCatalystTemperatureB2S2(), "013F\r");
 }
 
-#endif // COMMAND_REPO_H_
+#endif // COMMAND_REPO_TEST_H_
