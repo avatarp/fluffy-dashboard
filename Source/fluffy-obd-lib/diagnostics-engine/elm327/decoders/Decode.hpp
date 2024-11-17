@@ -50,6 +50,8 @@ public:
 
 class DecodeBitEncoded {
 public:
+    const std::size_t minimalInputSize { 2 };
+
     virtual ~DecodeBitEncoded() { }
 
     // Decodes
@@ -60,7 +62,7 @@ public:
     // 1E Auxiliary input status
     virtual std::bitset<32> decode(const std::string& text) const
     {
-        if (text.length() < 2)
+        if (text.length() < minimalInputSize)
             throw std::runtime_error("invalid input");
 
         return std::bitset<32>(Utils::hexStringValue(text));

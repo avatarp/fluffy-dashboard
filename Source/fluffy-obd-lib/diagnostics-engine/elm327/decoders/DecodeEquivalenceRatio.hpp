@@ -8,13 +8,15 @@
 //-> 0-2
 class DecodeEquivalenceRatio : public DecodeFloat {
 public:
+    const size_t expectedInputSize { 4 };
+
     float decode(const std::string& text) const override
     {
-        if (text.length() != 5)
+        if (text.length() != expectedInputSize)
             throw std::runtime_error("invalid input");
 
         std::string byteA { text[0], text[1] };
-        std::string byteB { text[3], text[4] };
+        std::string byteB { text[2], text[3] };
         float valA = static_cast<float>(Utils::hexToDec(byteA));
         float valB = static_cast<float>(Utils::hexToDec(byteB));
         return 2.0f / 65536.0f * (256.0f * valA + valB);

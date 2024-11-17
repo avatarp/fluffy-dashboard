@@ -11,9 +11,11 @@
 // 5C Engine oil temperature
 class DecodeTemperature : public DecodeFloat {
 public:
+    const size_t expectedInputSize { 2 };
+
     float decode(const std::string& text) const override
     {
-        if (text.length() != 2)
+        if (text.length() != expectedInputSize)
             throw std::runtime_error("invalid input");
 
         std::string byteA { text[0], text[1] };
@@ -26,14 +28,16 @@ public:
 //-> -40-6513.5°C
 class DecodeCatalystTemperature : public DecodeFloat {
 public:
+    const size_t expectedInputSize { 4 };
+
     float decode(const std::string& text) const override
     {
-        if (text.length() != 5)
+        if (text.length() != expectedInputSize)
             throw std::runtime_error("invalid input");
 
         std::string byteA { text[0], text[1] };
         float valA = static_cast<float>(Utils::hexToDec(byteA));
-        std::string byteB { text[3], text[4] };
+        std::string byteB { text[2], text[3] };
         float valB = static_cast<float>(Utils::hexToDec(byteB));
         return (256.0f * valA + valB) / 10.0f - 40.0f;
     }
