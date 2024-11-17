@@ -9,42 +9,27 @@ namespace Utils {
 
 inline long hexToDec(std::string& hex) { return strtol(hex.c_str(), nullptr, 16); }
 
-inline std::string hexToBin(std::string hex)
+inline uint32_t hexStringValue(std::string hex)
 {
-    std::string result;
-    for (unsigned i = 0; i < hex.length(); ++i) {
-        // clang-format off
-        switch (tolower(hex[i]))
-        {
-        case '0': result.append ("0000"); break;
-        case '1': result.append ("0001"); break;
-        case '2': result.append ("0010"); break;
-        case '3': result.append ("0011"); break;
-        case '4': result.append ("0100"); break;
-        case '5': result.append ("0101"); break;
-        case '6': result.append ("0110"); break;
-        case '7': result.append ("0111"); break;
-        case '8': result.append ("1000"); break;
-        case '9': result.append ("1001"); break;
-        case 'a': result.append ("1010"); break;
-        case 'b': result.append ("1011"); break;
-        case 'c': result.append ("1100"); break;
-        case 'd': result.append ("1101"); break;
-        case 'e': result.append ("1110"); break;
-        case 'f': result.append ("1111"); break;
-        default: break;
-        }
-    }
-    return result;
+    std::stringstream converter(hex);
+    uint32_t value;
+    converter >> std::hex >> value;
+    return value;
 }
-// clang-format on
+
+inline uint32_t hexStringValue(char hex)
+{
+    std::stringstream converter;
+    converter << hex;
+
+    uint32_t value;
+    converter >> std::hex >> value;
+    return value;
+}
 
 inline int32_t twoComplementaryHexToDec(std::string hexString)
 {
-    unsigned long long tempValue;
-    std::istringstream ost(hexString);
-    ost >> std::hex >> tempValue;
-    std::bitset<8> binary(tempValue);
+    std::bitset<8> binary(hexStringValue(hexString));
 
     if (binary.test(7)) {
         binary.reset(7);
@@ -78,7 +63,7 @@ public:
         if (text.length() < 2)
             throw std::runtime_error("invalid input");
 
-        return std::bitset<32>(Utils::hexToBin(text));
+        return std::bitset<32>(Utils::hexStringValue(text));
     }
 };
 

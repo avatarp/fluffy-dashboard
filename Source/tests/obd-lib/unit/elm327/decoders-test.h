@@ -209,8 +209,8 @@ TEST(elm327decoders, decodeDTC)
     },
         std::runtime_error);
 
-    EXPECT_EQ("P0300", decoder.decode("4300"));
-    EXPECT_EQ("P0700", decoder.decode("4700"));
+    EXPECT_EQ("C0300", decoder.decode("4300"));
+    EXPECT_EQ("C0700", decoder.decode("4700"));
 }
 
 #endif // DECODERS_TEST_H_

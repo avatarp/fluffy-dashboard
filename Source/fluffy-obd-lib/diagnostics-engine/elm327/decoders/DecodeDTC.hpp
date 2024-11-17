@@ -5,18 +5,18 @@
 
 class DecodeDTC : DecodeString {
 public:
+    const size_t minimalInputSize { 4 };
+
     std::string decode(const std::string& text) override
     {
-        if (text.length() < 4)
+        if (text.length() < minimalInputSize)
             throw std::runtime_error("invalid input");
 
-        char byte[1];
-        text.copy(byte, 1, text.size() - 1);
-        std::string byteA7 = Utils::hexToBin(byte);
-
-        std::bitset<2> dtcLocation(byteA7.substr(0, 2));
+        const uint8_t byteAValue = static_cast<uint8_t>(Utils::hexStringValue(text[0]));
+        const uint8_t dtcLocation { static_cast<uint8_t>((byteAValue & 0b1100) >> 2) };
         std::string dtc;
-        switch (dtcLocation.to_ulong()) {
+
+        switch (dtcLocation) {
         // clang-format off
         case 0: dtc.push_back('P'); break;
         case 1: dtc.push_back('C'); break;
@@ -26,8 +26,8 @@ public:
         }
         // clang-format on
 
-        std::bitset<2> firstDigit(byteA7.substr(2, 2));
-        dtc.push_back(std::to_string(firstDigit.to_ulong())[0]);
+        const uint8_t dtcFirstDigit = byteAValue & 0b0011;
+        dtc += std::to_string(dtcFirstDigit);
         // insert rest of the dtc
         dtc += text.substr(1, 3);
         return dtc;
