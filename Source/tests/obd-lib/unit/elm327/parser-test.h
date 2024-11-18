@@ -30,7 +30,22 @@ TEST_F(elm327Parser_F, response0100)
     EXPECT_EQ(parsedResponse.m_length, 6);
 }
 
-TEST_F(elm327Parser_F, response0100_NoData)
+TEST_F(elm327Parser_F, parse0100_expectThrowOnDataLengthMismatch)
+{
+    std::string response = "7E8064100983B00117E";
+    RawResponse thrownResponse;
+    EXPECT_THROW(
+        {
+            thrownResponse = parser.ParseResponse(response, 4, "0100");
+        },
+        std::runtime_error);
+
+    EXPECT_EQ(thrownResponse.m_data, "");
+    EXPECT_EQ(thrownResponse.m_ecuId, "");
+    EXPECT_EQ(thrownResponse.m_commandId, "");
+    EXPECT_EQ(thrownResponse.m_length, 0);
+}
+
 {
     std::string response { "NO DATA" };
     RawResponse parsedResponse;
