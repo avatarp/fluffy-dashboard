@@ -13,7 +13,7 @@ protected:
     Elm327DataParser parser {};
 };
 
-TEST_F(elm327Parser_F, response0100)
+TEST_F(elm327Parser_F, parse0100)
 {
     std::string response { "7E8 06 41 00 98 3B 00 11" };
     RawResponse parsedResponse = parser.ParseResponse(response, 4, "0100");
@@ -30,7 +30,23 @@ TEST_F(elm327Parser_F, response0100)
     EXPECT_EQ(parsedResponse.m_length, 6);
 }
 
-TEST_F(elm327Parser_F, response0100_NoData)
+TEST_F(elm327Parser_F, parse0100_expectThrowOnDataLengthMismatch)
+{
+    std::string response = "7E8064100983B00117E";
+    RawResponse thrownResponse;
+    EXPECT_THROW(
+        {
+            thrownResponse = parser.ParseResponse(response, 4, "0100");
+        },
+        std::runtime_error);
+
+    EXPECT_EQ(thrownResponse.m_data, "");
+    EXPECT_EQ(thrownResponse.m_ecuId, "");
+    EXPECT_EQ(thrownResponse.m_commandId, "");
+    EXPECT_EQ(thrownResponse.m_length, 0);
+}
+
+TEST_F(elm327Parser_F, parse0100_NoData)
 {
     std::string response { "NO DATA" };
     RawResponse parsedResponse;
@@ -47,7 +63,7 @@ TEST_F(elm327Parser_F, response0100_NoData)
     EXPECT_EQ(parsedResponse.m_length, 0);
 }
 
-TEST_F(elm327Parser_F, response0104)
+TEST_F(elm327Parser_F, parse0104)
 {
     std::string response { "7E8 03 41 04 FF" };
     RawResponse parsedResponse = parser.ParseResponse(response, 1, "0104");
@@ -57,7 +73,7 @@ TEST_F(elm327Parser_F, response0104)
     EXPECT_EQ(parsedResponse.m_length, 3);
 }
 
-TEST_F(elm327Parser_F, response0900)
+TEST_F(elm327Parser_F, parse0900)
 {
     std::string response { "7E8 06 49 00 50 00 00 00" };
     RawResponse parsedResponse = parser.ParseResponse(response, 4, "0900");

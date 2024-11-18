@@ -12,9 +12,11 @@
 // 2F Fuel tank level input
 class DecodePercentage : public DecodeFloat {
 public:
+    const size_t expectedInputSize { 2 };
+
     float decode(const std::string& text) const override
     {
-        if (text.length() != 2)
+        if (text.length() != expectedInputSize)
             throw std::runtime_error(
                 "Invalid input in DecodePercentage expected 2 chars got " + std::to_string(text.length()));
 
@@ -30,9 +32,11 @@ public:
 // 2D EGR error
 class DecodeSignedPercentage : public DecodeFloat {
 public:
+    const size_t expectedInputSize { 2 };
+
     float decode(const std::string& text) const
     {
-        if (text.length() != 2)
+        if (text.length() != expectedInputSize)
             throw std::runtime_error("invalid input");
 
         std::string byteA { text[0], text[1] };

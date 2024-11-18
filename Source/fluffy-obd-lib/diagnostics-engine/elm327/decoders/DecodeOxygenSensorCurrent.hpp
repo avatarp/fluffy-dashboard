@@ -7,14 +7,16 @@
 //-> -128-127.996 mA
 class DecodeOxygenSensorCurrent : public DecodeFloat {
 public:
+    const size_t expectedInputSize { 4 };
+
     float decode(const std::string& text) const override
     {
-        if (text.length() != 5)
+        if (text.length() != expectedInputSize)
             throw std::runtime_error("invalid input");
 
         std::string byteC { text[0], text[1] };
         float valC = static_cast<float>(Utils::hexToDec(byteC));
-        std::string byteD { text[3], text[4] };
+        std::string byteD { text[2], text[3] };
         float valD = static_cast<float>(Utils::hexToDec(byteD));
         return (256.0f * valC + valD) / 256.0f - 128.0f;
     }

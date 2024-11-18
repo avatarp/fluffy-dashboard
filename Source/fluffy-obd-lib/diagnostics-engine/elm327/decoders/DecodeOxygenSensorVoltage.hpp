@@ -7,9 +7,11 @@
 //-> -0-1.275 V
 class DecodeOxygenSensorVoltage1 : public DecodeFloat {
 public:
+    const size_t expectedInputSize { 2 };
+
     float decode(const std::string& text) const override
     {
-        if (text.length() != 2)
+        if (text.length() != expectedInputSize)
             throw std::runtime_error("invalid input");
 
         std::string byteA { text[0], text[1] };
@@ -21,13 +23,15 @@ public:
 //-> 0-7.999 V
 class DecodeOxygenSensorVoltage2 : public DecodeFloat {
 public:
+    const size_t expectedInputSize { 4 };
+
     float decode(const std::string& text) const override
     {
-        if (text.length() != 5)
+        if (text.length() != expectedInputSize)
             throw std::runtime_error("invalid input");
 
         std::string byteC { text[0], text[1] };
-        std::string byteD { text[3], text[4] };
+        std::string byteD { text[2], text[3] };
         float valC = static_cast<float>(Utils::hexToDec(byteC));
         float valD = static_cast<float>(Utils::hexToDec(byteD));
         return 8.0f / 65536.0f * (256.0f * valC + valD);
