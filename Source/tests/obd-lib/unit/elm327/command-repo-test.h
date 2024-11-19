@@ -14,6 +14,21 @@ protected:
     Elm327CommandRepository repo {};
 };
 
+TEST_F(elm327CommandRepo, getCommandByPid)
+{
+    constexpr int commandPid01Max { 64 };
+    for (int i = 0; i < commandPid01Max; i++) {
+        std::stringstream expectedString;
+        if (i < 16)
+            expectedString << "010" << std::uppercase << std::hex << i << "\r";
+        else
+            expectedString << "01" << std::uppercase << std::hex << i << "\r";
+        EXPECT_EQ(repo.getCommandByPid(ObdCommandPid(i)), expectedString.str());
+    }
+    constexpr int commandPidOverflow { 255 };
+    EXPECT_EQ(repo.getCommandByPid(ObdCommandPid { commandPidOverflow }), std::string {});
+}
+
 TEST_F(elm327CommandRepo, repo00)
 {
     EXPECT_EQ(repo.GetSupportedPIDs1(), "0100\r");

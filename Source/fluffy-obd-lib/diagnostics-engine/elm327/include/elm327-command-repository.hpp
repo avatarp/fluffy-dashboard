@@ -7,6 +7,8 @@ class Elm327CommandRepository : public CommandRepository {
 public:
     Elm327CommandRepository() = default;
 
+    virtual std::string getCommandByPid(ObdCommandPid pid);
+
     // SID 01
     //###########################################################################
     // 00 PIDs supported [01 - 20]
