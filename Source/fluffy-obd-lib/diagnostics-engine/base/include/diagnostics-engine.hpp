@@ -15,8 +15,8 @@
 #include <variant>
 
 #include "command-repository.hpp"
-#include "data-decoding-handler.hpp"
-#include "data-filters.hpp"
+#include "data-decoder.hpp"
+#include "data-parser.hpp"
 #include "device.hpp"
 #include "obd-access.hpp"
 #include "obd-command-pid.hpp"
@@ -27,7 +27,7 @@ class ParametersEngine {
     static constexpr int m_readSleepTime { 500 * 1000 }; // ms
 protected:
     std::shared_ptr<Obd::ObdAccess> m_obdAccess {};
-    std::shared_ptr<DataDecodingHandler> m_dataDecoder {};
+    std::shared_ptr<DataDecoder> m_dataDecoder {};
     std::shared_ptr<DataParser> m_dataParser {};
     std::shared_ptr<CommandRepository> m_commandRepository {};
     virtual bool SendCommand(const std::string& command);

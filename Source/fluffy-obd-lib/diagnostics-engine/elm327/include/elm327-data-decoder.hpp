@@ -14,10 +14,10 @@
 #include "DecodeRPM.hpp"
 #include "DecodeTemperature.hpp"
 #include "DecodeTimingAdvance.hpp"
-#include "data-decoding-handler.hpp"
+#include "data-decoder.hpp"
 #include "response.hpp"
 
-class Elm327DataDecoder : public DataDecodingHandler {
+class Elm327DataDecoder : public DataDecoder {
 public:
     Elm327DataDecoder() = default;
 
