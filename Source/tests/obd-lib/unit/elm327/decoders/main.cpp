@@ -1,6 +1,4 @@
-#include "command-repo-test.h"
-#include "live-data-test.h"
-#include "parser-test.h"
+#include "decoders-test.h"
 #include "gtest/gtest.h"
 
 int main(int argc, char* argv[])

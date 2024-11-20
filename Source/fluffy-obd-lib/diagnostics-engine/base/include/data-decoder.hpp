@@ -7,10 +7,10 @@
 #include <string>
 #include <utility>
 
-class DataDecodingHandler {
+class DataDecoder {
 public:
-    DataDecodingHandler() = default;
-    virtual ~DataDecodingHandler() = default;
+    DataDecoder() = default;
+    virtual ~DataDecoder() = default;
     /////////////////////////////////////////////////////////////////////////////////////
     // Service 01 Show current data
     // Service 02 Show freeze frame data

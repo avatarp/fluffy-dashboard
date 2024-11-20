@@ -3,10 +3,13 @@
 
 #include <string>
 
+#include "obd-command-pid.hpp"
+
 class CommandRepository {
 public:
     CommandRepository() = default;
     virtual ~CommandRepository() = default;
+    virtual std::string getCommandByPid(ObdCommandPid pid) = 0;
     // SID 01
     //###########################################################################
     // 00 PIDs supported [01 - 20]

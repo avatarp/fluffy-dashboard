@@ -1,23 +1,10 @@
 #ifndef ELM327_DATA_DECODER_HPP_
 #define ELM327_DATA_DECODER_HPP_
 
-#include "DecodeAirFlow.hpp"
-#include "DecodeCountA.hpp"
-#include "DecodeCountAB.hpp"
-#include "DecodeEquivalenceRatio.hpp"
-#include "DecodeEvapPressure.hpp"
-#include "DecodeFuelPressure.hpp"
-#include "DecodeFuelRailPressure.hpp"
-#include "DecodeOxygenSensorCurrent.hpp"
-#include "DecodeOxygenSensorVoltage.hpp"
-#include "DecodePercentage.hpp"
-#include "DecodeRPM.hpp"
-#include "DecodeTemperature.hpp"
-#include "DecodeTimingAdvance.hpp"
-#include "data-decoding-handler.hpp"
+#include "data-decoder.hpp"
 #include "response.hpp"
 
-class Elm327DataDecoder : public DataDecodingHandler {
+class Elm327DataDecoder : public DataDecoder {
 public:
     Elm327DataDecoder() = default;
 
