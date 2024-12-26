@@ -389,7 +389,7 @@ void Elm327DataParser::processResponse(Response& parsedResponse, ObdCommandPid p
                   "°C" };
         return;
 
-    case S0900:
+    case S09P00:
         parsedResponse.m_dataType = DataType::bitset;
         parsedResponse.m_dataBitset = m_decoder->GetSupportedVIPIDs(parsedResponse.m_rawData);
     default:
@@ -469,7 +469,7 @@ std::size_t Elm327DataParser::getExpectedResponseSizeByPid(ObdCommandPid pid)
     case S01P39:
     case S01P3B:
 
-    case S0900:
+    case S09P00:
         return 4;
     default:
         return 0;

@@ -48,8 +48,8 @@ enum class ObdCommandPid
     S07,
 
     //Service 09 Request vehicle information
-    S0900, S0901, S0902, S0903, S0904, S0905, S0906, S0907,
-    S0908, S0909, S090A, S090B,
+    S09P00, S09P01, S09P02, S09P03, S09P04, S09P05, S09P06, S09P07,
+    S09P08, S09P09, S09P0A, S09P0B,
 
     //Service 0A Permanent Diagnostic Trouble Codes
     S0A
