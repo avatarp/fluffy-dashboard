@@ -6,7 +6,8 @@ add_executable(
   ../mocks/obd-access-mock.hpp
   command-repo-test.h
   live-data-test.h
-  parser-test.h)
+  parser-test.h
+  response-test.h)
 
 set_target_properties(
   elm327-ut PROPERTIES CMAKE_CXX_STANDARD 20)

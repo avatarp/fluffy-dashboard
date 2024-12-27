@@ -104,57 +104,57 @@ bitset_32 Elm327DataDecoder::GetOxygenSensorsPresent1(const std::string& data)
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorFtV1(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 1)),
-        elm327::decoders::DecodeSignedPercentage(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 2)),
+        elm327::decoders::DecodeSignedPercentage(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorFtV2(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 1)),
-        elm327::decoders::DecodeSignedPercentage(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 2)),
+        elm327::decoders::DecodeSignedPercentage(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorFtV3(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 1)),
-        elm327::decoders::DecodeSignedPercentage(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 2)),
+        elm327::decoders::DecodeSignedPercentage(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorFtV4(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 1)),
-        elm327::decoders::DecodeSignedPercentage(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 2)),
+        elm327::decoders::DecodeSignedPercentage(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorFtV5(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 1)),
-        elm327::decoders::DecodeSignedPercentage(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 2)),
+        elm327::decoders::DecodeSignedPercentage(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorFtV6(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 1)),
-        elm327::decoders::DecodeSignedPercentage(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 2)),
+        elm327::decoders::DecodeSignedPercentage(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorFtV7(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 1)),
-        elm327::decoders::DecodeSignedPercentage(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 2)),
+        elm327::decoders::DecodeSignedPercentage(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorFtV8(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 1)),
-        elm327::decoders::DecodeSignedPercentage(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeOxygenSensorVoltage1(data.substr(0, 2)),
+        elm327::decoders::DecodeSignedPercentage(data.substr(2, 2)));
 }
 
 bitset_32 Elm327DataDecoder::GetObdStandard(const std::string& data)
@@ -199,50 +199,50 @@ float Elm327DataDecoder::GetFuelRailGaugePressure(const std::string& data)
 
 std::pair<float, float> Elm327DataDecoder::GetOxygenSensorEqV1(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 2)));
 }
 
 std::pair<float, float> Elm327DataDecoder::GetOxygenSensorEqV2(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 2)));
 }
 
 std::pair<float, float> Elm327DataDecoder::GetOxygenSensorEqV3(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 2)));
 }
 
 std::pair<float, float> Elm327DataDecoder::GetOxygenSensorEqV4(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 2)));
 }
 
 std::pair<float, float> Elm327DataDecoder::GetOxygenSensorEqV5(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 2)));
 }
 
 std::pair<float, float> Elm327DataDecoder::GetOxygenSensorEqV6(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 2)));
 }
 
 std::pair<float, float> Elm327DataDecoder::GetOxygenSensorEqV7(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 2)));
 }
 
 std::pair<float, float> Elm327DataDecoder::GetOxygenSensorEqV8(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorVoltage2(data.substr(2, 2)));
 }
 
 float Elm327DataDecoder::GetCommandedEgr(const std::string& data)
@@ -288,57 +288,57 @@ float Elm327DataDecoder::GetAbsoluteBarometricPressure(const std::string& data)
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorEqC1(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorEqC2(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorEqC3(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorEqC4(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorEqC5(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorEqC6(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorEqC7(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 2)));
 }
 
 std::pair<float, float>
 Elm327DataDecoder::GetOxygenSensorEqC8(const std::string& data)
 {
-    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 1)),
-        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 3)));
+    return std::make_pair(elm327::decoders::DecodeEquivalenceRatio(data.substr(0, 2)),
+        elm327::decoders::DecodeOxygenSensorCurrent(data.substr(2, 2)));
 }
 
 float Elm327DataDecoder::GetCatalystTemperatureB1S1(const std::string& data)

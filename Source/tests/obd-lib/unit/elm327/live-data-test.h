@@ -67,18 +67,10 @@ TEST(elm327LiveData, dummyUsbValidResponse)
     EXPECT_TRUE(engine.OpenConnection());
     auto response = engine.GetCommandResponse(ObdCommandPid::S01P04);
 
-    EXPECT_NEAR(100.0, response.m_dataFloat1.first, 0.0001);
-    EXPECT_EQ("%", response.m_dataFloat1.second);
-    EXPECT_EQ(DataType::number, response.m_dataType);
-
     EXPECT_EQ("0104", response.m_rawCommandId);
     EXPECT_EQ("7E8", response.m_rawEcuId);
     EXPECT_EQ(3, response.m_rawLength);
     EXPECT_EQ("FF", response.m_rawData);
-
-    std::clog << "Decoded: "
-              << response.m_dataFloat1.first
-              << response.m_dataFloat1.second << std::endl;
 }
 
 #endif // LIVE_DATA_TEST_H_
