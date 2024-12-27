@@ -66,7 +66,7 @@ void Elm327DataParser::processResponse(Response& parsedResponse, ObdCommandPid p
         return;
     case S01P03:
         parsedResponse.m_dataType = DataType::bitset;
-        m_decoder->GetFuelSystemStatus(parsedResponse.m_rawData);
+        parsedResponse.m_dataBitset = m_decoder->GetFuelSystemStatus(parsedResponse.m_rawData);
         return;
     case S01P04:
         parsedResponse.m_dataType = DataType::number;
