@@ -28,7 +28,7 @@ protected:
     Device m_Device {};
     ConnectionStatus m_ConnectionStatus { ConnectionStatus::Disconnected };
     termios m_Terminal {};
-    int m_DevicePort {};
+    int m_DeviceFileDescriptor {};
 
     virtual bool IsDeviceFileOk() = 0;
     virtual bool OpenConnection() = 0;

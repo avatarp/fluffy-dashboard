@@ -11,8 +11,7 @@ bool BluetoothObdAccess::Write(const std::string& command)
     }
 
     std::clog << "Writing command " + command << "\n";
-    ssize_t bytesWritten = write(
-        this->m_DevicePort, command.c_str(), command.length());
+    ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
         constexpr size_t errBufferSize = 1024;
@@ -40,7 +39,7 @@ bool BluetoothObdAccess::Write(const std::string& command)
 std::string BluetoothObdAccess::Read()
 {
     std::array<char, bufferSize> readBuffer {};
-    ssize_t bytesRead = read(m_DevicePort, &readBuffer, bufferSize);
+    ssize_t bytesRead = read(m_DeviceFileDescriptor, &readBuffer, bufferSize);
     if (bytesRead <= 0) {
         constexpr size_t errBufferSize = 1024;
         std::array<char, errBufferSize> errBuffer {};
@@ -73,9 +72,9 @@ void BluetoothObdAccess::SetupDefaultTermios()
     // Blocking read for 0.5 second between characters
     m_Terminal.c_cc[VMIN] = readBlockingInterval;
     // Flush device file contents
-    tcflush(m_DevicePort, TCIOFLUSH);
+    tcflush(m_DeviceFileDescriptor, TCIOFLUSH);
     // Apply changes
-    tcsetattr(m_DevicePort, TCSANOW, &m_Terminal);
+    tcsetattr(m_DeviceFileDescriptor, TCSANOW, &m_Terminal);
 }
 
 void BluetoothObdAccess::SetDevice(Device device)
@@ -89,15 +88,14 @@ void BluetoothObdAccess::SetDevice(Device device)
 
 bool BluetoothObdAccess::IsDeviceFileOk()
 {
-    return std::filesystem::exists(this->m_Device.GetDeviceFilePath());
+    return std::filesystem::exists(m_Device.GetDeviceFilePath());
 }
 
 bool BluetoothObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
-    this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
-        O_RDWR | O_NOCTTY);
-    if (m_DevicePort == -1) {
+    m_DeviceFileDescriptor = open(m_Device.GetDeviceFilePath().c_str(), O_RDWR | O_NOCTTY);
+    if (m_DeviceFileDescriptor == -1) {
         constexpr size_t errBufferSize = 1024;
         std::array<char, errBufferSize> errBuffer {};
         std::cerr << "Open failure\n"
