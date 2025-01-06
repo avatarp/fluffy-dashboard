@@ -15,8 +15,10 @@ bool BluetoothObdAccess::Write(const std::string& command)
         this->m_DevicePort, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
+        constexpr size_t errBufferSize = 1024;
+        std::array<char, errBufferSize> errBuffer {};
         std::cerr << "WRITE FAILURE\n"
-                  << "Error:" << strerror(errno) << "\n";
+                  << "Error:" << strerror_r(errno, errBuffer.data(), errBufferSize) << "\n";
         errno = 0;
         m_ConnectionStatus = ConnectionStatus::ConnectionLost;
         return false;
@@ -40,9 +42,11 @@ std::string BluetoothObdAccess::Read()
     std::array<char, bufferSize> readBuffer {};
     ssize_t bytesRead = read(m_DevicePort, &readBuffer, bufferSize);
     if (bytesRead <= 0) {
+        constexpr size_t errBufferSize = 1024;
+        std::array<char, errBufferSize> errBuffer {};
         std::cerr << "READ FAILURE\n"
                   << "Error:"
-                  << strerror(errno) << ".\n";
+                  << strerror_r(errno, errBuffer.data(), errBufferSize) << ".\n";
         errno = 0;
         this->m_ConnectionStatus = ConnectionStatus::DeviceTimeout;
     }
@@ -94,8 +98,10 @@ bool BluetoothObdAccess::OpenConnection()
     this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
         O_RDWR | O_NOCTTY);
     if (m_DevicePort == -1) {
+        constexpr size_t errBufferSize = 1024;
+        std::array<char, errBufferSize> errBuffer {};
         std::cerr << "Open failure\n"
-                  << "Error:" << strerror(errno) << "\n";
+                  << "Error:" << strerror_r(errno, errBuffer.data(), errBufferSize) << "\n";
         errno = 0;
     }
     return true;
@@ -116,7 +122,9 @@ bool BluetoothObdAccess::Connect()
 
     if (!OpenConnection()) {
         this->m_ConnectionStatus = ConnectionStatus::Disconnected;
-        std::cerr << "Error:" << strerror(errno) << "\n";
+        constexpr size_t errBufferSize = 1024;
+        std::array<char, errBufferSize> errBuffer {};
+        std::cerr << "Error:" << strerror_r(errno, errBuffer.data(), errBufferSize) << "\n";
         return false;
     }
     std::clog << "Opening connection successful\n";
