@@ -109,7 +109,7 @@ std::string DecodeDTC(const std::string& text)
     std::string dtc;
 
     switch (dtcLocation) {
-        // clang-format off
+    // clang-format off
         case 0: dtc.push_back('P'); break;
         case 1: dtc.push_back('C'); break;
         case 2: dtc.push_back('B'); break;

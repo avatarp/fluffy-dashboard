@@ -25,15 +25,14 @@ bool BluetoothObdAccess::Write(const std::string& command)
 
     std::this_thread::sleep_for(std::chrono::milliseconds(waitForResponseTime));
 
-    if (command.size() == static_cast<std::size_t>(bytesWritten)) {
-        std::clog << "Written " << bytesWritten << " bytes successfully.\n";
-        return true;
+    if (command.size() != static_cast<std::size_t>(bytesWritten)) {
+        std::cerr << "Error! Written " << bytesWritten << " bytes. Expected "
+                  << command.length() << ".\n";
+        return false;
     }
 
-    std::cerr << "Written " << bytesWritten << " bytes. Expected "
-              << command.length() << ".\n";
-
-    return false;
+    std::clog << "Written " << bytesWritten << " bytes successfully.\n";
+    return true;
 }
 
 std::string BluetoothObdAccess::Read()

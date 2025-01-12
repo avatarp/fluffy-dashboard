@@ -23,7 +23,7 @@ bool testGetAvailablePids(Elm327Engine& engine, Response& availablePids)
     if (availablePids.m_dataType == DataType::bitset) {
         return true;
     } else {
-        std::cout << "Response dataType does not match expected dataType." << std::endl;
+        std::cerr << "Response dataType does not match expected dataType." << std::endl;
         return false;
     }
 }
@@ -38,14 +38,14 @@ void runSerialDeviceTest(TestResults& results)
         engine.SetObdAccess(std::make_unique<Obd::UsbObdAccess>());
         engine.SetSerialDevice(device);
         if (engine.OpenConnection()) {
-            std::cout << "Successful connection with " << device.GetDeviceFilePath() << std::endl;
+            std::clog << "Successful connection with " << device.GetDeviceFilePath() << std::endl;
             connectionSuccessful = true;
             break;
         }
     }
 
     if (!connectionSuccessful) {
-        std::cout << "Opening connection failed" << std::endl;
+        std::cerr << "Opening connection failed" << std::endl;
         return;
     }
 
