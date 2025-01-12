@@ -567,7 +567,7 @@ TEST_F(elm327Parser_F, parse0123)
 TEST_F(elm327Parser_F, parse0900)
 {
     response = { "7E8 06 49 00 50 00 00 00" };
-    Response parsedResponse = parser.ParseResponse("0900", response, ObdCommandPid::S09P00);
+    Response parsedResponse = parser.ParseResponse("0900\r", response, ObdCommandPid::S09P00);
     EXPECT_EQ(parsedResponse.m_rawData, "50000000");
     EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
     EXPECT_EQ(parsedResponse.m_rawCommandId, "0900");

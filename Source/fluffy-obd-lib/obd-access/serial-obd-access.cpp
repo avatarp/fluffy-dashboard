@@ -56,8 +56,9 @@ std::string UsbObdAccess::Read()
     return std::string { readBuffer.data() };
 }
 
-void UsbObdAccess::SetupDefaultTermios()
+bool UsbObdAccess::ApplyDefaultConnectionSettings()
 {
+    errno = 0;
     // Set control flags:
     // connection speed, ignore modem control lines, enable reading
     const int baudRate = B38400;
@@ -79,6 +80,7 @@ void UsbObdAccess::SetupDefaultTermios()
     tcflush(m_DeviceFileDescriptor, TCIOFLUSH);
     // Apply changes
     tcsetattr(m_DeviceFileDescriptor, TCSANOW, &m_Terminal);
+    return (errno == 0);
 }
 
 void UsbObdAccess::SetDevice(Device device)

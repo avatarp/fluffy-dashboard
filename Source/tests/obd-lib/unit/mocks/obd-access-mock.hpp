@@ -10,6 +10,7 @@ struct MockBtAccess : Obd::BluetoothObdAccess {
 
     MOCK_METHOD(bool, IsDeviceFileOk, ());
     MOCK_METHOD(bool, OpenConnection, ());
+    MOCK_METHOD(bool, ApplyDefaultConnectionSettings, ());
 
     MOCK_METHOD(bool, Write, (const std::string&));
     MOCK_METHOD(std::string, Read, ());

@@ -7,7 +7,7 @@ namespace Obd {
 
 class UsbObdAccess : public ObdAccess {
 private:
-    void SetupDefaultTermios();
+    bool ApplyDefaultConnectionSettings();
 
     /// @brief Read timeout in 0.1s
     static constexpr uint8_t timeout = 5;

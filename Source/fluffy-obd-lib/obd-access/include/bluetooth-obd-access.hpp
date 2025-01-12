@@ -7,14 +7,9 @@ namespace Obd {
 
 class BluetoothObdAccess : public ObdAccess {
 private:
-    void SetupDefaultTermios();
-
-    /// @brief Read timeout in 0.1s
-    static constexpr uint8_t timeout = 10;
-    /// @brief Time Blocking read between characters in 0.1s
-    static constexpr uint8_t readBlockingInterval = 5;
+    virtual bool ApplyDefaultConnectionSettings();
     /// @brief Time of waiting for response after sending message in ms
-    uint16_t waitForResponseTime { 500 };
+    uint16_t afterWriteSleepTime { 500 };
     virtual bool IsDeviceFileOk() override;
     virtual bool OpenConnection() override;
 
