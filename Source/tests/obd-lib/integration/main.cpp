@@ -5,7 +5,7 @@ int main()
 {
     TestResults results;
 
-    runBluetoothDeviceTest(results);
+    runBluetoothDeviceTestMain(results);
 
     return verifyResults(results);
 }
