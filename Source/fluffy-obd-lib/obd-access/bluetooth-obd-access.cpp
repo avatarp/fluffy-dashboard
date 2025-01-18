@@ -15,11 +15,7 @@ bool BluetoothObdAccess::Write(const std::string& command)
     ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
-        constexpr size_t errBufferSize = 1024;
-        std::array<char, errBufferSize> errBuffer {};
-        std::cerr << "WRITE FAILURE\n"
-                  << "Error:" << strerror_r(errno, errBuffer.data(), errBufferSize) << "\n";
-        errno = 0;
+        logErrno("WRITE FAILURE\n Error:");
         m_ConnectionStatus = ConnectionStatus::ConnectionLost;
         return false;
     }
@@ -42,12 +38,7 @@ std::string BluetoothObdAccess::Read()
     std::array<char, bufferSize> readBuffer {};
     ssize_t bytesRead = read(m_DeviceFileDescriptor, &readBuffer, bufferSize);
     if (bytesRead <= 0) {
-        constexpr size_t errBufferSize = 1024;
-        std::array<char, errBufferSize> errBuffer {};
-        std::cerr << "READ FAILURE\n"
-                  << "Error:"
-                  << strerror_r(errno, errBuffer.data(), errBufferSize) << ".\n";
-        errno = 0;
+        logErrno("READ FAILURE\n Error:");
         this->m_ConnectionStatus = ConnectionStatus::DeviceTimeout;
     }
     return std::string { readBuffer.data() };
@@ -94,12 +85,7 @@ bool BluetoothObdAccess::ApplyDefaultConnectionSettings()
     tcsetattr(m_DeviceFileDescriptor, TCSAFLUSH, &m_Terminal);
 
     if (errno != 0) {
-        constexpr size_t errBufferSize = 1024;
-        std::array<char, errBufferSize> errBuffer {};
-        std::cerr << "Error applying default termios settings\n"
-                  << "Error:"
-                  << strerror_r(errno, errBuffer.data(), errBufferSize) << ".\n";
-        errno = 0;
+        logErrno("Error applying default termios settings\n Error:");
         return false;
     }
     return true;
@@ -125,11 +111,7 @@ bool BluetoothObdAccess::OpenConnection()
     // NOLINTNEXTLINE
     m_DeviceFileDescriptor = open(m_Device.GetDeviceFilePath().c_str(), O_RDWR | O_NOCTTY);
     if (m_DeviceFileDescriptor == -1) {
-        constexpr size_t errBufferSize = 1024;
-        std::array<char, errBufferSize> errBuffer {};
-        std::cerr << "Open failure\n"
-                  << "Error:" << strerror_r(errno, errBuffer.data(), errBufferSize) << "\n";
-        errno = 0;
+        logErrno("Open failure\n Error:");
     }
     return true;
 }
@@ -149,9 +131,7 @@ bool BluetoothObdAccess::Connect()
 
     if (!OpenConnection()) {
         this->m_ConnectionStatus = ConnectionStatus::Disconnected;
-        constexpr size_t errBufferSize = 1024;
-        std::array<char, errBufferSize> errBuffer {};
-        std::cerr << "Error:" << strerror_r(errno, errBuffer.data(), errBufferSize) << "\n";
+        logErrno("Failed to open connection\n Error:");
         return false;
     }
 

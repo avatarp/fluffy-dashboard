@@ -13,12 +13,7 @@ bool UsbObdAccess::Write(const std::string& command)
     ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
-        constexpr size_t errBufferSize = 1024;
-        std::array<char, errBufferSize> errBuffer {};
-        std::cerr << "WRITE FAILURE\n"
-                  << "Error:"
-                  << strerror_r(errno, errBuffer.data(), errBufferSize) << ".\n";
-        errno = 0;
+        logErrno("WRITE FAILURE\n Error:");
         m_ConnectionStatus = ConnectionStatus::ConnectionLost;
         return false;
     }
@@ -43,12 +38,7 @@ std::string UsbObdAccess::Read()
     std::array<char, bufferSize> readBuffer {};
     ssize_t bytesRead = read(m_DeviceFileDescriptor, &readBuffer, bufferSize);
     if (bytesRead <= 0) {
-        constexpr size_t errBufferSize = 1024;
-        std::array<char, errBufferSize> errBuffer {};
-        std::cerr << "READ FAILURE\n"
-                  << "Error:"
-                  << strerror_r(errno, errBuffer.data(), errBufferSize) << ".\n";
-        errno = 0;
+        logErrno("READ FAILURE\n Error:");
         this->m_ConnectionStatus = ConnectionStatus::DeviceTimeout;
     }
     std::cerr << "Received response: "
@@ -126,10 +116,7 @@ bool UsbObdAccess::Connect()
 
     if (!OpenConnection()) {
         this->m_ConnectionStatus = ConnectionStatus::Disconnected;
-        constexpr size_t errBufferSize = 1024;
-        std::array<char, errBufferSize> errBuffer {};
-        std::clog << "Error:" << strerror_r(errno, errBuffer.data(), errBufferSize) << ".\n";
-        errno = 0;
+        logErrno("Failed to open connection\n Error:");
         return false;
     }
 
