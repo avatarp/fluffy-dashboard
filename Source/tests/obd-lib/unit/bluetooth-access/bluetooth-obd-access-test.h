@@ -22,6 +22,7 @@ protected:
 
 TEST_F(BluetoothAccess_F, DataTransferOk)
 {
+    EXPECT_CALL(obdAccess, ApplyDefaultConnectionSettings).WillOnce(Return(true));
     ASSERT_TRUE(obdAccess.Connect());
     ASSERT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
@@ -58,6 +59,7 @@ TEST(BluetoothAccess, NoDeviceFile)
 
 TEST_F(BluetoothAccess_F, Reconnect)
 {
+    EXPECT_CALL(obdAccess, ApplyDefaultConnectionSettings).WillOnce(Return(true));
     EXPECT_TRUE(obdAccess.Connect());
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
@@ -66,6 +68,7 @@ TEST_F(BluetoothAccess_F, Reconnect)
 
     EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
     EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
+    EXPECT_CALL(obdAccess, ApplyDefaultConnectionSettings).WillOnce(Return(true));
 
     EXPECT_TRUE(obdAccess.Reconnect());
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);

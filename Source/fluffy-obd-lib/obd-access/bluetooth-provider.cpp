@@ -56,7 +56,7 @@ bool BluetoothProvider::BindToRfcomm(const std::string& deviceAddress, uint16_t 
     bindCommandStream << "pkexec rfcomm bind " << std::to_string(rfcommDeviceId)
                       << " " << deviceAddress;
     const std::string bindCommand { bindCommandStream.str() };
-    std::clog << "Executing command \n"
+    std::clog << "Executing bind to rfcomm command \n"
               << bindCommand << std::endl;
 
     auto returnValue = system(bindCommand.c_str());

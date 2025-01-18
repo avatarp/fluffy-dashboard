@@ -10,68 +10,86 @@ bool BluetoothObdAccess::Write(const std::string& command)
         return false;
     }
 
+    errno = 0;
     std::clog << "Writing command " + command << "\n";
-    ssize_t bytesWritten = write(
-        this->m_DevicePort, command.c_str(), command.length());
+    ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
-        std::cerr << "WRITE FAILURE\n"
-                  << "Error:" << strerror(errno) << "\n";
-        errno = 0;
+        logErrno("WRITE FAILURE\n Error:");
         m_ConnectionStatus = ConnectionStatus::ConnectionLost;
         return false;
     }
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(waitForResponseTime));
+    std::this_thread::sleep_for(std::chrono::milliseconds(afterWriteSleepTime));
 
-    if (command.size() == static_cast<std::size_t>(bytesWritten)) {
-        std::clog << "Written " << bytesWritten << " bytes successfully.\n";
-        return true;
+    if (command.size() != static_cast<std::size_t>(bytesWritten)) {
+        std::cerr << "Error! Written " << bytesWritten << " bytes. Expected "
+                  << command.length() << ".\n";
+        return false;
     }
 
-    std::cerr << "Written " << bytesWritten << " bytes. Expected "
-              << command.length() << ".\n";
-
-    return false;
+    std::clog << "Written " << bytesWritten << " bytes successfully.\n";
+    return true;
 }
 
 std::string BluetoothObdAccess::Read()
 {
+    errno = 0;
     std::array<char, bufferSize> readBuffer {};
-    ssize_t bytesRead = read(m_DevicePort, &readBuffer, bufferSize);
+    ssize_t bytesRead = read(m_DeviceFileDescriptor, &readBuffer, bufferSize);
     if (bytesRead <= 0) {
-        std::cerr << "READ FAILURE\n"
-                  << "Error:"
-                  << strerror(errno) << ".\n";
-        errno = 0;
+        logErrno("READ FAILURE\n Error:");
         this->m_ConnectionStatus = ConnectionStatus::DeviceTimeout;
     }
     return std::string { readBuffer.data() };
 }
 
-void BluetoothObdAccess::SetupDefaultTermios()
+bool BluetoothObdAccess::ApplyDefaultConnectionSettings()
 {
-    // Set connection speed
-    const int baudRate = B38400;
-    // Set control flags: ignore modem control lines, enable reading
-    m_Terminal.c_cflag = baudRate | CLOCAL | CREAD;
-    // Ignore framing errors and parity errors
-    m_Terminal.c_iflag = IGNPAR;
-    // Clear output flags
-    m_Terminal.c_oflag = 0;
-    // Set non-canonical mode
-    // Warning -Wsign-conversion suppressed due to standard way of disabling canonical mode
+// disable false positive Wsign-conversion warnings
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsign-conversion"
-    m_Terminal.c_lflag &= (~ICANON);
-#pragma GCC diagnostic warning "-Wsign-conversion"
-    // Set timeout of 1.0 seconds
-    m_Terminal.c_cc[VTIME] = timeout;
-    // Blocking read for 0.5 second between characters
-    m_Terminal.c_cc[VMIN] = readBlockingInterval;
-    // Flush device file contents
-    tcflush(m_DevicePort, TCIOFLUSH);
-    // Apply changes
-    tcsetattr(m_DevicePort, TCSANOW, &m_Terminal);
+    errno = 0;
+    tcgetattr(m_DeviceFileDescriptor, &m_Terminal);
+
+    // Connection speed
+    constexpr int baudRate { B38400 }; // B9600 if pin6 = 0V
+    cfsetispeed(&m_Terminal, baudRate);
+    cfsetospeed(&m_Terminal, baudRate);
+
+    // Control options
+    m_Terminal.c_cflag |= (CLOCAL | CREAD); // ignore modem control lines, enable reading
+    // 8N1 - 8 data bits, no parity bit, 1 stop bit
+    m_Terminal.c_cflag &= ~CSIZE; // Clears the mask for setting the data size
+    m_Terminal.c_cflag |= CS8; // Set the data bits = 8
+    m_Terminal.c_cflag &= ~PARENB; // no parity bit
+    m_Terminal.c_cflag &= ~CSTOPB; // use 1 Stop bit (disable 2 stop bits)
+
+    // Local mode options
+    // Set raw mode, no echo, no signals
+    m_Terminal.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+
+    // Input options
+    m_Terminal.c_iflag &= ~(INPCK | ISTRIP); // Disable checking and stripping of parity bits
+    m_Terminal.c_iflag &= ~(IXON | IXOFF | IXANY); // Disable software flow control
+
+    // Output options
+    m_Terminal.c_oflag &= ~OPOST; // Disable output processing
+
+    // Control characters
+    m_Terminal.c_cc[VMIN] = 0; // minimum number of characters to read
+    constexpr unsigned char timeout = 10;
+    m_Terminal.c_cc[VTIME] = timeout; // timeout for incoming data in 0.1s
+
+    // Flush buffers and apply options
+    tcsetattr(m_DeviceFileDescriptor, TCSAFLUSH, &m_Terminal);
+
+    if (errno != 0) {
+        logErrno("Error applying default termios settings\n Error:");
+        return false;
+    }
+    return true;
+#pragma GCC diagnostic pop
 }
 
 void BluetoothObdAccess::SetDevice(Device device)
@@ -85,18 +103,15 @@ void BluetoothObdAccess::SetDevice(Device device)
 
 bool BluetoothObdAccess::IsDeviceFileOk()
 {
-    return std::filesystem::exists(this->m_Device.GetDeviceFilePath());
+    return std::filesystem::exists(m_Device.GetDeviceFilePath());
 }
 
 bool BluetoothObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
-    this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
-        O_RDWR | O_NOCTTY);
-    if (m_DevicePort == -1) {
-        std::cerr << "Open failure\n"
-                  << "Error:" << strerror(errno) << "\n";
-        errno = 0;
+    m_DeviceFileDescriptor = open(m_Device.GetDeviceFilePath().c_str(), O_RDWR | O_NOCTTY);
+    if (m_DeviceFileDescriptor == -1) {
+        logErrno("Open failure\n Error:");
     }
     return true;
 }
@@ -116,9 +131,17 @@ bool BluetoothObdAccess::Connect()
 
     if (!OpenConnection()) {
         this->m_ConnectionStatus = ConnectionStatus::Disconnected;
-        std::cerr << "Error:" << strerror(errno) << "\n";
+        logErrno("Failed to open connection\n Error:");
         return false;
     }
+
+    if (ApplyDefaultConnectionSettings()) {
+        std::clog << "Default connection settings applied\n";
+    } else {
+        std::cerr << "Failed to apply default connection settings\n";
+        return false;
+    }
+
     std::clog << "Opening connection successful\n";
     this->m_ConnectionStatus = ConnectionStatus::Connected;
     return true;

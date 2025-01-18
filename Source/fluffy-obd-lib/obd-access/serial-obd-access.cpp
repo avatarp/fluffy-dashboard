@@ -10,15 +10,10 @@ bool UsbObdAccess::Write(const std::string& command)
     }
 
     std::cerr << "Writing command " + command << ".\n";
-    ssize_t bytesWritten = write(this->m_DevicePort,
-        command.c_str(),
-        command.length());
+    ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
-        std::cerr << "WRITE FAILURE\n"
-                  << "Error:"
-                  << strerror(errno) << ".\n";
-        errno = 0;
+        logErrno("WRITE FAILURE\n Error:");
         m_ConnectionStatus = ConnectionStatus::ConnectionLost;
         return false;
     }
@@ -41,12 +36,9 @@ bool UsbObdAccess::Write(const std::string& command)
 std::string UsbObdAccess::Read()
 {
     std::array<char, bufferSize> readBuffer {};
-    ssize_t bytesRead = read(m_DevicePort, &readBuffer, bufferSize);
+    ssize_t bytesRead = read(m_DeviceFileDescriptor, &readBuffer, bufferSize);
     if (bytesRead <= 0) {
-        std::cerr << "READ FAILURE\n"
-                  << "Error:"
-                  << strerror(errno) << ".\n";
-        errno = 0;
+        logErrno("READ FAILURE\n Error:");
         this->m_ConnectionStatus = ConnectionStatus::DeviceTimeout;
     }
     std::cerr << "Received response: "
@@ -54,8 +46,9 @@ std::string UsbObdAccess::Read()
     return std::string { readBuffer.data() };
 }
 
-void UsbObdAccess::SetupDefaultTermios()
+bool UsbObdAccess::ApplyDefaultConnectionSettings()
 {
+    errno = 0;
     // Set control flags:
     // connection speed, ignore modem control lines, enable reading
     const int baudRate = B38400;
@@ -74,9 +67,10 @@ void UsbObdAccess::SetupDefaultTermios()
     // Blocking read for 0.3 second between characters
     m_Terminal.c_cc[VMIN] = readBlockingInterval;
     // Flush device file contents
-    tcflush(m_DevicePort, TCIOFLUSH);
+    tcflush(m_DeviceFileDescriptor, TCIOFLUSH);
     // Apply changes
-    tcsetattr(m_DevicePort, TCSANOW, &m_Terminal);
+    tcsetattr(m_DeviceFileDescriptor, TCSANOW, &m_Terminal);
+    return (errno == 0);
 }
 
 void UsbObdAccess::SetDevice(Device device)
@@ -100,10 +94,9 @@ bool UsbObdAccess::IsDeviceFileOk()
 bool UsbObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
-    this->m_DevicePort = open(this->m_Device.GetDeviceFilePath().c_str(),
-        O_RDWR | O_NOCTTY);
+    m_DeviceFileDescriptor = open(m_Device.GetDeviceFilePath().c_str(), O_RDWR | O_NOCTTY);
     // error occurred
-    return this->m_DevicePort == -1;
+    return m_DeviceFileDescriptor == -1;
 }
 
 bool UsbObdAccess::Connect()
@@ -123,8 +116,7 @@ bool UsbObdAccess::Connect()
 
     if (!OpenConnection()) {
         this->m_ConnectionStatus = ConnectionStatus::Disconnected;
-        std::clog << "Error:" << strerror(errno) << ".\n";
-        errno = 0;
+        logErrno("Failed to open connection\n Error:");
         return false;
     }
 

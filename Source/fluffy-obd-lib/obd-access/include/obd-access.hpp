@@ -23,12 +23,20 @@ enum class ConnectionStatus {
     ConnectionLost
 };
 
+inline void logErrno(const std::string& message)
+{
+    constexpr size_t errBufferSize = 1024;
+    std::array<char, errBufferSize> errBuffer {};
+    std::cerr << message << strerror_r(errno, errBuffer.data(), errBufferSize) << "\n";
+    errno = 0;
+}
+
 class ObdAccess {
 protected:
     Device m_Device {};
     ConnectionStatus m_ConnectionStatus { ConnectionStatus::Disconnected };
     termios m_Terminal {};
-    int m_DevicePort {};
+    int m_DeviceFileDescriptor {};
 
     virtual bool IsDeviceFileOk() = 0;
     virtual bool OpenConnection() = 0;

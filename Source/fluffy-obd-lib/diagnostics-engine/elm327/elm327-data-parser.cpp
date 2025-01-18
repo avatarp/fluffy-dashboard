@@ -7,7 +7,7 @@ Elm327DataParser::Elm327DataParser()
 
 Response Elm327DataParser::ParseResponse(const std::string& command, std::string response, ObdCommandPid pid)
 {
-    std::clog << "parsing response:" << response << '\n';
+    std::clog << "Parsing response:" << response << '\n';
 
     constexpr uint8_t ecuIdGroupIndex { 2 };
     constexpr uint8_t responseSizeGroupIndex { 3 };
@@ -16,14 +16,14 @@ Response Elm327DataParser::ParseResponse(const std::string& command, std::string
 
     std::smatch match;
     const std::regex responseRegexPattern { "(([0-9A-Z]{3})([0-9]{2}))?4("
-        + command.substr(1, 3)
+        + command.substr(1, command.size() - 2)
         + ")([0-9A-F]+)" };
 
     response.erase(remove_if(response.begin(), response.end(), isspace), response.end());
 
     if (!std::regex_search(response, match, responseRegexPattern)) {
         throw(std::runtime_error { "Response to: "
-            + command.substr(0, command.size() - 1)
+            + command.substr(0, command.size() - 2)
             + ", not matched!\n" });
     }
 
