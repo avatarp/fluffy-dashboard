@@ -89,12 +89,14 @@ void runBluetoothDeviceTestMain(TestResults& results)
 
     auto& availablePidsBitset = availablePids.m_dataBitset;
 
-    for (size_t i { 0 }; i < availablePids.m_dataBitset.size(); i++) {
+    // Traversing bitset from the highest bit
+    size_t bitsetSize = availablePidsBitset.size() - 1;
+    for (size_t i { bitsetSize }; i != 0; i--) {
         if (availablePidsBitset[i]) {
-            ObdCommandPid commandPid = static_cast<ObdCommandPid>(i + 1u);
+            ObdCommandPid commandPid = static_cast<ObdCommandPid>(bitsetSize - i + 1u);
             try {
                 auto pidResponse = engine.GetCommandResponse(commandPid);
-                std::clog << "\nPID (hex): 0x10" << std::hex << i + 1u << std::dec
+                std::clog << "\nPID (hex): 0x10" << std::hex << bitsetSize - i + 1u << std::dec
                           << " Response\n"
                           << pidResponse << std::endl;
             } catch (const std::exception& e) {
