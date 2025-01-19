@@ -12,7 +12,7 @@ bool Elm327Engine::OpenConnection()
     if (m_obdAccess) {
         return m_obdAccess->Connect();
     }
-    std::clog << "No obd device set" << std::endl;
+    spdlog::error("No obd device set");
     return false;
 }
 

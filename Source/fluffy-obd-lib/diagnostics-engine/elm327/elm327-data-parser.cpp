@@ -7,7 +7,7 @@ Elm327DataParser::Elm327DataParser()
 
 Response Elm327DataParser::ParseResponse(const std::string& command, std::string response, ObdCommandPid pid)
 {
-    std::clog << "Parsing response:" << response << '\n';
+    spdlog::info("Parsing response: {}", response);
 
     constexpr uint8_t ecuIdGroupIndex { 2 };
     constexpr uint8_t responseSizeGroupIndex { 3 };
