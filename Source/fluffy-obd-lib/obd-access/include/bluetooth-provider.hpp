@@ -6,6 +6,8 @@
 #include <QtBluetooth/QBluetoothLocalDevice>
 #include <filesystem>
 
+#include "spdlog/spdlog.h"
+
 namespace Obd {
 static std::string const rfcomm { "rfcomm" };
 static std::string const deviceFilesPath = "/dev/";

@@ -11,6 +11,8 @@
 #include <termios.h>
 #include <unistd.h>
 
+#include "spdlog/spdlog.h"
+
 namespace Obd {
 
 const uint16_t bufferSize = 256;
