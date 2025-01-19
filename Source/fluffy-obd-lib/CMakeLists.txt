@@ -28,13 +28,15 @@ target_include_directories(
   PUBLIC obd-access/include diagnostics-engine/base/include
   diagnostics-engine/elm327/decoders diagnostics-engine/elm327/include)
 
+find_package(spdlog REQUIRED)
+
 find_package(
   Qt5
   COMPONENTS Bluetooth
   REQUIRED)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
-target_link_libraries(${PROJECT_NAME} Qt5::Bluetooth)
+target_link_libraries(${PROJECT_NAME} spdlog::spdlog Qt5::Bluetooth)
 
 if(${ENABLE_WARNINGS})
     target_set_warnings(

@@ -10,35 +10,60 @@ std::string ObdAccess::Transaction(const std::string& command)
 
 ObdAccess::~ObdAccess()
 {
-    if (m_DeviceFileDescriptor > 0) {
-        close(m_DeviceFileDescriptor);
-        std::clog << "Connection with "
-                  << this->GetDevice().GetDeviceFilePath()
-                  << " " << this->m_Device.GetDescription()
-                  << " closed.\n";
+    try {
+        if (m_DeviceFileDescriptor > 0) {
+
+            if (close(m_DeviceFileDescriptor) == -1) {
+                logErrno("Error closing connection\n Error:");
+                spdlog::critical("Failed to close file descriptor.");
+            }
+            m_DeviceFileDescriptor = 0;
+            spdlog::info("Connection with {} {} closed.",
+                this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
+        } else {
+            spdlog::info("Connection with {} {} was already closed.",
+                this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
+        }
+    } catch (...) {
+        logErrno("Exception during closing connection\nError: ");
+        spdlog::critical("Failed to close file descriptor of device: {}",
+            this->m_Device.GetDeviceFilePath());
     }
+}
+
+bool ObdAccess::IsFileDescriptorValid()
+{
+    return m_DeviceFileDescriptor > 0;
+}
+
+bool ObdAccess::Disconnect()
+{
+    return close(m_DeviceFileDescriptor) != -1;
 }
 
 bool ObdAccess::CloseConnection()
 {
     try {
-        if (m_DeviceFileDescriptor > 0) {
-            close(m_DeviceFileDescriptor);
-            std::clog << "Connection with "
-                      << this->GetDevice().GetDeviceFilePath()
-                      << " " << this->m_Device.GetDescription()
-                      << " closed.\n";
+        if (IsFileDescriptorValid()) {
+
+            if (!Disconnect()) {
+                logErrno("Error closing connection\n Error:");
+                spdlog::critical("Failed to close file descriptor.");
+                return false;
+            }
+            m_DeviceFileDescriptor = 0;
+            spdlog::info("Connection with {} {} closed.",
+                this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
         } else {
-            std::clog << "Connection with "
-                      << this->GetDevice().GetDeviceFilePath()
-                      << " " << this->m_Device.GetDescription()
-                      << " was already closed.\n";
+            spdlog::info("Connection with {} {} was already closed.",
+                this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
+            return false;
         }
     } catch (...) {
-        std::clog << "Exception during closing connection with"
-                  << this->GetDevice().GetDeviceFilePath()
-                  << " " << this->m_Device.GetDescription()
-                  << "\n";
+        logErrno("Exception during closing connection\nError: ");
+        spdlog::critical("Failed to close file descriptor of device: {}",
+            this->m_Device.GetDeviceFilePath());
+        return false;
     }
     m_ConnectionStatus = ConnectionStatus::Disconnected;
     return true;
@@ -50,6 +75,7 @@ bool ObdAccess::Reconnect()
         this->CloseConnection();
         this->Connect();
     } catch (...) {
+        spdlog::error("Failed to reconnect to device: {}", this->m_Device.GetDeviceFilePath());
         return false;
     }
     return true;

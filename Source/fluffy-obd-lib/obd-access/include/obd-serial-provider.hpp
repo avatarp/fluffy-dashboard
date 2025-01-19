@@ -4,6 +4,8 @@
 #include "device.hpp"
 #include <vector>
 
+#include <spdlog/spdlog.h>
+
 namespace Obd {
 
 class ObdSerialProvider {

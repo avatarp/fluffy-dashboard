@@ -5,11 +5,11 @@ namespace Obd {
 bool UsbObdAccess::Write(const std::string& command)
 {
     if (this->GetConnectionStatus() != ConnectionStatus::Connected) {
-        std::cerr << "device not connected.\n";
+        spdlog::error("Device not connected.");
         return false;
     }
 
-    std::cerr << "Writing command " + command << ".\n";
+    spdlog::info("Writing command: {}", command);
     ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
@@ -19,17 +19,11 @@ bool UsbObdAccess::Write(const std::string& command)
     }
 
     if (command.size() == static_cast<size_t>(bytesWritten)) {
-        std::cerr << "Written "
-                  << bytesWritten
-                  << " bytes successfully.\n";
+        spdlog::info("Written {} bytes successfully.", bytesWritten);
         return true;
     }
 
-    std::cerr << "Written "
-              << bytesWritten
-              << " bytes. Expected "
-              << command.length() << ".\n";
-
+    spdlog::error("Error! Written {} bytes. Expected {}.", bytesWritten, command.length());
     return false;
 }
 
@@ -37,12 +31,13 @@ std::string UsbObdAccess::Read()
 {
     std::array<char, bufferSize> readBuffer {};
     ssize_t bytesRead = read(m_DeviceFileDescriptor, &readBuffer, bufferSize);
+
     if (bytesRead <= 0) {
         logErrno("READ FAILURE\n Error:");
         this->m_ConnectionStatus = ConnectionStatus::DeviceTimeout;
     }
-    std::cerr << "Received response: "
-              << readBuffer.data() << ".\n";
+
+    spdlog::info("Received response: {}", readBuffer.data());
     return std::string { readBuffer.data() };
 }
 
@@ -101,14 +96,10 @@ bool UsbObdAccess::OpenConnection()
 
 bool UsbObdAccess::Connect()
 {
-    std::clog << "Opening connection with "
-              << this->m_Device.GetDeviceFilePath()
-              << " " << this->m_Device.GetDescription()
-              << ".\n";
+    spdlog::info("Opening connection with {} {}.", this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
 
     if (!IsDeviceFileOk()) {
-
-        std::clog << "Device file" + this->m_Device.GetDeviceFilePath() << " not found.\n";
+        spdlog::error("Device file" + this->m_Device.GetDeviceFilePath() + " not found.");
 
         m_ConnectionStatus = ConnectionStatus::DeviceNotFound;
         return false;
@@ -120,7 +111,8 @@ bool UsbObdAccess::Connect()
         return false;
     }
 
-    std::clog << "OK.\n";
+    spdlog::info("Connection opened successfully.");
+
     this->m_ConnectionStatus = ConnectionStatus::Connected;
     return true;
 }
