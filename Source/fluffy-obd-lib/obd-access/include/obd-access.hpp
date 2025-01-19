@@ -42,10 +42,12 @@ protected:
 
     virtual bool IsDeviceFileOk() = 0;
     virtual bool OpenConnection() = 0;
+    virtual bool Disconnect();
 
 public:
     ObdAccess() = default;
     virtual ~ObdAccess();
+    virtual bool IsFileDescriptorValid();
     virtual void SetDevice(Device device) = 0;
     virtual bool Connect() = 0;
     virtual bool CloseConnection();
