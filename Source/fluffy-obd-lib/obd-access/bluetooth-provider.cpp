@@ -55,23 +55,21 @@ bool BluetoothProvider::BindToRfcomm(const std::string& deviceAddress, uint16_t 
     std::stringstream bindCommandStream;
     bindCommandStream << "pkexec rfcomm bind " << std::to_string(rfcommDeviceId)
                       << " " << deviceAddress;
-    const std::string bindCommand { bindCommandStream.str() };
-    std::clog << "Executing bind to rfcomm command \n"
-              << bindCommand << std::endl;
+    auto const bindCommand { bindCommandStream.str() };
+    spdlog::info("Executing bind to rfcomm command: {}", bindCommand);
 
     auto returnValue = system(bindCommand.c_str());
-    std::clog << "return value: " << std::to_string(returnValue) << std::endl;
 
     if (returnValue > 0) {
-        std::cerr << "bind command failed" << std::endl;
+        spdlog::error("bind command failed with value: {}", returnValue);
         return false;
     }
 
-    bool directoryExist = std::filesystem::exists((deviceFilesPath + rfcomm + std::to_string(rfcommDeviceId)));
+    bool const directoryExist = std::filesystem::exists((deviceFilesPath + rfcomm + std::to_string(rfcommDeviceId)));
     if (directoryExist) {
-        std::clog << "Bind successful, device file created" << std::endl;
+        spdlog::info("Bind successful, device file created");
     } else {
-        std::clog << "Bind failed! Device file not created" << std::endl;
+        spdlog::error("Bind failed! Device file not created");
     }
     return directoryExist;
 }

@@ -15,7 +15,7 @@ std::vector<Obd::Device> Obd::ObdSerialProvider::GetAvailableDevices()
     const fs::path serialDevicesPath("/dev/serial/by-id");
     try {
         if (!exists(serialDevicesPath)) {
-            std::clog << serialDevicesPath.generic_string() << " does not exist\n";
+            spdlog::error("No serial devices found at {}", serialDevicesPath.generic_string());
             return devices;
         }
         for (const auto& devicePath : fs::directory_iterator(serialDevicesPath)) {
@@ -32,7 +32,7 @@ std::vector<Obd::Device> Obd::ObdSerialProvider::GetAvailableDevices()
         }
 
     } catch (const fs::filesystem_error& ex) {
-        std::cerr << ex.what() << '\n';
+        spdlog::error("Error while getting serial devices: {}", ex.what());
         return devices;
     }
     return devices;

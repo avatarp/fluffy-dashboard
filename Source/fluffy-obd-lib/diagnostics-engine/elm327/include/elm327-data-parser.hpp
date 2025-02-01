@@ -6,6 +6,8 @@
 #include <regex>
 #include <string>
 
+#include "spdlog/spdlog.h"
+
 class Elm327DataParser : public DataParser {
 private:
     void processResponse(Response& parsedResponse, ObdCommandPid pid);

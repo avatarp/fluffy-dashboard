@@ -11,6 +11,8 @@
 #include <termios.h>
 #include <unistd.h>
 
+#include "spdlog/spdlog.h"
+
 namespace Obd {
 
 const uint16_t bufferSize = 256;
@@ -27,7 +29,7 @@ inline void logErrno(const std::string& message)
 {
     constexpr size_t errBufferSize = 1024;
     std::array<char, errBufferSize> errBuffer {};
-    std::cerr << message << strerror_r(errno, errBuffer.data(), errBufferSize) << "\n";
+    spdlog::error(message + strerror_r(errno, errBuffer.data(), errBufferSize));
     errno = 0;
 }
 
@@ -40,10 +42,12 @@ protected:
 
     virtual bool IsDeviceFileOk() = 0;
     virtual bool OpenConnection() = 0;
+    virtual bool Disconnect();
 
 public:
     ObdAccess() = default;
     virtual ~ObdAccess();
+    virtual bool IsFileDescriptorValid();
     virtual void SetDevice(Device device) = 0;
     virtual bool Connect() = 0;
     virtual bool CloseConnection();

@@ -6,12 +6,12 @@ namespace Obd {
 bool BluetoothObdAccess::Write(const std::string& command)
 {
     if (this->GetConnectionStatus() != ConnectionStatus::Connected) {
-        std::cerr << "device not connected.\n";
+        spdlog::error("Device not connected.");
         return false;
     }
 
     errno = 0;
-    std::clog << "Writing command " + command << "\n";
+    spdlog::info("Writing command: {}", command);
     ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
 
     if (bytesWritten == -1) {
@@ -23,12 +23,10 @@ bool BluetoothObdAccess::Write(const std::string& command)
     std::this_thread::sleep_for(std::chrono::milliseconds(afterWriteSleepTime));
 
     if (command.size() != static_cast<std::size_t>(bytesWritten)) {
-        std::cerr << "Error! Written " << bytesWritten << " bytes. Expected "
-                  << command.length() << ".\n";
+        spdlog::error("Error! Written {} bytes. Expected {}.", bytesWritten, command.length());
         return false;
     }
-
-    std::clog << "Written " << bytesWritten << " bytes successfully.\n";
+    spdlog::info("Written {} bytes successfully.", bytesWritten);
     return true;
 }
 
@@ -112,19 +110,17 @@ bool BluetoothObdAccess::OpenConnection()
     m_DeviceFileDescriptor = open(m_Device.GetDeviceFilePath().c_str(), O_RDWR | O_NOCTTY);
     if (m_DeviceFileDescriptor == -1) {
         logErrno("Open failure\n Error:");
+        return false;
     }
     return true;
 }
 
 bool BluetoothObdAccess::Connect()
 {
-    std::clog << "Opening connection with " << this->m_Device.GetDeviceFilePath()
-              << " " << this->m_Device.GetDescription() << ".\n";
+    spdlog::info("Opening connection with {} {}.", this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
 
     if (!IsDeviceFileOk()) {
-
-        std::cerr << "Device file" + this->m_Device.GetDeviceFilePath() << " not found!\n";
-
+        spdlog::error("Device file {} not found!", this->m_Device.GetDeviceFilePath());
         m_ConnectionStatus = ConnectionStatus::DeviceNotFound;
         return false;
     }
@@ -136,13 +132,12 @@ bool BluetoothObdAccess::Connect()
     }
 
     if (ApplyDefaultConnectionSettings()) {
-        std::clog << "Default connection settings applied\n";
+        spdlog::debug("Default connection settings applied");
     } else {
-        std::cerr << "Failed to apply default connection settings\n";
+        spdlog::error("Failed to apply default connection settings");
         return false;
     }
-
-    std::clog << "Opening connection successful\n";
+    spdlog::info("Opening connection successful");
     this->m_ConnectionStatus = ConnectionStatus::Connected;
     return true;
 }
