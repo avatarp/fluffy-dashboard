@@ -29,7 +29,7 @@ inline void logErrno(const std::string& message)
 {
     constexpr size_t errBufferSize = 1024;
     std::array<char, errBufferSize> errBuffer {};
-    spdlog::error(message + strerror_r(errno, errBuffer.data(), errBufferSize));
+    spdlog::error(message + ' ' + strerror_r(errno, errBuffer.data(), errBufferSize));
     errno = 0;
 }
 
