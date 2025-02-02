@@ -1,7 +1,6 @@
 #ifndef TEST_HELPERS_HPP_
 #define TEST_HELPERS_HPP_
 
-#pragma once
 #include <iostream>
 #include <memory>
 
