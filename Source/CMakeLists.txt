@@ -68,6 +68,7 @@ if(ENABLE_COVERAGE)
     fluffy-obd-lib
     bt-access-ut
     elm327-ut
+    elm327-decoders-ut
     serial-access-ut)
 
     setup_target_for_coverage_gcovr_html(
