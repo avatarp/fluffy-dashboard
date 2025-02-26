@@ -97,7 +97,7 @@ bool UsbObdAccess::OpenConnection()
     // NOLINTNEXTLINE
     m_DeviceFileDescriptor = open(m_Device.m_DeviceFilePath.c_str(), O_RDWR | O_NOCTTY);
     // error occurred
-    return m_DeviceFileDescriptor == -1;
+    return m_DeviceFileDescriptor > Obd::stderrFileDescriptor;
 }
 // GCOVR_EXCL_STOP
 

@@ -114,7 +114,7 @@ bool BluetoothObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
     m_DeviceFileDescriptor = open(m_Device.m_DeviceFilePath.c_str(), O_RDWR | O_NOCTTY);
-    if (m_DeviceFileDescriptor == -1) {
+    if (m_DeviceFileDescriptor < Obd::stderrFileDescriptor) {
         logErrno("Open failure\n Error:");
         return false;
     }

@@ -15,6 +15,7 @@
 
 namespace Obd {
 
+constexpr uint8_t stderrFileDescriptor { 2 };
 const uint16_t bufferSize = 256;
 
 enum class ConnectionStatus {

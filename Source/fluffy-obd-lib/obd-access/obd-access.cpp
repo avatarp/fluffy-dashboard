@@ -11,7 +11,7 @@ std::string ObdAccess::Transaction(const std::string& command)
 ObdAccess::~ObdAccess()
 {
     try {
-        if (m_DeviceFileDescriptor > 0) {
+        if (m_DeviceFileDescriptor > Obd::stderrFileDescriptor) {
             // GCOVR_EXCL_START
             if (close(m_DeviceFileDescriptor) == -1) {
                 logErrno("Error closing connection\n Error:");
@@ -35,7 +35,7 @@ ObdAccess::~ObdAccess()
 
 bool ObdAccess::IsFileDescriptorValid()
 {
-    return m_DeviceFileDescriptor > 0;
+    return m_DeviceFileDescriptor > stderrFileDescriptor && fcntl(m_DeviceFileDescriptor, F_GETFD) != -1;
 }
 
 // GCOVR_EXCL_START
