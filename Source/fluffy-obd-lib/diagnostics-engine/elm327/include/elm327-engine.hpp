@@ -10,8 +10,6 @@ class Elm327Engine : public ParametersEngine {
 public:
     Elm327Engine();
     virtual ~Elm327Engine() = default;
-    virtual bool OpenConnection();
-    virtual bool CloseConnection();
 };
 
 #endif // ELM327_ENGINE_HPP_

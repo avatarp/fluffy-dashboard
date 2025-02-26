@@ -39,20 +39,20 @@ bool ObdAccess::IsFileDescriptorValid()
 }
 
 // GCOVR_EXCL_START
+bool ObdAccess::CloseConnection()
 {
     return close(m_DeviceFileDescriptor) != -1;
 } // GCOVR_EXCL_STOP
 
-bool ObdAccess::CloseConnection()
+bool ObdAccess::Disconnect()
 {
     try {
         if (IsFileDescriptorValid()) {
-
-            if (!Disconnect()) {
+            if (!CloseConnection()) { // GCOVR_EXCL_START
                 logErrno("Error closing connection\n Error:");
                 spdlog::critical("Failed to close file descriptor.");
                 return false;
-            }
+            } // GCOVR_EXCL_STOP
             m_DeviceFileDescriptor = 0;
             spdlog::info("Connection with {} {} closed.",
                 this->m_Device.m_DeviceFilePath, this->m_Device.m_Description);
@@ -75,7 +75,7 @@ bool ObdAccess::CloseConnection()
 bool ObdAccess::Reconnect()
 {
     try {
-        this->CloseConnection();
+        this->Disconnect();
         this->Connect();
     } catch (...) { // GCOVR_EXCL_START
         spdlog::error("Failed to reconnect to device: {}", this->m_Device.m_DeviceFilePath);

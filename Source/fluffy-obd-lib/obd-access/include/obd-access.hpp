@@ -43,7 +43,7 @@ protected:
 
     virtual bool IsDeviceFileOk() = 0;
     virtual bool OpenConnection() = 0;
-    virtual bool Disconnect();
+    virtual bool CloseConnection();
 
 public:
     ObdAccess() = default;
@@ -51,7 +51,7 @@ public:
     virtual bool IsFileDescriptorValid();
     virtual void SetDevice(Device device) = 0;
     virtual bool Connect() = 0;
-    virtual bool CloseConnection();
+    virtual bool Disconnect();
     bool Reconnect();
     const Device& GetDevice() const;
     const ConnectionStatus& GetConnectionStatus() const;
