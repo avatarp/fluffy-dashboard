@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget* parent)
     text += QString::number(usbDevices.size());
     ui->logsTextBrowser->append(text);
     for (auto& usbDevice : usbDevices) {
-        ui->logsTextBrowser->append(QString::fromStdString(usbDevice.GetDeviceFilePath()));
-        ui->logsTextBrowser->append(QString::fromStdString(usbDevice.GetDescription()));
+        ui->logsTextBrowser->append(QString::fromStdString(usbDevice.m_DeviceFilePath));
+        ui->logsTextBrowser->append(QString::fromStdString(usbDevice.m_Description));
         ui->logsTextBrowser->append("\n");
     }
 }
