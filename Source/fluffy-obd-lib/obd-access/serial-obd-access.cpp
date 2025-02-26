@@ -70,11 +70,11 @@ bool UsbObdAccess::ApplyDefaultConnectionSettings()
 
 void UsbObdAccess::SetDevice(Device device)
 {
-    if (device.GetConnectionType() != ConnectionType::Serial) {
+    if (device.m_ConnectionType != ConnectionType::Serial) {
         throw std::logic_error(std::string(
             "Invalid device set. Got"
             + std::to_string(
-                static_cast<int>(device.GetConnectionType()))
+                static_cast<int>(device.m_ConnectionType))
             + " expected " + std::to_string(static_cast<int>(Obd::ConnectionType::Serial)))
                                    .c_str());
     }
@@ -83,23 +83,23 @@ void UsbObdAccess::SetDevice(Device device)
 
 bool UsbObdAccess::IsDeviceFileOk()
 {
-    return std::filesystem::exists(this->m_Device.GetDeviceFilePath());
+    return std::filesystem::exists(this->m_Device.m_DeviceFilePath);
 }
 
 bool UsbObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
-    m_DeviceFileDescriptor = open(m_Device.GetDeviceFilePath().c_str(), O_RDWR | O_NOCTTY);
+    m_DeviceFileDescriptor = open(m_Device.m_DeviceFilePath.c_str(), O_RDWR | O_NOCTTY);
     // error occurred
     return m_DeviceFileDescriptor == -1;
 }
 
 bool UsbObdAccess::Connect()
 {
-    spdlog::info("Opening connection with {} {}.", this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
+    spdlog::info("Opening connection with {} {}.", this->m_Device.m_DeviceFilePath, this->m_Device.m_Description);
 
     if (!IsDeviceFileOk()) {
-        spdlog::error("Device file" + this->m_Device.GetDeviceFilePath() + " not found.");
+        spdlog::error("Device file" + this->m_Device.m_DeviceFilePath + " not found.");
 
         m_ConnectionStatus = ConnectionStatus::DeviceNotFound;
         return false;

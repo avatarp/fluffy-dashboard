@@ -11,13 +11,11 @@ enum class ConnectionType {
     Bluetooth
 };
 
-class Device {
-private:
+struct Device {
     std::string m_DeviceFilePath = "";
     ConnectionType m_ConnectionType { ConnectionType::NoConnection };
     std::string m_Description = "";
 
-public:
     Device() = default;
     Device(std::string deviceFilePath,
         ConnectionType connectionType,
@@ -27,10 +25,6 @@ public:
         , m_Description { description }
     {
     }
-
-    std::string GetDescription() const;
-    ConnectionType GetConnectionType() const;
-    std::string GetDeviceFilePath() const;
 };
 }
 

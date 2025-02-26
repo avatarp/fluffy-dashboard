@@ -19,16 +19,16 @@ ObdAccess::~ObdAccess()
             }
             m_DeviceFileDescriptor = 0;
             spdlog::info("Connection with {} {} closed.",
-                this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
+                this->m_Device.m_DeviceFilePath, this->m_Device.m_Description);
         } else {
             spdlog::info("Connection with {} {} was already closed.",
-                this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
+                this->m_Device.m_DeviceFilePath, this->m_Device.m_Description);
         }
     } catch (...) {
         logErrno("Exception during closing connection\nError: ");
         spdlog::critical("Failed to close file descriptor of device: {}",
-            this->m_Device.GetDeviceFilePath());
-    }
+            this->m_Device.m_DeviceFilePath);
+    } 
 }
 
 bool ObdAccess::IsFileDescriptorValid()
@@ -53,16 +53,16 @@ bool ObdAccess::CloseConnection()
             }
             m_DeviceFileDescriptor = 0;
             spdlog::info("Connection with {} {} closed.",
-                this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
+                this->m_Device.m_DeviceFilePath, this->m_Device.m_Description);
         } else {
             spdlog::info("Connection with {} {} was already closed.",
-                this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
-            return false;
+                this->m_Device.m_DeviceFilePath, this->m_Device.m_Description);
+            return true;
         }
     } catch (...) {
         logErrno("Exception during closing connection\nError: ");
         spdlog::critical("Failed to close file descriptor of device: {}",
-            this->m_Device.GetDeviceFilePath());
+            this->m_Device.m_DeviceFilePath);
         return false;
     }
     m_ConnectionStatus = ConnectionStatus::Disconnected;
@@ -75,7 +75,7 @@ bool ObdAccess::Reconnect()
         this->CloseConnection();
         this->Connect();
     } catch (...) {
-        spdlog::error("Failed to reconnect to device: {}", this->m_Device.GetDeviceFilePath());
+        spdlog::error("Failed to reconnect to device: {}", this->m_Device.m_DeviceFilePath);
         return false;
     }
     return true;

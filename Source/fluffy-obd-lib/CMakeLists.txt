@@ -2,7 +2,6 @@ add_library(
   ${PROJECT_NAME}
   obd-access/bluetooth-provider.cpp
   obd-access/bluetooth-obd-access.cpp
-  obd-access/device.cpp
   obd-access/obd-access.cpp
   obd-access/serial-obd-access.cpp
   obd-access/obd-serial-provider.cpp
