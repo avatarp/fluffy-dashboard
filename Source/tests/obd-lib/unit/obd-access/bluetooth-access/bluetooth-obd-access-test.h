@@ -3,8 +3,8 @@
 
 #include "bluetooth-obd-access.hpp"
 
-#include "../common/obd-access-utils.h"
-#include "../mocks/obd-access-mock.hpp"
+#include "../../common/obd-access-utils.h"
+#include "../../mocks/obd-access-mock.hpp"
 #include <gtest/gtest.h>
 
 using namespace testing;
@@ -13,6 +13,12 @@ class BluetoothAccess_F : public ::testing::Test {
 protected:
     MockBtAccess obdAccess {};
 };
+
+TEST(BluetoothAccess, WriteOnNoConnectionFailed)
+{
+    Obd::BluetoothObdAccess btAccess;
+    EXPECT_FALSE(btAccess.Write(""));
+}
 
 TEST_F(BluetoothAccess_F, Connect_OpenConnectionFailed)
 {
@@ -56,15 +62,15 @@ TEST_F(BluetoothAccess_F, Reconnect_Default)
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 
     EXPECT_CALL(obdAccess, IsFileDescriptorValid).WillOnce(Return(true));
-    EXPECT_CALL(obdAccess, Disconnect).WillOnce(Return(true));
-    EXPECT_TRUE(obdAccess.CloseConnection());
+    EXPECT_CALL(obdAccess, CloseConnection).WillOnce(Return(true));
+    EXPECT_TRUE(obdAccess.Disconnect());
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 
     EXPECT_CALL(obdAccess, IsDeviceFileOk).WillOnce(Return(true));
     EXPECT_CALL(obdAccess, OpenConnection).WillOnce(Return(true));
     EXPECT_CALL(obdAccess, ApplyDefaultConnectionSettings).WillOnce(Return(true));
     EXPECT_CALL(obdAccess, IsFileDescriptorValid).WillOnce(Return(true));
-    EXPECT_CALL(obdAccess, Disconnect).WillOnce(Return(true));
+    EXPECT_CALL(obdAccess, CloseConnection).WillOnce(Return(true));
 
     EXPECT_TRUE(obdAccess.Reconnect());
     EXPECT_EQ(obdAccess.GetConnectionStatus(), Obd::ConnectionStatus::Connected);

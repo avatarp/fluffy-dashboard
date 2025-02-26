@@ -66,10 +66,11 @@ if(ENABLE_COVERAGE)
     set(COVERAGE_EXTRA_FLAGS)
     set(COVERAGE_DEPENDENCIES 
     fluffy-obd-lib
+    obd-access-ut
     bt-access-ut
+    serial-access-ut
     elm327-ut
-    elm327-decoders-ut
-    serial-access-ut)
+    elm327-decoders-ut)
 
     setup_target_for_coverage_gcovr_html(
         NAME
