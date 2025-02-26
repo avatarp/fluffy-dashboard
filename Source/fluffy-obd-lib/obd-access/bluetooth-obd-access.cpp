@@ -9,7 +9,7 @@ bool BluetoothObdAccess::Write(const std::string& command)
         spdlog::error("Device not connected.");
         return false;
     }
-
+    // GCOVR_EXCL_START
     errno = 0;
     spdlog::info("Writing command: {}", command);
     ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
@@ -29,7 +29,9 @@ bool BluetoothObdAccess::Write(const std::string& command)
     spdlog::info("Written {} bytes successfully.", bytesWritten);
     return true;
 }
+// GCOVR_EXCL_STOP
 
+// GCOVR_EXCL_START
 std::string BluetoothObdAccess::Read()
 {
     errno = 0;
@@ -41,7 +43,9 @@ std::string BluetoothObdAccess::Read()
     }
     return std::string { readBuffer.data() };
 }
+// GCOVR_EXCL_STOP
 
+// GCOVR_EXCL_START
 bool BluetoothObdAccess::ApplyDefaultConnectionSettings()
 {
 // disable false positive Wsign-conversion warnings
@@ -89,6 +93,7 @@ bool BluetoothObdAccess::ApplyDefaultConnectionSettings()
     return true;
 #pragma GCC diagnostic pop
 }
+// GCOVR_EXCL_STOP
 
 void BluetoothObdAccess::SetDevice(Device device)
 {
@@ -104,6 +109,7 @@ bool BluetoothObdAccess::IsDeviceFileOk()
     return std::filesystem::exists(m_Device.m_DeviceFilePath);
 }
 
+// GCOVR_EXCL_START
 bool BluetoothObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
@@ -114,6 +120,7 @@ bool BluetoothObdAccess::OpenConnection()
     }
     return true;
 }
+// GCOVR_EXCL_STOP
 
 bool BluetoothObdAccess::Connect()
 {

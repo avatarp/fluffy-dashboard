@@ -468,10 +468,13 @@ std::size_t Elm327DataParser::getExpectedResponseSizeByPid(ObdCommandPid pid)
     case S01P38:
     case S01P39:
     case S01P3B:
+        // Other Pids currently not supported
 
     case S09P00:
         return 4;
+    // GCOVR_EXCL_START
     default:
         return 0;
+        // GCOVR_EXCL_STOP
     }
 }

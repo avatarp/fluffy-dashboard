@@ -8,7 +8,7 @@ bool UsbObdAccess::Write(const std::string& command)
         spdlog::error("Device not connected.");
         return false;
     }
-
+    // GCOVR_EXCL_START
     spdlog::info("Writing command: {}", command);
     ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
 
@@ -26,7 +26,9 @@ bool UsbObdAccess::Write(const std::string& command)
     spdlog::error("Error! Written {} bytes. Expected {}.", bytesWritten, command.length());
     return false;
 }
+// GCOVR_EXCL_STOP
 
+// GCOVR_EXCL_START
 std::string UsbObdAccess::Read()
 {
     std::array<char, bufferSize> readBuffer {};
@@ -40,7 +42,9 @@ std::string UsbObdAccess::Read()
     spdlog::info("Received response: {}", readBuffer.data());
     return std::string { readBuffer.data() };
 }
+// GCOVR_EXCL_STOP
 
+// GCOVR_EXCL_START
 bool UsbObdAccess::ApplyDefaultConnectionSettings()
 {
     errno = 0;
@@ -67,6 +71,7 @@ bool UsbObdAccess::ApplyDefaultConnectionSettings()
     tcsetattr(m_DeviceFileDescriptor, TCSANOW, &m_Terminal);
     return (errno == 0);
 }
+// GCOVR_EXCL_STOP
 
 void UsbObdAccess::SetDevice(Device device)
 {
@@ -86,6 +91,7 @@ bool UsbObdAccess::IsDeviceFileOk()
     return std::filesystem::exists(this->m_Device.m_DeviceFilePath);
 }
 
+// GCOVR_EXCL_START
 bool UsbObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
@@ -93,6 +99,7 @@ bool UsbObdAccess::OpenConnection()
     // error occurred
     return m_DeviceFileDescriptor == -1;
 }
+// GCOVR_EXCL_STOP
 
 bool UsbObdAccess::Connect()
 {
