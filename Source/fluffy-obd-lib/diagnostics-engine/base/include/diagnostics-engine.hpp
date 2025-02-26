@@ -39,8 +39,8 @@ public:
         = default;
     void SetSerialDevice(Obd::Device device);
     void SetObdAccess(std::unique_ptr<Obd::ObdAccess> obdAccess);
-    virtual bool OpenConnection() = 0;
-    virtual bool CloseConnection() = 0;
+    virtual bool OpenConnection();
+    virtual bool Disconnect();
     Response GetCommandResponse(ObdCommandPid pid);
 };
 

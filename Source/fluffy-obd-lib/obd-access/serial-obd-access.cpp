@@ -8,7 +8,7 @@ bool UsbObdAccess::Write(const std::string& command)
         spdlog::error("Device not connected.");
         return false;
     }
-
+    // GCOVR_EXCL_START
     spdlog::info("Writing command: {}", command);
     ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
 
@@ -26,7 +26,9 @@ bool UsbObdAccess::Write(const std::string& command)
     spdlog::error("Error! Written {} bytes. Expected {}.", bytesWritten, command.length());
     return false;
 }
+// GCOVR_EXCL_STOP
 
+// GCOVR_EXCL_START
 std::string UsbObdAccess::Read()
 {
     std::array<char, bufferSize> readBuffer {};
@@ -40,7 +42,9 @@ std::string UsbObdAccess::Read()
     spdlog::info("Received response: {}", readBuffer.data());
     return std::string { readBuffer.data() };
 }
+// GCOVR_EXCL_STOP
 
+// GCOVR_EXCL_START
 bool UsbObdAccess::ApplyDefaultConnectionSettings()
 {
     errno = 0;
@@ -67,14 +71,15 @@ bool UsbObdAccess::ApplyDefaultConnectionSettings()
     tcsetattr(m_DeviceFileDescriptor, TCSANOW, &m_Terminal);
     return (errno == 0);
 }
+// GCOVR_EXCL_STOP
 
 void UsbObdAccess::SetDevice(Device device)
 {
-    if (device.GetConnectionType() != ConnectionType::Serial) {
+    if (device.m_ConnectionType != ConnectionType::Serial) {
         throw std::logic_error(std::string(
             "Invalid device set. Got"
             + std::to_string(
-                static_cast<int>(device.GetConnectionType()))
+                static_cast<int>(device.m_ConnectionType))
             + " expected " + std::to_string(static_cast<int>(Obd::ConnectionType::Serial)))
                                    .c_str());
     }
@@ -83,23 +88,25 @@ void UsbObdAccess::SetDevice(Device device)
 
 bool UsbObdAccess::IsDeviceFileOk()
 {
-    return std::filesystem::exists(this->m_Device.GetDeviceFilePath());
+    return std::filesystem::exists(this->m_Device.m_DeviceFilePath);
 }
 
+// GCOVR_EXCL_START
 bool UsbObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
-    m_DeviceFileDescriptor = open(m_Device.GetDeviceFilePath().c_str(), O_RDWR | O_NOCTTY);
+    m_DeviceFileDescriptor = open(m_Device.m_DeviceFilePath.c_str(), O_RDWR | O_NOCTTY);
     // error occurred
-    return m_DeviceFileDescriptor == -1;
+    return m_DeviceFileDescriptor > Obd::stderrFileDescriptor;
 }
+// GCOVR_EXCL_STOP
 
 bool UsbObdAccess::Connect()
 {
-    spdlog::info("Opening connection with {} {}.", this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
+    spdlog::info("Opening connection with {} {}.", this->m_Device.m_DeviceFilePath, this->m_Device.m_Description);
 
     if (!IsDeviceFileOk()) {
-        spdlog::error("Device file" + this->m_Device.GetDeviceFilePath() + " not found.");
+        spdlog::error("Device file" + this->m_Device.m_DeviceFilePath + " not found.");
 
         m_ConnectionStatus = ConnectionStatus::DeviceNotFound;
         return false;

@@ -2,7 +2,6 @@ add_library(
   ${PROJECT_NAME}
   obd-access/bluetooth-provider.cpp
   obd-access/bluetooth-obd-access.cpp
-  obd-access/device.cpp
   obd-access/obd-access.cpp
   obd-access/serial-obd-access.cpp
   obd-access/obd-serial-provider.cpp
@@ -13,7 +12,7 @@ add_library(
   diagnostics-engine/elm327/elm327-data-parser.cpp
   diagnostics-engine/elm327/elm327-engine.cpp)
 
-set_target_properties(${PROJET_NAME} PROPERTIES
+set_target_properties(${PROJECT_NAME} PROPERTIES
   CMAKE_CXX_STANDARD 20
   CMAKE_CXX_STANDARD_REQUIRED ON
   CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a"

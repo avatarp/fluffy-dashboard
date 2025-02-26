@@ -56,6 +56,8 @@ TEST(elm327LiveData, dummyUsbValidResponse)
     std::unique_ptr<MockUsbAccess> mockObd = std::make_unique<MockUsbAccess>();
     EXPECT_CALL(*mockObd, IsDeviceFileOk).WillOnce(Return(true));
     EXPECT_CALL(*mockObd, OpenConnection).WillOnce(Return(true));
+    EXPECT_CALL(*mockObd, IsFileDescriptorValid).WillOnce(Return(true));
+    EXPECT_CALL(*mockObd, CloseConnection).WillOnce(Return(true));
     EXPECT_CALL(*mockObd, Write(::testing::_)).WillOnce(Return(true));
     EXPECT_CALL(*mockObd, Read()).WillOnce(Return(std::string("7E8 03 41 04 FF")));
 
@@ -71,6 +73,8 @@ TEST(elm327LiveData, dummyUsbValidResponse)
     EXPECT_EQ("7E8", response.m_rawEcuId);
     EXPECT_EQ(3, response.m_rawLength);
     EXPECT_EQ("FF", response.m_rawData);
+
+    EXPECT_TRUE(engine.Disconnect());
 }
 
 #endif // LIVE_DATA_TEST_H_

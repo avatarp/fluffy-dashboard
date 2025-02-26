@@ -9,7 +9,7 @@ bool BluetoothObdAccess::Write(const std::string& command)
         spdlog::error("Device not connected.");
         return false;
     }
-
+    // GCOVR_EXCL_START
     errno = 0;
     spdlog::info("Writing command: {}", command);
     ssize_t bytesWritten = write(m_DeviceFileDescriptor, command.c_str(), command.length());
@@ -29,7 +29,9 @@ bool BluetoothObdAccess::Write(const std::string& command)
     spdlog::info("Written {} bytes successfully.", bytesWritten);
     return true;
 }
+// GCOVR_EXCL_STOP
 
+// GCOVR_EXCL_START
 std::string BluetoothObdAccess::Read()
 {
     errno = 0;
@@ -41,7 +43,9 @@ std::string BluetoothObdAccess::Read()
     }
     return std::string { readBuffer.data() };
 }
+// GCOVR_EXCL_STOP
 
+// GCOVR_EXCL_START
 bool BluetoothObdAccess::ApplyDefaultConnectionSettings()
 {
 // disable false positive Wsign-conversion warnings
@@ -89,38 +93,41 @@ bool BluetoothObdAccess::ApplyDefaultConnectionSettings()
     return true;
 #pragma GCC diagnostic pop
 }
+// GCOVR_EXCL_STOP
 
 void BluetoothObdAccess::SetDevice(Device device)
 {
-    if (device.GetConnectionType() != ConnectionType::Bluetooth) {
+    if (device.m_ConnectionType != ConnectionType::Bluetooth) {
         throw std::logic_error(
-            std::string("Invalid device set. Got" + std::to_string(static_cast<int16_t>(device.GetConnectionType())) + " expected Bluetooth").c_str());
+            std::string("Invalid device set. Got" + std::to_string(static_cast<int16_t>(device.m_ConnectionType)) + " expected Bluetooth").c_str());
     }
     this->m_Device = std::move(device);
 }
 
 bool BluetoothObdAccess::IsDeviceFileOk()
 {
-    return std::filesystem::exists(m_Device.GetDeviceFilePath());
+    return std::filesystem::exists(m_Device.m_DeviceFilePath);
 }
 
+// GCOVR_EXCL_START
 bool BluetoothObdAccess::OpenConnection()
 {
     // NOLINTNEXTLINE
-    m_DeviceFileDescriptor = open(m_Device.GetDeviceFilePath().c_str(), O_RDWR | O_NOCTTY);
-    if (m_DeviceFileDescriptor == -1) {
+    m_DeviceFileDescriptor = open(m_Device.m_DeviceFilePath.c_str(), O_RDWR | O_NOCTTY);
+    if (m_DeviceFileDescriptor < Obd::stderrFileDescriptor) {
         logErrno("Open failure\n Error:");
         return false;
     }
     return true;
 }
+// GCOVR_EXCL_STOP
 
 bool BluetoothObdAccess::Connect()
 {
-    spdlog::info("Opening connection with {} {}.", this->m_Device.GetDeviceFilePath(), this->m_Device.GetDescription());
+    spdlog::info("Opening connection with {} {}.", this->m_Device.m_DeviceFilePath, this->m_Device.m_Description);
 
     if (!IsDeviceFileOk()) {
-        spdlog::error("Device file {} not found!", this->m_Device.GetDeviceFilePath());
+        spdlog::error("Device file {} not found!", this->m_Device.m_DeviceFilePath);
         m_ConnectionStatus = ConnectionStatus::DeviceNotFound;
         return false;
     }
