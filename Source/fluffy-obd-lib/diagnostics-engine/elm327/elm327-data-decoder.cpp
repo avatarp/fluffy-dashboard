@@ -58,7 +58,7 @@ float Elm327DataDecoder::GetFuelPressure(const std::string& data)
 
 float Elm327DataDecoder::GetIntakeManifoldPressure(const std::string& data)
 {
-    return elm327::decoders::DecodeSimpleA(data);
+    return elm327::decoders::DecodeCountA(data);
 }
 
 float Elm327DataDecoder::GetEngineRpm(const std::string& data)
@@ -68,7 +68,7 @@ float Elm327DataDecoder::GetEngineRpm(const std::string& data)
 
 float Elm327DataDecoder::GetSpeed(const std::string& data)
 {
-    return elm327::decoders::DecodeSimpleA(data);
+    return elm327::decoders::DecodeCountA(data);
 }
 
 float Elm327DataDecoder::GetTimingAdvance(const std::string& data)
@@ -267,7 +267,7 @@ float Elm327DataDecoder::GetFuelTankLevelInput(const std::string& data)
 
 float Elm327DataDecoder::GetWarmupsSinceDtcCleared(const std::string& data)
 {
-    return elm327::decoders::DecodeSimpleA(data);
+    return elm327::decoders::DecodeCountA(data);
 }
 
 float Elm327DataDecoder::GetDistanceSinceDtcCleared(const std::string& data)
@@ -282,7 +282,7 @@ float Elm327DataDecoder::GetEvapVaporPressure(const std::string& data)
 
 float Elm327DataDecoder::GetAbsoluteBarometricPressure(const std::string& data)
 {
-    return elm327::decoders::DecodeSimpleA(data);
+    return elm327::decoders::DecodeCountA(data);
 }
 
 std::pair<float, float>
@@ -368,7 +368,7 @@ bitset_32 Elm327DataDecoder::GetSupportedVIPIDs(const std::string& data)
 
 float Elm327DataDecoder::GetVinMessageCount(const std::string& data)
 {
-    return elm327::decoders::DecodeSimpleA(data);
+    return elm327::decoders::DecodeCountA(data);
 }
 
 std::string Elm327DataDecoder::GetVin(const std::string& data)
@@ -378,7 +378,7 @@ std::string Elm327DataDecoder::GetVin(const std::string& data)
 
 float Elm327DataDecoder::GetCalibrationIdMessageCount(const std::string& data)
 {
-    return elm327::decoders::DecodeSimpleA(data);
+    return elm327::decoders::DecodeCountA(data);
 }
 
 std::string Elm327DataDecoder::GetCalibrationId(const std::string& data)
@@ -388,7 +388,7 @@ std::string Elm327DataDecoder::GetCalibrationId(const std::string& data)
 
 float Elm327DataDecoder::GetCalibrationVerificationNumbersMessageCount(const std::string& data)
 {
-    return elm327::decoders::DecodeSimpleA(data);
+    return elm327::decoders::DecodeCountA(data);
 }
 
 std::string Elm327DataDecoder::GetCalibrationVerificationNumbers(const std::string& data)
@@ -398,7 +398,7 @@ std::string Elm327DataDecoder::GetCalibrationVerificationNumbers(const std::stri
 
 float Elm327DataDecoder::GetPerformanceTrackingMessageCount(const std::string& data)
 {
-    return elm327::decoders::DecodeSimpleA(data);
+    return elm327::decoders::DecodeCountA(data);
 }
 
 std::string Elm327DataDecoder::GetPerformanceTracking1(const std::string& data)
@@ -410,7 +410,7 @@ std::string Elm327DataDecoder::GetPerformanceTracking1(const std::string& data)
 
 float Elm327DataDecoder::GetEcuNameMessageCount(const std::string& data)
 {
-    return elm327::decoders::DecodeSimpleA(data);
+    return elm327::decoders::DecodeCountA(data);
 }
 
 std::string Elm327DataDecoder::GetEcuName(const std::string& data)
