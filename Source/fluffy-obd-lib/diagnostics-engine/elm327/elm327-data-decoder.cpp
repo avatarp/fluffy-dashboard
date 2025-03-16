@@ -320,7 +320,7 @@ void Elm327DataDecoder::decodeResponse(Response& response)
         return;
     }
     case S01P3C: {
-        response.m_dataType = DataType::numberPair;
+        response.m_dataType = DataType::number;
         response.m_dataFloat1
             = { this->GetCatalystTemperatureB1S1(response.m_rawData), "°C" };
         return;
