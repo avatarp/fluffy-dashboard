@@ -730,6 +730,127 @@ TEST_F(elm327Parser_F, parse012B)
     EXPECT_EQ(parsedResponse.m_dataFloat2.second, "V");
 }
 
+TEST_F(elm327Parser_F, parse012C)
+{
+    response = { "7E8 03 41 2C BE" };
+    pid = ObdCommandPid::S01P2C;
+    Response parsedResponse = parser.ParseResponse(repo.getCommandByPid(pid), response, pid);
+    EXPECT_EQ(parsedResponse.m_rawData, "BE");
+    EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
+    EXPECT_EQ(parsedResponse.m_rawCommandId, "012C");
+    EXPECT_EQ(parsedResponse.m_rawLength, 3);
+
+    EXPECT_EQ(parsedResponse.m_dataType, DataType::number);
+    EXPECT_NEAR(parsedResponse.m_dataFloat1.first, 74.50, 0.01);
+    EXPECT_EQ(parsedResponse.m_dataFloat1.second, "%");
+}
+
+TEST_F(elm327Parser_F, parse012D)
+{
+    response = { "7E8 03 41 2D FE" };
+    pid = ObdCommandPid::S01P2D;
+    Response parsedResponse = parser.ParseResponse(repo.getCommandByPid(pid), response, pid);
+    EXPECT_EQ(parsedResponse.m_rawData, "FE");
+    EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
+    EXPECT_EQ(parsedResponse.m_rawCommandId, "012D");
+    EXPECT_EQ(parsedResponse.m_rawLength, 3);
+
+    EXPECT_EQ(parsedResponse.m_dataType, DataType::number);
+    EXPECT_NEAR(parsedResponse.m_dataFloat1.first, 98.43, 0.01);
+    EXPECT_EQ(parsedResponse.m_dataFloat1.second, "%");
+}
+
+TEST_F(elm327Parser_F, parse012E)
+{
+    response = { "7E8 03 41 2E 2E" };
+    pid = ObdCommandPid::S01P2E;
+    Response parsedResponse = parser.ParseResponse(repo.getCommandByPid(pid), response, pid);
+    EXPECT_EQ(parsedResponse.m_rawData, "2E");
+    EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
+    EXPECT_EQ(parsedResponse.m_rawCommandId, "012E");
+    EXPECT_EQ(parsedResponse.m_rawLength, 3);
+
+    EXPECT_EQ(parsedResponse.m_dataType, DataType::number);
+    EXPECT_NEAR(parsedResponse.m_dataFloat1.first, 18.03, 0.01);
+    EXPECT_EQ(parsedResponse.m_dataFloat1.second, "%");
+}
+
+TEST_F(elm327Parser_F, parse012F)
+{
+    response = { "7E8 03 41 2F 11" };
+    pid = ObdCommandPid::S01P2F;
+    Response parsedResponse = parser.ParseResponse(repo.getCommandByPid(pid), response, pid);
+    EXPECT_EQ(parsedResponse.m_rawData, "11");
+    EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
+    EXPECT_EQ(parsedResponse.m_rawCommandId, "012F");
+    EXPECT_EQ(parsedResponse.m_rawLength, 3);
+
+    EXPECT_EQ(parsedResponse.m_dataType, DataType::number);
+    EXPECT_NEAR(parsedResponse.m_dataFloat1.first, 6.66, 0.01);
+    EXPECT_EQ(parsedResponse.m_dataFloat1.second, "%");
+}
+
+TEST_F(elm327Parser_F, parse0130)
+{
+    response = { "7E8 03 41 30 13" };
+    pid = ObdCommandPid::S01P30;
+    Response parsedResponse = parser.ParseResponse(repo.getCommandByPid(pid), response, pid);
+    EXPECT_EQ(parsedResponse.m_rawData, "13");
+    EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
+    EXPECT_EQ(parsedResponse.m_rawCommandId, "0130");
+    EXPECT_EQ(parsedResponse.m_rawLength, 3);
+
+    EXPECT_EQ(parsedResponse.m_dataType, DataType::number);
+    EXPECT_NEAR(parsedResponse.m_dataFloat1.first, 19, 0.01);
+    EXPECT_EQ(parsedResponse.m_dataFloat1.second, "count");
+}
+
+TEST_F(elm327Parser_F, parse0131)
+{
+    response = { "7E8 04 41 31 33 01" };
+    pid = ObdCommandPid::S01P31;
+    Response parsedResponse = parser.ParseResponse(repo.getCommandByPid(pid), response, pid);
+    EXPECT_EQ(parsedResponse.m_rawData, "3301");
+    EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
+    EXPECT_EQ(parsedResponse.m_rawCommandId, "0131");
+    EXPECT_EQ(parsedResponse.m_rawLength, 4);
+
+    EXPECT_EQ(parsedResponse.m_dataType, DataType::number);
+    EXPECT_NEAR(parsedResponse.m_dataFloat1.first, 13057, 0.01);
+    EXPECT_EQ(parsedResponse.m_dataFloat1.second, "km");
+}
+
+TEST_F(elm327Parser_F, parse0132)
+{
+    response = { "7E8 04 41 32 33 33" };
+    pid = ObdCommandPid::S01P32;
+    Response parsedResponse = parser.ParseResponse(repo.getCommandByPid(pid), response, pid);
+    EXPECT_EQ(parsedResponse.m_rawData, "3333");
+    EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
+    EXPECT_EQ(parsedResponse.m_rawCommandId, "0132");
+    EXPECT_EQ(parsedResponse.m_rawLength, 4);
+
+    EXPECT_EQ(parsedResponse.m_dataType, DataType::number);
+    EXPECT_NEAR(parsedResponse.m_dataFloat1.first, 3276.75, 0.01);
+    EXPECT_EQ(parsedResponse.m_dataFloat1.second, "Pa");
+}
+
+TEST_F(elm327Parser_F, parse0133)
+{
+    response = { "7E8 03 41 33 88" };
+    pid = ObdCommandPid::S01P33;
+    Response parsedResponse = parser.ParseResponse(repo.getCommandByPid(pid), response, pid);
+    EXPECT_EQ(parsedResponse.m_rawData, "88");
+    EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
+    EXPECT_EQ(parsedResponse.m_rawCommandId, "0133");
+    EXPECT_EQ(parsedResponse.m_rawLength, 3);
+
+    EXPECT_EQ(parsedResponse.m_dataType, DataType::number);
+    EXPECT_NEAR(parsedResponse.m_dataFloat1.first, 136, 0.01);
+    EXPECT_EQ(parsedResponse.m_dataFloat1.second, "kPa");
+}
+
+
 TEST_F(elm327Parser_F, parse0900)
 {
     response = { "7E8 06 49 00 50 00 00 00" };
