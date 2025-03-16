@@ -850,6 +850,22 @@ TEST_F(elm327Parser_F, parse0133)
     EXPECT_EQ(parsedResponse.m_dataFloat1.second, "kPa");
 }
 
+TEST_F(elm327Parser_F, parse0134)
+{
+    response = { "7E8 06 41 34 33 33 AB BA" };
+    pid = ObdCommandPid::S01P34;
+    Response parsedResponse = parser.ParseResponse(repo.getCommandByPid(pid), response, pid);
+    EXPECT_EQ(parsedResponse.m_rawData, "3333ABBA");
+    EXPECT_EQ(parsedResponse.m_rawEcuId, "7E8");
+    EXPECT_EQ(parsedResponse.m_rawCommandId, "0134");
+    EXPECT_EQ(parsedResponse.m_rawLength, 6);
+
+    EXPECT_EQ(parsedResponse.m_dataType, DataType::numberPair);
+    EXPECT_NEAR(parsedResponse.m_dataFloat1.first, 0.399993896, 0.001);
+    EXPECT_EQ(parsedResponse.m_dataFloat1.second, "ratio");
+    EXPECT_NEAR(parsedResponse.m_dataFloat2.first, 43.7265625, 0.001);
+    EXPECT_EQ(parsedResponse.m_dataFloat2.second, "mA");
+}
 
 TEST_F(elm327Parser_F, parse0900)
 {
