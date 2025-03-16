@@ -123,6 +123,7 @@ std::size_t Elm327DataParser::getExpectedResponseSizeByPid(ObdCommandPid pid)
     case S01P37:
     case S01P38:
     case S01P39:
+    case S01P3A:
     case S01P3B:
         // Other Pids currently not supported
 
