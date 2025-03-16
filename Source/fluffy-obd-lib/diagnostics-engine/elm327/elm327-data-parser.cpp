@@ -29,7 +29,9 @@ Response Elm327DataParser::ParseResponse(const std::string& command, std::string
 
     if (static_cast<size_t>(match[dataGroupIndex].length()) != getExpectedResponseSizeByPid(pid) * 2) {
 
-        throw(std::runtime_error { "Response to: " + command + ", data length mismatching expected size!\n" });
+        const auto exceptionMessage = std::string { "Response to: " + command + ", data length mismatching expected size!\nExpected: " + std::to_string(getExpectedResponseSizeByPid(pid) * 2) + ", got: " + std::to_string(match[dataGroupIndex].length()) }.c_str();
+        spdlog::error(exceptionMessage);
+        throw(std::runtime_error { exceptionMessage });
     }
 
     Response parsedResponse;
@@ -45,7 +47,6 @@ Response Elm327DataParser::ParseResponse(const std::string& command, std::string
 
     return parsedResponse;
 }
-
 
 std::size_t Elm327DataParser::getExpectedResponseSizeByPid(ObdCommandPid pid)
 {
