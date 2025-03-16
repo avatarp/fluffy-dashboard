@@ -1,6 +1,9 @@
 #ifndef DATA_DECODING_HANDLER_HPP_
 #define DATA_DECODING_HANDLER_HPP_
 
+#include "obd-command-pid.hpp"
+#include "response.hpp"
+
 #include <bitset>
 #include <functional>
 #include <optional>
@@ -11,6 +14,8 @@ class DataDecoder {
 public:
     DataDecoder() = default;
     virtual ~DataDecoder() = default;
+
+    virtual void decodeResponse(Response& response) = 0;
     /////////////////////////////////////////////////////////////////////////////////////
     // Service 01 Show current data
     // Service 02 Show freeze frame data

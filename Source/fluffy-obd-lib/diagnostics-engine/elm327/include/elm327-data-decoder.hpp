@@ -8,6 +8,8 @@ class Elm327DataDecoder : public DataDecoder {
 public:
     Elm327DataDecoder() = default;
 
+    virtual void decodeResponse(Response& response) override;
+
     // 00 PIDs supported [01 - 20]
     virtual bitset_32
     GetSupportedPIDs1(const std::string& data);

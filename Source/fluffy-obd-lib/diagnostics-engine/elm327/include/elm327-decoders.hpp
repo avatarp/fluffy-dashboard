@@ -66,24 +66,13 @@ std::string DecodeString(const std::string& text)
     return result;
 }
 
-// Decodes 10 Mass Air Flow
-//-> 0-655.35 gram/second
-float DecodeAirFlow(const std::string& text)
-{
-    std::string byteA { text[0], text[1] };
-    std::string byteB { text[2], text[3] };
-    float valA = static_cast<float>(utils::hexToDec(byteA));
-    float valB = static_cast<float>(utils::hexToDec(byteB));
-    return (256 * valA + valB) / 100;
-}
-
 // Decodes:
 // 0D Speed -> 0-255km/h
 // OB Intake manifold absolute pressure -> 0-255kPa
 // 1C OBD standard -> 0-255 enum
 // 30 Warm-ups since codes cleared -> 0-255 count
 // 33 Absolute Barometric Pressure -> 0-255 kPa
-float DecodeSimpleA(const std::string& text)
+float DecodeCountA(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     return static_cast<float>(utils::hexToDec(byteA));
@@ -123,6 +112,17 @@ std::string DecodeDTC(const std::string& text)
     // insert rest of the dtc
     dtc += text.substr(1, 3);
     return dtc;
+}
+
+// Decodes 10 Mass Air Flow
+//-> 0-655.35 gram/second
+float DecodeAirFlow(const std::string& text)
+{
+    std::string byteA { text[0], text[1] };
+    std::string byteB { text[2], text[3] };
+    float valA = static_cast<float>(utils::hexToDec(byteA));
+    float valB = static_cast<float>(utils::hexToDec(byteB));
+    return (256 * valA + valB) / 100;
 }
 
 // Decodes:
