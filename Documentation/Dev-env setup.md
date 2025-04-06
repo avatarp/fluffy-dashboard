@@ -9,7 +9,7 @@ gcovr 5.0
 
 Packages required:
 
-`sudo apt-get install git cmake clang clang-format clang-tidy gcc-10 build-essential googletest libgtest-dev libgmock-dev libspdlog-dev qtbase5-dev libqt5bluetooth5 qtconnectivity5-dev`
+`sudo apt-get install git cmake clang clang-format clang-tidy gcc-10 build-essential googletest libgtest-dev libgmock-dev gcovr libspdlog-dev qtbase5-dev libqt5bluetooth5 qtconnectivity5-dev`
 
 ## obd-scanner
 
