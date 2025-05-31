@@ -1,26 +1,26 @@
 #include "diagnostics-engine.hpp"
 
-bool ParametersEngine::SendCommand(const std::string& command)
+bool ICommandProcessor::SendCommand(const std::string& command)
 {
     return m_obdAccess->Write(command);
 }
 
-std::string ParametersEngine::ReadResponse()
+std::string ICommandProcessor::ReadResponse()
 {
     return m_obdAccess->Read();
 }
 
-void ParametersEngine::SetSerialDevice(Obd::Device device)
+void ICommandProcessor::SetSerialDevice(Obd::Device device)
 {
     m_obdAccess->SetDevice(std::move(device));
 }
 
-void ParametersEngine::SetObdAccess(std::unique_ptr<Obd::ObdAccess> obdAccess)
+void ICommandProcessor::SetObdAccess(std::unique_ptr<Obd::ObdAccess> obdAccess)
 {
     m_obdAccess = std::move(obdAccess);
 }
 
-bool ParametersEngine::OpenConnection()
+bool ICommandProcessor::OpenConnection()
 {
     if (m_obdAccess) {
         return m_obdAccess->Connect();
@@ -29,12 +29,12 @@ bool ParametersEngine::OpenConnection()
     return false;
 }
 
-bool ParametersEngine::Disconnect()
+bool ICommandProcessor::Disconnect()
 {
     return m_obdAccess->Disconnect();
 }
 
-Response ParametersEngine::GetCommandResponse(ObdCommandPid pid)
+Response ICommandProcessor::GetCommandResponse(ObdCommandPid pid)
 {
     std::string command = m_commandRepository->getCommandByPid(pid);
     SendCommand(command);

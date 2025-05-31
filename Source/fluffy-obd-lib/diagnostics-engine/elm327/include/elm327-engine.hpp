@@ -6,7 +6,7 @@
 #include "elm327-data-decoder.hpp"
 #include "elm327-data-parser.hpp"
 
-class Elm327Engine : public ParametersEngine {
+class Elm327Engine : public ICommandProcessor {
 public:
     Elm327Engine();
     virtual ~Elm327Engine() = default;
