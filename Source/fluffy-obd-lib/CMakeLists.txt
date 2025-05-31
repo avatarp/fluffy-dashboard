@@ -5,12 +5,12 @@ add_library(
   obd-access/obd-access.cpp
   obd-access/serial-obd-access.cpp
   obd-access/obd-serial-provider.cpp
-  diagnostics-engine/base/diagnostics-engine.cpp
-  diagnostics-engine/base/response.cpp
-  diagnostics-engine/elm327/elm327-command-repository.cpp
-  diagnostics-engine/elm327/elm327-data-decoder.cpp
-  diagnostics-engine/elm327/elm327-data-parser.cpp
-  diagnostics-engine/elm327/elm327-engine.cpp)
+  CommandProcessor/interface/ICommandProcessor.cpp
+  CommandProcessor/interface/response.cpp
+  CommandProcessor/elm327/elm327-command-repository.cpp
+  CommandProcessor/elm327/elm327-data-decoder.cpp
+  CommandProcessor/elm327/elm327-data-parser.cpp
+  CommandProcessor/elm327/elm327-engine.cpp)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   CMAKE_CXX_STANDARD 20
@@ -24,8 +24,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 target_include_directories(
   ${PROJECT_NAME}
-  PUBLIC obd-access/include diagnostics-engine/base/include
-  diagnostics-engine/elm327/decoders diagnostics-engine/elm327/include)
+  PUBLIC obd-access/include CommandProcessor/interface/include
+  CommandProcessor/elm327/decoders CommandProcessor/elm327/include)
 
 find_package(spdlog REQUIRED)
 

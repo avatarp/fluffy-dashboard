@@ -22,7 +22,7 @@
 #include "obd-command-pid.hpp"
 #include "response.hpp"
 
-class ParametersEngine {
+class ICommandProcessor {
     static constexpr int BUFFER_SIZE = 256;
     static constexpr int m_readSleepTime { 500 * 1000 }; // ms
 protected:
@@ -34,14 +34,14 @@ protected:
     virtual std::string ReadResponse();
 
 public:
-    ParametersEngine() = default;
-    virtual ~ParametersEngine()
-        = default;
+    ICommandProcessor() = default;
+    virtual ~ICommandProcessor() = default;
     void SetSerialDevice(Obd::Device device);
     void SetObdAccess(std::unique_ptr<Obd::ObdAccess> obdAccess);
     virtual bool OpenConnection();
     virtual bool Disconnect();
     Response GetCommandResponse(ObdCommandPid pid);
+    Obd::ConnectionStatus GetConnectionStatus() const;
 };
 
 #endif // DIAGNOSTICS_ENGINE_HPP_
