@@ -15,6 +15,7 @@ TEST(elm327LiveData, noDeviceConnection)
 {
     Elm327Engine engine;
     EXPECT_EQ(engine.OpenConnection(), false);
+    EXPECT_EQ(engine.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
 }
 
 TEST(elm327LiveData, dummyUsb)
@@ -27,6 +28,7 @@ TEST(elm327LiveData, dummyUsb)
     engine.SetObdAccess(std::move(obdAccess));
     engine.SetSerialDevice(dummyUsb);
     EXPECT_EQ(engine.OpenConnection(), true);
+    EXPECT_EQ(engine.GetConnectionStatus(), Obd::ConnectionStatus::Connected);
 }
 
 TEST(elm327LiveData, dummyUsbNullCharResponse)

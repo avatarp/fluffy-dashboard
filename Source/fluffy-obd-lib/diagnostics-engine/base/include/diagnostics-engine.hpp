@@ -41,6 +41,7 @@ public:
     virtual bool OpenConnection();
     virtual bool Disconnect();
     Response GetCommandResponse(ObdCommandPid pid);
+    Obd::ConnectionStatus GetConnectionStatus() const;
 };
 
 #endif // DIAGNOSTICS_ENGINE_HPP_

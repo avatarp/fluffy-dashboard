@@ -40,3 +40,8 @@ Response ICommandProcessor::GetCommandResponse(ObdCommandPid pid)
     SendCommand(command);
     return m_dataParser->ParseResponse(command, ReadResponse(), pid);
 }
+
+Obd::ConnectionStatus ICommandProcessor::GetConnectionStatus() const
+{
+    return m_obdAccess ? m_obdAccess->GetConnectionStatus() : Obd::ConnectionStatus::Disconnected;
+}
