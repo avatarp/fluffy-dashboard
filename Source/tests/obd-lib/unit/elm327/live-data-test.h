@@ -16,6 +16,7 @@ TEST(elm327LiveData, noDeviceConnection)
     Elm327Engine engine;
     EXPECT_EQ(engine.OpenConnection(), false);
     EXPECT_EQ(engine.GetConnectionStatus(), Obd::ConnectionStatus::Disconnected);
+    EXPECT_THROW({ std::ignore = engine.GetDevice(); }, std::runtime_error);
 }
 
 TEST(elm327LiveData, dummyUsb)
@@ -44,6 +45,9 @@ TEST(elm327LiveData, dummyUsbNullCharResponse)
 
     Obd::Device dummyUsb = CreateUsbDevice();
     engine.SetSerialDevice(dummyUsb);
+    EXPECT_EQ(engine.GetDevice().m_DeviceFilePath, dummyUsb.m_DeviceFilePath);
+    EXPECT_EQ(engine.GetDevice().m_ConnectionType, dummyUsb.m_ConnectionType);
+    EXPECT_EQ(engine.GetDevice().m_Description, dummyUsb.m_Description);
 
     engine.OpenConnection();
 

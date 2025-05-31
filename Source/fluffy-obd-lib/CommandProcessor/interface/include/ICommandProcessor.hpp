@@ -42,6 +42,14 @@ public:
     virtual bool Disconnect();
     Response GetCommandResponse(ObdCommandPid pid);
     Obd::ConnectionStatus GetConnectionStatus() const;
+    const Obd::Device& GetDevice() const
+    {
+        if (m_obdAccess) {
+            return m_obdAccess->GetDevice();
+        } else {
+            throw std::runtime_error("No OBD access set");
+        }
+    }
 };
 
 #endif // DIAGNOSTICS_ENGINE_HPP_
