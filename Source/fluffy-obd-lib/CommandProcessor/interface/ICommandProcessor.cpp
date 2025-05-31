@@ -1,4 +1,4 @@
-#include "diagnostics-engine.hpp"
+#include "ICommandProcessor.hpp"
 
 bool ICommandProcessor::SendCommand(const std::string& command)
 {
