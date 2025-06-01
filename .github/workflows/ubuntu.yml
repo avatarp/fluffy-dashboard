@@ -42,7 +42,7 @@ jobs:
         fail-under-line: 60
         excludes: |
           Source/cmake/*
-          Source/tests/**
+          Source/tests/*
           Source/tools/*
 
     - name: Archive code coverage results
