@@ -153,7 +153,7 @@ function(setup_target_for_coverage_gcovr_html)
         --object-directory=${PROJECT_BINARY_DIR})
 
     add_custom_target(
-        Coverage_build
+        ${Coverage_NAME}
         COMMAND ${GCOVR_HTML_EXEC_TESTS_CMD}
         COMMAND ${GCOVR_HTML_FOLDER_CMD}
         COMMAND ${GCOVR_HTML_CMD}
@@ -166,11 +166,11 @@ function(setup_target_for_coverage_gcovr_html)
 
     # Show info where to find the report
     add_custom_command(
-        TARGET Coverage_build
+        TARGET ${Coverage_NAME}
         POST_BUILD
         COMMAND ;
         COMMENT
-            "Open ./Coverage_build/index.html in your browser to view the coverage report."
+            "Open ./${Coverage_NAME}/index.html in your browser to view the coverage report."
     )
 endfunction() # setup_target_for_coverage_gcovr_html
 
