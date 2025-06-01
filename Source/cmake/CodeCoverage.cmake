@@ -1,6 +1,6 @@
 # Copyright (c) 2012 - 2017, Lars Bilke All rights reserved.
 # Edited by Jan Schaffranek (2024).
-# Edited by Mateusz Siedlecki (2024).
+# Edited by Mateusz Siedlecki (2024-2025).
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -131,26 +131,19 @@ function(setup_target_for_coverage_gcovr_html)
         -E
         make_directory
         ${PROJECT_BINARY_DIR}/${Coverage_NAME})
+
     # Running gcovr
-    set(GCOVR_EXTRA_FLAGS
-        --json-summary
-        --json-summary-pretty
-        --html-theme
-        blue)
     set(GCOVR_HTML_CMD
+        --root=${PROJECT_SOURCE_DIR}
         ${GCOVR_PATH}
-        ${GCOVR_EXTRA_FLAGS}
         --html
         ${Coverage_NAME}/index.html
         --html-details
-        --json-summary
-        ${Coverage_NAME}/summary.json
-        --json-summary-pretty
         -r
         ${BASEDIR}
-        ${GCOVR_ADDITIONAL_ARGS}
         ${GCOVR_EXCLUDE_ARGS}
-        --object-directory=${PROJECT_BINARY_DIR})
+        --object-directory=${PROJECT_BINARY_DIR}
+        --xml-pretty -o ${Coverage_NAME}/cobertura.xml)
 
     add_custom_target(
         ${Coverage_NAME}
