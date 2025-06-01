@@ -31,6 +31,10 @@ jobs:
       # Execute tests defined by the CMake configuration.
       run: ctest -C Debug
 
+    - name: Create output directories
+      # Create output directories for coverage reports
+      run: mkdir output/coverage
+
     - name: Check Test Coverage
       uses: threeal/gcovr-action@v1.1.0
       with:
