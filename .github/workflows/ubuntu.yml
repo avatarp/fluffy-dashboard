@@ -38,7 +38,7 @@ jobs:
     - name: Check Test Coverage
       uses: threeal/gcovr-action@v1.1.0
       with:
-        cobertura-out: output/coverage/cobertura.xml
+        xml-out: output/coverage/cobertura.xml
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v4
