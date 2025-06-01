@@ -39,8 +39,12 @@ jobs:
       uses: threeal/gcovr-action@v1.1.0
       with:
         xml-out: output/coverage/cobertura.xml
-        root: ${{github.workspace}}/Source
         fail-under-line: 60
+        exclude: |
+          Source/cmake/*
+          Source/tests/*
+          Source/tools/*
+          Source/Build/*
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v4
