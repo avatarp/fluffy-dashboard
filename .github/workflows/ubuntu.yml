@@ -40,10 +40,11 @@ jobs:
       with:
         xml-out: output/coverage/cobertura.xml
         fail-under-line: 60
+        root: ${{github.workspace}}/Source
         excludes: |
-          Source/cmake/*
-          Source/tests/*
-          Source/tools/*
+          cmake/*
+          tests/*
+          tools/*
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v4
