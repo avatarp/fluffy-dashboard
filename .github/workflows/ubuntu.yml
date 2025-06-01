@@ -43,7 +43,6 @@ jobs:
         root: ${{github.workspace}}/Source
         excludes: |
           cmake/*
-          tests/*
           tools/*
 
     - name: Archive code coverage results
