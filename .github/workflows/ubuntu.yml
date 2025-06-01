@@ -1,6 +1,6 @@
 # This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
 # See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
-name: CMake Ubuntu 22.04 build
+name: Build test and coverage report Ubuntu 22.04 
 
 on:
   push:
@@ -34,13 +34,19 @@ jobs:
     - name: Check Test Coverage
       uses: threeal/gcovr-action@v1.1.0
       with:
-        html-out: coverage.html
+        html-out: output/coverage/coverage.html
         html-details: true
         html-title: My Project Test Coverage Report
         html-theme: green
+        cobertura-out: output/coverage/cobertura.xml
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v4
       with:
         name: code-coverage-report
-        path: coverage.html
+        path: output/coverage/coverage.html
+
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: output/coverage/cobertura.xml
