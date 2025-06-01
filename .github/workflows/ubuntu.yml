@@ -31,6 +31,11 @@ jobs:
       # Execute tests defined by the CMake configuration.
       run: ctest -C Debug
 
+    - name: Generate Code Coverage
+      working-directory: ${{github.workspace}}/build
+      # Execute tests defined by the CMake configuration.
+      run: cmake --build ${{github.workspace}}/build --config Debug --target coverage
+
     - name: Archive code coverage results
       uses: actions/upload-artifact@v4
       with:
