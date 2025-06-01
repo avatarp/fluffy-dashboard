@@ -43,4 +43,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: code-coverage-report
-        path: /usr/bin/gcovr/coverage.html
+        path: output/gcovr/coverage.html
