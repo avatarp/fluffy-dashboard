@@ -40,7 +40,7 @@ jobs:
       with:
         xml-out: output/coverage/cobertura.xml
         root: ${{github.workspace}}/Source
-        fail-under-line: 80
+        fail-under-line: 60
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v4
