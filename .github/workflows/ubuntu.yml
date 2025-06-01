@@ -33,7 +33,7 @@ jobs:
 
     - name: Create output directories
       # Create output directories for coverage reports
-      run: mkdir output/coverage
+      run: mkdir -p output/coverage
 
     - name: Check Test Coverage
       uses: threeal/gcovr-action@v1.1.0
