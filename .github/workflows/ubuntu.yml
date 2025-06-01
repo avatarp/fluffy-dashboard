@@ -38,3 +38,9 @@ jobs:
         html-details: true
         html-title: My Project Test Coverage Report
         html-theme: green
+
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v4
+      with:
+        name: code-coverage-report
+        path: /usr/bin/gcovr/coverage.html
