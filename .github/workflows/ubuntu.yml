@@ -37,4 +37,4 @@ jobs:
         html-out: coverage.html
         html-details: true
         html-title: My Project Test Coverage Report
-        html-theme: github.green
+        html-theme: green
