@@ -150,7 +150,8 @@ function(setup_target_for_coverage_gcovr_html)
         ${BASEDIR}
         ${GCOVR_ADDITIONAL_ARGS}
         ${GCOVR_EXCLUDE_ARGS}
-        --object-directory=${PROJECT_BINARY_DIR})
+        --object-directory=${PROJECT_BINARY_DIR}
+        --xml-pretty -o ${Coverage_NAME}/cobertura.xml)
 
     add_custom_target(
         ${Coverage_NAME}
