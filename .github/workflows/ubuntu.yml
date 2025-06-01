@@ -41,7 +41,7 @@ jobs:
         xml-out: output/coverage/cobertura.xml
         root: ${{github.workspace}}/Source
         fail-under-line: 60
-        exclude: |
+        excludes: |
           Source/cmake/*
           Source/tests/**
           Source/tools/*
