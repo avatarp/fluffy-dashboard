@@ -58,6 +58,8 @@ bool BluetoothProvider::BindToRfcomm(const std::string& deviceAddress, uint16_t 
     auto const bindCommand { bindCommandStream.str() };
     spdlog::info("Executing bind to rfcomm command: {}", bindCommand);
 
+    // TODO #17 Using system() is generally discouraged, but in this case, it is used to execute a command
+    // NOLINTNEXTLINE(cert-env33-c,cppcoreguidelines-avoid-system,concurrency-mt-unsafe)
     auto returnValue = system(bindCommand.c_str());
 
     if (returnValue > 0) {

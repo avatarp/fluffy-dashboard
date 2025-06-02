@@ -87,6 +87,10 @@ bool ObdAccess::Reconnect()
 
 const Device& ObdAccess::GetDevice() const
 {
+    if (m_Device.m_ConnectionType == ConnectionType::NoConnection) {
+        spdlog::error("Device is not set or is invalid.");
+        throw std::runtime_error("Device is not set or is invalid.");
+    }
     return m_Device;
 }
 
