@@ -97,8 +97,8 @@ std::string DecodeDTC(const std::string& text)
     const uint8_t dtcLocation { static_cast<uint8_t>((byteAValue & 0b1100) >> 2) };
     std::string dtc;
 
-    switch (dtcLocation) {
     // clang-format off
+    switch (dtcLocation) {
         case 0: dtc.push_back('P'); break;
         case 1: dtc.push_back('C'); break;
         case 2: dtc.push_back('B'); break;

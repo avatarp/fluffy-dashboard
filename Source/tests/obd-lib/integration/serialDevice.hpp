@@ -36,7 +36,7 @@ void runSerialDeviceTest(TestResults& results)
     bool connectionSuccessful { false };
     for (auto const& device : serialDevices) {
         engine.SetObdAccess(std::make_unique<Obd::UsbObdAccess>());
-        engine.SetSerialDevice(device);
+        engine.GetObdAccess()->SetDevice(device);
         if (engine.OpenConnection()) {
             std::clog << "Successful connection with " << device.m_DeviceFilePath << std::endl;
             connectionSuccessful = true;

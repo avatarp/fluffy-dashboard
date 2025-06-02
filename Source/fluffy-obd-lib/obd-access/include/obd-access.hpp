@@ -44,19 +44,23 @@ protected:
     virtual bool IsDeviceFileOk() = 0;
     virtual bool OpenConnection() = 0;
     virtual bool CloseConnection();
+    virtual bool IsFileDescriptorValid();
 
 public:
     ObdAccess() = default;
     virtual ~ObdAccess();
-    virtual bool IsFileDescriptorValid();
+
+    const Device& GetDevice() const;
     virtual void SetDevice(Device device) = 0;
+
     virtual bool Connect() = 0;
     virtual bool Disconnect();
     bool Reconnect();
-    const Device& GetDevice() const;
+
     const ConnectionStatus& GetConnectionStatus() const;
-    virtual bool Write(const std::string& command) = 0;
+
     virtual std::string Read() = 0;
+    virtual bool Write(const std::string& command) = 0;
     std::string Transaction(const std::string& command);
 };
 }

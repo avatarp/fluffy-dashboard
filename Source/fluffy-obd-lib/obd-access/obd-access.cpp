@@ -35,6 +35,7 @@ ObdAccess::~ObdAccess()
 
 bool ObdAccess::IsFileDescriptorValid()
 {
+    // NOLINTNEXTLINE (cppcoreguidelines-pro-type-vararg,hcpp-vararg)
     return m_DeviceFileDescriptor > stderrFileDescriptor && fcntl(m_DeviceFileDescriptor, F_GETFD) != -1;
 }
 
@@ -87,6 +88,10 @@ bool ObdAccess::Reconnect()
 
 const Device& ObdAccess::GetDevice() const
 {
+    if (m_Device.m_ConnectionType == ConnectionType::NoConnection) {
+        spdlog::error("Device is not set or is invalid.");
+        throw std::runtime_error("Device is not set or is invalid.");
+    }
     return m_Device;
 }
 

@@ -34,6 +34,11 @@ public:
         m_DeviceFileDescriptor = deviceFileDescriptor;
     }
 
+    bool fileDescriptorValidForward()
+    {
+        return this->IsFileDescriptorValid();
+    }
+
     void setReturnedString(std::string string)
     {
         m_returnedString = string;
@@ -62,11 +67,11 @@ TEST_F(ObdAccess_F, Transaction)
 TEST_F(ObdAccess_F, DeviceFileDescriptorOk)
 {
     obdAccess.setDeviceFileDescriptor(0);
-    EXPECT_FALSE(obdAccess.IsFileDescriptorValid());
+    EXPECT_FALSE(obdAccess.fileDescriptorValidForward());
     obdAccess.setDeviceFileDescriptor(1);
-    EXPECT_FALSE(obdAccess.IsFileDescriptorValid());
+    EXPECT_FALSE(obdAccess.fileDescriptorValidForward());
     obdAccess.setDeviceFileDescriptor(2);
-    EXPECT_FALSE(obdAccess.IsFileDescriptorValid());
+    EXPECT_FALSE(obdAccess.fileDescriptorValidForward());
 }
 
 TEST_F(ObdAccess_F, Disconnect)

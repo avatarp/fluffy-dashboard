@@ -35,21 +35,25 @@ protected:
 
 public:
     ICommandProcessor() = default;
+
+    ICommandProcessor(
+        std::shared_ptr<DataDecoder> dataDecoder,
+        std::shared_ptr<DataParser> dataParser,
+        std::shared_ptr<CommandRepository> commandRepository)
+        : m_dataDecoder(std::move(dataDecoder))
+        , m_dataParser(std::move(dataParser))
+        , m_commandRepository(std::move(commandRepository))
+    {
+    }
+
     virtual ~ICommandProcessor() = default;
-    void SetSerialDevice(Obd::Device device);
-    void SetObdAccess(std::unique_ptr<Obd::ObdAccess> obdAccess);
+
+    void SetObdAccess(std::shared_ptr<Obd::ObdAccess> obdAccess);
+    std::shared_ptr<Obd::ObdAccess> GetObdAccess() const;
+
     virtual bool OpenConnection();
     virtual bool Disconnect();
     Response GetCommandResponse(ObdCommandPid pid);
-    Obd::ConnectionStatus GetConnectionStatus() const;
-    const Obd::Device& GetDevice() const
-    {
-        if (m_obdAccess) {
-            return m_obdAccess->GetDevice();
-        } else {
-            throw std::runtime_error("No OBD access set");
-        }
-    }
 };
 
 #endif // DIAGNOSTICS_ENGINE_HPP_
