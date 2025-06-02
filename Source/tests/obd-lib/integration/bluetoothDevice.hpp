@@ -33,7 +33,7 @@ bool connectWithDevice(Elm327Engine& engine, const std::string& deviceMAC)
             engine.SetObdAccess(std::make_unique<Obd::BluetoothObdAccess>());
 
             Obd::Device obdDevice = btProvider.CreateDevice(device);
-            engine.SetSerialDevice(obdDevice);
+            engine.GetObdAccess()->SetDevice(obdDevice);
 
             std::clog << "Connecting to device..." << std::endl;
 
