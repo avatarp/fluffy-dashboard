@@ -5,6 +5,7 @@ Elm327DataParser::Elm327DataParser()
     m_decoder = std::make_shared<Elm327DataDecoder>();
 }
 
+// NOLINTNEXTLINE (bugprone-easily-swappable-parameters)
 Response Elm327DataParser::ParseResponse(const std::string& command, std::string response, ObdCommandPid pid)
 {
     spdlog::info("Parsing response: {}", response);

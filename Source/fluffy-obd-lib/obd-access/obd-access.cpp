@@ -35,6 +35,7 @@ ObdAccess::~ObdAccess()
 
 bool ObdAccess::IsFileDescriptorValid()
 {
+    // NOLINTNEXTLINE (cppcoreguidelines-pro-type-vararg,hcpp-vararg)
     return m_DeviceFileDescriptor > stderrFileDescriptor && fcntl(m_DeviceFileDescriptor, F_GETFD) != -1;
 }
 
