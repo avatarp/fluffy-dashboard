@@ -35,6 +35,7 @@ jobs:
       uses: ZehMatt/clang-tidy-annotations@v1.0.0
       with:
         build_dir: '${{github.workspace}}/build'
+        source_dir: '${{github.workspace}}/Source'
         cmake_args: 'cmake --build ${{github.workspace}}/build --config Debug --target fluffy-obd-lib_clangtidy'
 
     - name: Generate Code Coverage
