@@ -36,7 +36,7 @@ jobs:
       id: linter
       with:
           repo-root: ${{github.workspace}}/Source
-          ignore: 'Source/Tests/* | Source/obd-scanner/*'
+          ignore: 'Source/tests/* | Source/obd-scanner/*'
           files-changed-only: false
           version: '14' 
           style: 'file'  # Use .clang-format config file. 
