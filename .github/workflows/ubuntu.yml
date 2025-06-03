@@ -31,6 +31,14 @@ jobs:
       # Execute tests defined by the CMake configuration.
       run: ctest -C Debug
 
+    - name: Clang-tidy
+      uses: HorstBaerbel/action-clang-tidy@1.2
+      # These are optional (defaults displayed)
+      with:
+        scandir: '${{github.workspace}}/Source'
+        builddir: '${{github.workspace}}/build'
+        excludedirs: 'cmake,obd-scanner,tests,tools'
+
     - name: Generate Code Coverage
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
