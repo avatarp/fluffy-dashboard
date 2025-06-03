@@ -31,15 +31,12 @@ jobs:
       # Execute tests defined by the CMake configuration.
       run: ctest -C Debug
 
-    - name: Run clang-tidy
-      run: cmake --build ${{github.workspace}}/build --config Debug --target fluffy-obd-lib_clangtidy
-    
-    - name: Clang-Tidy Annotations
-      uses: ZehMatt/clang-tidy-annotations@v1.0.0
+    - name: Clang-Tidy And Format checks
+      uses: cpp-linter/cpp-linter-action@v2
+      id: linter
       with:
-        build_dir: '${{github.workspace}}/build'
-        source_dir: '${{github.workspace}}/Source'
-        only_affected_lines: false
+          style: 'file'  # Use .clang-format config file. 
+          tidy-checks: '' # Use .clang-tidy config file. 
 
     - name: Generate Code Coverage
       working-directory: ${{github.workspace}}/build
