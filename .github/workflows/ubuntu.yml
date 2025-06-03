@@ -34,6 +34,8 @@ jobs:
     - name: Clang-Tidy And Format checks
       uses: cpp-linter/cpp-linter-action@v2
       id: linter
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           repo-root: ${{github.workspace}}/Source
           ignore: 'Source/tests/* | Source/obd-scanner/*'
