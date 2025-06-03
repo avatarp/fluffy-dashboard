@@ -32,7 +32,7 @@ jobs:
       run: ctest -C Debug
 
     - name: Clang-Tidy And Format checks
-      uses: cpp-linter/cpp-linter-action@v2
+      uses: cpp-linter/cpp-linter-action@v2.15.0
       id: linter
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
