@@ -37,7 +37,7 @@ jobs:
         build_dir: '${{github.workspace}}/build'
         source_dir: '${{github.workspace}}/Source'
         only_affected_lines: false
-        cmake_args: 'cmake --build ${{github.workspace}}/build --config Debug --target fluffy-obd-lib_clangtidy'
+        cmake_args: 'cmake --build ${{github.workspace}}/build --config Debug --target fluffy-obd-lib fluffy-obd-lib_clangtidy'
 
     - name: Generate Code Coverage
       working-directory: ${{github.workspace}}/build
