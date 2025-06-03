@@ -36,7 +36,7 @@ jobs:
       # These are optional (defaults displayed)
       with:
         scandir: '${{github.workspace}}/Source'
-        excludedirs: 'cmake,obd-scanner,tests,tools'
+        excludedirs: 'obd-scanner,tests,tools'
 
     - name: Generate Code Coverage
       working-directory: ${{github.workspace}}/build
