@@ -42,11 +42,11 @@ Response Elm327DataParser::ParseResponse(const std::string& command, std::string
 
     Response parsedResponse;
     parsedResponse.commandPid = pid;
-    parsedResponse.m_rawCommandId = { command[0] + match[commandPidGroupIndex].str() };
-    parsedResponse.m_rawData = match[dataGroupIndex];
-    parsedResponse.m_rawEcuId = match[ecuIdGroupIndex];
+    parsedResponse.raw.commandId= { command[0] + match[commandPidGroupIndex].str() };
+    parsedResponse.raw.data = match[dataGroupIndex];
+    parsedResponse.raw.ecuId = match[ecuIdGroupIndex];
     if (!match[responseSizeGroupIndex].str().empty()) {
-        parsedResponse.m_rawLength = static_cast<uint8_t>(std::stoi(match[responseSizeGroupIndex].str()));
+        parsedResponse.raw.length = static_cast<uint8_t>(std::stoi(match[responseSizeGroupIndex].str()));
     }
 
     m_decoder->decodeResponse(parsedResponse);

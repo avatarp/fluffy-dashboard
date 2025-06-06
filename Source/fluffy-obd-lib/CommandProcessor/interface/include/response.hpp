@@ -6,10 +6,14 @@
 #include <iostream>
 #include <string>
 #include <utility>
+#include <variant>
 
-using bitset_32 = std::bitset<32>;
-using stringData = std::pair<std::string, std::string>;
-using floatData = std::pair<float, std::string>;
+using Bitset_32 = std::bitset<32>;
+using StringData = std::pair<std::string, std::string>;
+using FloatData = std::pair<float, std::string>;
+using FloatDataPair = std::pair<FloatData, FloatData>;
+
+using DecodedData = std::variant<Bitset_32, FloatData, FloatDataPair, StringData>;
 
 enum class DataType { empty,
     string,
@@ -22,19 +26,21 @@ enum class ResponseState { invalid,
     raw,
     decoded };
 
+struct RawResponse {
+    std::string ecuId {};
+    std::string commandId {};
+    uint8_t length { 0 };
+    std::string data {};
+};
+
 struct Response {
+    
     ResponseState state { ResponseState::invalid };
-    std::string m_rawEcuId {};
-    std::string m_rawCommandId {};
-    uint8_t m_rawLength { 0 };
-    std::string m_rawData {};
+    RawResponse raw {};
 
     ObdCommandPid commandPid {};
-    DataType m_dataType { DataType::empty };
-    bitset_32 m_dataBitset {};
-    floatData m_dataFloat1 {};
-    floatData m_dataFloat2 {};
-    stringData m_dataString {};
+    DataType dataType { DataType::empty };
+    DecodedData decodedData {};
 
     friend std::ostream& operator<<(std::ostream& ost, const Response& resp);
 };
