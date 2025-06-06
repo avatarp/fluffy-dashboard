@@ -11,283 +11,283 @@ public:
     virtual void decodeResponse(Response& response) override;
 
     // 00 PIDs supported [01 - 20]
-    virtual bitset_32
+    virtual DecodedData
     GetSupportedPIDs1(const std::string& data);
 
     // 01 Monitor status since DTCs cleared
-    virtual bitset_32
+    virtual DecodedData
     GetMonitorStatus(const std::string& data);
 
     // 02 Freeze DTC => DTC
-    virtual std::string
+    virtual DecodedData
     GetFreezeDTCs(const std::string& data);
 
     // 03 Fuel system status => enum
-    virtual bitset_32
+    virtual DecodedData
     GetFuelSystemStatus(const std::string& data);
 
     // 04 Calculated engine load => %
-    virtual float
+    virtual DecodedData
     GetEngineLoad(const std::string& data);
 
     // 05 Engine coolant temperature => °C
-    virtual float
+    virtual DecodedData
     GetEngineCoolantTemperature(const std::string& data);
 
     // 06 Short term fuel trim—Bank 1 => %
-    virtual float
+    virtual DecodedData
     GetShortTermFuelTrimBank1(const std::string& data);
 
     // 07 Long term fuel trim—Bank 1 => %
-    virtual float
+    virtual DecodedData
     GetLongTermFuelTrimBank1(const std::string& data);
 
     // 08 Short term fuel trim—Bank 2 => %
-    virtual float
+    virtual DecodedData
     GetShortTermFuelTrimBank2(const std::string& data);
 
     // 09 Long term fuel trim—Bank 2 => %
-    virtual float
+    virtual DecodedData
     GetLongTermFuelTrimBank2(const std::string& data);
 
     // 0A Fuel pressure => kPa
-    virtual float
+    virtual DecodedData
     GetFuelPressure(const std::string& data);
 
     // 0B Intake manifold absolute pressure => kPa
-    virtual float
+    virtual DecodedData
     GetIntakeManifoldPressure(const std::string& data);
 
     // 0C Engine rpm => rpm
-    virtual float
+    virtual DecodedData
     GetEngineRpm(const std::string& data);
 
     // 0D Vehicle speed => km/h
-    virtual float
+    virtual DecodedData
     GetSpeed(const std::string& data);
 
     // 0E Timing advance => ° before TDC
-    virtual float
+    virtual DecodedData
     GetTimingAdvance(const std::string& data);
 
     // 0E Intake air temperature => °C
-    virtual float
+    virtual DecodedData
     GetIntakeAirTemperature(const std::string& data);
 
     // 10 Mass air flow sensor (MAF) air flow rate => g/s
-    virtual float
+    virtual DecodedData
     GetMafAirFlowRate(const std::string& data);
 
     // 11 Throttle position => %
-    virtual float
+    virtual DecodedData
     GetThrottlePosition(const std::string& data);
 
     // 12 Commanded secondary air status => enum
-    virtual bitset_32
+    virtual DecodedData
     GetSecondaryAirStatus(const std::string& data);
 
     // 13 Oxygen sensors present
-    virtual bitset_32
+    virtual DecodedData
     GetOxygenSensorsPresent1(const std::string& data);
 
     // 14 Oxygen Sensor 1
     // voltage, Short term fuel trim => V, %
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorFtV1(const std::string& data);
 
     // 15 Oxygen Sensor 2
     // voltage, Short term fuel trim => V, %
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorFtV2(const std::string& data);
 
     // 16 Oxygen Sensor 3
     // voltage, Short term fuel trim => V, %
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorFtV3(const std::string& data);
 
     // 17 Oxygen Sensor 4
     // voltage, Short term fuel trim => V, %
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorFtV4(const std::string& data);
 
     // 18 Oxygen Sensor 5
     // voltage, Short term fuel trim => V, %
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorFtV5(const std::string& data);
 
     // 19 Oxygen Sensor 6
     // voltage, Short term fuel trim => V, %
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorFtV6(const std::string& data);
 
     // 1A Oxygen Sensor 7
     // voltage, Short term fuel trim => V, %
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorFtV7(const std::string& data);
 
     // 1B Oxygen Sensor 8
     // voltage, Short term fuel trim => V, %
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorFtV8(const std::string& data);
 
     // 1C OBD standard => Enum
-    virtual bitset_32
+    virtual DecodedData
     GetObdStandard(const std::string& data);
 
     // 1D Oxygen sensors present
-    virtual bitset_32
+    virtual DecodedData
     GetOxygenSensorsPresent2(const std::string& data);
 
     // 1E Auxiliary input status
-    virtual bitset_32
+    virtual DecodedData
     GetAuxiliaryInputStatus(const std::string& data);
 
     // 1F Run time since engine start => s
-    virtual float
+    virtual DecodedData
     GetRunTime(const std::string& data);
 
     // 20 PIDs supported [21 - 40]
-    virtual bitset_32
+    virtual DecodedData
     GetSupportedPIDs2(const std::string& data);
 
     // 21 Distance traveled with malfunction indicator lamp (MIL) on => km
-    virtual float
+    virtual DecodedData
     GetDistanceWithMilOn(const std::string& data);
 
     // 22 Fuel Rail Pressure (relative to manifold vacuum) => kPa
-    virtual float
+    virtual DecodedData
     GetFuelRailPressure(const std::string& data);
 
     // 23 Fuel Rail Gauge Pressure (diesel/gasoline direct injection) => kPa
-    virtual float
+    virtual DecodedData
     GetFuelRailGaugePressure(const std::string& data);
 
     // 24 Oxygen Sensor 1
     // Air-Fuel Equivalence Ratio (lambda,λ), voltage => ratio, V
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqV1(const std::string& data);
 
     // 25 Oxygen Sensor 2
     // Air-Fuel Equivalence Ratio (lambda,λ), voltage => ratio, V
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqV2(const std::string& data);
 
     // 26 Oxygen Sensor 3
     // Air-Fuel Equivalence Ratio (lambda,λ), voltage => ratio, V
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqV3(const std::string& data);
 
     // 27 Oxygen Sensor 4
     // Air-Fuel Equivalence Ratio (lambda,λ), voltage => ratio, V
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqV4(const std::string& data);
 
     // 28 Oxygen Sensor 5
     // Air-Fuel Equivalence Ratio (lambda,λ), voltage => ratio, V
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqV5(const std::string& data);
 
     // 29 Oxygen Sensor 6
     // Air-Fuel Equivalence Ratio (lambda,λ), voltage => ratio, V
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqV6(const std::string& data);
 
     // 2A Oxygen Sensor 7
     // Air-Fuel Equivalence Ratio (lambda,λ), voltage => ratio, V
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqV7(const std::string& data);
 
     // 2B Oxygen sensor 8
     // air-fuel equivalence ratio (lambda,λ), voltage => ratio, V
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqV8(const std::string& data);
 
     // 2C Commanded EGR => %
-    virtual float
+    virtual DecodedData
     GetCommandedEgr(const std::string& data);
 
     // 2D EGR error => %
-    virtual float
+    virtual DecodedData
     GetEgrError(const std::string& data);
 
     // 2E Commanded evaporative purge  => %
-    virtual float
+    virtual DecodedData
     GetCommandedEvaporativePurge(const std::string& data);
 
     // 2F Fuel tank level input => %
-    virtual float
+    virtual DecodedData
     GetFuelTankLevelInput(const std::string& data);
 
     // 30 Warm-ups since codes cleared => count
-    virtual float
+    virtual DecodedData
     GetWarmupsSinceDtcCleared(const std::string& data);
 
     // 31 Distance traveled since codes cleared => km
-    virtual float
+    virtual DecodedData
     GetDistanceSinceDtcCleared(const std::string& data);
 
     // 32 Evap. System Vapor Pressure  => Pa
-    virtual float
+    virtual DecodedData
     GetEvapVaporPressure(const std::string& data);
 
     // 33 Absolute Barometric Pressure => kPa
-    virtual float
+    virtual DecodedData
     GetAbsoluteBarometricPressure(const std::string& data);
 
     // 34 Oxygen Sensor 1
     // Air-Fuel Equivalence Ratio (lambda,λ), current => ratio, mA
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqC1(const std::string& data);
 
     // 35 Oxygen Sensor 2
     // Air-Fuel Equivalence Ratio (lambda,λ), current => ratio, mA
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqC2(const std::string& data);
 
     // 36 Oxygen Sensor 3
     // Air-Fuel Equivalence Ratio (lambda,λ), current => ratio, mA
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqC3(const std::string& data);
 
     // 37 Oxygen Sensor 4
     // Air-Fuel Equivalence Ratio (lambda,λ), current => ratio, mA
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqC4(const std::string& data);
 
     // 38 Oxygen Sensor 5
     // Air-Fuel Equivalence Ratio (lambda,λ), current => ratio, mA
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqC5(const std::string& data);
 
     // 39 Oxygen Sensor 6
     // Air-Fuel Equivalence Ratio (lambda,λ), current => ratio, mA
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqC6(const std::string& data);
 
     // 3A Oxygen Sensor 7
     // Air-Fuel Equivalence Ratio (lambda,λ), current => ratio, mA
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqC7(const std::string& data);
 
     // 3B Oxygen sensor 8
     // air-fuel equivalence ratio (lambda,λ), current => ratio, mA
-    virtual std::pair<float, float>
+    virtual DecodedData
     GetOxygenSensorEqC8(const std::string& data);
 
     // 3C Catalyst Temperature: Bank 1, Sensor 1 => °C
-    virtual float
+    virtual DecodedData
     GetCatalystTemperatureB1S1(const std::string& data);
 
     // 3D Catalyst Temperature: Bank 2, Sensor 1 => °C
-    virtual float
+    virtual DecodedData
     GetCatalystTemperatureB2S1(const std::string& data);
 
     // 3E Catalyst Temperature: Bank 1, Sensor 2 => °C
-    virtual float
+    virtual DecodedData
     GetCatalystTemperatureB1S2(const std::string& data);
 
     // 3F Catalyst Temperature: Bank 2, Sensor 2 => °C
-    virtual float
+    virtual DecodedData
     GetCatalystTemperatureB2S2(const std::string& data);
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -295,53 +295,53 @@ public:
     /////////////////////////////////////////////////////////////////////////////////////
 
     // 00 Service 9 supported PIDs [0-20]
-    virtual bitset_32
+    virtual DecodedData
     GetSupportedVIPIDs(const std::string& data);
 
     // 01 VIN Message Count
     // Only for ISO 9141-2, ISO 14230-4 and SAE J1850.
-    virtual float
+    virtual DecodedData
     GetVinMessageCount(const std::string& data);
 
     // 02 VIN
-    virtual std::string
+    virtual DecodedData
     GetVin(const std::string& data);
 
     // 03 Calibration ID Message Count
-    virtual float
+    virtual DecodedData
     GetCalibrationIdMessageCount(const std::string& data);
 
     // 04 Calibration ID
-    virtual std::string
+    virtual DecodedData
     GetCalibrationId(const std::string& data);
 
     // 05 Calibration Verification Numbers Message Count
-    virtual float
+    virtual DecodedData
     GetCalibrationVerificationNumbersMessageCount(const std::string& data);
 
     // 06 Calibration Verification Numbers
-    virtual std::string
+    virtual DecodedData
     GetCalibrationVerificationNumbers(const std::string& data);
 
     // 07 In-use performance tracking message count for 08 and 0B
     // Only for ISO 9141-2, ISO 14230-4 and SAE J1850.
-    virtual float
+    virtual DecodedData
     GetPerformanceTrackingMessageCount(const std::string& data);
 
     // 08 In-use performance tracking for spark ignition vehicles
-    virtual std::string
+    virtual DecodedData
     GetPerformanceTracking1(const std::string& data);
 
     // 09 ECU name message count
-    virtual float
+    virtual DecodedData
     GetEcuNameMessageCount(const std::string& data);
 
     // 0A ECU name
-    virtual std::string
+    virtual DecodedData
     GetEcuName(const std::string& data);
 
     // 0B In-use performance tracking for compression ignition vehicles
-    virtual std::string
+    virtual DecodedData
     GetPerformanceTracking2(const std::string& data);
 };
 
