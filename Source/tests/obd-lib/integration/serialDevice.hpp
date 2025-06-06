@@ -20,7 +20,7 @@ bool testGetAvailablePids(Elm327Engine& engine, Response& availablePids)
         return false;
     }
 
-    if (availablePids.m_dataType == DataType::bitset) {
+    if (availablePids.dataType == DataType::bitset) {
         return true;
     } else {
         std::cerr << "Response dataType does not match expected dataType." << std::endl;

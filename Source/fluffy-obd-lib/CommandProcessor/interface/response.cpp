@@ -2,23 +2,35 @@
 
 std::ostream& operator<<(std::ostream& ost, const Response& resp)
 {
-    switch (resp.m_dataType) {
+    switch (resp.dataType) {
     case DataType::string:
-        ost << "string: " << resp.m_dataString.first << ", " << resp.m_dataString.second << '\n';
+    {
+        const auto& stringPair = std::get<StringData>(resp.decodedData);
+        ost << "string: " << stringPair.first << ", " << stringPair.second << '\n';
         break;
+    }
     case DataType::number:
-        ost << "float: " << resp.m_dataFloat1.first << resp.m_dataFloat1.second << '\n';
+    {    
+        const auto& floatData = std::get<FloatData>(resp.decodedData);
+        ost << "float: " << floatData.first << floatData.second << '\n';
         break;
-    case DataType::numberPair:
-        ost << "float pair: " << resp.m_dataFloat1.first << resp.m_dataFloat1.second << ", "
-            << resp.m_dataFloat2.first << resp.m_dataFloat2.second << '\n';
+    }
+    case DataType::numberPair: 
+    {
+        const auto& floatDataPair = std::get<FloatDataPair>(resp.decodedData);
+        ost << "float pair: "
+            << floatDataPair.first.first << floatDataPair.first.second << ", "
+            << floatDataPair.second.first << floatDataPair.second.second << '\n';
         break;
+    }
     case DataType::dtc:
-        ost << "dtc string: " << resp.m_dataString.first << ", " << resp.m_dataString.second
-            << '\n';
+    {
+        const auto& dtcString = std::get<StringData>(resp.decodedData);    
+        ost << "dtc string: " << dtcString.first << ", " << dtcString.second << '\n';
         break;
+    }
     case DataType::bitset:
-        ost << "bitset: " << resp.m_dataBitset << '\n';
+        ost << "bitset: " << std::get<Bitset_32>(resp.decodedData) << '\n';
         break;
     default:
         ost << "Empty response" << '\n';

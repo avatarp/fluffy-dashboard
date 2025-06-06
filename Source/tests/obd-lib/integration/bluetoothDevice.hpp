@@ -55,7 +55,7 @@ bool testBTGetAvailablePids(Elm327Engine& engine, Response& availablePids)
         return false;
     }
 
-    if (availablePids.m_dataType == DataType::bitset) {
+    if (availablePids.dataType == DataType::bitset) {
         return true;
     } else {
         std::cerr << "Response dataType does not match expected dataType." << std::endl;
@@ -87,7 +87,7 @@ void runBluetoothDeviceTestMain(TestResults& results)
     std::clog << "Received available PIDs:\n"
               << availablePids << std::endl;
 
-    auto& availablePidsBitset = availablePids.m_dataBitset;
+    auto& availablePidsBitset = std::get<Bitset_32>(availablePids.decodedData);
 
     // Traversing bitset from the highest bit
     size_t bitsetSize = availablePidsBitset.size() - 1;

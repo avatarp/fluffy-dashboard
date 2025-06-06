@@ -86,10 +86,10 @@ TEST_F(Elm327LiveDataTest, dummyUsbValidResponse)
     EXPECT_TRUE(engine.OpenConnection());
     auto response = engine.GetCommandResponse(ObdCommandPid::S01P04);
 
-    EXPECT_EQ("0104", response.m_rawCommandId);
-    EXPECT_EQ("7E8", response.m_rawEcuId);
-    EXPECT_EQ(3, response.m_rawLength);
-    EXPECT_EQ("FF", response.m_rawData);
+    EXPECT_EQ("0104", response.raw.commandId);
+    EXPECT_EQ("7E8", response.raw.ecuId);
+    EXPECT_EQ(3, response.raw.length);
+    EXPECT_EQ("FF", response.raw.data);
 
     EXPECT_TRUE(engine.Disconnect());
 }
