@@ -2,6 +2,7 @@
 
 const std::unordered_map<ObdCommandPid, std::string>& Elm327CommandRepository::getCommandMap()
 {
+    // GCOVR_EXCL_START
     static const std::unordered_map<ObdCommandPid, std::string> commandMap {
         { ObdCommandPid::S01P00, "0100\r" },
         { ObdCommandPid::S01P01, "0101\r" },
@@ -133,6 +134,7 @@ const std::unordered_map<ObdCommandPid, std::string>& Elm327CommandRepository::g
         { ObdCommandPid::S02P3F, "023F\r" },
         { ObdCommandPid::S03, "03\r" }
     };
+    // GCOVR_EXCL_STOP
     return commandMap;
 }
 
