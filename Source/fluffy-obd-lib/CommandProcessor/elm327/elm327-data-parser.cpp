@@ -42,7 +42,7 @@ Response Elm327DataParser::ParseResponse(const std::string& command, std::string
 
     Response parsedResponse;
     parsedResponse.commandPid = pid;
-    parsedResponse.raw.commandId= { command[0] + match[commandPidGroupIndex].str() };
+    parsedResponse.raw.commandId = { command[0] + match[commandPidGroupIndex].str() };
     parsedResponse.raw.data = match[dataGroupIndex];
     parsedResponse.raw.ecuId = match[ecuIdGroupIndex];
     if (!match[responseSizeGroupIndex].str().empty()) {

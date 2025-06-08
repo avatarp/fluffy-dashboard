@@ -366,7 +366,6 @@ TEST_F(elm327Parser_F, parse0114)
     EXPECT_EQ(parsedResponse.raw.commandId, "0114");
     EXPECT_EQ(parsedResponse.raw.length, 4);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.18, 0.01);
@@ -384,7 +383,6 @@ TEST_F(elm327Parser_F, parse0115)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "0115");
     EXPECT_EQ(parsedResponse.raw.length, 4);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -404,7 +402,6 @@ TEST_F(elm327Parser_F, parse0116)
     EXPECT_EQ(parsedResponse.raw.commandId, "0116");
     EXPECT_EQ(parsedResponse.raw.length, 4);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 1.2, 0.01);
@@ -422,7 +419,6 @@ TEST_F(elm327Parser_F, parse0117)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "0117");
     EXPECT_EQ(parsedResponse.raw.length, 4);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -442,7 +438,6 @@ TEST_F(elm327Parser_F, parse0118)
     EXPECT_EQ(parsedResponse.raw.commandId, "0118");
     EXPECT_EQ(parsedResponse.raw.length, 4);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.005, 0.01);
@@ -460,7 +455,6 @@ TEST_F(elm327Parser_F, parse0119)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "0119");
     EXPECT_EQ(parsedResponse.raw.length, 4);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -480,7 +474,6 @@ TEST_F(elm327Parser_F, parse011A)
     EXPECT_EQ(parsedResponse.raw.commandId, "011A");
     EXPECT_EQ(parsedResponse.raw.length, 4);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.17, 0.01);
@@ -498,7 +491,6 @@ TEST_F(elm327Parser_F, parse011B)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "011B");
     EXPECT_EQ(parsedResponse.raw.length, 4);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -638,7 +630,6 @@ TEST_F(elm327Parser_F, parse0124)
     EXPECT_EQ(parsedResponse.raw.commandId, "0124");
     EXPECT_EQ(parsedResponse.raw.length, 6);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.066223145, 0.0001);
@@ -656,7 +647,6 @@ TEST_F(elm327Parser_F, parse0125)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "0125");
     EXPECT_EQ(parsedResponse.raw.length, 6);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -676,7 +666,6 @@ TEST_F(elm327Parser_F, parse0126)
     EXPECT_EQ(parsedResponse.raw.commandId, "0126");
     EXPECT_EQ(parsedResponse.raw.length, 6);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.0838, 0.0001);
@@ -694,7 +683,6 @@ TEST_F(elm327Parser_F, parse0127)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "0127");
     EXPECT_EQ(parsedResponse.raw.length, 6);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -714,7 +702,6 @@ TEST_F(elm327Parser_F, parse0128)
     EXPECT_EQ(parsedResponse.raw.commandId, "0128");
     EXPECT_EQ(parsedResponse.raw.length, 6);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 1.9921, 0.0001);
@@ -732,7 +719,6 @@ TEST_F(elm327Parser_F, parse0129)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "0129");
     EXPECT_EQ(parsedResponse.raw.length, 6);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -752,7 +738,6 @@ TEST_F(elm327Parser_F, parse012A)
     EXPECT_EQ(parsedResponse.raw.commandId, "012A");
     EXPECT_EQ(parsedResponse.raw.length, 6);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.0838, 0.0001);
@@ -770,7 +755,6 @@ TEST_F(elm327Parser_F, parse012B)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "012B");
     EXPECT_EQ(parsedResponse.raw.length, 6);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -918,7 +902,6 @@ TEST_F(elm327Parser_F, parse0134)
     EXPECT_EQ(parsedResponse.raw.commandId, "0134");
     EXPECT_EQ(parsedResponse.raw.length, 6);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.399993896, 0.001);
@@ -936,7 +919,6 @@ TEST_F(elm327Parser_F, parse0135)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "0135");
     EXPECT_EQ(parsedResponse.raw.length, 6);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -956,7 +938,6 @@ TEST_F(elm327Parser_F, parse0136)
     EXPECT_EQ(parsedResponse.raw.commandId, "0136");
     EXPECT_EQ(parsedResponse.raw.length, 6);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.00155639, 0.001);
@@ -974,7 +955,6 @@ TEST_F(elm327Parser_F, parse0137)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "0137");
     EXPECT_EQ(parsedResponse.raw.length, 6);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -994,7 +974,6 @@ TEST_F(elm327Parser_F, parse0138)
     EXPECT_EQ(parsedResponse.raw.commandId, "0138");
     EXPECT_EQ(parsedResponse.raw.length, 6);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.000, 0.001);
@@ -1012,7 +991,6 @@ TEST_F(elm327Parser_F, parse0139)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "0139");
     EXPECT_EQ(parsedResponse.raw.length, 6);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
@@ -1032,7 +1010,6 @@ TEST_F(elm327Parser_F, parse013A)
     EXPECT_EQ(parsedResponse.raw.commandId, "013A");
     EXPECT_EQ(parsedResponse.raw.length, 6);
 
-
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);
     EXPECT_NEAR(receivedData.first.first, 0.399993896, 0.001);
@@ -1050,7 +1027,6 @@ TEST_F(elm327Parser_F, parse013B)
     EXPECT_EQ(parsedResponse.raw.ecuId, "7E8");
     EXPECT_EQ(parsedResponse.raw.commandId, "013B");
     EXPECT_EQ(parsedResponse.raw.length, 6);
-
 
     EXPECT_EQ(parsedResponse.dataType, DataType::numberPair);
     auto receivedData = std::get<FloatDataPair>(parsedResponse.decodedData);

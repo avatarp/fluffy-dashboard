@@ -22,8 +22,7 @@ public:
     // Commands below are interchangeable for both services
     /////////////////////////////////////////////////////////////////////////////////////
     // 00 PIDs supported [01 - 20]
-    virtual DecodedData
-    GetSupportedPIDs1(const std::string& data) = 0;
+    virtual DecodedData GetSupportedPIDs1(const std::string& data) = 0;
 
     // 01 Monitor status since DTCs cleared
     virtual DecodedData GetMonitorStatus(const std::string& data) = 0;

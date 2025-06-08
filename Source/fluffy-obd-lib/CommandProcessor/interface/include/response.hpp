@@ -34,7 +34,7 @@ struct RawResponse {
 };
 
 struct Response {
-    
+
     ResponseState state { ResponseState::invalid };
     RawResponse raw {};
 
