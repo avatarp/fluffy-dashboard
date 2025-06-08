@@ -49,12 +49,12 @@ namespace elm327::decoders {
 // 13 Oxygen sensors present (in 2 banks)
 // 1D Oxygen sensors present (in 4 banks)
 // 1E Auxiliary input status
-std::bitset<32> DecodeBitEncoded(const std::string& text)
+inline std::bitset<32> DecodeBitEncoded(const std::string& text)
 {
     return std::bitset<32>(utils::hexStringValue(text));
 }
 
-std::string DecodeString(const std::string& text)
+inline std::string DecodeString(const std::string& text)
 {
     std::string result;
     result.reserve(text.size() / 2);
@@ -72,7 +72,7 @@ std::string DecodeString(const std::string& text)
 // 1C OBD standard -> 0-255 enum
 // 30 Warm-ups since codes cleared -> 0-255 count
 // 33 Absolute Barometric Pressure -> 0-255 kPa
-float DecodeCountA(const std::string& text)
+inline float DecodeCountA(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     return static_cast<float>(utils::hexToDec(byteA));
@@ -82,7 +82,7 @@ float DecodeCountA(const std::string& text)
 // 22 Run time -> 0-65535 seconds
 // 21 Distance with Malfunction Indicator Lamp on -> 0-65535 km
 // 31 Distance since coded cleared -> 0-65535km
-float DecodeCountAB(const std::string& text)
+inline float DecodeCountAB(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     float valA = static_cast<float>(utils::hexToDec(byteA));
@@ -91,7 +91,7 @@ float DecodeCountAB(const std::string& text)
     return 256.0f * valA + valB;
 }
 
-std::string DecodeDTC(const std::string& text)
+inline std::string DecodeDTC(const std::string& text)
 {
     const uint8_t byteAValue = static_cast<uint8_t>(utils::hexStringValue(text[2]));
     const uint8_t dtcLocation { static_cast<uint8_t>((byteAValue & 0b1100) >> 2) };
@@ -116,7 +116,7 @@ std::string DecodeDTC(const std::string& text)
 
 // Decodes 10 Mass Air Flow
 //-> 0-655.35 gram/second
-float DecodeAirFlow(const std::string& text)
+inline float DecodeAirFlow(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     std::string byteB { text[2], text[3] };
@@ -128,7 +128,7 @@ float DecodeAirFlow(const std::string& text)
 // Decodes:
 // 24-2B,34-3B (AB) Air-Fuel Equivalence Ratio (lambda,λ)
 //-> 0-2
-float DecodeEquivalenceRatio(const std::string& text)
+inline float DecodeEquivalenceRatio(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     std::string byteB { text[2], text[3] };
@@ -140,7 +140,7 @@ float DecodeEquivalenceRatio(const std::string& text)
 // Decodes
 // 32 Evap. system Vapor pressure
 //-> -8192-8191.75 Pa
-float DecodeEvapPressure(const std::string& text)
+inline float DecodeEvapPressure(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     float valA = static_cast<float>(utils::twoComplementaryHexToDec(byteA));
@@ -151,7 +151,7 @@ float DecodeEvapPressure(const std::string& text)
 
 // Decodes
 // 0A Fuel pressure -> 0-765 kPa
-float DecodeFuelPressure(const std::string& text)
+inline float DecodeFuelPressure(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     float valA = static_cast<float>(utils::hexToDec(byteA));
@@ -161,7 +161,7 @@ float DecodeFuelPressure(const std::string& text)
 // Decodes:
 // 22 Fuel Rail Pressure (relative to manifold vacuum)
 //-> 0-5177.265 kPa
-float DecodeFuelRailPressure(const std::string& text)
+inline float DecodeFuelRailPressure(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     float valA = static_cast<float>(utils::hexToDec(byteA));
@@ -173,7 +173,7 @@ float DecodeFuelRailPressure(const std::string& text)
 // Decodes:
 // 23 Fuel Rail Gauge pressure (diesel, or gasoline direct injection)
 //-> 0-655350 kPa
-float DecodeFuelRailGaugePressure(const std::string& text)
+inline float DecodeFuelRailGaugePressure(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     float valA = static_cast<float>(utils::hexToDec(byteA));
@@ -184,7 +184,7 @@ float DecodeFuelRailGaugePressure(const std::string& text)
 
 // Decodes 34-3B Oxygen sensor current (CD)
 //-> -128-127.996 mA
-float DecodeOxygenSensorCurrent(const std::string& text)
+inline float DecodeOxygenSensorCurrent(const std::string& text)
 {
     std::string byteC { text[0], text[1] };
     float valC = static_cast<float>(utils::hexToDec(byteC));
@@ -195,7 +195,7 @@ float DecodeOxygenSensorCurrent(const std::string& text)
 
 // Decodes 14-1B Oxygen sensor voltage (A)
 //-> -0-1.275 V
-float DecodeOxygenSensorVoltage1(const std::string& text)
+inline float DecodeOxygenSensorVoltage1(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     return static_cast<float>(utils::hexToDec(byteA)) / 200.0f;
@@ -203,7 +203,7 @@ float DecodeOxygenSensorVoltage1(const std::string& text)
 
 // Decodes 24-2B Oxygen sensor voltage (CD)
 //-> 0-7.999 V
-float DecodeOxygenSensorVoltage2(const std::string& text)
+inline float DecodeOxygenSensorVoltage2(const std::string& text)
 {
     std::string byteC { text[0], text[1] };
     std::string byteD { text[2], text[3] };
@@ -219,8 +219,7 @@ float DecodeOxygenSensorVoltage2(const std::string& text)
 // 2C Commanded EGR
 // 2E Commanded evaporative purge
 // 2F Fuel tank level input
-
-float DecodePercentage(const std::string& text)
+inline float DecodePercentage(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     return static_cast<float>(utils::hexToDec(byteA)) / 2.55F;
@@ -231,7 +230,7 @@ float DecodePercentage(const std::string& text)
 // 06-09 Short/long fuel trim (-100 too rich - 99.2 too lean)
 // 14-1B Oxygen sensor short fuel trim (B)
 // 2D EGR error
-float DecodeSignedPercentage(const std::string& text)
+inline float DecodeSignedPercentage(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     return static_cast<float>(utils::hexToDec(byteA)) / 1.28f - 100.f;
@@ -239,7 +238,7 @@ float DecodeSignedPercentage(const std::string& text)
 
 // Decodes
 // 0C Engine RPM -> 0-16 383.75 RPM
-float DecodeRPM(const std::string& text)
+inline float DecodeRPM(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     std::string byteB { text[2], text[3] };
@@ -254,7 +253,7 @@ float DecodeRPM(const std::string& text)
 // 0F Air intake temperature
 // 46 Ambient air temperature
 // 5C Engine oil temperature
-float DecodeTemperature(const std::string& text)
+inline float DecodeTemperature(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     return static_cast<float>(utils::hexToDec(byteA) - 40L);
@@ -263,7 +262,7 @@ float DecodeTemperature(const std::string& text)
 // Decodes:
 // 3C-3F Catalyst temperature
 //-> -40-6513.5°C
-float DecodeCatalystTemperature(const std::string& text)
+inline float DecodeCatalystTemperature(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     float valA = static_cast<float>(utils::hexToDec(byteA));
@@ -274,7 +273,7 @@ float DecodeCatalystTemperature(const std::string& text)
 
 // Decodes 0E Timing advance
 //-> -64-63.5° (before Top Dead Centre)
-float DecodeTimingAdvance(const std::string& text)
+inline float DecodeTimingAdvance(const std::string& text)
 {
     std::string byteA { text[0], text[1] };
     return static_cast<float>(utils::hexToDec(byteA)) / 2.0f - 64.0f;
