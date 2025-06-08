@@ -1,8 +1,8 @@
 #include "command-repo-test.h"
+#include "dtc-handler-test.h"
 #include "live-data-test.h"
 #include "parser-test.h"
 #include "response-test.h"
-#include "dtc-handler-test.h"
 
 #include "gtest/gtest.h"
 

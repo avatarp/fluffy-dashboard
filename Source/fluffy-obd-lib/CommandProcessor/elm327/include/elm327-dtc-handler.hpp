@@ -5,7 +5,8 @@
 #include "IDtc-handler.hpp"
 
 class Elm327DtcHandler : public IDtcHandler {
-    std::vector<std::string> ParseDtcResponse(Response& dtcResponse) const;
+    static std::vector<std::string> ParseDtcResponse(Response& dtcResponse);
+
 public:
     // Default constructor and destructor
     Elm327DtcHandler() = default;
@@ -20,13 +21,5 @@ public:
     // Decode permanent DTCs from the response
     virtual void ParsePermanentDtc(Response& dtcResponse) override;
 };
-
-
-
-
-
-
-
-
 
 #endif // ELM327_DTC_HANDLER_HPP

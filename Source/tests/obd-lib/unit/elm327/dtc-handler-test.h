@@ -55,7 +55,7 @@ TEST_F(Elm327DtcHandlerTest, ParseInvalidCommandId)
 TEST_F(Elm327DtcHandlerTest, ParseInvalidLength)
 {
     response.raw.data = "01"; // Invalid length for DTC response
-    
+
     response.raw.commandId = "03";
     EXPECT_THROW(dtcHandler.ParseStoredDtc(response), std::runtime_error);
 
