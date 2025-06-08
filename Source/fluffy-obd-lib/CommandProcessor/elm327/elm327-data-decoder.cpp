@@ -509,7 +509,7 @@ DecodedData Elm327DataDecoder::GetPerformanceTrackingMessageCount(const std::str
 
 DecodedData Elm327DataDecoder::GetPerformanceTracking1(const std::string& data)
 {
-    // TODO
+    // TODO #16
     // Check if response string contains actual data
     return StringData { elm327::decoders::DecodeString(data), "Performance tracking 1" };
 }
@@ -526,7 +526,7 @@ DecodedData Elm327DataDecoder::GetEcuName(const std::string& data)
 
 DecodedData Elm327DataDecoder::GetPerformanceTracking2(const std::string& data)
 {
-    // TODO
+    // TODO #16
     // Check if response string contains actual data
     return StringData { elm327::decoders::DecodeString(data), "Performance tracking 2" };
 }
