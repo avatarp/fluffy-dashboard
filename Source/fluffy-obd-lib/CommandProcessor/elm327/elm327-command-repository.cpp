@@ -1,9 +1,9 @@
 #include "elm327-command-repository.hpp"
 
-const std::unordered_map<ObdCommandPid, std::string>& Elm327CommandRepository::getCommandMap()
+std::unordered_map<ObdCommandPid, std::string> Elm327CommandRepository::getCommandMap()
 {
     // GCOVR_EXCL_START
-    static const std::unordered_map<ObdCommandPid, std::string> commandMap {
+    std::unordered_map<ObdCommandPid, std::string> commandMap {
         { ObdCommandPid::S01P00, "0100\r" },
         { ObdCommandPid::S01P01, "0101\r" },
         { ObdCommandPid::S01P02, "0102\r" },
@@ -140,7 +140,12 @@ const std::unordered_map<ObdCommandPid, std::string>& Elm327CommandRepository::g
 
 std::string Elm327CommandRepository::getCommandByPid(ObdCommandPid pid)
 {
-    auto commandMap = getCommandMap();
+    static std::unordered_map<ObdCommandPid, std::string> commandMap;
+
+    if (commandMap.empty()) {
+        commandMap = getCommandMap();
+    }
+
     auto iter = commandMap.find(pid);
     if (iter != commandMap.end()) {
         return iter->second;

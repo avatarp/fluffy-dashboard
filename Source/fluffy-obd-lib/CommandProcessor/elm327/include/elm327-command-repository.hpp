@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 class Elm327CommandRepository : public CommandRepository {
-    static const std::unordered_map<ObdCommandPid, std::string>& getCommandMap();
+    static std::unordered_map<ObdCommandPid, std::string> getCommandMap();
 
 public:
     Elm327CommandRepository() = default;

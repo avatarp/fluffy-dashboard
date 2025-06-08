@@ -1,94 +1,90 @@
 #include "elm327-data-decoder.hpp"
 #include "elm327-decoders.hpp"
 
-#include <functional>
-#include <map>
+std::unordered_map<ObdCommandPid, Elm327DataDecoder::decoderFunction> Elm327DataDecoder::getDecodingMap()
+{
+    using enum ObdCommandPid;
 
-using FunctionType = DecodedData (Elm327DataDecoder::*)(const std::string&);
+    std::unordered_map<ObdCommandPid, decoderFunction> decodingMap = {
+        { S01P00, { &Elm327DataDecoder::GetSupportedPIDs1, DataType::bitset } },
+        { S01P01, { &Elm327DataDecoder::GetMonitorStatus, DataType::bitset } },
+        { S01P02, { &Elm327DataDecoder::GetFreezeDTCs, DataType::string } },
+        { S01P03, { &Elm327DataDecoder::GetFuelSystemStatus, DataType::bitset } },
+        { S01P04, { &Elm327DataDecoder::GetEngineLoad, DataType::number } },
+        { S01P05, { &Elm327DataDecoder::GetEngineCoolantTemperature, DataType::number } },
+        { S01P06, { &Elm327DataDecoder::GetShortTermFuelTrimBank1, DataType::number } },
+        { S01P07, { &Elm327DataDecoder::GetLongTermFuelTrimBank1, DataType::number } },
+        { S01P08, { &Elm327DataDecoder::GetShortTermFuelTrimBank2, DataType::number } },
+        { S01P09, { &Elm327DataDecoder::GetLongTermFuelTrimBank2, DataType::number } },
+        { S01P0A, { &Elm327DataDecoder::GetFuelPressure, DataType::number } },
+        { S01P0B, { &Elm327DataDecoder::GetIntakeManifoldPressure, DataType::number } },
+        { S01P0C, { &Elm327DataDecoder::GetEngineRpm, DataType::number } },
+        { S01P0D, { &Elm327DataDecoder::GetSpeed, DataType::number } },
+        { S01P0E, { &Elm327DataDecoder::GetTimingAdvance, DataType::number } },
+        { S01P0F, { &Elm327DataDecoder::GetIntakeAirTemperature, DataType::number } },
 
-struct decoderFunction {
-    FunctionType function;
-    DataType dataType;
-};
+        { S01P10, { &Elm327DataDecoder::GetMafAirFlowRate, DataType::number } },
+        { S01P11, { &Elm327DataDecoder::GetThrottlePosition, DataType::number } },
+        { S01P12, { &Elm327DataDecoder::GetSecondaryAirStatus, DataType::bitset } },
+        { S01P13, { &Elm327DataDecoder::GetOxygenSensorsPresent1, DataType::bitset } },
+        { S01P14, { &Elm327DataDecoder::GetOxygenSensorFtV1, DataType::numberPair } },
+        { S01P15, { &Elm327DataDecoder::GetOxygenSensorFtV2, DataType::numberPair } },
+        { S01P16, { &Elm327DataDecoder::GetOxygenSensorFtV3, DataType::numberPair } },
+        { S01P17, { &Elm327DataDecoder::GetOxygenSensorFtV4, DataType::numberPair } },
+        { S01P18, { &Elm327DataDecoder::GetOxygenSensorFtV5, DataType::numberPair } },
+        { S01P19, { &Elm327DataDecoder::GetOxygenSensorFtV6, DataType::numberPair } },
+        { S01P1A, { &Elm327DataDecoder::GetOxygenSensorFtV7, DataType::numberPair } },
+        { S01P1B, { &Elm327DataDecoder::GetOxygenSensorFtV8, DataType::numberPair } },
+        { S01P1C, { &Elm327DataDecoder::GetObdStandard, DataType::bitset } },
+        { S01P1D, { &Elm327DataDecoder::GetOxygenSensorsPresent2, DataType::bitset } },
+        { S01P1E, { &Elm327DataDecoder::GetAuxiliaryInputStatus, DataType::bitset } },
+        { S01P1F, { &Elm327DataDecoder::GetRunTime, DataType::number } },
+
+        { S01P20, { &Elm327DataDecoder::GetSupportedPIDs2, DataType::bitset } },
+        { S01P21, { &Elm327DataDecoder::GetDistanceWithMilOn, DataType::number } },
+        { S01P22, { &Elm327DataDecoder::GetFuelRailPressure, DataType::number } },
+        { S01P23, { &Elm327DataDecoder::GetFuelRailGaugePressure, DataType::number } },
+        { S01P24, { &Elm327DataDecoder::GetOxygenSensorEqV1, DataType::numberPair } },
+        { S01P25, { &Elm327DataDecoder::GetOxygenSensorEqV2, DataType::numberPair } },
+        { S01P26, { &Elm327DataDecoder::GetOxygenSensorEqV3, DataType::numberPair } },
+        { S01P27, { &Elm327DataDecoder::GetOxygenSensorEqV4, DataType::numberPair } },
+        { S01P28, { &Elm327DataDecoder::GetOxygenSensorEqV5, DataType::numberPair } },
+        { S01P29, { &Elm327DataDecoder::GetOxygenSensorEqV6, DataType::numberPair } },
+        { S01P2A, { &Elm327DataDecoder::GetOxygenSensorEqV7, DataType::numberPair } },
+        { S01P2B, { &Elm327DataDecoder::GetOxygenSensorEqV8, DataType::numberPair } },
+        { S01P2C, { &Elm327DataDecoder::GetCommandedEgr, DataType::number } },
+        { S01P2D, { &Elm327DataDecoder::GetEgrError, DataType::number } },
+        { S01P2E, { &Elm327DataDecoder::GetCommandedEvaporativePurge, DataType::number } },
+        { S01P2F, { &Elm327DataDecoder::GetFuelTankLevelInput, DataType::number } },
+
+        { S01P30, { &Elm327DataDecoder::GetWarmupsSinceDtcCleared, DataType::number } },
+        { S01P31, { &Elm327DataDecoder::GetDistanceSinceDtcCleared, DataType::number } },
+        { S01P32, { &Elm327DataDecoder::GetEvapVaporPressure, DataType::number } },
+        { S01P33, { &Elm327DataDecoder::GetAbsoluteBarometricPressure, DataType::number } },
+        { S01P34, { &Elm327DataDecoder::GetOxygenSensorEqC1, DataType::numberPair } },
+        { S01P35, { &Elm327DataDecoder::GetOxygenSensorEqC2, DataType::numberPair } },
+        { S01P36, { &Elm327DataDecoder::GetOxygenSensorEqC3, DataType::numberPair } },
+        { S01P37, { &Elm327DataDecoder::GetOxygenSensorEqC4, DataType::numberPair } },
+        { S01P38, { &Elm327DataDecoder::GetOxygenSensorEqC5, DataType::numberPair } },
+        { S01P39, { &Elm327DataDecoder::GetOxygenSensorEqC6, DataType::numberPair } },
+        { S01P3A, { &Elm327DataDecoder::GetOxygenSensorEqC7, DataType::numberPair } },
+        { S01P3B, { &Elm327DataDecoder::GetOxygenSensorEqC8, DataType::numberPair } },
+        { S01P3C, { &Elm327DataDecoder::GetCatalystTemperatureB1S1, DataType::number } },
+        { S01P3D, { &Elm327DataDecoder::GetCatalystTemperatureB2S1, DataType::number } },
+        { S01P3E, { &Elm327DataDecoder::GetCatalystTemperatureB1S2, DataType::number } },
+        { S01P3F, { &Elm327DataDecoder::GetCatalystTemperatureB2S2, DataType::number } },
+
+        { S09P00, { &Elm327DataDecoder::GetSupportedVIPIDs, DataType::string } }
+    };
+    return decodingMap;
+}
 
 void Elm327DataDecoder::decodeResponse(Response& response)
 {
-    using enum ObdCommandPid;
-    
-    static std::map<ObdCommandPid, decoderFunction> decodingMap;
+    static std::unordered_map<ObdCommandPid, decoderFunction> decodingMap;
 
     if (decodingMap.empty()) {
-        decodingMap = {
-            { S01P00, { &Elm327DataDecoder::GetSupportedPIDs1, DataType::bitset } },
-            { S01P01, { &Elm327DataDecoder::GetMonitorStatus, DataType::bitset } },
-            { S01P02, { &Elm327DataDecoder::GetFreezeDTCs, DataType::string } },
-            { S01P03, { &Elm327DataDecoder::GetFuelSystemStatus, DataType::bitset } },
-            { S01P04, { &Elm327DataDecoder::GetEngineLoad, DataType::number } },
-            { S01P05, { &Elm327DataDecoder::GetEngineCoolantTemperature, DataType::number } },
-            { S01P06, { &Elm327DataDecoder::GetShortTermFuelTrimBank1, DataType::number } },
-            { S01P07, { &Elm327DataDecoder::GetLongTermFuelTrimBank1, DataType::number } },
-            { S01P08, { &Elm327DataDecoder::GetShortTermFuelTrimBank2, DataType::number } },
-            { S01P09, { &Elm327DataDecoder::GetLongTermFuelTrimBank2, DataType::number } },
-            { S01P0A, { &Elm327DataDecoder::GetFuelPressure, DataType::number } },
-            { S01P0B, { &Elm327DataDecoder::GetIntakeManifoldPressure, DataType::number } },
-            { S01P0C, { &Elm327DataDecoder::GetEngineRpm, DataType::number } },
-            { S01P0D, { &Elm327DataDecoder::GetSpeed, DataType::number } },
-            { S01P0E, { &Elm327DataDecoder::GetTimingAdvance, DataType::number } },
-            { S01P0F, { &Elm327DataDecoder::GetIntakeAirTemperature, DataType::number } },
-
-            { S01P10, { &Elm327DataDecoder::GetMafAirFlowRate, DataType::number } },
-            { S01P11, { &Elm327DataDecoder::GetThrottlePosition, DataType::number } },
-            { S01P12, { &Elm327DataDecoder::GetSecondaryAirStatus, DataType::bitset } },
-            { S01P13, { &Elm327DataDecoder::GetOxygenSensorsPresent1, DataType::bitset } },
-            { S01P14, { &Elm327DataDecoder::GetOxygenSensorFtV1, DataType::numberPair } },
-            { S01P15, { &Elm327DataDecoder::GetOxygenSensorFtV2, DataType::numberPair } },
-            { S01P16, { &Elm327DataDecoder::GetOxygenSensorFtV3, DataType::numberPair } },
-            { S01P17, { &Elm327DataDecoder::GetOxygenSensorFtV4, DataType::numberPair } },
-            { S01P18, { &Elm327DataDecoder::GetOxygenSensorFtV5, DataType::numberPair } },
-            { S01P19, { &Elm327DataDecoder::GetOxygenSensorFtV6, DataType::numberPair } },
-            { S01P1A, { &Elm327DataDecoder::GetOxygenSensorFtV7, DataType::numberPair } },
-            { S01P1B, { &Elm327DataDecoder::GetOxygenSensorFtV8, DataType::numberPair } },
-            { S01P1C, { &Elm327DataDecoder::GetObdStandard, DataType::bitset } },
-            { S01P1D, { &Elm327DataDecoder::GetOxygenSensorsPresent2, DataType::bitset } },
-            { S01P1E, { &Elm327DataDecoder::GetAuxiliaryInputStatus, DataType::bitset } },
-            { S01P1F, { &Elm327DataDecoder::GetRunTime, DataType::number } },
-
-            { S01P20, { &Elm327DataDecoder::GetSupportedPIDs2, DataType::bitset } },
-            { S01P21, { &Elm327DataDecoder::GetDistanceWithMilOn, DataType::number } },
-            { S01P22, { &Elm327DataDecoder::GetFuelRailPressure, DataType::number } },
-            { S01P23, { &Elm327DataDecoder::GetFuelRailGaugePressure, DataType::number } },
-            { S01P24, { &Elm327DataDecoder::GetOxygenSensorEqV1, DataType::numberPair } },
-            { S01P25, { &Elm327DataDecoder::GetOxygenSensorEqV2, DataType::numberPair } },
-            { S01P26, { &Elm327DataDecoder::GetOxygenSensorEqV3, DataType::numberPair } },
-            { S01P27, { &Elm327DataDecoder::GetOxygenSensorEqV4, DataType::numberPair } },
-            { S01P28, { &Elm327DataDecoder::GetOxygenSensorEqV5, DataType::numberPair } },
-            { S01P29, { &Elm327DataDecoder::GetOxygenSensorEqV6, DataType::numberPair } },
-            { S01P2A, { &Elm327DataDecoder::GetOxygenSensorEqV7, DataType::numberPair } },
-            { S01P2B, { &Elm327DataDecoder::GetOxygenSensorEqV8, DataType::numberPair } },
-            { S01P2C, { &Elm327DataDecoder::GetCommandedEgr, DataType::number } },
-            { S01P2D, { &Elm327DataDecoder::GetEgrError, DataType::number } },
-            { S01P2E, { &Elm327DataDecoder::GetCommandedEvaporativePurge, DataType::number } },
-            { S01P2F, { &Elm327DataDecoder::GetFuelTankLevelInput, DataType::number } },
-
-            { S01P30, { &Elm327DataDecoder::GetWarmupsSinceDtcCleared, DataType::number } },
-            { S01P31, { &Elm327DataDecoder::GetDistanceSinceDtcCleared, DataType::number } },
-            { S01P32, { &Elm327DataDecoder::GetEvapVaporPressure, DataType::number } },
-            { S01P33, { &Elm327DataDecoder::GetAbsoluteBarometricPressure, DataType::number } },
-            { S01P34, { &Elm327DataDecoder::GetOxygenSensorEqC1, DataType::numberPair } },
-            { S01P35, { &Elm327DataDecoder::GetOxygenSensorEqC2, DataType::numberPair } },
-            { S01P36, { &Elm327DataDecoder::GetOxygenSensorEqC3, DataType::numberPair } },
-            { S01P37, { &Elm327DataDecoder::GetOxygenSensorEqC4, DataType::numberPair } },
-            { S01P38, { &Elm327DataDecoder::GetOxygenSensorEqC5, DataType::numberPair } },
-            { S01P39, { &Elm327DataDecoder::GetOxygenSensorEqC6, DataType::numberPair } },
-            { S01P3A, { &Elm327DataDecoder::GetOxygenSensorEqC7, DataType::numberPair } },
-            { S01P3B, { &Elm327DataDecoder::GetOxygenSensorEqC8, DataType::numberPair } },
-            { S01P3C, { &Elm327DataDecoder::GetCatalystTemperatureB1S1, DataType::number } },
-            { S01P3D, { &Elm327DataDecoder::GetCatalystTemperatureB2S1, DataType::number } },
-            { S01P3E, { &Elm327DataDecoder::GetCatalystTemperatureB1S2, DataType::number } },
-            { S01P3F, { &Elm327DataDecoder::GetCatalystTemperatureB2S2, DataType::number } },
-
-            { S09P00, { &Elm327DataDecoder::GetSupportedVIPIDs, DataType::string } }
-        };
+        decodingMap = getDecodingMap();
     }
 
     auto decodingFunction = decodingMap.find(response.commandPid);
