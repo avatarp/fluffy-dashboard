@@ -6,7 +6,7 @@
 
 #include <string>
 
-std::vector<std::string> Elm327DtcHandler::ParseDtcResponse(Response& dtcResponse) const
+std::vector<std::string> Elm327DtcHandler::ParseDtcResponse(Response& dtcResponse)
 {
     auto& commandId = dtcResponse.raw.commandId;
     if (commandId != "03" && commandId != "07" && commandId != "0A") {
@@ -43,7 +43,7 @@ void Elm327DtcHandler::ParseStoredDtc(Response& dtcResponse)
     if (dtcResponse.raw.commandId != "03") {
         throw(std::runtime_error { "Invalid command ID for stored DTCs: " + dtcResponse.raw.commandId });
     }
-    m_storedDtcCodes = this->ParseDtcResponse(dtcResponse);
+    m_retrievedDtc.storedDtcCodes = this->ParseDtcResponse(dtcResponse);
 }
 
 void Elm327DtcHandler::ParsePendingDtc(Response& dtcResponse)
@@ -51,7 +51,7 @@ void Elm327DtcHandler::ParsePendingDtc(Response& dtcResponse)
     if (dtcResponse.raw.commandId != "07") {
         throw(std::runtime_error { "Invalid command ID for pending DTCs: " + dtcResponse.raw.commandId });
     }
-    m_pendingDtcCodes = this->ParseDtcResponse(dtcResponse);
+    m_retrievedDtc.pendingDtcCodes = this->ParseDtcResponse(dtcResponse);
 }
 
 void Elm327DtcHandler::ParsePermanentDtc(Response& dtcResponse)
@@ -59,5 +59,5 @@ void Elm327DtcHandler::ParsePermanentDtc(Response& dtcResponse)
     if (dtcResponse.raw.commandId != "0A") {
         throw(std::runtime_error { "Invalid command ID for permanent DTCs: " + dtcResponse.raw.commandId });
     }
-    m_permanentDtcCodes = this->ParseDtcResponse(dtcResponse);
+    m_retrievedDtc.permanentDtcCodes = this->ParseDtcResponse(dtcResponse);
 }

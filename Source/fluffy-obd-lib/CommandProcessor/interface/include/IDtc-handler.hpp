@@ -6,11 +6,15 @@
 #include <string>
 #include <vector>
 
+struct RetrievedDtc {
+    std::vector<std::string> storedDtcCodes;
+    std::vector<std::string> pendingDtcCodes;
+    std::vector<std::string> permanentDtcCodes;
+};
+
 class IDtcHandler {
 protected:
-    std::vector<std::string> m_storedDtcCodes;
-    std::vector<std::string> m_pendingDtcCodes;
-    std::vector<std::string> m_permanentDtcCodes;
+    RetrievedDtc m_retrievedDtc;
 
 public:
     // Default constructor and destructor
@@ -20,6 +24,21 @@ public:
     virtual void ParseStoredDtc(Response& dtcResponse) = 0;
     virtual void ParsePendingDtc(Response& dtcResponse) = 0;
     virtual void ParsePermanentDtc(Response& dtcResponse) = 0;
+
+    std::vector<std::string> GetStoredDtcCodes() const
+    {
+        return m_retrievedDtc.storedDtcCodes;
+    }
+
+    std::vector<std::string> GetPendingDtcCodes() const
+    {
+        return m_retrievedDtc.pendingDtcCodes;
+    }
+
+    std::vector<std::string> GetPermanentDtcCodes() const
+    {
+        return m_retrievedDtc.permanentDtcCodes;
+    }
 };
 
 #endif // IDTC_HANDLER_HPP_

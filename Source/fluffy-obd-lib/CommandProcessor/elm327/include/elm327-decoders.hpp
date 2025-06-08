@@ -93,7 +93,7 @@ inline float DecodeCountAB(const std::string& text)
 
 inline std::string DecodeDTC(const std::string& text)
 {
-    const uint8_t byteAValue = static_cast<uint8_t>(utils::hexStringValue(text[2]));
+    const uint8_t byteAValue = static_cast<uint8_t>(utils::hexStringValue(text[0]));
     const uint8_t dtcLocation { static_cast<uint8_t>((byteAValue & 0b1100) >> 2) };
     std::string dtc;
 
@@ -110,7 +110,7 @@ inline std::string DecodeDTC(const std::string& text)
     const uint8_t dtcFirstDigit = byteAValue & 0b0011;
     dtc += std::to_string(dtcFirstDigit);
     // insert rest of the dtc
-    dtc += text.substr(3, 3);
+    dtc += text.substr(1, 3);
     return dtc;
 }
 

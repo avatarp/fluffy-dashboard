@@ -25,6 +25,9 @@ TEST_F(Elm327DtcHandlerTest, ParseStoredDtcValidResponse)
     response.raw.data = "013223";
 
     EXPECT_NO_THROW(dtcHandler.ParseStoredDtc(response));
+    auto dtcCodes = dtcHandler.GetStoredDtcCodes();
+    EXPECT_EQ(dtcCodes.size(), 1);
+    EXPECT_EQ(dtcCodes[0], "P3223");
 }
 
 TEST_F(Elm327DtcHandlerTest, ParsePendingDtcValidResponse)
@@ -33,6 +36,10 @@ TEST_F(Elm327DtcHandlerTest, ParsePendingDtcValidResponse)
     response.raw.data = "0243004700";
 
     EXPECT_NO_THROW(dtcHandler.ParsePendingDtc(response));
+    auto dtcCodes = dtcHandler.GetPendingDtcCodes();
+    EXPECT_EQ(dtcCodes.size(), 2);
+    EXPECT_EQ(dtcCodes[0], "C0300");
+    EXPECT_EQ(dtcCodes[1], "C0700");
 }
 
 TEST_F(Elm327DtcHandlerTest, ParsePermanentDtcValidResponse)
@@ -41,6 +48,12 @@ TEST_F(Elm327DtcHandlerTest, ParsePermanentDtcValidResponse)
     response.raw.data = "04B110C15847003223";
 
     EXPECT_NO_THROW(dtcHandler.ParsePermanentDtc(response));
+    auto dtcCodes = dtcHandler.GetPermanentDtcCodes();
+    EXPECT_EQ(dtcCodes.size(), 4);
+    EXPECT_EQ(dtcCodes[0], "B3110");
+    EXPECT_EQ(dtcCodes[1], "U0158");
+    EXPECT_EQ(dtcCodes[2], "C0700");
+    EXPECT_EQ(dtcCodes[3], "P3223");
 }
 
 TEST_F(Elm327DtcHandlerTest, ParseInvalidCommandId)
