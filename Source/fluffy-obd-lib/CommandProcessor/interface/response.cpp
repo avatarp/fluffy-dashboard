@@ -3,29 +3,25 @@
 std::ostream& operator<<(std::ostream& ost, const Response& resp)
 {
     switch (resp.dataType) {
-    case DataType::string:
-    {
+    case DataType::string: {
         const auto& stringPair = std::get<StringData>(resp.decodedData);
         ost << "string: " << stringPair.first << ", " << stringPair.second << '\n';
         break;
     }
-    case DataType::number:
-    {    
+    case DataType::number: {
         const auto& floatData = std::get<FloatData>(resp.decodedData);
         ost << "float: " << floatData.first << floatData.second << '\n';
         break;
     }
-    case DataType::numberPair: 
-    {
+    case DataType::numberPair: {
         const auto& floatDataPair = std::get<FloatDataPair>(resp.decodedData);
         ost << "float pair: "
             << floatDataPair.first.first << floatDataPair.first.second << ", "
             << floatDataPair.second.first << floatDataPair.second.second << '\n';
         break;
     }
-    case DataType::dtc:
-    {
-        const auto& dtcString = std::get<StringData>(resp.decodedData);    
+    case DataType::dtc: {
+        const auto& dtcString = std::get<StringData>(resp.decodedData);
         ost << "dtc string: " << dtcString.first << ", " << dtcString.second << '\n';
         break;
     }

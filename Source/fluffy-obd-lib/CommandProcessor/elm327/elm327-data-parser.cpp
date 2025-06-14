@@ -8,6 +8,9 @@ Elm327DataParser::Elm327DataParser()
 // NOLINTNEXTLINE (bugprone-easily-swappable-parameters)
 Response Elm327DataParser::ParseResponse(const std::string& command, std::string response, ObdCommandPid pid)
 {
+    // Remove whitespaces from the response
+    response.erase(remove_if(response.begin(), response.end(), isspace), response.end());
+
     spdlog::info("Parsing response: {}", response);
 
     constexpr uint8_t ecuIdGroupIndex { 2 };
@@ -16,13 +19,12 @@ Response Elm327DataParser::ParseResponse(const std::string& command, std::string
     constexpr uint8_t dataGroupIndex { 5 };
 
     std::smatch match;
-    const std::regex responseRegexPattern { "(([0-9A-Z]{3})([0-9]{2}))?4("
+    const std::regex singleFrameRegexPattern { "(([0-9A-Z]{3})([0-9]{2}))?4("
         + command.substr(1, command.size() - 2)
         + ")([0-9A-F]+)" };
 
-    response.erase(remove_if(response.begin(), response.end(), isspace), response.end());
-
-    if (!std::regex_search(response, match, responseRegexPattern)) {
+    // Check if the response matches the expected regex pattern
+    if (!std::regex_search(response, match, singleFrameRegexPattern)) {
         throw(std::runtime_error { "Response to: "
             + command.substr(0, command.size() - 2)
             + ", not matched!\n" });
@@ -42,7 +44,7 @@ Response Elm327DataParser::ParseResponse(const std::string& command, std::string
 
     Response parsedResponse;
     parsedResponse.commandPid = pid;
-    parsedResponse.raw.commandId= { command[0] + match[commandPidGroupIndex].str() };
+    parsedResponse.raw.commandId = { command[0] + match[commandPidGroupIndex].str() };
     parsedResponse.raw.data = match[dataGroupIndex];
     parsedResponse.raw.ecuId = match[ecuIdGroupIndex];
     if (!match[responseSizeGroupIndex].str().empty()) {

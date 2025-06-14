@@ -10,7 +10,8 @@ add_library(
   CommandProcessor/elm327/elm327-command-repository.cpp
   CommandProcessor/elm327/elm327-data-decoder.cpp
   CommandProcessor/elm327/elm327-data-parser.cpp
-  CommandProcessor/elm327/elm327-engine.cpp)
+  CommandProcessor/elm327/elm327-engine.cpp
+  CommandProcessor/elm327/elm327-dtc-handler.cpp)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   CMAKE_CXX_STANDARD 20

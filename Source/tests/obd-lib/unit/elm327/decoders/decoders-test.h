@@ -45,11 +45,11 @@ TEST(elm327decoders, DecodeCountAB)
 
 TEST(elm327decoders, decodeDTC)
 {
-    EXPECT_EQ("P3223", DecodeDTC("013223"));
-    EXPECT_EQ("C0300", DecodeDTC("014300"));
-    EXPECT_EQ("C0700", DecodeDTC("014700"));
-    EXPECT_EQ("B3110", DecodeDTC("01B110"));
-    EXPECT_EQ("U0158", DecodeDTC("01C158"));
+    EXPECT_EQ("P3223", DecodeDTC("3223"));
+    EXPECT_EQ("C0300", DecodeDTC("4300"));
+    EXPECT_EQ("C0700", DecodeDTC("4700"));
+    EXPECT_EQ("B3110", DecodeDTC("B110"));
+    EXPECT_EQ("U0158", DecodeDTC("C158"));
 }
 
 TEST(elm327decoders, decodeAirFlow)

@@ -7,7 +7,8 @@ add_executable(
   command-repo-test.h
   live-data-test.h
   parser-test.h
-  response-test.h)
+  response-test.h
+  dtc-handler-test.h)
 
 set_target_properties(
   elm327-ut PROPERTIES CMAKE_CXX_STANDARD 20)

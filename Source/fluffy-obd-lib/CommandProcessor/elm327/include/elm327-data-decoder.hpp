@@ -4,7 +4,20 @@
 #include "data-decoder.hpp"
 #include "response.hpp"
 
+#include <functional>
+#include <unordered_map>
+
 class Elm327DataDecoder : public DataDecoder {
+
+    using FunctionType = DecodedData (Elm327DataDecoder::*)(const std::string&);
+
+    struct decoderFunction {
+        FunctionType function;
+        DataType dataType;
+    };
+
+    static std::unordered_map<ObdCommandPid, decoderFunction> getDecodingMap();
+
 public:
     Elm327DataDecoder() = default;
 
