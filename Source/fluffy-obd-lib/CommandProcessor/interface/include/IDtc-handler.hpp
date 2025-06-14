@@ -17,13 +17,19 @@ protected:
     RetrievedDtc m_retrievedDtc;
 
 public:
-    // Default constructor and destructor
     IDtcHandler() = default;
     virtual ~IDtcHandler() = default;
 
     virtual void ParseStoredDtc(Response& dtcResponse) = 0;
     virtual void ParsePendingDtc(Response& dtcResponse) = 0;
     virtual void ParsePermanentDtc(Response& dtcResponse) = 0;
+
+    void ClearDtcData()
+    {
+        m_retrievedDtc.storedDtcCodes.clear();
+        m_retrievedDtc.pendingDtcCodes.clear();
+        m_retrievedDtc.permanentDtcCodes.clear();
+    }
 
     std::vector<std::string> GetStoredDtcCodes() const
     {

@@ -17,6 +17,10 @@ TEST_F(Elm327DtcHandlerTest, ParseEmptyDtcResponse)
     response.raw.data = "00";
 
     EXPECT_NO_THROW(dtcHandler.ParseStoredDtc(response));
+
+    EXPECT_TRUE(dtcHandler.GetStoredDtcCodes().empty());
+    EXPECT_TRUE(dtcHandler.GetPendingDtcCodes().empty());
+    EXPECT_TRUE(dtcHandler.GetPermanentDtcCodes().empty());
 }
 
 TEST_F(Elm327DtcHandlerTest, ParseStoredDtcValidResponse)
@@ -28,6 +32,11 @@ TEST_F(Elm327DtcHandlerTest, ParseStoredDtcValidResponse)
     auto dtcCodes = dtcHandler.GetStoredDtcCodes();
     EXPECT_EQ(dtcCodes.size(), 1);
     EXPECT_EQ(dtcCodes[0], "P3223");
+
+    EXPECT_TRUE(dtcHandler.GetPendingDtcCodes().empty());
+    EXPECT_TRUE(dtcHandler.GetPermanentDtcCodes().empty());
+    dtcHandler.ClearDtcData();
+    EXPECT_TRUE(dtcHandler.GetStoredDtcCodes().empty());
 }
 
 TEST_F(Elm327DtcHandlerTest, ParsePendingDtcValidResponse)
@@ -40,6 +49,11 @@ TEST_F(Elm327DtcHandlerTest, ParsePendingDtcValidResponse)
     EXPECT_EQ(dtcCodes.size(), 2);
     EXPECT_EQ(dtcCodes[0], "C0300");
     EXPECT_EQ(dtcCodes[1], "C0700");
+
+    EXPECT_TRUE(dtcHandler.GetStoredDtcCodes().empty());
+    EXPECT_TRUE(dtcHandler.GetPermanentDtcCodes().empty());
+    dtcHandler.ClearDtcData();
+    EXPECT_TRUE(dtcHandler.GetPendingDtcCodes().empty());
 }
 
 TEST_F(Elm327DtcHandlerTest, ParsePermanentDtcValidResponse)
@@ -54,6 +68,12 @@ TEST_F(Elm327DtcHandlerTest, ParsePermanentDtcValidResponse)
     EXPECT_EQ(dtcCodes[1], "U0158");
     EXPECT_EQ(dtcCodes[2], "C0700");
     EXPECT_EQ(dtcCodes[3], "P3223");
+    
+    EXPECT_TRUE(dtcHandler.GetPendingDtcCodes().empty());
+    EXPECT_TRUE(dtcHandler.GetStoredDtcCodes().empty());
+
+    dtcHandler.ClearDtcData();
+    EXPECT_TRUE(dtcHandler.GetPermanentDtcCodes().empty());
 }
 
 TEST_F(Elm327DtcHandlerTest, ParseInvalidCommandId)
@@ -77,6 +97,10 @@ TEST_F(Elm327DtcHandlerTest, ParseInvalidLength)
 
     response.raw.commandId = "0A";
     EXPECT_THROW(dtcHandler.ParsePermanentDtc(response), std::runtime_error);
+
+    EXPECT_TRUE(dtcHandler.GetStoredDtcCodes().empty());
+    EXPECT_TRUE(dtcHandler.GetPendingDtcCodes().empty());
+    EXPECT_TRUE(dtcHandler.GetPermanentDtcCodes().empty());
 }
 
 #endif // DTC_HANDLER_TEST_H_
