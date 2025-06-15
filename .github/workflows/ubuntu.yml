@@ -31,6 +31,20 @@ jobs:
       # Execute tests defined by the CMake configuration.
       run: ctest -C Debug
 
+    - name: Clang-Tidy And Format checks
+      uses: cpp-linter/cpp-linter-action@v2.15.0
+      id: linter
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          repo-root: ${{github.workspace}}/Source
+          ignore: 'Source/tests/** | Source/obd-scanner/**'
+          files-changed-only: false
+          version: '14' 
+          style: 'file'  # Use .clang-format config file. 
+          tidy-checks: '' # Use .clang-tidy config file. 
+          thread-comments: ${{ github.event_name == 'pull_request' && 'update' }}
+
     - name: Generate Code Coverage
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
