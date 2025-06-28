@@ -7,6 +7,9 @@
 #include "elm327-data-parser.hpp"
 
 class Elm327CommandProcessor : public ICommandProcessor {
+
+    virtual Response RetrieveMultiFrameResponse(const std::string& command, std::smatch& match, ObdCommandPid pid) override;
+
 public:
     Elm327CommandProcessor()
         : ICommandProcessor(

@@ -10,11 +10,20 @@
 
 class Elm327DataParser : public DataParser {
 private:
+    static constexpr uint8_t ecuIdGroupIndex { 2 };
+    static constexpr uint8_t responseSizeGroupIndex { 3 };
+    static constexpr uint8_t commandPidGroupIndex { 4 };
+    static constexpr uint8_t dataGroupIndex { 5 };
+
     void processResponse(Response& parsedResponse, ObdCommandPid pid);
 
 public:
     Elm327DataParser();
-    virtual Response ParseResponse(const std::string& command, std::string response, ObdCommandPid pid) override;
+
+    virtual std::pair<FrameType, std::smatch> preProcessResponse(const std::string& command, std::string& response);
+
+    virtual Response ParseSingleFrameResponse(const std::string& command, std::smatch& match, ObdCommandPid pid) override;
+
     static std::size_t getExpectedResponseSizeByPid(ObdCommandPid pid);
 };
 

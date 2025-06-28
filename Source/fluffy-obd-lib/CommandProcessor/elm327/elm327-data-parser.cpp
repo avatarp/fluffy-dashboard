@@ -5,31 +5,43 @@ Elm327DataParser::Elm327DataParser()
     m_decoder = std::make_shared<Elm327DataDecoder>();
 }
 
-// NOLINTNEXTLINE (bugprone-easily-swappable-parameters)
-Response Elm327DataParser::ParseResponse(const std::string& command, std::string response, ObdCommandPid pid)
+std::pair<FrameType, std::smatch> Elm327DataParser::preProcessResponse(const std::string& command, std::string& response)
 {
     // Remove whitespaces from the response
     response.erase(remove_if(response.begin(), response.end(), isspace), response.end());
 
     spdlog::info("Parsing response: {}", response);
 
-    constexpr uint8_t ecuIdGroupIndex { 2 };
-    constexpr uint8_t responseSizeGroupIndex { 3 };
-    constexpr uint8_t commandPidGroupIndex { 4 };
-    constexpr uint8_t dataGroupIndex { 5 };
-
-    std::smatch match;
-    const std::regex singleFrameRegexPattern { "(([0-9A-Z]{3})([0-9]{2}))?4("
+    // Define regex pattern to match the response format
+    // Example: "7E8 03 41 05 4B"
+    const std::regex frameRegexPattern { "(([0-9A-Z]{3})([0-9A-F]{2}|[0-9A-F]{4}))?4("
         + command.substr(1, command.size() - 2)
         + ")([0-9A-F]+)" };
+    std::smatch match;
 
-    // Check if the response matches the expected regex pattern
-    if (!std::regex_search(response, match, singleFrameRegexPattern)) {
-        throw(std::runtime_error { "Response to: "
-            + command.substr(0, command.size() - 2)
-            + ", not matched!\n" });
+    if (regex_search(response, match, frameRegexPattern)) {
+
+        auto responseType = match[responseSizeGroupIndex].str()[0];
+        auto responseSizeLength = match[responseSizeGroupIndex].str().length();
+
+        if (responseSizeLength == 2 && responseType == static_cast<char>(FrameType::Single)) {
+            spdlog::info("Single frame response detected for command: {}", command);
+            return std::make_pair(FrameType::Single, match);
+        } else if (responseSizeLength == 4 && responseType == static_cast<char>(FrameType::First)) {
+            spdlog::info("Multi frame response detected for command: {}", command);
+            return std::make_pair(FrameType::First, match);
+        } else if (responseSizeLength == 2 && responseType == static_cast<char>(FrameType::Consecutive)) {
+            spdlog::info("Consecutive frame response detected for command: {}", command);
+            return std::make_pair(FrameType::Consecutive, match);
+        }
     }
+    spdlog::error("Response to: {}, not matched!", command.substr(0, command.size() - 2));
+    return std::make_pair(FrameType::Invalid, match);
+}
 
+// NOLINTNEXTLINE (bugprone-easily-swappable-parameters)
+Response Elm327DataParser::ParseSingleFrameResponse(const std::string& command, std::smatch& match, ObdCommandPid pid)
+{
     if (static_cast<size_t>(match[dataGroupIndex].length()) != getExpectedResponseSizeByPid(pid) * 2) {
 
         const std::string exceptionMessage = "Response to: "

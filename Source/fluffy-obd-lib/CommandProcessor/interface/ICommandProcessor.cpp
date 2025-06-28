@@ -24,13 +24,6 @@ std::string ICommandProcessor::ReadResponse()
     return m_obdAccess->Read();
 }
 
-Response ICommandProcessor::GetCommandResponse(ObdCommandPid pid)
-{
-    std::string command = m_commandRepository->getCommandByPid(pid);
-    SendCommand(command);
-    return m_dataParser->ParseResponse(command, ReadResponse(), pid);
-}
-
 void ICommandProcessor::SetObdAccess(std::shared_ptr<Obd::ObdAccess> obdAccess)
 {
     m_obdAccess = std::move(obdAccess);
