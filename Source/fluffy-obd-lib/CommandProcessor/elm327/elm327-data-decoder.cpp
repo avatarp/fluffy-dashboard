@@ -480,7 +480,7 @@ DecodedData Elm327DataDecoder::GetVinMessageCount(const std::string& data)
 
 DecodedData Elm327DataDecoder::GetVin(const std::string& data)
 {
-    constexpr size_t dataItemCountLength{2};
+    constexpr size_t dataItemCountLength { 2 };
     return StringData { elm327::decoders::DecodeString(data.substr(dataItemCountLength, data.length() - dataItemCountLength)), "VIN" };
 }
 

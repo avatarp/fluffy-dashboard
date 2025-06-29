@@ -5,6 +5,20 @@ Elm327DataParser::Elm327DataParser()
     m_decoder = std::make_shared<Elm327DataDecoder>();
 }
 
+uint8_t to_uint8_t(const std::string& str)
+{
+    // NOLINTNEXTLINE (readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
+    int hexBase { 16 };
+    try {
+        return static_cast<uint8_t>(std::stoi(str, nullptr, hexBase));
+    } catch (const std::invalid_argument& e) {
+        spdlog::error("Invalid argument in toUint8 conversion: {}", e.what());
+    } catch (const std::out_of_range& e) {
+        spdlog::error("Out of range in toUint8 conversion: {}", e.what());
+    }
+    return 0;
+}
+
 std::pair<FrameType, std::smatch> Elm327DataParser::preProcessResponse(const std::string& command, std::string& response)
 {
     // Remove whitespaces from the response
@@ -27,10 +41,12 @@ std::pair<FrameType, std::smatch> Elm327DataParser::preProcessResponse(const std
         if (responseSizeLength == 2 && responseType == static_cast<char>(FrameType::Single)) {
             spdlog::info("Single frame response detected for command: {}", command);
             return std::make_pair(FrameType::Single, match);
-        } else if (responseSizeLength == 4 && responseType == static_cast<char>(FrameType::First)) {
+        }
+        if (responseSizeLength == 4 && responseType == static_cast<char>(FrameType::First)) {
             spdlog::info("Multi frame response detected for command: {}", command);
             return std::make_pair(FrameType::First, match);
-        } else if (responseSizeLength == 2 && responseType == static_cast<char>(FrameType::Consecutive)) {
+        }
+        if (responseSizeLength == 2 && responseType == static_cast<char>(FrameType::Consecutive)) {
             spdlog::info("Consecutive frame response detected for command: {}", command);
             return std::make_pair(FrameType::Consecutive, match);
         }
@@ -55,7 +71,7 @@ std::pair<FrameType, std::smatch> Elm327DataParser::preProcessConsecutiveRespons
 
         auto responseGroup = match[responseSizeGroupIndex].str();
 
-        if( responseGroup.length() != 2) {
+        if (responseGroup.length() != 2) {
             spdlog::error("Invalid response size length! Expected 2, got: {}", responseGroup.length());
             return std::make_pair(FrameType::Invalid, match);
         }
@@ -64,7 +80,7 @@ std::pair<FrameType, std::smatch> Elm327DataParser::preProcessConsecutiveRespons
         auto consecutiveFrameType = static_cast<char>(FrameType::Consecutive);
         auto retrievedFrameIndex = responseGroup[1];
 
-        if ( responseType == consecutiveFrameType && retrievedFrameIndex == expectedFrameIndex) {
+        if (responseType == consecutiveFrameType && retrievedFrameIndex == expectedFrameIndex) {
             spdlog::info("Consecutive frame response detected with valid index {} ", expectedFrameIndex);
             return std::make_pair(FrameType::Consecutive, match);
         }
@@ -94,7 +110,7 @@ Response Elm327DataParser::ParseSingleFrameResponse(const std::string& command, 
     parsedResponse.raw.data = match[dataGroupIndex];
     parsedResponse.raw.ecuId = match[ecuIdGroupIndex];
     if (!match[responseSizeGroupIndex].str().empty()) {
-        parsedResponse.raw.length = static_cast<uint8_t>(std::stoi(match[responseSizeGroupIndex].str()));
+        parsedResponse.raw.length = to_uint8_t(match[responseSizeGroupIndex].str());
     }
 
     m_decoder->decodeResponse(parsedResponse);
@@ -112,11 +128,11 @@ Response Elm327DataParser::ParseMultiFrameResponse(const std::string& command, s
     }
 
     // int dataItemCount = std::stoi(match[dataGroupIndex].str().substr(0, 2), nullptr, 16);
-    
+
     std::string data = response.substr(pos); // Skip the first two characters (response count)
-    
-    size_t constexpr dataItemCountLength{2};
-    size_t constexpr byteLengthMultiplier{2}; // Each byte is represented by 2 hex characters
+
+    size_t constexpr dataItemCountLength { 2 };
+    size_t constexpr byteLengthMultiplier { 2 }; // Each byte is represented by 2 hex characters
 
     if (data.length() != getExpectedResponseSizeByPid(pid) * byteLengthMultiplier + dataItemCountLength) {
 
@@ -136,7 +152,7 @@ Response Elm327DataParser::ParseMultiFrameResponse(const std::string& command, s
     parsedResponse.raw.data = data;
     parsedResponse.raw.ecuId = match[ecuIdGroupIndex];
     if (match[responseSizeGroupIndex].str().size() == 4) {
-        parsedResponse.raw.length = static_cast<uint8_t>(std::stoi(match[responseSizeGroupIndex].str().substr(1, 3), nullptr, 16));
+        parsedResponse.raw.length = to_uint8_t(match[responseSizeGroupIndex].str().substr(1, 3));
     }
 
     m_decoder->decodeResponse(parsedResponse);
@@ -144,6 +160,7 @@ Response Elm327DataParser::ParseMultiFrameResponse(const std::string& command, s
     return parsedResponse;
 }
 
+// NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
 std::size_t Elm327DataParser::getExpectedResponseSizeByPid(ObdCommandPid pid)
 {
     using enum ObdCommandPid;
@@ -221,10 +238,12 @@ std::size_t Elm327DataParser::getExpectedResponseSizeByPid(ObdCommandPid pid)
     case S09P00:
         return 4;
     case S09P02:
-        return 17; // As VIN character count is 17 characters.
+        // VIN character count is 17 characters.
+        return 17;
     // GCOVR_EXCL_START
     default:
         return 0;
         // GCOVR_EXCL_STOP
     }
 }
+// NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)

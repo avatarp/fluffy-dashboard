@@ -35,13 +35,12 @@ Response Elm327CommandProcessor::GetCommandResponse(ObdCommandPid pid)
 
 Response Elm327CommandProcessor::RetrieveMultiFrameResponse(const std::string& command, std::smatch& match, ObdCommandPid pid)
 {
-    uint8_t expectedFrames{0};
-    if(pid == ObdCommandPid::S09P02)
-    {
+    uint8_t expectedFrames { 0 };
+    if (pid == ObdCommandPid::S09P02) {
         expectedFrames = 2; // S09P03 is expected to return 2 consecutive frames
     }
 
-    std::string reassembledResponse{match[0].str()};
+    std::string reassembledResponse { match[0].str() };
 
     for (uint8_t i = 0; i < expectedFrames; ++i) {
 
@@ -59,7 +58,7 @@ Response Elm327CommandProcessor::RetrieveMultiFrameResponse(const std::string& c
             throw std::runtime_error("Received empty response");
         }
 
-        auto preProcessData = m_dataParser->preProcessConsecutiveResponse(std::to_string(i+1)[0], consecutiveResponse);
+        auto preProcessData = m_dataParser->preProcessConsecutiveResponse(std::to_string(i + 1)[0], consecutiveResponse);
         if (preProcessData.first != FrameType::Consecutive) {
             spdlog::error("Expected Consecutive frame type, but got: {}", static_cast<char>(preProcessData.first));
             throw std::runtime_error("Invalid response format");
