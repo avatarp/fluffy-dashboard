@@ -14,7 +14,7 @@ std::pair<FrameType, std::smatch> Elm327DataParser::preProcessResponse(const std
 
     // Define regex pattern to match the response format
     // Example: "7E8 03 41 05 4B"
-    const std::regex frameRegexPattern { "(([0-9A-Z]{3})([0-9A-F]{2}|[0-9A-F]{4}))?4("
+    const std::regex frameRegexPattern { "(([0-9A-Z]{3})?([0-9A-F]{2}|[0-9A-F]{4}))4("
         + command.substr(1, command.size() - 2)
         + ")([0-9A-F]+)" };
     std::smatch match;
@@ -36,6 +36,40 @@ std::pair<FrameType, std::smatch> Elm327DataParser::preProcessResponse(const std
         }
     }
     spdlog::error("Response to: {}, not matched!", command.substr(0, command.size() - 2));
+    return std::make_pair(FrameType::Invalid, match);
+}
+
+std::pair<FrameType, std::smatch> Elm327DataParser::preProcessConsecutiveResponse(char expectedFrameIndex, std::string& response)
+{
+    // Remove whitespaces from the response
+    response.erase(remove_if(response.begin(), response.end(), isspace), response.end());
+
+    spdlog::info("Parsing response: {}", response);
+
+    // Define regex pattern to match the consecutive frame format
+    // Example: "7E8 21 52 46 52 45 56 37 44"
+    const std::regex consecutiveFrameRegexPattern { "(([0-9A-Z]{3})?([0-9A-F]{2})([0-9A-F]+))" };
+    std::smatch match;
+
+    if (regex_search(response, match, consecutiveFrameRegexPattern)) {
+
+        auto responseGroup = match[responseSizeGroupIndex].str();
+
+        if( responseGroup.length() != 2) {
+            spdlog::error("Invalid response size length! Expected 2, got: {}", responseGroup.length());
+            return std::make_pair(FrameType::Invalid, match);
+        }
+
+        auto responseType = responseGroup[0];
+        auto consecutiveFrameType = static_cast<char>(FrameType::Consecutive);
+        auto retrievedFrameIndex = responseGroup[1];
+
+        if ( responseType == consecutiveFrameType && retrievedFrameIndex == expectedFrameIndex) {
+            spdlog::info("Consecutive frame response detected with valid index {} ", expectedFrameIndex);
+            return std::make_pair(FrameType::Consecutive, match);
+        }
+    }
+    spdlog::error("Retrieved message does not match expected consecutive frame type with index {}", expectedFrameIndex);
     return std::make_pair(FrameType::Invalid, match);
 }
 
@@ -61,6 +95,48 @@ Response Elm327DataParser::ParseSingleFrameResponse(const std::string& command, 
     parsedResponse.raw.ecuId = match[ecuIdGroupIndex];
     if (!match[responseSizeGroupIndex].str().empty()) {
         parsedResponse.raw.length = static_cast<uint8_t>(std::stoi(match[responseSizeGroupIndex].str()));
+    }
+
+    m_decoder->decodeResponse(parsedResponse);
+
+    return parsedResponse;
+}
+
+Response Elm327DataParser::ParseMultiFrameResponse(const std::string& command, std::smatch& match, std::string response, ObdCommandPid pid)
+{
+    auto pos = response.find(match[dataGroupIndex].str());
+
+    if (pos == std::string::npos) {
+        spdlog::error("Data group not found in the response: {}", match[dataGroupIndex].str());
+        throw(std::runtime_error { "Data group not found in the response" });
+    }
+
+    // int dataItemCount = std::stoi(match[dataGroupIndex].str().substr(0, 2), nullptr, 16);
+    
+    std::string data = response.substr(pos); // Skip the first two characters (response count)
+    
+    size_t constexpr dataItemCountLength{2};
+    size_t constexpr byteLengthMultiplier{2}; // Each byte is represented by 2 hex characters
+
+    if (data.length() != getExpectedResponseSizeByPid(pid) * byteLengthMultiplier + dataItemCountLength) {
+
+        const std::string exceptionMessage = "Response to: "
+            + command.substr(0, command.size() - 1)
+            + ", data length mismatching expected size!\nExpected: "
+            + std::to_string(getExpectedResponseSizeByPid(pid) * 2)
+            + ", got: " + std::to_string(match[dataGroupIndex].length());
+
+        spdlog::error(exceptionMessage);
+        throw(std::runtime_error { exceptionMessage });
+    }
+
+    Response parsedResponse;
+    parsedResponse.commandPid = pid;
+    parsedResponse.raw.commandId = { command[0] + match[commandPidGroupIndex].str() };
+    parsedResponse.raw.data = data;
+    parsedResponse.raw.ecuId = match[ecuIdGroupIndex];
+    if (match[responseSizeGroupIndex].str().size() == 4) {
+        parsedResponse.raw.length = static_cast<uint8_t>(std::stoi(match[responseSizeGroupIndex].str().substr(1, 3), nullptr, 16));
     }
 
     m_decoder->decodeResponse(parsedResponse);
@@ -144,6 +220,8 @@ std::size_t Elm327DataParser::getExpectedResponseSizeByPid(ObdCommandPid pid)
 
     case S09P00:
         return 4;
+    case S09P02:
+        return 17; // As VIN character count is 17 characters.
     // GCOVR_EXCL_START
     default:
         return 0;

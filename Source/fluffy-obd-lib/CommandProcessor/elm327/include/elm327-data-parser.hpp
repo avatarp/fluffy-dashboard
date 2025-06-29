@@ -22,7 +22,11 @@ public:
 
     virtual std::pair<FrameType, std::smatch> preProcessResponse(const std::string& command, std::string& response);
 
+    virtual std::pair<FrameType, std::smatch> preProcessConsecutiveResponse(char expectedFrameIndex, std::string& response);
+
     virtual Response ParseSingleFrameResponse(const std::string& command, std::smatch& match, ObdCommandPid pid) override;
+
+    virtual Response ParseMultiFrameResponse(const std::string& command, std::smatch& match, std::string response, ObdCommandPid pid) override;
 
     static std::size_t getExpectedResponseSizeByPid(ObdCommandPid pid);
 };

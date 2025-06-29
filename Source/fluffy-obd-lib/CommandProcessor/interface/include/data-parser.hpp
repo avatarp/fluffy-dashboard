@@ -21,7 +21,10 @@ protected:
 public:
     virtual ~DataParser() { }
     virtual std::pair<FrameType, std::smatch> preProcessResponse(const std::string& command, std::string& response) = 0;
+    virtual std::pair<FrameType, std::smatch> preProcessConsecutiveResponse(char expectedFrameIndex, std::string& response) = 0;
+
     virtual Response ParseSingleFrameResponse(const std::string& command, std::smatch& match, ObdCommandPid pid) = 0;
+    virtual Response ParseMultiFrameResponse(const std::string& command, std::smatch& match, std::string response, ObdCommandPid pid) = 0;
 };
 
 #endif // DATA_FILTERS_HPP_
