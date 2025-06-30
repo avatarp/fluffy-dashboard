@@ -68,7 +68,7 @@ TEST_F(Elm327DtcHandlerTest, ParsePermanentDtcValidResponse)
     EXPECT_EQ(dtcCodes[1], "U0158");
     EXPECT_EQ(dtcCodes[2], "C0700");
     EXPECT_EQ(dtcCodes[3], "P3223");
-    
+
     EXPECT_TRUE(dtcHandler.GetPendingDtcCodes().empty());
     EXPECT_TRUE(dtcHandler.GetStoredDtcCodes().empty());
 

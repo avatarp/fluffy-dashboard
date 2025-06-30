@@ -1,20 +1,17 @@
 #ifndef SERIALDEVICE_HPP_
 #define SERIALDEVICE_HPP_
 
-#include "bluetooth-obd-access.hpp"
-#include "device.hpp"
 #include "obd-serial-provider.hpp"
 #include "serial-obd-access.hpp"
 
-#include "elm327-data-decoder.hpp"
-#include "elm327-engine.hpp"
+#include "elm327-command-processor.hpp"
 
 #include "test-helpers.hpp"
 
-bool testGetAvailablePids(Elm327Engine& engine, Response& availablePids)
+bool testGetAvailablePids(Elm327CommandProcessor& commandProcessor, Response& availablePids)
 {
     try {
-        availablePids = engine.GetCommandResponse(ObdCommandPid::S01P00);
+        availablePids = commandProcessor.GetCommandResponse(ObdCommandPid::S01P00);
     } catch (const std::exception& exc) {
         std::cerr << exc.what() << '\n';
         return false;
@@ -30,14 +27,14 @@ bool testGetAvailablePids(Elm327Engine& engine, Response& availablePids)
 
 void runSerialDeviceTest(TestResults& results)
 {
-    Elm327Engine engine;
+    Elm327CommandProcessor commandProcessor;
 
     auto serialDevices = Obd::ObdSerialProvider::GetAvailableDevices();
     bool connectionSuccessful { false };
     for (auto const& device : serialDevices) {
-        engine.SetObdAccess(std::make_unique<Obd::UsbObdAccess>());
-        engine.GetObdAccess()->SetDevice(device);
-        if (engine.OpenConnection()) {
+        commandProcessor.SetObdAccess(std::make_unique<Obd::UsbObdAccess>());
+        commandProcessor.GetObdAccess()->SetDevice(device);
+        if (commandProcessor.OpenConnection()) {
             std::clog << "Successful connection with " << device.m_DeviceFilePath << std::endl;
             connectionSuccessful = true;
             break;
@@ -52,7 +49,7 @@ void runSerialDeviceTest(TestResults& results)
     Response availablePids;
 
     results.testCounter++;
-    if (!testGetAvailablePids(engine, availablePids)) {
+    if (!testGetAvailablePids(commandProcessor, availablePids)) {
         results.failCounter++;
         return;
     }

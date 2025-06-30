@@ -74,7 +74,8 @@ std::unordered_map<ObdCommandPid, Elm327DataDecoder::decoderFunction> Elm327Data
         { S01P3E, { &Elm327DataDecoder::GetCatalystTemperatureB1S2, DataType::number } },
         { S01P3F, { &Elm327DataDecoder::GetCatalystTemperatureB2S2, DataType::number } },
 
-        { S09P00, { &Elm327DataDecoder::GetSupportedVIPIDs, DataType::string } }
+        { S09P00, { &Elm327DataDecoder::GetSupportedVIPIDs, DataType::string } },
+        { S09P02, { &Elm327DataDecoder::GetVin, DataType::string } }
     };
     return decodingMap;
 }
@@ -479,7 +480,8 @@ DecodedData Elm327DataDecoder::GetVinMessageCount(const std::string& data)
 
 DecodedData Elm327DataDecoder::GetVin(const std::string& data)
 {
-    return StringData { elm327::decoders::DecodeString(data), "VIN" };
+    constexpr size_t dataItemCountLength { 2 };
+    return StringData { elm327::decoders::DecodeString(data.substr(dataItemCountLength, data.length() - dataItemCountLength)), "VIN" };
 }
 
 DecodedData Elm327DataDecoder::GetCalibrationIdMessageCount(const std::string& data)

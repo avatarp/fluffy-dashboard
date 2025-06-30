@@ -3,14 +3,12 @@
 
 #include "bluetooth-obd-access.hpp"
 #include "bluetooth-provider.hpp"
-#include "device.hpp"
 
-#include "elm327-data-decoder.hpp"
-#include "elm327-engine.hpp"
+#include "elm327-command-processor.hpp"
 
 #include "test-helpers.hpp"
 
-bool connectWithDevice(Elm327Engine& engine, const std::string& deviceMAC)
+bool connectWithDevice(Elm327CommandProcessor& commandProcessor, const std::string& deviceMAC)
 {
     Obd::BluetoothProvider btProvider;
     if (!btProvider.IsBluetoothAvailable()) {
@@ -30,14 +28,14 @@ bool connectWithDevice(Elm327Engine& engine, const std::string& deviceMAC)
                   << "MAC: " << device.address().toString().toStdString() << "\n\n";
 
         if (deviceMAC == device.address().toString().toStdString()) {
-            engine.SetObdAccess(std::make_unique<Obd::BluetoothObdAccess>());
+            commandProcessor.SetObdAccess(std::make_unique<Obd::BluetoothObdAccess>());
 
             Obd::Device obdDevice = btProvider.CreateDevice(device);
-            engine.GetObdAccess()->SetDevice(obdDevice);
+            commandProcessor.GetObdAccess()->SetDevice(obdDevice);
 
             std::clog << "Connecting to device..." << std::endl;
 
-            if (engine.OpenConnection()) {
+            if (commandProcessor.OpenConnection()) {
                 return true;
             }
         }
@@ -46,10 +44,10 @@ bool connectWithDevice(Elm327Engine& engine, const std::string& deviceMAC)
     return false;
 }
 
-bool testBTGetAvailablePids(Elm327Engine& engine, Response& availablePids)
+bool testBTGetAvailablePids(Elm327CommandProcessor& commandProcessor, Response& availablePids)
 {
     try {
-        availablePids = engine.GetCommandResponse(ObdCommandPid::S01P00);
+        availablePids = commandProcessor.GetCommandResponse(ObdCommandPid::S01P00);
     } catch (const std::exception& exc) {
         std::cerr << exc.what() << '\n';
         return false;
@@ -65,10 +63,10 @@ bool testBTGetAvailablePids(Elm327Engine& engine, Response& availablePids)
 
 void runBluetoothDeviceTestMain(TestResults& results)
 {
-    Elm327Engine engine;
+    Elm327CommandProcessor commandProcessor;
 
     const std::string elm327MAC { "00:1D:A5:68:98:8B" };
-    if (!connectWithDevice(engine, elm327MAC)) {
+    if (!connectWithDevice(commandProcessor, elm327MAC)) {
         std::cerr << "Opening connection failed" << std::endl;
         return;
     }
@@ -79,7 +77,7 @@ void runBluetoothDeviceTestMain(TestResults& results)
     Response availablePids;
 
     results.testCounter++;
-    if (!testBTGetAvailablePids(engine, availablePids)) {
+    if (!testBTGetAvailablePids(commandProcessor, availablePids)) {
         results.failCounter++;
         return;
     }
@@ -95,7 +93,7 @@ void runBluetoothDeviceTestMain(TestResults& results)
         if (availablePidsBitset[i]) {
             ObdCommandPid commandPid = static_cast<ObdCommandPid>(bitsetSize - i + 1u);
             try {
-                auto pidResponse = engine.GetCommandResponse(commandPid);
+                auto pidResponse = commandProcessor.GetCommandResponse(commandPid);
                 std::clog << "\nPID (hex): 0x10" << std::hex << bitsetSize - i + 1u << std::dec
                           << " Response\n"
                           << pidResponse << std::endl;

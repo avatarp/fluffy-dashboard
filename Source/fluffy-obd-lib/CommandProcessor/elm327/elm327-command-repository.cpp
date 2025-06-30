@@ -132,7 +132,20 @@ std::unordered_map<ObdCommandPid, std::string> Elm327CommandRepository::getComma
         { ObdCommandPid::S02P3D, "023D\r" },
         { ObdCommandPid::S02P3E, "023E\r" },
         { ObdCommandPid::S02P3F, "023F\r" },
-        { ObdCommandPid::S03, "03\r" }
+        { ObdCommandPid::S03, "03\r" },
+
+        { ObdCommandPid::S09P00, "0900\r" },
+        { ObdCommandPid::S09P01, "0901\r" },
+        { ObdCommandPid::S09P02, "0902\r" },
+        { ObdCommandPid::S09P03, "0903\r" },
+        { ObdCommandPid::S09P04, "0904\r" },
+        { ObdCommandPid::S09P05, "0905\r" },
+        { ObdCommandPid::S09P06, "0906\r" },
+        { ObdCommandPid::S09P07, "0907\r" },
+        { ObdCommandPid::S09P08, "0908\r" },
+        { ObdCommandPid::S09P09, "0909\r" },
+        { ObdCommandPid::S09P0A, "090A\r" },
+        { ObdCommandPid::S09P0B, "090B\r" }
     };
     // GCOVR_EXCL_STOP
     return commandMap;

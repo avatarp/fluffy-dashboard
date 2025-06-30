@@ -33,6 +33,8 @@ protected:
     virtual bool SendCommand(const std::string& command);
     virtual std::string ReadResponse();
 
+    virtual Response RetrieveMultiFrameResponse(const std::string& command, std::smatch& match, ObdCommandPid pid) = 0;
+
 public:
     ICommandProcessor() = default;
 
@@ -53,7 +55,7 @@ public:
 
     virtual bool OpenConnection();
     virtual bool Disconnect();
-    Response GetCommandResponse(ObdCommandPid pid);
+    virtual Response GetCommandResponse(ObdCommandPid pid) = 0;
 };
 
 #endif // DIAGNOSTICS_ENGINE_HPP_
