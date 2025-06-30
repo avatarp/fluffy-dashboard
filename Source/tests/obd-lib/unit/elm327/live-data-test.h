@@ -33,6 +33,17 @@ TEST(Elm327Test, throwOnNoObdAccessSet)
         std::runtime_error);
 }
 
+TEST_F(Elm327LiveDataTest, throwOnSendCommandFailure)
+{
+    obdAccess->SetDevice(CreateUsbDevice());
+    EXPECT_CALL(*obdAccess, Write(_)).WillOnce(Return(false));
+
+    EXPECT_THROW({
+        std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S01P04);
+    },
+        std::runtime_error);
+}
+
 TEST_F(Elm327LiveDataTest, noDeviceOpenConnectionFails)
 {
     EXPECT_CALL(*obdAccess, IsDeviceFileOk).WillOnce(Return(false));
@@ -94,6 +105,34 @@ TEST_F(Elm327LiveDataTest, dummyUsbValidSingleFrame)
     EXPECT_TRUE(commandProcessor.Disconnect());
 }
 
+TEST_F(Elm327LiveDataTest, dummyUsbValidConsecutiveFrameFirst)
+{
+    EXPECT_CALL(*obdAccess, Write(_)).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Read()).WillOnce(Return(std::string("7E8 23 41 04 FF")));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
+    commandProcessor.GetObdAccess()->SetDevice(dummyUsb);
+
+    EXPECT_TRUE(commandProcessor.OpenConnection());
+    EXPECT_THROW({
+        std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S01P04);
+    }, std::runtime_error);
+}
+
+TEST_F(Elm327LiveDataTest, dummyUsbValidInvalidFrameFirst)
+{
+    EXPECT_CALL(*obdAccess, Write(_)).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Read()).WillOnce(Return(std::string("7E8 F3 41 04 FF")));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
+    commandProcessor.GetObdAccess()->SetDevice(dummyUsb);
+
+    EXPECT_TRUE(commandProcessor.OpenConnection());
+    EXPECT_THROW({
+        std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S01P04);
+    }, std::runtime_error);
+}
+
 TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVin)
 {
     EXPECT_CALL(*obdAccess, IsFileDescriptorValid).WillOnce(Return(true));
@@ -119,5 +158,58 @@ TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVin)
     EXPECT_EQ("2T3RFREV7DW108177", std::get<StringData>(response.decodedData).first);
 
     EXPECT_TRUE(commandProcessor.Disconnect());
+}
+
+TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVinFailInvalidFrameType)
+{
+    EXPECT_CALL(*obdAccess, Write("0902\r")).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("3101F1\r")).Times(2).WillRepeatedly(Return(true));
+    EXPECT_CALL(*obdAccess, Read())
+        .WillOnce(Return(std::string("7E8 10 14 49 02 01 32 54 33")))
+        .WillOnce(Return(std::string("7E8 21 52 46 52 45 56 37 44")))
+        .WillOnce(Return(std::string("7E8 32 57 31 30 38 31 37 37")));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
+    commandProcessor.GetObdAccess()->SetDevice(dummyUsb);
+
+    EXPECT_TRUE(commandProcessor.OpenConnection());
+    EXPECT_THROW({
+        std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S09P02);
+    }, std::runtime_error);
+}
+
+TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVinFailEmptyFrame)
+{
+    EXPECT_CALL(*obdAccess, Write("0902\r")).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("3101F1\r")).Times(2).WillRepeatedly(Return(true));
+    EXPECT_CALL(*obdAccess, Read())
+        .WillOnce(Return(std::string("7E8 10 14 49 02 01 32 54 33")))
+        .WillOnce(Return(std::string("7E8 21 52 46 52 45 56 37 44")))
+        .WillOnce(Return(std::string("  ")));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
+    commandProcessor.GetObdAccess()->SetDevice(dummyUsb);
+
+    EXPECT_TRUE(commandProcessor.OpenConnection());
+    EXPECT_THROW({
+        std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S09P02);
+    }, std::runtime_error);
+}
+
+TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVinFailToSendFlowControlCommand)
+{
+    EXPECT_CALL(*obdAccess, Write("0902\r")).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("3101F1\r")).WillOnce(Return(true)).WillOnce(Return(false));
+    EXPECT_CALL(*obdAccess, Read())
+        .WillOnce(Return(std::string("7E8 10 14 49 02 01 32 54 33")))
+        .WillOnce(Return(std::string("7E8 21 52 46 52 45 56 37 44")));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
+    commandProcessor.GetObdAccess()->SetDevice(dummyUsb);
+
+    EXPECT_TRUE(commandProcessor.OpenConnection());
+    EXPECT_THROW({
+        std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S09P02);
+    }, std::runtime_error);
 }
 #endif // LIVE_DATA_TEST_H_

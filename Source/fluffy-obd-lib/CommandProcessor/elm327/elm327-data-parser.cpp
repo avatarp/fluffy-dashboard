@@ -121,15 +121,11 @@ Response Elm327DataParser::ParseSingleFrameResponse(const std::string& command, 
 Response Elm327DataParser::ParseMultiFrameResponse(const std::string& command, std::smatch& match, std::string response, ObdCommandPid pid)
 {
     auto pos = response.find(match[dataGroupIndex].str());
-
     if (pos == std::string::npos) {
         spdlog::error("Data group not found in the response: {}", match[dataGroupIndex].str());
         throw(std::runtime_error { "Data group not found in the response" });
     }
-
-    // int dataItemCount = std::stoi(match[dataGroupIndex].str().substr(0, 2), nullptr, 16);
-
-    std::string data = response.substr(pos); // Skip the first two characters (response count)
+    std::string data = response.substr(pos);
 
     size_t constexpr dataItemCountLength { 2 };
     size_t constexpr byteLengthMultiplier { 2 }; // Each byte is represented by 2 hex characters
