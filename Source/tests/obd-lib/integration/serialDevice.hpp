@@ -1,8 +1,6 @@
 #ifndef SERIALDEVICE_HPP_
 #define SERIALDEVICE_HPP_
 
-#include "bluetooth-obd-access.hpp"
-#include "device.hpp"
 #include "obd-serial-provider.hpp"
 #include "serial-obd-access.hpp"
 

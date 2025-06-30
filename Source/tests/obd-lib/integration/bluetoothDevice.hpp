@@ -3,11 +3,8 @@
 
 #include "bluetooth-obd-access.hpp"
 #include "bluetooth-provider.hpp"
-#include "device.hpp"
 
 #include "elm327-command-processor.hpp"
-#include "elm327-data-decoder.hpp"
-#include "elm327-engine.hpp"
 
 #include "test-helpers.hpp"
 
