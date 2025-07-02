@@ -105,6 +105,118 @@ TEST_F(Elm327LiveDataTest, dummyUsbValidSingleFrame)
     EXPECT_TRUE(commandProcessor.Disconnect());
 }
 
+TEST_F(Elm327LiveDataTest, dummyUsbValidSingleFrameDtc)
+{
+    EXPECT_CALL(*obdAccess, IsFileDescriptorValid).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, CloseConnection).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("03\r")).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Read()).WillOnce(Return(std::string("7E8 04 43 01 04 20")));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
+    commandProcessor.GetObdAccess()->SetDevice(dummyUsb);
+
+    EXPECT_TRUE(commandProcessor.OpenConnection());
+    auto response = commandProcessor.GetCommandResponse(ObdCommandPid::S03);
+
+    EXPECT_EQ("03", response.raw.commandId);
+    EXPECT_EQ("7E8", response.raw.ecuId);
+    EXPECT_EQ(4, response.raw.length);
+    EXPECT_EQ("010420", response.raw.data);
+
+    auto storedDtcCodes = commandProcessor.GetDtcHandler()->GetStoredDtcCodes();
+    EXPECT_EQ(storedDtcCodes.size(), 1);
+    EXPECT_EQ(storedDtcCodes[0], "P0420");
+
+    EXPECT_TRUE(commandProcessor.Disconnect());
+}
+
+TEST_F(Elm327LiveDataTest, dummyUsbValidSingleFrameDtc2)
+{
+    EXPECT_CALL(*obdAccess, IsFileDescriptorValid).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, CloseConnection).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("03\r")).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Read()).WillOnce(Return(std::string("7E8 06 43 02 04 20 B1 10")));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
+    commandProcessor.GetObdAccess()->SetDevice(dummyUsb);
+
+    EXPECT_TRUE(commandProcessor.OpenConnection());
+    auto response = commandProcessor.GetCommandResponse(ObdCommandPid::S03);
+
+    EXPECT_EQ("03", response.raw.commandId);
+    EXPECT_EQ("7E8", response.raw.ecuId);
+    EXPECT_EQ(6, response.raw.length);
+    EXPECT_EQ("020420B110", response.raw.data);
+
+    auto storedDtcCodes = commandProcessor.GetDtcHandler()->GetStoredDtcCodes();
+    EXPECT_EQ(storedDtcCodes.size(), 2);
+    EXPECT_EQ(storedDtcCodes[0], "P0420");
+    EXPECT_EQ(storedDtcCodes[1], "B3110");
+
+    EXPECT_TRUE(commandProcessor.Disconnect());
+}
+
+TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameDtc3)
+{
+    EXPECT_CALL(*obdAccess, IsFileDescriptorValid).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, CloseConnection).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("07\r")).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("3101F1\r")).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Read())
+        .WillOnce(Return(std::string("7E8 10 08 47 03 04 20 B1 10 43")))
+        .WillOnce(Return(std::string("7E8 21 00")));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
+    commandProcessor.GetObdAccess()->SetDevice(dummyUsb);
+
+    EXPECT_TRUE(commandProcessor.OpenConnection());
+    auto response = commandProcessor.GetCommandResponse(ObdCommandPid::S07);
+
+    EXPECT_EQ("07", response.raw.commandId);
+    EXPECT_EQ("7E8", response.raw.ecuId);
+    EXPECT_EQ(8, response.raw.length);
+    EXPECT_EQ("030420B1104300", response.raw.data);
+
+    auto pendingDtcCodes = commandProcessor.GetDtcHandler()->GetPendingDtcCodes();
+    EXPECT_EQ(pendingDtcCodes.size(), 3);
+    EXPECT_EQ(pendingDtcCodes[0], "P0420");
+    EXPECT_EQ(pendingDtcCodes[1], "B3110");
+    EXPECT_EQ(pendingDtcCodes[2], "C0300");
+
+    EXPECT_TRUE(commandProcessor.Disconnect());
+}
+
+TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameDtc4)
+{
+    EXPECT_CALL(*obdAccess, IsFileDescriptorValid).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, CloseConnection).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("0A\r")).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Write("3101F1\r")).WillOnce(Return(true));
+    EXPECT_CALL(*obdAccess, Read())
+        .WillOnce(Return(std::string("7E8 10 0A 4A 04 04 20 B1 10 43")))
+        .WillOnce(Return(std::string("7E8 21 00 32 23")));
+
+    Obd::Device dummyUsb = CreateUsbDevice();
+    commandProcessor.GetObdAccess()->SetDevice(dummyUsb);
+
+    EXPECT_TRUE(commandProcessor.OpenConnection());
+    auto response = commandProcessor.GetCommandResponse(ObdCommandPid::S0A);
+
+    EXPECT_EQ("0A", response.raw.commandId);
+    EXPECT_EQ("7E8", response.raw.ecuId);
+    EXPECT_EQ(10, response.raw.length);
+    EXPECT_EQ("040420B11043003223", response.raw.data);
+
+    auto permanentDtcCodes = commandProcessor.GetDtcHandler()->GetPermanentDtcCodes();
+    EXPECT_EQ(permanentDtcCodes.size(), 4);
+    EXPECT_EQ(permanentDtcCodes[0], "P0420");
+    EXPECT_EQ(permanentDtcCodes[1], "B3110");
+    EXPECT_EQ(permanentDtcCodes[2], "C0300");
+    EXPECT_EQ(permanentDtcCodes[3], "P3223");
+
+    EXPECT_TRUE(commandProcessor.Disconnect());
+}
+
 TEST_F(Elm327LiveDataTest, dummyUsbValidConsecutiveFrameFirst)
 {
     EXPECT_CALL(*obdAccess, Write(_)).WillOnce(Return(true));
@@ -116,7 +228,8 @@ TEST_F(Elm327LiveDataTest, dummyUsbValidConsecutiveFrameFirst)
     EXPECT_TRUE(commandProcessor.OpenConnection());
     EXPECT_THROW({
         std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S01P04);
-    }, std::runtime_error);
+    },
+        std::runtime_error);
 }
 
 TEST_F(Elm327LiveDataTest, dummyUsbValidInvalidFrameFirst)
@@ -130,7 +243,8 @@ TEST_F(Elm327LiveDataTest, dummyUsbValidInvalidFrameFirst)
     EXPECT_TRUE(commandProcessor.OpenConnection());
     EXPECT_THROW({
         std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S01P04);
-    }, std::runtime_error);
+    },
+        std::runtime_error);
 }
 
 TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVin)
@@ -175,7 +289,8 @@ TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVinFailInvalidFrameType)
     EXPECT_TRUE(commandProcessor.OpenConnection());
     EXPECT_THROW({
         std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S09P02);
-    }, std::runtime_error);
+    },
+        std::runtime_error);
 }
 
 TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVinFailEmptyFrame)
@@ -193,7 +308,8 @@ TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVinFailEmptyFrame)
     EXPECT_TRUE(commandProcessor.OpenConnection());
     EXPECT_THROW({
         std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S09P02);
-    }, std::runtime_error);
+    },
+        std::runtime_error);
 }
 
 TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVinFailToSendFlowControlCommand)
@@ -210,6 +326,7 @@ TEST_F(Elm327LiveDataTest, dummyUsbValidMultiFrameVinFailToSendFlowControlComman
     EXPECT_TRUE(commandProcessor.OpenConnection());
     EXPECT_THROW({
         std::ignore = commandProcessor.GetCommandResponse(ObdCommandPid::S09P02);
-    }, std::runtime_error);
+    },
+        std::runtime_error);
 }
 #endif // LIVE_DATA_TEST_H_

@@ -16,13 +16,15 @@ Response Elm327CommandProcessor::GetCommandResponse(ObdCommandPid pid)
 
     auto preProcessData = m_dataParser->preProcessResponse(command, response);
 
+    Response parsedResponse;
+
     auto frameType = preProcessData.first;
     switch (frameType) {
     case FrameType::Single:
-        return m_dataParser->ParseSingleFrameResponse(command, preProcessData.second, pid);
+        parsedResponse = m_dataParser->ParseSingleFrameResponse(command, preProcessData.second, pid);
         break;
     case FrameType::First:
-        return RetrieveMultiFrameResponse(command, preProcessData.second, pid);
+        parsedResponse = RetrieveMultiFrameResponse(command, preProcessData.second, pid);
         break;
     case FrameType::Consecutive:
         spdlog::error("Unexpected frame type Consecutive received");
@@ -31,14 +33,51 @@ Response Elm327CommandProcessor::GetCommandResponse(ObdCommandPid pid)
         spdlog::error("Invalid response format for command: {}", command);
         throw std::runtime_error("Invalid response format");
     }
+
+    switch (pid) {
+        using enum ObdCommandPid;
+    case S03:
+        m_dtcHandler->ParseStoredDtc(parsedResponse);
+        break;
+    case S07:
+        m_dtcHandler->ParsePendingDtc(parsedResponse);
+        break;
+    case S0A:
+        m_dtcHandler->ParsePermanentDtc(parsedResponse);
+        break;
+    default:
+        break;
+    }
+
+    return parsedResponse;
+}
+
+uint8_t Elm327CommandProcessor::GetExpectedFramesCount(ObdCommandPid pid, uint8_t dataItemsCount)
+{
+    // NOLINTBEGIN (cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    switch (pid) {
+    case ObdCommandPid::S03:
+    case ObdCommandPid::S07:
+    case ObdCommandPid::S0A:
+        if ((dataItemsCount % 7U) < 3U)
+            return static_cast<uint8_t>(floor(static_cast<double>(dataItemsCount) / 7.0) * 2);
+        else
+            return static_cast<uint8_t>(floor(static_cast<double>(dataItemsCount) / 7.0) * 2 + 1);
+
+    case ObdCommandPid::S09P02:
+        return 2; // S09P02 is expected to return 2 consecutive frames
+    default:
+        break;
+    }
+    return 0;
+    // NOLINTEND (cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 }
 
 Response Elm327CommandProcessor::RetrieveMultiFrameResponse(const std::string& command, std::smatch& match, ObdCommandPid pid)
 {
-    uint8_t expectedFrames { 0 };
-    if (pid == ObdCommandPid::S09P02) {
-        expectedFrames = 2; // S09P03 is expected to return 2 consecutive frames
-    }
+    using namespace regex_groups;
+    uint8_t dataItemsCount = to_uint8_t(match[dataGroupIndex].str().substr(0, 2));
+    uint8_t expectedFrames = GetExpectedFramesCount(pid, dataItemsCount);
 
     std::string reassembledResponse { match[0].str() };
 

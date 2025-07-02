@@ -8,6 +8,8 @@
 
 std::vector<std::string> Elm327DtcHandler::ParseDtcResponse(Response& dtcResponse)
 {
+    spdlog::info("Parsing DTC response: {}", dtcResponse.raw.data);
+
     constexpr size_t dtcLength { 4 };
     constexpr size_t dtcCountLength { 2 };
     const size_t dtcCount = static_cast<size_t>(std::stoi(dtcResponse.raw.data.substr(0, 2), nullptr, 16));

@@ -8,13 +8,17 @@
 
 #include "spdlog/spdlog.h"
 
+namespace regex_groups {
+static constexpr uint8_t ecuIdGroupIndex { 2 };
+static constexpr uint8_t responseSizeGroupIndex { 3 };
+static constexpr uint8_t commandPidGroupIndex { 4 };
+static constexpr uint8_t dataGroupIndex { 5 };
+}
+
+uint8_t to_uint8_t(const std::string& str);
+
 class Elm327DataParser : public DataParser {
 private:
-    static constexpr uint8_t ecuIdGroupIndex { 2 };
-    static constexpr uint8_t responseSizeGroupIndex { 3 };
-    static constexpr uint8_t commandPidGroupIndex { 4 };
-    static constexpr uint8_t dataGroupIndex { 5 };
-
     void processResponse(Response& parsedResponse, ObdCommandPid pid);
 
 public:

@@ -21,6 +21,7 @@ uint8_t to_uint8_t(const std::string& str)
 
 std::pair<FrameType, std::smatch> Elm327DataParser::preProcessResponse(const std::string& command, std::string& response)
 {
+    using namespace regex_groups;
     // Remove whitespaces from the response
     response.erase(remove_if(response.begin(), response.end(), isspace), response.end());
 
@@ -51,12 +52,13 @@ std::pair<FrameType, std::smatch> Elm327DataParser::preProcessResponse(const std
             return std::make_pair(FrameType::Consecutive, match);
         }
     }
-    spdlog::error("Response to: {}, not matched!", command.substr(0, command.size() - 2));
+    spdlog::error("Response to: {}, not matched!", command.substr(0, command.size() - 1));
     return std::make_pair(FrameType::Invalid, match);
 }
 
 std::pair<FrameType, std::smatch> Elm327DataParser::preProcessConsecutiveResponse(char expectedFrameIndex, std::string& response)
 {
+    using namespace regex_groups;
     // Remove whitespaces from the response
     response.erase(remove_if(response.begin(), response.end(), isspace), response.end());
 
@@ -89,19 +91,36 @@ std::pair<FrameType, std::smatch> Elm327DataParser::preProcessConsecutiveRespons
     return std::make_pair(FrameType::Invalid, match);
 }
 
+bool isVariableLengthResponse(ObdCommandPid pid)
+{
+    using enum ObdCommandPid;
+    switch (pid) {
+    case S03:
+    case S07:
+    case S0A:
+        return true; // These PIDs can have variable length responses
+    default:
+        return false; // Other PIDs have fixed length responses
+    }
+}
+
 // NOLINTNEXTLINE (bugprone-easily-swappable-parameters)
 Response Elm327DataParser::ParseSingleFrameResponse(const std::string& command, std::smatch& match, ObdCommandPid pid)
 {
-    if (static_cast<size_t>(match[dataGroupIndex].length()) != getExpectedResponseSizeByPid(pid) * 2) {
+    using namespace regex_groups;
+    if (!isVariableLengthResponse(pid)) {
 
-        const std::string exceptionMessage = "Response to: "
-            + command.substr(0, command.size() - 1)
-            + ", data length mismatching expected size!\nExpected: "
-            + std::to_string(getExpectedResponseSizeByPid(pid) * 2)
-            + ", got: " + std::to_string(match[dataGroupIndex].length());
+        if (static_cast<size_t>(match[dataGroupIndex].length()) != getExpectedResponseSizeByPid(pid) * 2) {
 
-        spdlog::error(exceptionMessage);
-        throw(std::runtime_error { exceptionMessage });
+            const std::string exceptionMessage = "Response to: "
+                + command.substr(0, command.size() - 1)
+                + ", data length mismatching expected size!\nExpected: "
+                + std::to_string(getExpectedResponseSizeByPid(pid) * 2)
+                + ", got: " + std::to_string(match[dataGroupIndex].length());
+
+            spdlog::error(exceptionMessage);
+            throw(std::runtime_error { exceptionMessage });
+        }
     }
 
     Response parsedResponse;
@@ -120,6 +139,7 @@ Response Elm327DataParser::ParseSingleFrameResponse(const std::string& command, 
 
 Response Elm327DataParser::ParseMultiFrameResponse(const std::string& command, std::smatch& match, std::string response, ObdCommandPid pid)
 {
+    using namespace regex_groups;
     auto pos = response.find(match[dataGroupIndex].str());
     if (pos == std::string::npos) {
         spdlog::error("Data group not found in the response: {}", match[dataGroupIndex].str());
@@ -127,10 +147,12 @@ Response Elm327DataParser::ParseMultiFrameResponse(const std::string& command, s
     }
     std::string data = response.substr(pos);
 
+    uint8_t dataItemCount = to_uint8_t(match[dataGroupIndex].str().substr(0, 2));
+
     size_t constexpr dataItemCountLength { 2 };
     size_t constexpr byteLengthMultiplier { 2 }; // Each byte is represented by 2 hex characters
 
-    if (data.length() != getExpectedResponseSizeByPid(pid) * byteLengthMultiplier + dataItemCountLength) {
+    if (data.length() != getExpectedResponseSizeByPid(pid) * byteLengthMultiplier * dataItemCount + dataItemCountLength) {
 
         const std::string exceptionMessage = "Response to: "
             + command.substr(0, command.size() - 1)
@@ -208,6 +230,10 @@ std::size_t Elm327DataParser::getExpectedResponseSizeByPid(ObdCommandPid pid)
     case S01P3D:
     case S01P3E:
     case S01P3F:
+    // DTC PIDs 2 bytes per DTC
+    case S03:
+    case S07:
+    case S0A:
         return 2;
 
     case S01P00:

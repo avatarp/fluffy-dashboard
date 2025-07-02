@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <variant>
 
+#include "IDtc-handler.hpp"
 #include "command-repository.hpp"
 #include "data-decoder.hpp"
 #include "data-parser.hpp"
@@ -30,6 +31,7 @@ protected:
     std::shared_ptr<DataDecoder> m_dataDecoder {};
     std::shared_ptr<DataParser> m_dataParser {};
     std::shared_ptr<CommandRepository> m_commandRepository {};
+    std::shared_ptr<IDtcHandler> m_dtcHandler {};
     virtual bool SendCommand(const std::string& command);
     virtual std::string ReadResponse();
 
@@ -41,10 +43,12 @@ public:
     ICommandProcessor(
         std::shared_ptr<DataDecoder> dataDecoder,
         std::shared_ptr<DataParser> dataParser,
-        std::shared_ptr<CommandRepository> commandRepository)
+        std::shared_ptr<CommandRepository> commandRepository,
+        std::shared_ptr<IDtcHandler> dtcHandler)
         : m_dataDecoder(std::move(dataDecoder))
         , m_dataParser(std::move(dataParser))
         , m_commandRepository(std::move(commandRepository))
+        , m_dtcHandler(std::move(dtcHandler))
     {
     }
 
@@ -56,6 +60,10 @@ public:
     virtual bool OpenConnection();
     virtual bool Disconnect();
     virtual Response GetCommandResponse(ObdCommandPid pid) = 0;
+    virtual std::shared_ptr<IDtcHandler> GetDtcHandler() const
+    {
+        return m_dtcHandler;
+    }
 };
 
 #endif // DIAGNOSTICS_ENGINE_HPP_
