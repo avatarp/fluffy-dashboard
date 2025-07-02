@@ -133,6 +133,11 @@ std::unordered_map<ObdCommandPid, std::string> Elm327CommandRepository::getComma
         { ObdCommandPid::S02P3E, "023E\r" },
         { ObdCommandPid::S02P3F, "023F\r" },
         { ObdCommandPid::S03, "03\r" },
+        { ObdCommandPid::S04, "04\r" },
+
+        { ObdCommandPid::S07, "07\r" },
+
+        { ObdCommandPid::S0A, "0A\r" },
 
         { ObdCommandPid::S09P00, "0900\r" },
         { ObdCommandPid::S09P01, "0901\r" },

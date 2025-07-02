@@ -10,6 +10,13 @@ struct RetrievedDtc {
     std::vector<std::string> storedDtcCodes;
     std::vector<std::string> pendingDtcCodes;
     std::vector<std::string> permanentDtcCodes;
+
+    RetrievedDtc()
+        : storedDtcCodes()
+        , pendingDtcCodes()
+        , permanentDtcCodes()
+    {
+    }
 };
 
 class IDtcHandler {
@@ -17,7 +24,10 @@ protected:
     RetrievedDtc m_retrievedDtc;
 
 public:
-    IDtcHandler() = default;
+    IDtcHandler()
+        : m_retrievedDtc()
+    {
+    }
     virtual ~IDtcHandler() = default;
 
     virtual void ParseStoredDtc(Response& dtcResponse) = 0;
